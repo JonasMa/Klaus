@@ -18,8 +18,7 @@ class Player {
         self.score = 0;
         
         //for testing
-        let item1 = Item(name: "Knife");
-        let item2 = Item(name: "Lockpick");
-        self.items = [item1,item2];
+        let item = Item(name: "Knife");
+        self.items = Array(repeating: item, count: 40)
     }
 }

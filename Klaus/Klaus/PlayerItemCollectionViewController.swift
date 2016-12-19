@@ -14,7 +14,8 @@ class PlayerItemCollectionViewController: UICollectionViewController {
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
-    var playerItems:[Item] = Player(name: "Horst").items;
+    var player:Player = Player(name: "Horst");
+
     
     
     
@@ -22,14 +23,20 @@ class PlayerItemCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
         self.collectionView!.register(PlayerItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-        flowLayout.minimumInteritemSpacing  = 0;
+        let margin = view.frame.size.width*1/14;
+        flowLayout.minimumInteritemSpacing  = margin;
+        flowLayout.sectionInset = UIEdgeInsetsMake(margin, margin, margin, margin);
+        flowLayout.minimumLineSpacing = margin;
 
-        let widthPerItem = view.frame.size.width/2;
-        let heightperItem = view.frame.size.width/2;
+        let widthPerItem = view.frame.size.width*1/7;
+        let heightperItem = view.frame.size.width*1/7;
         
         flowLayout.itemSize = CGSize(width: widthPerItem, height: heightperItem);
+        self.navigationItem.title = player.name;
         
     }
 
@@ -55,13 +62,13 @@ class PlayerItemCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return playerItems.count
+        return player.items.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PlayerItemCollectionViewCell
         
-        let item = playerItems[indexPath.row];
+        let item = player.items[indexPath.row];
         let name = item.name;
         cell.imageView.image = UIImage(named: name.lowercased());
         cell.label.text = name;

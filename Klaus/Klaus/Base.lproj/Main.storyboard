@@ -96,6 +96,7 @@
                     <navigationItem key="navigationItem" id="S68-bd-vEZ"/>
                     <connections>
                         <outlet property="flowLayout" destination="4pM-co-xB8" id="zHz-DI-znB"/>
+                        <outlet property="navigationItem" destination="S68-bd-vEZ" id="JXU-YK-OWq"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hC6-cM-MVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
