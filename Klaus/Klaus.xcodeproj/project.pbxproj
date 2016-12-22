@@ -84,6 +84,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		47DE444F1E0BC8A6006A20A4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8497B5A01DE6FFC60039E35C /* FirstViewController.swift */,
+				8497B5A21DE6FFC60039E35C /* SecondViewController.swift */,
+				FA161E201E07F87E001450E8 /* PlayerItemCollectionViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		47DE44501E0BC8E6006A20A4 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				FA161E221E07F957001450E8 /* Player.swift */,
+				FA161E241E07FD29001450E8 /* Item.swift */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		47DE44511E0BC90A006A20A4 /* Minigames */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Minigames;
+			sourceTree = "<group>";
+		};
 		8497B5921DE6FFC60039E35C = {
 			isa = PBXGroup;
 			children = (
@@ -107,16 +133,14 @@
 		8497B59D1DE6FFC60039E35C /* Klaus */ = {
 			isa = PBXGroup;
 			children = (
+				47DE44511E0BC90A006A20A4 /* Minigames */,
 				8497B59E1DE6FFC60039E35C /* AppDelegate.swift */,
-				8497B5A01DE6FFC60039E35C /* FirstViewController.swift */,
-				8497B5A21DE6FFC60039E35C /* SecondViewController.swift */,
 				8497B5A41DE6FFC60039E35C /* Main.storyboard */,
 				8497B5A71DE6FFC60039E35C /* Assets.xcassets */,
 				8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */,
 				8497B5AC1DE6FFC60039E35C /* Info.plist */,
-				FA161E201E07F87E001450E8 /* PlayerItemCollectionViewController.swift */,
-				FA161E221E07F957001450E8 /* Player.swift */,
-				FA161E241E07FD29001450E8 /* Item.swift */,
+				47DE444F1E0BC8A6006A20A4 /* Controllers */,
+				47DE44501E0BC8E6006A20A4 /* Objects */,
 				FA6E5B091E08380600F88FFC /* PlayerItemCollectionViewCell.swift */,
 			);
 			path = Klaus;
@@ -208,7 +232,7 @@
 				TargetAttributes = {
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = L7VW28QFMH;
+						DevelopmentTeam = 87X3F5FDGG;
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -433,11 +457,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = L7VW28QFMH;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = Klaus/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -448,11 +472,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = L7VW28QFMH;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = Klaus/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
