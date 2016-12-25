@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        self.view.backgroundColor = UIColor.red;
+        self.view.backgroundColor = UIColor.white;
         self.navigationController?.navigationBar.isHidden = true;
         
         playerItemCollectionViewController = PlayerItemCollectionViewController();
@@ -51,7 +51,7 @@ class ProfileViewController: UIViewController {
         
         profileStatsView = UIView(frame: CGRect());
         profileStatsView.translatesAutoresizingMaskIntoConstraints = false;
-        profileStatsView.backgroundColor = UIColor.blue;
+        profileStatsView.backgroundColor = UIColor.gray;
         profileStatsView.layer.borderColor = UIColor.white.cgColor
         profileStatsView.layer.borderWidth = 3.0
         profileStatsView.layer.cornerRadius = 15.0

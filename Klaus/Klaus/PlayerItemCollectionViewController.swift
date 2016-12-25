@@ -27,22 +27,19 @@ class PlayerItemCollectionViewController: UICollectionViewController {
         super.viewDidLoad();
         
         
-        self.collectionView!.backgroundColor = UIColor.green;
+        self.collectionView!.backgroundColor = UIColor.white;
         self.collectionView!.translatesAutoresizingMaskIntoConstraints = false;
         
         self.collectionView!.register(PlayerItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-        let margin = view.frame.size.width*1/14;
-        flowLayout.minimumInteritemSpacing  = margin;
+        let margin = view.frame.size.width*0.01;
         flowLayout.sectionInset = UIEdgeInsetsMake(margin, margin, margin, margin);
         flowLayout.minimumLineSpacing = margin;
 
-        let widthPerItem = view.frame.size.width*1/7;
-        let heightperItem = view.frame.size.width*1/7;
+        let widthPerItem = view.frame.size.width*0.46;
+        let heightperItem = view.frame.size.width*0.46;
         
         flowLayout.itemSize = CGSize(width: widthPerItem, height: heightperItem);
-        self.navigationItem.title = player.name;
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,7 +74,7 @@ class PlayerItemCollectionViewController: UICollectionViewController {
         let name = item.name;
         cell.imageView.image = UIImage(named: name.lowercased());
         cell.label.text = name;
-    
+        
         return cell
     }
     
@@ -88,7 +85,7 @@ class PlayerItemCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return true
     }
-    */
+ 
 
     /*
     // Uncomment this method to specify if the specified item should be selected
