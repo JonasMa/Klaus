@@ -12,18 +12,26 @@ private let reuseIdentifier = "Cell"
 
 class PlayerItemCollectionViewController: UICollectionViewController {
     
-    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
-    
     var player:Player = Player(name: "Horst");
-
+    var playerItemCollectionView:PlayerItemCollectionView!;
+    var flowLayout:UICollectionViewFlowLayout!;
     
     
+    override func loadView() {
+        flowLayout = UICollectionViewFlowLayout()
+        self.collectionView = PlayerItemCollectionView(frame: CGRect(), collectionViewLayout: flowLayout as UICollectionViewLayout);
+    }
     
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-
+        super.viewDidLoad();
         
+        
+        self.collectionView!.backgroundColor = UIColor.green;
+//       self.collectionView!.frame.size.height = 200;
+     //  self.collectionView!.frame.size.width = 400;
+        //self.collectionView!.frame.origin.y = 200;
+        //self.view.frame.size.width = 400;
         
         self.collectionView!.register(PlayerItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
