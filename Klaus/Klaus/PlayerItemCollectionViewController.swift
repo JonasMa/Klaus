@@ -85,6 +85,7 @@ class PlayerItemCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return true
     }
+    */
  
 
     /*
