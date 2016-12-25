@@ -28,10 +28,7 @@ class PlayerItemCollectionViewController: UICollectionViewController {
         
         
         self.collectionView!.backgroundColor = UIColor.green;
-//       self.collectionView!.frame.size.height = 200;
-     //  self.collectionView!.frame.size.width = 400;
-        //self.collectionView!.frame.origin.y = 200;
-        //self.view.frame.size.width = 400;
+        self.collectionView!.translatesAutoresizingMaskIntoConstraints = false;
         
         self.collectionView!.register(PlayerItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 

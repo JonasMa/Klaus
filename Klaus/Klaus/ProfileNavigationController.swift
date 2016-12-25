@@ -10,21 +10,6 @@ import UIKit
 
 class ProfileNavigationController: UINavigationController {
     
-//    override init(rootViewController: UIViewController){
-//        let profileViewController = ProfileViewController();
-//        super.init(rootViewController: profileViewController);
-//        
-//    }
-//    
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//    }
-    
-    
     override func viewDidLoad() {
         let profileViewController = ProfileViewController();
         self.pushViewController(profileViewController, animated: true)
