@@ -31,11 +31,14 @@ class ProfileViewController: UIViewController {
         self.view = ProfileView(frame: UIScreen.main.bounds);
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true;
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
         self.view.backgroundColor = UIColor.white;
-        self.navigationController?.navigationBar.isHidden = true;
         
         playerItemCollectionViewController = PlayerItemCollectionViewController();
         self.addChildViewController(playerItemCollectionViewController);

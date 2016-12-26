@@ -78,6 +78,12 @@ class PlayerItemCollectionViewController: UICollectionViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailViewController = PlayerItemDetailViewController();
+        detailViewController.item = player.items[indexPath.row];
+        self.navigationController?.pushViewController(detailViewController, animated: true);
+    }
+    
     // MARK: UICollectionViewDelegate
 
     /*

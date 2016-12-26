@@ -23,6 +23,8 @@
 		FAB1C4601E0ED54200981731 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C45F1E0ED54200981731 /* ProfileNavigationController.swift */; };
 		FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4631E0FDE5F00981731 /* ProfileView.swift */; };
 		FAB1C4661E0FE20800981731 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4651E0FE20800981731 /* ProfileViewController.swift */; };
+		FAB1C4681E117DFF00981731 /* PlayerItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4671E117DFF00981731 /* PlayerItemDetailViewController.swift */; };
+		FAB1C46A1E117E1800981731 /* PlayerItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4691E117E1800981731 /* PlayerItemDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		FAB1C45F1E0ED54200981731 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileNavigationController.swift; sourceTree = "<group>"; };
 		FAB1C4631E0FDE5F00981731 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		FAB1C4651E0FE20800981731 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FAB1C4671E117DFF00981731 /* PlayerItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemDetailViewController.swift; sourceTree = "<group>"; };
+		FAB1C4691E117E1800981731 /* PlayerItemDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 				FA161E201E07F87E001450E8 /* PlayerItemCollectionViewController.swift */,
 				FAB1C45F1E0ED54200981731 /* ProfileNavigationController.swift */,
 				FAB1C4651E0FE20800981731 /* ProfileViewController.swift */,
+				FAB1C4671E117DFF00981731 /* PlayerItemDetailViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 			children = (
 				FAB1C45D1E0ED45C00981731 /* PlayerItemCollectionView.swift */,
 				FAB1C4631E0FDE5F00981731 /* ProfileView.swift */,
+				FAB1C4691E117E1800981731 /* PlayerItemDetailView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -324,10 +330,12 @@
 				FA6E5B0A1E08380600F88FFC /* PlayerItemCollectionViewCell.swift in Sources */,
 				FA161E211E07F87E001450E8 /* PlayerItemCollectionViewController.swift in Sources */,
 				FAB1C45E1E0ED45C00981731 /* PlayerItemCollectionView.swift in Sources */,
+				FAB1C4681E117DFF00981731 /* PlayerItemDetailViewController.swift in Sources */,
 				FA161E231E07F957001450E8 /* Player.swift in Sources */,
 				FAB1C4661E0FE20800981731 /* ProfileViewController.swift in Sources */,
 				FA161E251E07FD29001450E8 /* Item.swift in Sources */,
 				FAB1C4601E0ED54200981731 /* ProfileNavigationController.swift in Sources */,
+				FAB1C46A1E117E1800981731 /* PlayerItemDetailView.swift in Sources */,
 				FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */,
 				8497B5A11DE6FFC60039E35C /* FirstViewController.swift in Sources */,
 			);
