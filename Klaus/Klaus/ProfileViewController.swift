@@ -12,20 +12,11 @@ class ProfileViewController: UIViewController {
     
     var profileImageView: UIImageView!;
     var profileStatsView: UIView!;
+    var profileNameLabel: UILabel!;
+    var profileScoreLabel: UILabel!;
     
     var playerItemCollectionViewController: PlayerItemCollectionViewController!;
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-    }
-    
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    convenience init() {
-        self.init(nibName: nil, bundle: nil)
-    }
     
     override func loadView() {
         self.view = ProfileView(frame: UIScreen.main.bounds);
@@ -38,28 +29,52 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        self.view.backgroundColor = UIColor.white;
-        
+        let freshGradient = CAGradientLayer();
+        freshGradient.colors = [Style.sunshine.cgColor,Style.vermillion.cgColor];
+        freshGradient.frame = self.view.bounds;
+        self.view.layer.addSublayer(freshGradient);
+
         playerItemCollectionViewController = PlayerItemCollectionViewController();
         self.addChildViewController(playerItemCollectionViewController);
         self.view.addSubview(playerItemCollectionViewController.view);
         
+        //IMAGE
         profileImageView = UIImageView(frame: CGRect());
         profileImageView.translatesAutoresizingMaskIntoConstraints = false;
-        profileImageView.backgroundColor = UIColor.gray;
-        profileImageView.layer.borderColor = UIColor.white.cgColor
-        profileImageView.layer.borderWidth = 3.0
-        profileImageView.layer.cornerRadius = 15.0
         self.view.addSubview(profileImageView);
         
+        //STATS
         profileStatsView = UIView(frame: CGRect());
         profileStatsView.translatesAutoresizingMaskIntoConstraints = false;
-        profileStatsView.backgroundColor = UIColor.gray;
-        profileStatsView.layer.borderColor = UIColor.white.cgColor
-        profileStatsView.layer.borderWidth = 3.0
-        profileStatsView.layer.cornerRadius = 15.0
         self.view.addSubview(profileStatsView);
         
+        profileNameLabel = UILabel();
+        profileNameLabel.translatesAutoresizingMaskIntoConstraints = false;
+        profileNameLabel.text = "name";//for testing
+        profileNameLabel.font = UIFont.boldSystemFont(ofSize: 30);
+        profileNameLabel.textColor = Style.clean;
+        profileNameLabel.shadowColor = Style.vermillion
+        profileStatsView.addSubview(profileNameLabel);
+        
+        profileScoreLabel = UILabel();
+        profileScoreLabel.translatesAutoresizingMaskIntoConstraints = false;
+        profileScoreLabel.text = "1337";//for testing
+        profileScoreLabel.font = UIFont.systemFont(ofSize: 20);
+        profileScoreLabel.textColor = Style.clean;
+        profileScoreLabel.shadowColor = Style.vermillion;
+        profileStatsView.addSubview(profileScoreLabel);
+        
+        
+        
+        //CONSTRAINTS
+        profileNameLabel.bottomAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
+        profileNameLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
+        
+        profileScoreLabel.topAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
+        profileScoreLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
+        
+        
+        //TODO: simplify
         let imageTopConstraint = NSLayoutConstraint(item: profileImageView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 20);
         let imageHeightConstraint = NSLayoutConstraint(item: profileImageView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: profileImageView, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 0);
         let imageLeftConstraint = NSLayoutConstraint(item: profileImageView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0);

@@ -73,7 +73,7 @@ class PlayerItemDetailViewController: UIViewController {
         itemImageView.rightAnchor.constraint(equalTo: itemImageContainer.rightAnchor, constant: -30).isActive = true;
         
         
-        //TODO rewrite constraints
+        //TODO simplify constraints
         let imageTopConstraint = NSLayoutConstraint(item: itemImageContainer, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 20);
         let imageHeightConstraint = NSLayoutConstraint(item: itemImageContainer, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: itemImageContainer, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 0);
         let imageLeftConstraint = NSLayoutConstraint(item: itemImageContainer, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0);

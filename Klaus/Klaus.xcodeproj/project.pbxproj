@@ -25,6 +25,8 @@
 		FAB1C4661E0FE20800981731 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4651E0FE20800981731 /* ProfileViewController.swift */; };
 		FAB1C4681E117DFF00981731 /* PlayerItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4671E117DFF00981731 /* PlayerItemDetailViewController.swift */; };
 		FAB1C46A1E117E1800981731 /* PlayerItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4691E117E1800981731 /* PlayerItemDetailView.swift */; };
+		FAB1C46C1E11AB9600981731 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C46B1E11AB9600981731 /* Style.swift */; };
+		FAB1C4701E11BA8800981731 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		FAB1C4651E0FE20800981731 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FAB1C4671E117DFF00981731 /* PlayerItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemDetailViewController.swift; sourceTree = "<group>"; };
 		FAB1C4691E117E1800981731 /* PlayerItemDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemDetailView.swift; sourceTree = "<group>"; };
+		FAB1C46B1E11AB9600981731 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,8 @@
 				47DE444F1E0BC8A6006A20A4 /* Controllers */,
 				47DE44501E0BC8E6006A20A4 /* Objects */,
 				FA6E5B091E08380600F88FFC /* PlayerItemCollectionViewCell.swift */,
+				FAB1C46B1E11AB9600981731 /* Style.swift */,
+				FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */,
 			);
 			path = Klaus;
 			sourceTree = "<group>";
@@ -327,9 +333,11 @@
 			files = (
 				8497B5A31DE6FFC60039E35C /* SecondViewController.swift in Sources */,
 				8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */,
+				FAB1C4701E11BA8800981731 /* MainTabBarController.swift in Sources */,
 				FA6E5B0A1E08380600F88FFC /* PlayerItemCollectionViewCell.swift in Sources */,
 				FA161E211E07F87E001450E8 /* PlayerItemCollectionViewController.swift in Sources */,
 				FAB1C45E1E0ED45C00981731 /* PlayerItemCollectionView.swift in Sources */,
+				FAB1C46C1E11AB9600981731 /* Style.swift in Sources */,
 				FAB1C4681E117DFF00981731 /* PlayerItemDetailViewController.swift in Sources */,
 				FA161E231E07F957001450E8 /* Player.swift in Sources */,
 				FAB1C4661E0FE20800981731 /* ProfileViewController.swift in Sources */,
