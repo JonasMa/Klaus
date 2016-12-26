@@ -18,7 +18,7 @@ class Player {
         self.score = 0;
         
         //for testing
-        let item = Item(name: "Knife");
+        let item = Item(name: "Knife", pointsPerSecond: 2);
         self.items = Array(repeating: item, count: 40)
     }
 }
