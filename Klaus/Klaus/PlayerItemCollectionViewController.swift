@@ -12,7 +12,7 @@ private let reuseIdentifier = "Cell"
 
 class PlayerItemCollectionViewController: UICollectionViewController {
     
-    var player:Player = Player(name: "Horst");
+    var player:Player = Player(name: "Horst");//TODO remove
     var playerItemCollectionView:PlayerItemCollectionView!;
     var flowLayout:UICollectionViewFlowLayout!;
     
@@ -27,17 +27,16 @@ class PlayerItemCollectionViewController: UICollectionViewController {
         super.viewDidLoad();
         
         
-        self.collectionView!.backgroundColor = UIColor.white;
         self.collectionView!.translatesAutoresizingMaskIntoConstraints = false;
-        
+        self.collectionView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
         self.collectionView!.register(PlayerItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-        let margin = view.frame.size.width*0.01;
+        let margin = view.frame.size.width*0.05;
         flowLayout.sectionInset = UIEdgeInsetsMake(margin, margin, margin, margin);
         flowLayout.minimumLineSpacing = margin;
 
-        let widthPerItem = view.frame.size.width*0.46;
-        let heightperItem = view.frame.size.width*0.46;
+        let widthPerItem = view.frame.size.width*0.40;
+        let heightperItem = view.frame.size.width*0.40;
         
         flowLayout.itemSize = CGSize(width: widthPerItem, height: heightperItem);
     }
@@ -72,10 +71,15 @@ class PlayerItemCollectionViewController: UICollectionViewController {
         
         let item = player.items[indexPath.row];
         let name = item.name;
-        cell.imageView.image = UIImage(named: name.lowercased());
+        cell.imageView.image = UIImage(named: name.lowercased())?.withRenderingMode(.alwaysTemplate);
         cell.label.text = name;
-        
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailViewController = PlayerItemDetailViewController();
+        detailViewController.item = player.items[indexPath.row];
+        self.navigationController?.pushViewController(detailViewController, animated: true);
     }
     
     // MARK: UICollectionViewDelegate

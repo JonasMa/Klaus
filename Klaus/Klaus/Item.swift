@@ -10,8 +10,12 @@ import Foundation
 
 class Item {
     var name: String;
+    var timeStamp: NSDate;
+    var pointsPerSecond: Int;
     
-    init(name: String) {
+    init(name: String, pointsPerSecond: Int) {
         self.name = name;
+        self.pointsPerSecond = pointsPerSecond;
+        self.timeStamp = NSDate()
     }
 }

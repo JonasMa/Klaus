@@ -15,10 +15,10 @@ class Player {
     
     init(name: String) {
         self.name = name;
-        self.score = 0;
+        self.score = 1337;
         
         //for testing
-        let item = Item(name: "Knife");
+        let item = Item(name: "Knife", pointsPerSecond: 2);
         self.items = Array(repeating: item, count: 40)
     }
 }
