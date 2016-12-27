@@ -24,21 +24,36 @@ class PlayerItemDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true;
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white;
         
+        let freshGradient = CAGradientLayer();
+        freshGradient.colors = [Style.fresh2.cgColor,Style.fresh.cgColor];
+        freshGradient.frame = self.view.bounds;
+        freshGradient.startPoint = CGPoint(x: 0.0, y: 0.0);
+        freshGradient.endPoint = CGPoint(x: 1.0, y: 1.0);
+        
+        self.view.layer.addSublayer(freshGradient);
+        
+        
+
         
         self.itemImageContainer = UIView();
         self.view.addSubview(itemImageContainer);
         self.itemImageContainer.translatesAutoresizingMaskIntoConstraints = false;
         
         self.itemImageView = UIImageView()
-        self.itemImageView.image = UIImage(named: item.name.lowercased());
+        self.itemImageView.image = UIImage(named: item.name.lowercased())?.withRenderingMode(.alwaysTemplate);
+        self.itemImageView.tintColor = Style.clean;
         self.itemImageView.contentMode = UIViewContentMode.scaleAspectFit;
         self.itemImageView.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemImageView.layer.shadowColor = Style.vermillion.cgColor;
+        self.itemImageView.layer.shadowOpacity = 0.9;
+        self.itemImageView.layer.shadowRadius = 2;
+
         self.itemImageContainer.addSubview(itemImageView);
         
         self.itemLevelLabel = UILabel();
@@ -46,6 +61,11 @@ class PlayerItemDetailViewController: UIViewController {
         self.itemLevelLabel.font = UIFont.boldSystemFont(ofSize: 90);
         self.itemLevelLabel.textAlignment = .center;
         self.itemLevelLabel.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemLevelLabel.textColor = Style.clean;
+        self.itemLevelLabel.layer.shadowColor = Style.vermillion.cgColor;
+        self.itemLevelLabel.layer.shadowOpacity = 0.9;
+        self.itemLevelLabel.layer.shadowRadius = 2;
+
         self.view.addSubview(itemLevelLabel);
         
 //        self.itemPointsLabel = UILabel();
@@ -59,6 +79,11 @@ class PlayerItemDetailViewController: UIViewController {
         self.itemNameLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemNameLabel.textAlignment = .center;
         self.itemNameLabel.font = UIFont.boldSystemFont(ofSize: 40.0);
+        self.itemNameLabel.textColor = Style.clean;
+        self.itemNameLabel.layer.shadowColor = Style.vermillion.cgColor;
+        self.itemNameLabel.layer.shadowOpacity = 0.9;
+        self.itemNameLabel.layer.shadowRadius = 2;
+
         
 //        self.itemNameLabel.layer.shadowRadius = 5;
 //        self.itemNameLabel.layer.shadowOffset = CGSize(width: 0, height: 0)

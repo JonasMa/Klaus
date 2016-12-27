@@ -18,7 +18,7 @@ struct Style{
 //    static var secondaryTextColor = UIColor(red: 158.0/255.0, green: 158.0/255.0, blue: 158.0/255.0, alpha: 1);
     
     static var fresh = UIColor(red: 74.0/255.0, green: 189.0/255.0, blue: 172.0/255.0, alpha: 1);
-    static var fresh2 = UIColor(red: 78.0/255.0, green: 220.0/255.0, blue: 200.0/255.0, alpha: 1);
+    static var fresh2 = UIColor(red: 110.0/255.0, green: 202.0/255.0, blue: 189.0/255.0, alpha: 1);
     static var vermillion = UIColor(red: 252.0/255.0, green: 74.0/255.0, blue: 26.0/255.0, alpha: 1);
     static var sunshine = UIColor(red: 247.0/255.0, green: 183.0/255.0, blue: 51.0/255.0, alpha: 1);
     

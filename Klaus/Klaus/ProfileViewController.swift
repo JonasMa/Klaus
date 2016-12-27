@@ -30,8 +30,10 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad();
         
         let freshGradient = CAGradientLayer();
-        freshGradient.colors = [Style.sunshine.cgColor,Style.vermillion.cgColor];
+        freshGradient.colors = [Style.fresh2.cgColor,Style.fresh.cgColor];
         freshGradient.frame = self.view.bounds;
+        freshGradient.startPoint = CGPoint(x: 0.0, y: 0.0);
+        freshGradient.endPoint = CGPoint(x: 1.0, y: 1.0);
         self.view.layer.addSublayer(freshGradient);
 
         playerItemCollectionViewController = PlayerItemCollectionViewController();

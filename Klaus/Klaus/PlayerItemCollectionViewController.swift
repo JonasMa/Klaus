@@ -29,6 +29,9 @@ class PlayerItemCollectionViewController: UICollectionViewController {
         
         self.collectionView!.translatesAutoresizingMaskIntoConstraints = false;
         self.collectionView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
+        self.collectionView?.layer.shadowColor = Style.vermillion.cgColor;
+        self.collectionView?.layer.shadowOpacity = 0.9;
+        self.collectionView?.layer.shadowRadius = 2;
         self.collectionView!.register(PlayerItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         let margin = view.frame.size.width*0.05;
