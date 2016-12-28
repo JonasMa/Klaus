@@ -10,16 +10,16 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class PlayerItemCollectionViewController: UICollectionViewController {
+class ItemCollectionViewController: UICollectionViewController {
     
     var player:Player = Player(name: "Horst");//TODO remove
-    var playerItemCollectionView:PlayerItemCollectionView!;
+    var playerItemCollectionView:ItemCollectionView!;
     var flowLayout:UICollectionViewFlowLayout!;
     
     
     override func loadView() {
         flowLayout = UICollectionViewFlowLayout()
-        self.collectionView = PlayerItemCollectionView(frame: CGRect(), collectionViewLayout: flowLayout as UICollectionViewLayout);
+        self.collectionView = ItemCollectionView(frame: CGRect(), collectionViewLayout: flowLayout as UICollectionViewLayout);
     }
     
 
@@ -32,7 +32,7 @@ class PlayerItemCollectionViewController: UICollectionViewController {
         self.collectionView?.layer.shadowColor = Style.vermillion.cgColor;
         self.collectionView?.layer.shadowOpacity = 0.9;
         self.collectionView?.layer.shadowRadius = 2;
-        self.collectionView!.register(PlayerItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         let margin = view.frame.size.width*0.05;
         flowLayout.sectionInset = UIEdgeInsetsMake(margin, margin, margin, margin);
@@ -70,7 +70,7 @@ class PlayerItemCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PlayerItemCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ItemCollectionViewCell
         
         let item = player.items[indexPath.row];
         let name = item.name;

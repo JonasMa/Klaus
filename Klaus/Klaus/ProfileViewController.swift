@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController {
     var profileNameLabel: UILabel!;
     var profileScoreLabel: UILabel!;
     
-    var playerItemCollectionViewController: PlayerItemCollectionViewController!;
+    var itemCollectionViewController: ItemCollectionViewController!;
     
     
     override func loadView() {
@@ -36,9 +36,10 @@ class ProfileViewController: UIViewController {
         freshGradient.endPoint = CGPoint(x: 1.0, y: 1.0);
         self.view.layer.addSublayer(freshGradient);
 
-        playerItemCollectionViewController = PlayerItemCollectionViewController();
-        self.addChildViewController(playerItemCollectionViewController);
-        self.view.addSubview(playerItemCollectionViewController.view);
+        //ITEM COLLECTION
+        itemCollectionViewController = ItemCollectionViewController();
+        self.addChildViewController(itemCollectionViewController);
+        self.view.addSubview(itemCollectionViewController.view);
         
         //IMAGE
         profileImageView = UIImageView(frame: CGRect());
@@ -91,10 +92,10 @@ class ProfileViewController: UIViewController {
         
         NSLayoutConstraint.activate([statsTopConstraint,statsBottomConstraint,statsLeftConstraint,statsRightConstraint]);
         
-        let collectionTopConstraint = NSLayoutConstraint(item: playerItemCollectionViewController.collectionView!, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: profileImageView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0);
-        let collectionBottomConstraint = NSLayoutConstraint(item: playerItemCollectionViewController.collectionView!, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0);
-        let collectionLeftConstraint = NSLayoutConstraint(item: playerItemCollectionViewController.collectionView!, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0);
-        let collectionRightConstraint = NSLayoutConstraint(item: playerItemCollectionViewController.collectionView!, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0);
+        let collectionTopConstraint = NSLayoutConstraint(item: itemCollectionViewController.collectionView!, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: profileImageView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0);
+        let collectionBottomConstraint = NSLayoutConstraint(item: itemCollectionViewController.collectionView!, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0);
+        let collectionLeftConstraint = NSLayoutConstraint(item: itemCollectionViewController.collectionView!, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0);
+        let collectionRightConstraint = NSLayoutConstraint(item: itemCollectionViewController.collectionView!, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0);
         
         NSLayoutConstraint.activate([collectionTopConstraint,collectionBottomConstraint,collectionLeftConstraint,collectionRightConstraint]);
         

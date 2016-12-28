@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayerItemCollectionViewCell: UICollectionViewCell {
+class ItemCollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView!;
     var label: UILabel!;
     
