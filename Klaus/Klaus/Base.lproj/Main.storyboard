@@ -31,7 +31,7 @@
         <!--Profile-->
         <scene sceneID="hvs-9c-o36">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Y3k-vk-6Xj" customClass="ProfileNavigationController" customModule="Klaus" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Y3k-vk-6Xj" customClass="PlayerNavigationController" customModule="Klaus" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="face" id="y7v-il-Ls4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rsA-hj-vkv">

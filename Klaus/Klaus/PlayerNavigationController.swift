@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileNavigationController: UINavigationController {
+class PlayerNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         let playerProfileViewController = PlayerProfileViewController();
