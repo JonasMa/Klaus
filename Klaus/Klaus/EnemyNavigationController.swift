@@ -11,8 +11,8 @@ import UIKit
 class EnemyNavigationController: UINavigationController {
 
     override func viewDidLoad() {
-        let enemyTableViewController = EnemyTableViewController();
-        self.pushViewController(enemyTableViewController, animated: true);
+        let enemyListViewController = EnemyListViewController();
+        self.pushViewController(enemyListViewController, animated: true);
         
         super.viewDidLoad()
 

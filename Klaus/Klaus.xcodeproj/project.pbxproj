@@ -16,13 +16,13 @@
 		FA161E211E07F87E001450E8 /* ItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA161E201E07F87E001450E8 /* ItemCollectionViewController.swift */; };
 		FA161E231E07F957001450E8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA161E221E07F957001450E8 /* Player.swift */; };
 		FA161E251E07FD29001450E8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA161E241E07FD29001450E8 /* Item.swift */; };
-		FA6E5B0A1E08380600F88FFC /* PlayerItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E5B091E08380600F88FFC /* PlayerItemCollectionViewCell.swift */; };
+		FA6E5B0A1E08380600F88FFC /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E5B091E08380600F88FFC /* ItemCollectionViewCell.swift */; };
 		FAB1C45E1E0ED45C00981731 /* ItemCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C45D1E0ED45C00981731 /* ItemCollectionView.swift */; };
 		FAB1C4601E0ED54200981731 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C45F1E0ED54200981731 /* ProfileNavigationController.swift */; };
 		FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4631E0FDE5F00981731 /* ProfileView.swift */; };
 		FAB1C4661E0FE20800981731 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4651E0FE20800981731 /* ProfileViewController.swift */; };
-		FAB1C4681E117DFF00981731 /* PlayerItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4671E117DFF00981731 /* PlayerItemDetailViewController.swift */; };
-		FAB1C46A1E117E1800981731 /* PlayerItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4691E117E1800981731 /* PlayerItemDetailView.swift */; };
+		FAB1C4681E117DFF00981731 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4671E117DFF00981731 /* ItemDetailViewController.swift */; };
+		FAB1C46A1E117E1800981731 /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4691E117E1800981731 /* ItemDetailView.swift */; };
 		FAB1C46C1E11AB9600981731 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C46B1E11AB9600981731 /* Style.swift */; };
 		FAB1C4701E11BA8800981731 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */; };
 		FAB1C4721E13EB8800981731 /* EnemyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4711E13EB8800981731 /* EnemyNavigationController.swift */; };
@@ -31,6 +31,14 @@
 		FAB1C4781E13F12C00981731 /* EnemyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4771E13F12C00981731 /* EnemyTableViewCell.swift */; };
 		FAB1C47A1E13FCA700981731 /* EnemyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4791E13FCA700981731 /* EnemyListViewController.swift */; };
 		FAB1C47C1E13FCC000981731 /* EnemyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C47B1E13FCC000981731 /* EnemyListView.swift */; };
+		FAB1C47E1E14056D00981731 /* PlayerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C47D1E14056D00981731 /* PlayerProfileViewController.swift */; };
+		FAB1C4801E14081E00981731 /* PlayerItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C47F1E14081E00981731 /* PlayerItemDetailViewController.swift */; };
+		FAB1C4821E14087E00981731 /* EnemyItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4811E14087E00981731 /* EnemyItemDetailViewController.swift */; };
+		FAB1C4841E14089E00981731 /* EnemyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4831E14089E00981731 /* EnemyProfileViewController.swift */; };
+		FAB1C4861E14108700981731 /* PlayerItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4851E14108700981731 /* PlayerItemCollectionViewController.swift */; };
+		FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4871E1410A900981731 /* EnemyItemCollectionViewController.swift */; };
+		FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */; };
+		FAB1C4901E141F1600981731 /* EnemyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,13 +74,13 @@
 		FA161E201E07F87E001450E8 /* ItemCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewController.swift; sourceTree = "<group>"; };
 		FA161E221E07F957001450E8 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		FA161E241E07FD29001450E8 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		FA6E5B091E08380600F88FFC /* PlayerItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA6E5B091E08380600F88FFC /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAB1C45D1E0ED45C00981731 /* ItemCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionView.swift; sourceTree = "<group>"; };
 		FAB1C45F1E0ED54200981731 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileNavigationController.swift; sourceTree = "<group>"; };
 		FAB1C4631E0FDE5F00981731 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		FAB1C4651E0FE20800981731 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		FAB1C4671E117DFF00981731 /* PlayerItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemDetailViewController.swift; sourceTree = "<group>"; };
-		FAB1C4691E117E1800981731 /* PlayerItemDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemDetailView.swift; sourceTree = "<group>"; };
+		FAB1C4671E117DFF00981731 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
+		FAB1C4691E117E1800981731 /* ItemDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 		FAB1C46B1E11AB9600981731 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		FAB1C4711E13EB8800981731 /* EnemyNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyNavigationController.swift; sourceTree = "<group>"; };
@@ -81,6 +89,14 @@
 		FAB1C4771E13F12C00981731 /* EnemyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyTableViewCell.swift; sourceTree = "<group>"; };
 		FAB1C4791E13FCA700981731 /* EnemyListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyListViewController.swift; sourceTree = "<group>"; };
 		FAB1C47B1E13FCC000981731 /* EnemyListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyListView.swift; sourceTree = "<group>"; };
+		FAB1C47D1E14056D00981731 /* PlayerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProfileViewController.swift; sourceTree = "<group>"; };
+		FAB1C47F1E14081E00981731 /* PlayerItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemDetailViewController.swift; sourceTree = "<group>"; };
+		FAB1C4811E14087E00981731 /* EnemyItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemDetailViewController.swift; sourceTree = "<group>"; };
+		FAB1C4831E14089E00981731 /* EnemyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyProfileViewController.swift; sourceTree = "<group>"; };
+		FAB1C4851E14108700981731 /* PlayerItemCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemCollectionViewController.swift; sourceTree = "<group>"; };
+		FAB1C4871E1410A900981731 /* EnemyItemCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewController.swift; sourceTree = "<group>"; };
+		FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,9 +131,15 @@
 				FA161E201E07F87E001450E8 /* ItemCollectionViewController.swift */,
 				FAB1C45F1E0ED54200981731 /* ProfileNavigationController.swift */,
 				FAB1C4651E0FE20800981731 /* ProfileViewController.swift */,
-				FAB1C4671E117DFF00981731 /* PlayerItemDetailViewController.swift */,
+				FAB1C4671E117DFF00981731 /* ItemDetailViewController.swift */,
 				FAB1C4731E13EDAA00981731 /* EnemyTableViewController.swift */,
 				FAB1C4791E13FCA700981731 /* EnemyListViewController.swift */,
+				FAB1C47D1E14056D00981731 /* PlayerProfileViewController.swift */,
+				FAB1C47F1E14081E00981731 /* PlayerItemDetailViewController.swift */,
+				FAB1C4811E14087E00981731 /* EnemyItemDetailViewController.swift */,
+				FAB1C4831E14089E00981731 /* EnemyProfileViewController.swift */,
+				FAB1C4851E14108700981731 /* PlayerItemCollectionViewController.swift */,
+				FAB1C4871E1410A900981731 /* EnemyItemCollectionViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -171,7 +193,9 @@
 				8497B5AC1DE6FFC60039E35C /* Info.plist */,
 				47DE444F1E0BC8A6006A20A4 /* Controllers */,
 				47DE44501E0BC8E6006A20A4 /* Objects */,
-				FA6E5B091E08380600F88FFC /* PlayerItemCollectionViewCell.swift */,
+				FA6E5B091E08380600F88FFC /* ItemCollectionViewCell.swift */,
+				FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */,
+				FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */,
 				FAB1C46B1E11AB9600981731 /* Style.swift */,
 				FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */,
 			);
@@ -201,7 +225,7 @@
 			children = (
 				FAB1C45D1E0ED45C00981731 /* ItemCollectionView.swift */,
 				FAB1C4631E0FDE5F00981731 /* ProfileView.swift */,
-				FAB1C4691E117E1800981731 /* PlayerItemDetailView.swift */,
+				FAB1C4691E117E1800981731 /* ItemDetailView.swift */,
 				FAB1C4751E13EDFB00981731 /* EnemyTableView.swift */,
 				FAB1C47B1E13FCC000981731 /* EnemyListView.swift */,
 			);
@@ -346,22 +370,30 @@
 				FAB1C4761E13EDFB00981731 /* EnemyTableView.swift in Sources */,
 				FAB1C47C1E13FCC000981731 /* EnemyListView.swift in Sources */,
 				8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */,
+				FAB1C4841E14089E00981731 /* EnemyProfileViewController.swift in Sources */,
 				FAB1C4741E13EDAB00981731 /* EnemyTableViewController.swift in Sources */,
 				FAB1C4701E11BA8800981731 /* MainTabBarController.swift in Sources */,
-				FA6E5B0A1E08380600F88FFC /* PlayerItemCollectionViewCell.swift in Sources */,
+				FA6E5B0A1E08380600F88FFC /* ItemCollectionViewCell.swift in Sources */,
 				FAB1C47A1E13FCA700981731 /* EnemyListViewController.swift in Sources */,
 				FA161E211E07F87E001450E8 /* ItemCollectionViewController.swift in Sources */,
+				FAB1C4801E14081E00981731 /* PlayerItemDetailViewController.swift in Sources */,
+				FAB1C4861E14108700981731 /* PlayerItemCollectionViewController.swift in Sources */,
 				FAB1C45E1E0ED45C00981731 /* ItemCollectionView.swift in Sources */,
+				FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */,
 				FAB1C46C1E11AB9600981731 /* Style.swift in Sources */,
-				FAB1C4681E117DFF00981731 /* PlayerItemDetailViewController.swift in Sources */,
+				FAB1C4681E117DFF00981731 /* ItemDetailViewController.swift in Sources */,
+				FAB1C47E1E14056D00981731 /* PlayerProfileViewController.swift in Sources */,
+				FAB1C4901E141F1600981731 /* EnemyItemCollectionViewCell.swift in Sources */,
 				FA161E231E07F957001450E8 /* Player.swift in Sources */,
 				FAB1C4661E0FE20800981731 /* ProfileViewController.swift in Sources */,
 				FA161E251E07FD29001450E8 /* Item.swift in Sources */,
 				FAB1C4601E0ED54200981731 /* ProfileNavigationController.swift in Sources */,
 				FAB1C4721E13EB8800981731 /* EnemyNavigationController.swift in Sources */,
 				FAB1C4781E13F12C00981731 /* EnemyTableViewCell.swift in Sources */,
-				FAB1C46A1E117E1800981731 /* PlayerItemDetailView.swift in Sources */,
+				FAB1C46A1E117E1800981731 /* ItemDetailView.swift in Sources */,
+				FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */,
 				FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */,
+				FAB1C4821E14087E00981731 /* EnemyItemDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

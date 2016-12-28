@@ -22,9 +22,7 @@ class ProfileViewController: UIViewController {
         self.view = ProfileView(frame: UIScreen.main.bounds);
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true;
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -36,10 +34,7 @@ class ProfileViewController: UIViewController {
         freshGradient.endPoint = CGPoint(x: 1.0, y: 1.0);
         self.view.layer.addSublayer(freshGradient);
 
-        //ITEM COLLECTION
-        itemCollectionViewController = ItemCollectionViewController();
-        self.addChildViewController(itemCollectionViewController);
-        self.view.addSubview(itemCollectionViewController.view);
+        
         
         //IMAGE
         profileImageView = UIImageView(frame: CGRect());
@@ -69,6 +64,14 @@ class ProfileViewController: UIViewController {
         
         
         
+        
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func addConstraints(){
         //CONSTRAINTS
         profileNameLabel.bottomAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
         profileNameLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
@@ -98,11 +101,7 @@ class ProfileViewController: UIViewController {
         let collectionRightConstraint = NSLayoutConstraint(item: itemCollectionViewController.collectionView!, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0);
         
         NSLayoutConstraint.activate([collectionTopConstraint,collectionBottomConstraint,collectionLeftConstraint,collectionRightConstraint]);
-        
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
 

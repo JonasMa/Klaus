@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayerItemDetailView: UIView {
+class ItemDetailView: UIView {
 
 
 }

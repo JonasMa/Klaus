@@ -11,8 +11,8 @@ import UIKit
 class ProfileNavigationController: UINavigationController {
     
     override func viewDidLoad() {
-        let profileViewController = ProfileViewController();
-        self.pushViewController(profileViewController, animated: true)
+        let playerProfileViewController = PlayerProfileViewController();
+        self.pushViewController(playerProfileViewController, animated: true)
         super.viewDidLoad()
         
     }

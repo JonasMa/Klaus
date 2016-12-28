@@ -8,12 +8,10 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
 
 class ItemCollectionViewController: UICollectionViewController {
     
     var player:Player = Player(name: "Horst");//TODO remove
-    var playerItemCollectionView:ItemCollectionView!;
     var flowLayout:UICollectionViewFlowLayout!;
     
     
@@ -32,7 +30,6 @@ class ItemCollectionViewController: UICollectionViewController {
         self.collectionView?.layer.shadowColor = Style.vermillion.cgColor;
         self.collectionView?.layer.shadowOpacity = 0.9;
         self.collectionView?.layer.shadowRadius = 2;
-        self.collectionView!.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         let margin = view.frame.size.width*0.05;
         flowLayout.sectionInset = UIEdgeInsetsMake(margin, margin, margin, margin);
@@ -61,23 +58,24 @@ class ItemCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        // #warning Incomplete implementation, return the number of sections
+        return 0
     }
-
-
+    
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return player.items.count
+        // #warning Incomplete implementation, return the number of items
+        return 0
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ItemCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "empty", for: indexPath)
         
-        let item = player.items[indexPath.row];
-        let name = item.name;
-        cell.imageView.image = UIImage(named: name.lowercased())?.withRenderingMode(.alwaysTemplate);
-        cell.label.text = name;
+        // Configure the cell
+        
         return cell
     }
+
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = PlayerItemDetailViewController();

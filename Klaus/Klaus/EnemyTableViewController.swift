@@ -12,8 +12,11 @@ private let reuseIdentifier = "EnemyCell";
 
 class EnemyTableViewController: UITableViewController {
 
+    var players:Array<Player> = [Player(name: "Horst"), Player(name: "Hans")]; //TODO remove
+
+    
     override func loadView() {
-        self.tableView = EnemyTableView(frame: CGRect(x: 0, y: 0, width: 50, height: 300));
+        self.tableView = EnemyTableView(frame: UIScreen.main.bounds);
         
     }
     
@@ -56,6 +59,11 @@ class EnemyTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let profileViewController = EnemyProfileViewController();
+        self.navigationController?.pushViewController(profileViewController, animated: true);
+        
+    }
 
     /*
     // Override to support conditional editing of the table view.

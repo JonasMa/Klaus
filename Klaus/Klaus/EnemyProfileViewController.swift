@@ -1,5 +1,5 @@
 //
-//  EnemyListViewController.swift
+//  EnemyProfileViewController.swift
 //  Klaus
 //
 //  Created by Alex Knittel on 28.12.16.
@@ -8,20 +8,16 @@
 
 import UIKit
 
-class EnemyListViewController: UIViewController {
+class EnemyProfileViewController: ProfileViewController {
 
-    var enemyTableViewController: EnemyTableViewController!;
-    
-    override func loadView() {
-        self.view = EnemyListView(frame: UIScreen.main.bounds);
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "EnemyListView";
-        enemyTableViewController = EnemyTableViewController()
-        self.addChildViewController(enemyTableViewController);
-        self.view.addSubview(enemyTableViewController.view);
+        //ITEM COLLECTION
+        itemCollectionViewController = EnemyItemCollectionViewController();
+        self.addChildViewController(itemCollectionViewController);
+        self.view.addSubview(itemCollectionViewController.view);
+        self.title = "EnemyProfileView";
+        super.addConstraints();
     }
 
     override func didReceiveMemoryWarning() {
