@@ -5,16 +5,17 @@
 //  Created by Oliver Pieper on 29.12.16.
 //  Copyright © 2016 Nimm Swag. All rights reserved.
 //
+//  Axe minigame controller
 
 import UIKit
 
 class GameViewController: UIViewController {
 
-    var gameTimer: Timer!
-    var accelerometerModel: AccelerometerModel!
-    
     @IBOutlet weak var countdownValueLabel: UILabel!
     @IBOutlet weak var gametitleLabel: UILabel!
+    
+    var gameTimer: Timer!
+    var accelerometerModel: AccelerometerModel!
     
     var count = 10
     
@@ -27,7 +28,7 @@ class GameViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
     }
     
     func update() {
@@ -37,7 +38,7 @@ class GameViewController: UIViewController {
         }else if (count == 0) {
             gameTimer.invalidate()
             let vc = ResultViewController(nibName: "ResultViewController", bundle: nil)
-            vc.result = accelerometerModel.endRecording()
+            vc.result = accelerometerModel.endRecording() //sends result value to resultViewController
             navigationController?.pushViewController(vc, animated: true)
         }
     }

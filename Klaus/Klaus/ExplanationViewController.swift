@@ -5,11 +5,15 @@
 //  Created by Oliver Pieper on 29.12.16.
 //  Copyright © 2016 Nimm Swag. All rights reserved.
 //
+//  Overall ExplanationViewController which is used by every Minigame
 
 import UIKit
 
 class ExplanationViewController: UIViewController {
 
+    @IBOutlet weak var explanationLabel: UILabel!
+    
+    //Calls appropriate GameController
     @IBAction func startButton(_ sender: UIButton) {
         let vc = GameViewController(nibName: "GameViewController", bundle: nil)
         navigationController?.pushViewController(vc, animated: true)
@@ -17,13 +21,12 @@ class ExplanationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        //TODO: Display appropriate explanation text and receive appropriate minigame data
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
     }
     
 
