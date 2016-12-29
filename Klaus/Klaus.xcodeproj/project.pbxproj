@@ -11,6 +11,9 @@
 		47C0622A1E15274200C25292 /* ExplanationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C062281E15274200C25292 /* ExplanationViewController.xib */; };
 		47C0622D1E15292A00C25292 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C0622B1E15292A00C25292 /* GameViewController.swift */; };
 		47C0622E1E15292A00C25292 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C0622C1E15292A00C25292 /* GameViewController.xib */; };
+		47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C0622F1E152B0800C25292 /* AccelerometerModel.swift */; };
+		47C062331E152B8100C25292 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C062311E152B8100C25292 /* ResultViewController.swift */; };
+		47C062341E152B8100C25292 /* ResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C062321E152B8100C25292 /* ResultViewController.xib */; };
 		8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B59E1DE6FFC60039E35C /* AppDelegate.swift */; };
 		8497B5A61DE6FFC60039E35C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A41DE6FFC60039E35C /* Main.storyboard */; };
 		8497B5A81DE6FFC60039E35C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A71DE6FFC60039E35C /* Assets.xcassets */; };
@@ -67,6 +70,9 @@
 		47C062281E15274200C25292 /* ExplanationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExplanationViewController.xib; sourceTree = "<group>"; };
 		47C0622B1E15292A00C25292 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		47C0622C1E15292A00C25292 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
+		47C0622F1E152B0800C25292 /* AccelerometerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerModel.swift; sourceTree = "<group>"; };
+		47C062311E152B8100C25292 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		47C062321E152B8100C25292 /* ResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultViewController.xib; sourceTree = "<group>"; };
 		8497B59B1DE6FFC60039E35C /* Klaus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8497B59E1DE6FFC60039E35C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8497B5A51DE6FFC60039E35C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -138,7 +144,10 @@
 				47C062271E15274200C25292 /* ExplanationViewController.swift */,
 				47C062281E15274200C25292 /* ExplanationViewController.xib */,
 				47C0622B1E15292A00C25292 /* GameViewController.swift */,
+				47C062311E152B8100C25292 /* ResultViewController.swift */,
+				47C062321E152B8100C25292 /* ResultViewController.xib */,
 				47C0622C1E15292A00C25292 /* GameViewController.xib */,
+				47C0622F1E152B0800C25292 /* AccelerometerModel.swift */,
 			);
 			name = Minigames;
 			sourceTree = "<group>";
@@ -409,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47C0622A1E15274200C25292 /* ExplanationViewController.xib in Resources */,
+				47C062341E152B8100C25292 /* ResultViewController.xib in Resources */,
 				8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */,
 				8497B5A81DE6FFC60039E35C /* Assets.xcassets in Resources */,
 				8497B5A61DE6FFC60039E35C /* Main.storyboard in Resources */,
@@ -464,6 +474,8 @@
 				FAB1C4781E13F12C00981731 /* EnemyTableViewCell.swift in Sources */,
 				FAB1C46A1E117E1800981731 /* ItemDetailView.swift in Sources */,
 				FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */,
+				47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */,
+				47C062331E152B8100C25292 /* ResultViewController.swift in Sources */,
 				FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */,
 				FAB1C4821E14087E00981731 /* EnemyItemDetailViewController.swift in Sources */,
 			);

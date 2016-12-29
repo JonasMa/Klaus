@@ -10,6 +10,9 @@ import UIKit
 
 class GameViewController: UIViewController {
 
+    var gameTimer: Timer!
+    var accelerometerModel: AccelerometerModel!
+    
     @IBOutlet weak var countdownValueLabel: UILabel!
     @IBOutlet weak var gametitleLabel: UILabel!
     
