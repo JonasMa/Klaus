@@ -138,16 +138,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		47DE44511E0BC90A006A20A4 /* Minigames */ = {
+		47C062351E152EA900C25292 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				47C062271E15274200C25292 /* ExplanationViewController.swift */,
-				47C062281E15274200C25292 /* ExplanationViewController.xib */,
 				47C0622B1E15292A00C25292 /* GameViewController.swift */,
 				47C062311E152B8100C25292 /* ResultViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		47C062361E152EB900C25292 /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				47C062281E15274200C25292 /* ExplanationViewController.xib */,
 				47C062321E152B8100C25292 /* ResultViewController.xib */,
 				47C0622C1E15292A00C25292 /* GameViewController.xib */,
+			);
+			name = XIB;
+			sourceTree = "<group>";
+		};
+		47C062371E152ED500C25292 /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				47C0622F1E152B0800C25292 /* AccelerometerModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		47DE44511E0BC90A006A20A4 /* Minigames */ = {
+			isa = PBXGroup;
+			children = (
+				47C062351E152EA900C25292 /* Controller */,
+				47C062361E152EB900C25292 /* XIB */,
+				47C062371E152ED500C25292 /* Model */,
 			);
 			name = Minigames;
 			sourceTree = "<group>";
