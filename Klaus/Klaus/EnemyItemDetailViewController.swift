@@ -18,6 +18,8 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         stealButton.tintColor = Style.vermillion;
         stealButton.translatesAutoresizingMaskIntoConstraints = false;
         stealButton.setTitle("STEAL ITEM", for: .normal);
+        stealButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+
         self.view.addSubview(stealButton);
         
         self.title = "EnemyItemDetailView";
@@ -35,6 +37,9 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func buttonAction(sender: UIButton!) {
+        
+    }
 
     /*
     // MARK: - Navigation
