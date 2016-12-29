@@ -11,9 +11,6 @@ import UIKit
 private let reuseIdentifier = "EnemyCell";
 
 class EnemyTableViewController: UITableViewController {
-
-    var players:Array<Player> = [Player(name: "Horst"), Player(name: "Hans")]; //TODO remove
-
     
     override func loadView() {
         self.tableView = EnemyTableView(frame: UIScreen.main.bounds);

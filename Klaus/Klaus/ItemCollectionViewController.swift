@@ -11,8 +11,9 @@ import UIKit
 
 class ItemCollectionViewController: UICollectionViewController {
     
-    var player:Player = Player(name: "Horst");//TODO remove
+    var player:PlayerProfile = PlayerProfile(name: "Horst");//TODO remove
     var flowLayout:UICollectionViewFlowLayout!;
+    var items: Array<Item> = Array<Item>();
     
     
     override func loadView() {
@@ -40,6 +41,11 @@ class ItemCollectionViewController: UICollectionViewController {
         
         flowLayout.itemSize = CGSize(width: widthPerItem, height: heightperItem);
     }
+    
+    func updateItemCollectionWith(items: Array<Item>){
+        self.items = items;
+        self.collectionView?.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -57,24 +63,24 @@ class ItemCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-    
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "empty", for: indexPath)
-        
-        // Configure the cell
-        
-        return cell
-    }
+//    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 0
+//    }
+//    
+//    
+//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of items
+//        return 0
+//    }
+//    
+//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "empty", for: indexPath)
+//        
+//        // Configure the cell
+//        
+//        return cell
+//    }
 
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

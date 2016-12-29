@@ -8,14 +8,17 @@
 
 import Foundation
 
-class Item {
+class Item: NSObject {
     var name: String;
     var timeStamp: NSDate;
     var pointsPerSecond: Int;
+    var imageName: String;
     
     init(name: String, pointsPerSecond: Int) {
         self.name = name;
         self.pointsPerSecond = pointsPerSecond;
         self.timeStamp = NSDate()
+        self.imageName = name;
+        super.init()
     }
 }

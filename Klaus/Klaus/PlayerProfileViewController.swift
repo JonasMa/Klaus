@@ -10,6 +10,9 @@ import UIKit
 
 class PlayerProfileViewController: ProfileViewController {
 
+    dynamic var test: NSArray!;
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,13 +22,13 @@ class PlayerProfileViewController: ProfileViewController {
         self.view.addSubview(itemCollectionViewController.view);
         self.title = "PlayerProfileView";
         super.addConstraints();
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

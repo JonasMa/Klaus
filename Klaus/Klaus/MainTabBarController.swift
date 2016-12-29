@@ -9,9 +9,17 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
+    
+    var appModel: AppModel!;
+    
     override func viewDidLoad() {
+        
+        appModel = AppModel();
+
+        
         super.viewDidLoad()
+        
+        
         UITabBar.appearance().tintColor = Style.vermillion;
         self.tabBar.backgroundImage = UIImage();
         let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light));
@@ -25,14 +33,16 @@ class MainTabBarController: UITabBarController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
+//        
+//        
+//    }
+    
 
 }
