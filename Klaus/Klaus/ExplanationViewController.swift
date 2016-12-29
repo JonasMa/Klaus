@@ -10,6 +10,11 @@ import UIKit
 
 class ExplanationViewController: UIViewController {
 
+    @IBAction func startButton(_ sender: UIButton) {
+        let vc = GameViewController(nibName: "GameViewController", bundle: nil)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
