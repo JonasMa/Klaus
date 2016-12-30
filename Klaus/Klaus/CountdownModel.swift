@@ -15,19 +15,20 @@ class CountdownModel {
     var count = 10
     var viewController: GameViewController
     
-    
+    //Requires appropriate GameController
     init(vc: GameViewController) {
         self.viewController = vc
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
     
+    //GameControllers need to provide callback functions in order to update there countdown label every second and to receive impuls when timer is done, in order to start ResultViewController
     @objc func update() {
         if(count > 0) {
             count -= 1
             viewController.updateLabel(countr: count)
         }else if (count == 0) {
             gameTimer.invalidate()
-            viewController.startResultView()
+            viewController.startResultViewController()
         }
     }
 }

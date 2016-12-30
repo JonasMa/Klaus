@@ -32,7 +32,7 @@ class GameViewController: UIViewController {
         countdownValueLabel.text = String(countr)
     }
     
-    func startResultView() -> Void {
+    func startResultViewController() -> Void {
         let vc = ResultViewController(nibName: "ResultViewController", bundle: nil)
         vc.result = accelerometerModel.endRecording() //sends result value to resultViewController
         navigationController?.pushViewController(vc, animated: true)
