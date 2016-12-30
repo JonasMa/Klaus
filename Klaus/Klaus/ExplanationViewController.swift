@@ -12,32 +12,45 @@ import UIKit
 class ExplanationViewController: UIViewController {
 
     @IBOutlet weak var explanationLabel: UILabel!
+    var vc = GameViewController()
+    var id: Int = 0
     
     //Calls appropriate GameController
     @IBAction func startButton(_ sender: UIButton) {
-        let vc = GameViewController(nibName: "GameViewController", bundle: nil)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //TODO: Display appropriate explanation text and receive appropriate minigame data
+        delegateGameController()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //TODO: attach appropriate GameControllers and Explanation Strings
+    func delegateGameController() -> Void {
+        switch id {
+        case 1:
+            vc = GameViewController(nibName: "GameViewController", bundle: nil)
+            explanationLabel.text = Strings.axeGameExplanation
+            break
+        case 2:
+            vc = GameViewController(nibName: "GameViewController", bundle: nil)
+            explanationLabel.text = Strings.simonSaysExplanation
+            break
+        case 3:
+            vc = GameViewController(nibName: "GameViewController", bundle: nil)
+            explanationLabel.text = Strings.shelfGameExplanation
+            break
+        case 4:
+            vc = GameViewController(nibName: "GameViewController", bundle: nil)
+            explanationLabel.text = Strings.fourthGameExplanation
+            break
+        default:
+            break
+        }
     }
-    */
 
 }

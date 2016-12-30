@@ -39,17 +39,7 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
     func buttonAction(sender: UIButton!) {
         let vc = ExplanationViewController(nibName: "ExplanationViewController", bundle: nil)
+        vc.id = 1 //Gets extracted from selected enemy item later on
         navigationController?.pushViewController(vc, animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
