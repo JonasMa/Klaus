@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExplanationViewController" customModule="Klaus" customModuleProvider="target">
             <connections>
+                <outlet property="explanationLabel" destination="Qdn-Jg-8DV" id="afk-uV-wSK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

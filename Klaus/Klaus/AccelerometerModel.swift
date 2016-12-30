@@ -20,6 +20,7 @@ class AccelerometerModel {
     var maxY: Double = 0.0
     var maxZ: Double = 0.0
     
+    //Implements MotionManager, needed for calling accelerometer data and starts recording
     init() {
         motionManager = CMMotionManager()
         motionManager.accelerometerUpdateInterval = 0.2
@@ -28,6 +29,7 @@ class AccelerometerModel {
         }
     }
     
+    //Retrieves accelerometer data and stores it in global vars
     func outputAccelerationData(acceleration: CMAcceleration){
         currentX = acceleration.x
         currentY = acceleration.y
@@ -46,6 +48,7 @@ class AccelerometerModel {
         }
     }
     
+    //Gets called by axe minigame controller, stops recording
     func endRecording () -> Double{
         return (maxX + maxY + maxZ)/3
     }
