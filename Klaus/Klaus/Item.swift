@@ -13,11 +13,13 @@ class Item {
     var timeStamp: NSDate;
     var pointsPerSecond: Int;
     var imageName: String;
+    var itemLevel: Int;
     
     init(name: String, pointsPerSecond: Int) {
         self.name = name;
         self.pointsPerSecond = pointsPerSecond;
         self.timeStamp = NSDate()
         self.imageName = name;
+        self.itemLevel = 0;
     }
 }

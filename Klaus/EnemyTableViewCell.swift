@@ -21,7 +21,6 @@ class EnemyTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

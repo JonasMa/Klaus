@@ -14,29 +14,22 @@ class EnemyProfileViewController: ProfileViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //ITEM COLLECTION
         itemCollectionViewController = EnemyItemCollectionViewController();
         itemCollectionViewController.profile = profile;
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
+        
         self.title = "EnemyProfileView";
         super.addConstraints();
+        
+        profileNameLabel.text = profile.name;
+        profileScoreLabel.text = String(profile.score);
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -14,16 +14,16 @@ class EnemyItemDetailViewController: ItemDetailViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //STEAL BUTTON
         stealButton = UIButton(type: UIButtonType.roundedRect);
         stealButton.tintColor = Style.vermillion;
         stealButton.translatesAutoresizingMaskIntoConstraints = false;
         stealButton.setTitle("STEAL ITEM", for: .normal);
         stealButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-
         self.view.addSubview(stealButton);
-        
+    
         self.title = "EnemyItemDetailView";
-        
         
         //CONSTRAINTS
         stealButton.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 0).isActive = true;
@@ -34,7 +34,6 @@ class EnemyItemDetailViewController: ItemDetailViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func buttonAction(sender: UIButton!) {

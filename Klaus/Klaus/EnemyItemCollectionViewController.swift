@@ -18,31 +18,25 @@ class EnemyItemCollectionViewController: ItemCollectionViewController {
     }
     
     override func viewDidLoad() {
-        self.collectionView!.register(EnemyItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        super.viewDidLoad()
-
+        super.viewDidLoad();
+        self.collectionView!.register(EnemyItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier);
     }
 
     override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        super.didReceiveMemoryWarning();
     }
     
-    // MARK: UICollectionViewDataSource
-    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 1;
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return profile.items.count
+        return profile.items.count;
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EnemyItemCollectionViewCell
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EnemyItemCollectionViewCell;
         let item = profile.items[indexPath.row];
         let name = item.name;
         cell.imageView.image = UIImage(named: name.lowercased())?.withRenderingMode(.alwaysTemplate);
@@ -55,16 +49,5 @@ class EnemyItemCollectionViewController: ItemCollectionViewController {
         detailViewController.item = profile.items[indexPath.row];
         self.navigationController?.pushViewController(detailViewController, animated: true);
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
