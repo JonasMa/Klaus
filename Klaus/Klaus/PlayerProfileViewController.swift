@@ -9,8 +9,6 @@
 import UIKit
 
 class PlayerProfileViewController: ProfileViewController {
-
-    dynamic var test: NSArray!;
     
     
     override func viewDidLoad() {

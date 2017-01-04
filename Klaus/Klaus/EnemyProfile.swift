@@ -10,4 +10,7 @@ import Foundation
 
 class EnemyProfile: Profile{
     
+    override init(name: String){
+        super.init(name: name);
+    }
 }

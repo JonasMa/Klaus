@@ -9,11 +9,14 @@
 import UIKit
 
 class EnemyProfileViewController: ProfileViewController {
+    
+    var profile: EnemyProfile!;
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //ITEM COLLECTION
         itemCollectionViewController = EnemyItemCollectionViewController();
+        itemCollectionViewController.profile = profile;
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         self.title = "EnemyProfileView";

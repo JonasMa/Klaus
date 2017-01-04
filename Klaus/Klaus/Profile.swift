@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Profile: NSObject {
+class Profile {
     
     var name: String;
     var score: Int;
@@ -23,7 +23,14 @@ class Profile: NSObject {
         let item = Item(name: "Knife", pointsPerSecond: 2);
         self.items = [item,item,item,item,item,item,item];
         
-        super.init();
+    }
+    
+    func addItem(item: Item){
+        items.append(item);
+    }
+    
+    func removeItemWithId(id: String){
+        //TODO
     }
     
 }

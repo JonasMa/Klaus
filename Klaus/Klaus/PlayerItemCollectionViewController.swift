@@ -17,7 +17,7 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
     }
     
     override func viewDidLoad() {
-
+        
         super.viewDidLoad()
         self.collectionView!.register(PlayerItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
@@ -37,13 +37,13 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return player.items.count
+        return AppModel.sharedInstance.player.items.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PlayerItemCollectionViewCell
         
-        let item = player.items[indexPath.row];
+        let item = AppModel.sharedInstance.player.items[indexPath.row];
         let name = item.name;
         cell.imageView.image = UIImage(named: name.lowercased())?.withRenderingMode(.alwaysTemplate);
         cell.label.text = name;
@@ -52,7 +52,7 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = PlayerItemDetailViewController();
-        detailViewController.item = player.items[indexPath.row];
+        detailViewController.item = AppModel.sharedInstance.player.items[indexPath.row];
         self.navigationController?.pushViewController(detailViewController, animated: true);
     }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Item: NSObject {
+class Item {
     var name: String;
     var timeStamp: NSDate;
     var pointsPerSecond: Int;
@@ -19,6 +19,5 @@ class Item: NSObject {
         self.pointsPerSecond = pointsPerSecond;
         self.timeStamp = NSDate()
         self.imageName = name;
-        super.init()
     }
 }

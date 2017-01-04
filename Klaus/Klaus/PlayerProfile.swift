@@ -10,4 +10,9 @@ import Foundation
 
 class PlayerProfile: Profile {
 
+    
+    override init(name: String){
+        super.init(name: name);
+    }
+
 }

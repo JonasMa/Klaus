@@ -10,12 +10,7 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    var appModel: AppModel!;
-    
     override func viewDidLoad() {
-        
-        appModel = AppModel();
-
         
         super.viewDidLoad()
         

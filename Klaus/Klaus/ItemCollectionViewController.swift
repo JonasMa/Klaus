@@ -11,9 +11,9 @@ import UIKit
 
 class ItemCollectionViewController: UICollectionViewController {
     
-    var player:PlayerProfile = PlayerProfile(name: "Horst");//TODO remove
     var flowLayout:UICollectionViewFlowLayout!;
-    var items: Array<Item> = Array<Item>();
+    var profile: EnemyProfile!;
+
     
     
     override func loadView() {
@@ -40,11 +40,6 @@ class ItemCollectionViewController: UICollectionViewController {
         let heightperItem = view.frame.size.width*0.40;
         
         flowLayout.itemSize = CGSize(width: widthPerItem, height: heightperItem);
-    }
-    
-    func updateItemCollectionWith(items: Array<Item>){
-        self.items = items;
-        self.collectionView?.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,11 +78,11 @@ class ItemCollectionViewController: UICollectionViewController {
 //    }
 
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailViewController = PlayerItemDetailViewController();
-        detailViewController.item = player.items[indexPath.row];
-        self.navigationController?.pushViewController(detailViewController, animated: true);
-    }
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let detailViewController = PlayerItemDetailViewController();
+//        detailViewController.item = profile.items[indexPath.row];
+//        self.navigationController?.pushViewController(detailViewController, animated: true);
+//    }
     
     // MARK: UICollectionViewDelegate
 
