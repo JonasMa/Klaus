@@ -28,13 +28,11 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad();
         
         //BACKGROUND
-        let freshGradient = CAGradientLayer();
-        freshGradient.colors = [Style.fresh2.cgColor,Style.fresh.cgColor];
-        freshGradient.frame = self.view.bounds;
-        freshGradient.startPoint = CGPoint(x: 0.0, y: 0.0);
-        freshGradient.endPoint = CGPoint(x: 1.0, y: 1.0);
-        self.view.layer.addSublayer(freshGradient);
-
+        //let freshGradient = CAGradientLayer();
+        //freshGradient.colors = [Style.gradientTop.cgColor,Style.gradientBottom.cgColor];
+        //freshGradient.frame = self.view.bounds;
+        //self.view.layer.addSublayer(freshGradient);
+        self.view.backgroundColor = Style.bg;
         //IMAGE
         profileImageView = UIImageView(frame: CGRect());
         profileImageView.translatesAutoresizingMaskIntoConstraints = false;
@@ -47,16 +45,14 @@ class ProfileViewController: UIViewController {
         
         profileNameLabel = UILabel();
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileNameLabel.font = UIFont.boldSystemFont(ofSize: 30);
-        profileNameLabel.textColor = Style.clean;
-        profileNameLabel.shadowColor = Style.vermillion
+        profileNameLabel.font = UIFont.boldSystemFont(ofSize: 16);
+        profileNameLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileNameLabel);
         
         profileScoreLabel = UILabel();
         profileScoreLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileScoreLabel.font = UIFont.systemFont(ofSize: 20);
-        profileScoreLabel.textColor = Style.clean;
-        profileScoreLabel.shadowColor = Style.vermillion;
+        profileScoreLabel.font = UIFont.systemFont(ofSize: 11);
+        profileScoreLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileScoreLabel);
     }
 

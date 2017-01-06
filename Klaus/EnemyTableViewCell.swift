@@ -11,10 +11,10 @@ import UIKit
 class EnemyTableViewCell: UITableViewCell {
 
     override init(style : UITableViewCellStyle, reuseIdentifier: String?){
-        super.init(style: style, reuseIdentifier: reuseIdentifier);
+        super.init(style: UITableViewCellStyle.subtitle, reuseIdentifier: reuseIdentifier);
         self.textLabel?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
-        self.textLabel?.textColor = Style.clean;
+        //self.textLabel?.textColor = Style.clean;
     }
     
     required init?(coder aDecoder: NSCoder) {

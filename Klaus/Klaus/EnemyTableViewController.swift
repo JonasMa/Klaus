@@ -43,6 +43,7 @@ class EnemyTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! EnemyTableViewCell;
         let profile = AppModel.sharedInstance.enemiesList[indexPath.row];
         cell.textLabel!.text = profile.name;
+        cell.detailTextLabel?.text = String(profile.score);
         return cell
     }
     
