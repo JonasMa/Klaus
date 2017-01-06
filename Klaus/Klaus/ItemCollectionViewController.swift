@@ -15,7 +15,7 @@ class ItemCollectionViewController: UICollectionViewController {
     var profile: Profile!;
 
     fileprivate let itemsPerRow: CGFloat = 3;
-    fileprivate let sectionInsets = UIEdgeInsets(top: 20.0, left: 10.0, bottom: 20.0, right: 10.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 100.0, left: 10.0, bottom: 0.0, right: 10.0)
 
     
     override func loadView() {
@@ -55,7 +55,7 @@ extension ItemCollectionViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
+        return sectionInsets;
     }
     
     // 4
@@ -64,4 +64,5 @@ extension ItemCollectionViewController : UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
+    
 }

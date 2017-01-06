@@ -30,8 +30,7 @@ struct Style{
     static var gradientTop = UIColor(red: 82.0/255.0, green: 237.0/255.0, blue: 199.0/255.0, alpha: 1);
     static var gradientBottom = UIColor(red: 90.0/255.0, green: 200.0/255.0, blue: 251.0/255.0, alpha: 1);
     
-    static var bg = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1);
-    static var bgGreen = UIColor(red: 224.0/255.0, green: 248.0/255.0, blue: 216.0/255.0, alpha: 1);
+    static var bg = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1);
 }
 
 /*

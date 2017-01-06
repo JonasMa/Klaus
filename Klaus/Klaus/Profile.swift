@@ -21,7 +21,7 @@ class Profile {
         
         //for testing
         let item = Item(name: "Knife", pointsPerSecond: 2);
-        self.items = [item,item,item,item,item,item,item];
+        self.items = [item,item,item,item,item,item,item,item,item,item,item,item,item,item,item];
         
     }
     

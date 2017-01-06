@@ -14,6 +14,7 @@ class ProfileViewController: UIViewController {
     var profileStatsView: UIView!;
     var profileNameLabel: UILabel!;
     var profileScoreLabel: UILabel!;
+    var blurEffectView: UIVisualEffectView!;
     
     var itemCollectionViewController: ItemCollectionViewController!;
     
@@ -32,6 +33,13 @@ class ProfileViewController: UIViewController {
         //freshGradient.colors = [Style.gradientTop.cgColor,Style.gradientBottom.cgColor];
         //freshGradient.frame = self.view.bounds;
         //self.view.layer.addSublayer(freshGradient);
+        
+//        self.view.backgroundImage = UIImage();
+//        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light));
+//        blur.frame = self.view.bounds;
+//        self.view.insertSubview(blur, at: 0);
+        
+        
         self.view.backgroundColor = Style.bg;
         //IMAGE
         profileImageView = UIImageView(frame: CGRect());
@@ -54,6 +62,13 @@ class ProfileViewController: UIViewController {
         profileScoreLabel.font = UIFont.systemFont(ofSize: 11);
         profileScoreLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileScoreLabel);
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false;
+        view.addSubview(blurEffectView)
+
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +76,11 @@ class ProfileViewController: UIViewController {
     }
     
     func addConstraints(){
+        self.view.bringSubview(toFront: blurEffectView);
+        self.view.bringSubview(toFront: profileStatsView);
+        self.view.bringSubview(toFront: profileImageView);
+        
+        
         profileImageView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true;
         profileImageView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
@@ -77,11 +97,17 @@ class ProfileViewController: UIViewController {
         profileScoreLabel.topAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
         profileScoreLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
 
-        itemCollectionViewController.collectionView?.topAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true;
+        itemCollectionViewController.collectionView?.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         itemCollectionViewController.collectionView?.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
         itemCollectionViewController.collectionView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
         itemCollectionViewController.collectionView?.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
         
+        blurEffectView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
+        blurEffectView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
+        blurEffectView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
+        blurEffectView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true;
+        
+
     }
     
 }
