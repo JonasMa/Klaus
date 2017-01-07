@@ -13,6 +13,7 @@ class PlayerNavigationController: UINavigationController {
     override func viewDidLoad() {
         let playerProfileViewController = PlayerProfileViewController();
         self.pushViewController(playerProfileViewController, animated: true)
+        self.navigationBar.tintColor = Style.accentColor;
         super.viewDidLoad()
         
     }

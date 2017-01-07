@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController {
     var profileStatsView: UIView!;
     var profileNameLabel: UILabel!;
     var profileScoreLabel: UILabel!;
-    var blurEffectView: UIVisualEffectView!;
+    var grad: CAGradientLayer!;
     
     var itemCollectionViewController: ItemCollectionViewController!;
     
@@ -29,16 +29,11 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad();
         
         //BACKGROUND
-        //let freshGradient = CAGradientLayer();
-        //freshGradient.colors = [Style.gradientTop.cgColor,Style.gradientBottom.cgColor];
-        //freshGradient.frame = self.view.bounds;
-        //self.view.layer.addSublayer(freshGradient);
-        
-//        self.view.backgroundImage = UIImage();
-//        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light));
-//        blur.frame = self.view.bounds;
-//        self.view.insertSubview(blur, at: 0);
-        
+        grad = CAGradientLayer();
+        grad.colors = [Style.bg.cgColor,Style.bgTransparent.cgColor];
+        grad.startPoint = CGPoint(x: 0.5, y: 0.35)
+        grad.endPoint = CGPoint(x: 0.5, y: 0.45)
+        grad.frame = self.view.bounds;
         
         self.view.backgroundColor = Style.bg;
         //IMAGE
@@ -50,6 +45,7 @@ class ProfileViewController: UIViewController {
         profileStatsView = UIView(frame: CGRect());
         profileStatsView.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(profileStatsView);
+
         
         profileNameLabel = UILabel();
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false;
@@ -62,13 +58,7 @@ class ProfileViewController: UIViewController {
         profileScoreLabel.font = UIFont.systemFont(ofSize: 11);
         profileScoreLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileScoreLabel);
-        
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
-        blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.translatesAutoresizingMaskIntoConstraints = false;
-        view.addSubview(blurEffectView)
-
-        
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,9 +66,11 @@ class ProfileViewController: UIViewController {
     }
     
     func addConstraints(){
-        self.view.bringSubview(toFront: blurEffectView);
+        self.view.layer.addSublayer(grad);
+
         self.view.bringSubview(toFront: profileStatsView);
         self.view.bringSubview(toFront: profileImageView);
+
         
         
         profileImageView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
@@ -101,12 +93,6 @@ class ProfileViewController: UIViewController {
         itemCollectionViewController.collectionView?.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
         itemCollectionViewController.collectionView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
         itemCollectionViewController.collectionView?.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
-        
-        blurEffectView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
-        blurEffectView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
-        blurEffectView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
-        blurEffectView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true;
-        
 
     }
     

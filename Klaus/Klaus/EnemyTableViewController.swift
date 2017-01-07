@@ -20,7 +20,7 @@ class EnemyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.backgroundColor = Style.fresh;
+        self.tableView.backgroundColor = Style.bg;
         self.tableView.register(EnemyTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
 
     }

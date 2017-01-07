@@ -12,7 +12,7 @@ class PlayerItemDetailViewController: ItemDetailViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "PlayerItemDetailView";
+        self.title = "Details";
     }
 
     override func didReceiveMemoryWarning() {

@@ -19,7 +19,7 @@ class EnemyListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "EnemyListView";
+        self.title = "Enemies In Range";
         enemyTableViewController = EnemyTableViewController()
         self.addChildViewController(enemyTableViewController);
         self.view.addSubview(enemyTableViewController.view);

@@ -17,13 +17,13 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         
         //STEAL BUTTON
         stealButton = UIButton(type: UIButtonType.roundedRect);
-        stealButton.tintColor = Style.vermillion;
+        stealButton.tintColor = Style.accentColor;
         stealButton.translatesAutoresizingMaskIntoConstraints = false;
         stealButton.setTitle("STEAL ITEM", for: .normal);
         stealButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         self.view.addSubview(stealButton);
     
-        self.title = "EnemyItemDetailView";
+        self.title = "Details";
         
         //CONSTRAINTS
         stealButton.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 0).isActive = true;

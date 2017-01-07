@@ -13,7 +13,7 @@ class EnemyNavigationController: UINavigationController {
     override func viewDidLoad() {
         let enemyListViewController = EnemyListViewController();
         self.pushViewController(enemyListViewController, animated: true);
-        
+        self.navigationBar.tintColor = Style.accentColor;
         super.viewDidLoad()
 
     }

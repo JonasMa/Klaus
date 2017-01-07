@@ -15,13 +15,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         
         
-        UITabBar.appearance().tintColor = Style.vermillion;
-        
-//        blur tabbar
-//        self.tabBar.backgroundImage = UIImage();
-//        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light));
-//        blur.frame = self.tabBar.bounds;
-//        self.tabBar.insertSubview(blur, at: 0);
+        UITabBar.appearance().tintColor = Style.accentColor;
     }
 
     override func didReceiveMemoryWarning() {
