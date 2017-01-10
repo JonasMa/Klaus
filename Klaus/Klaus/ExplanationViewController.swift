@@ -20,6 +20,15 @@ class ExplanationViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    init(id: Int){
+        super.init(nibName: "ExplanationViewController", bundle: nil)
+        self.id = id
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         delegateGameController()

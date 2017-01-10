@@ -33,8 +33,7 @@ class GameViewController: UIViewController {
     }
     
     func startResultViewController() -> Void {
-        let vc = ResultViewController(nibName: "ResultViewController", bundle: nil)
-        vc.result = accelerometerModel.endRecording() //sends result value to resultViewController
+        let vc = ResultViewController(result: accelerometerModel.endRecording())
         navigationController?.pushViewController(vc, animated: true)
     }
     

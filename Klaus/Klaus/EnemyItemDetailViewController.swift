@@ -37,8 +37,7 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     }
     
     func buttonAction(sender: UIButton!) {
-        let vc = ExplanationViewController(nibName: "ExplanationViewController", bundle: nil)
-        vc.id = 1 //Gets extracted from selected enemy item later on
+        let vc = ExplanationViewController(id: 1);
         navigationController?.pushViewController(vc, animated: true)
     }
 }
