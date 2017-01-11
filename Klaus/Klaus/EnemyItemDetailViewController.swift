@@ -37,7 +37,7 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     }
     
     func buttonAction(sender: UIButton!) {
-        let vc = ExplanationViewController(id: 1);
+        let vc = ExplanationViewController(id: 3);
         navigationController?.pushViewController(vc, animated: true)
     }
 }

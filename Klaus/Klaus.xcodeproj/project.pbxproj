@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4772ABF51E2655EC00AA9E57 /* ShelfGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772ABF31E2655EC00AA9E57 /* ShelfGameViewController.swift */; };
+		4772ABF61E2655EC00AA9E57 /* ShelfGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4772ABF41E2655EC00AA9E57 /* ShelfGameViewController.xib */; };
+		4772ABF81E265B7400AA9E57 /* DropItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772ABF71E265B7400AA9E57 /* DropItemModel.swift */; };
 		479CB0111E168A9300176D02 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479CB0101E168A9300176D02 /* Strings.swift */; };
 		479CB0131E168FE000176D02 /* CountdownModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479CB0121E168FE000176D02 /* CountdownModel.swift */; };
 		47C062291E15274200C25292 /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C062271E15274200C25292 /* ExplanationViewController.swift */; };
@@ -72,6 +75,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4772ABF31E2655EC00AA9E57 /* ShelfGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShelfGameViewController.swift; path = ../ShelfGameViewController.swift; sourceTree = "<group>"; };
+		4772ABF41E2655EC00AA9E57 /* ShelfGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShelfGameViewController.xib; path = ../ShelfGameViewController.xib; sourceTree = "<group>"; };
+		4772ABF71E265B7400AA9E57 /* DropItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropItemModel.swift; sourceTree = "<group>"; };
 		479CB0101E168A9300176D02 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		479CB0121E168FE000176D02 /* CountdownModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownModel.swift; sourceTree = "<group>"; };
 		47C062271E15274200C25292 /* ExplanationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				47C062271E15274200C25292 /* ExplanationViewController.swift */,
+				4772ABF31E2655EC00AA9E57 /* ShelfGameViewController.swift */,
 				47C0622B1E15292A00C25292 /* GameViewController.swift */,
 				47C062311E152B8100C25292 /* ResultViewController.swift */,
 			);
@@ -165,6 +172,7 @@
 			children = (
 				47C062281E15274200C25292 /* ExplanationViewController.xib */,
 				47C062321E152B8100C25292 /* ResultViewController.xib */,
+				4772ABF41E2655EC00AA9E57 /* ShelfGameViewController.xib */,
 				47C0622C1E15292A00C25292 /* GameViewController.xib */,
 			);
 			name = XIB;
@@ -176,6 +184,7 @@
 				47C0622F1E152B0800C25292 /* AccelerometerModel.swift */,
 				47C0623C1E1542EC00C25292 /* Games.swift */,
 				479CB0121E168FE000176D02 /* CountdownModel.swift */,
+				4772ABF71E265B7400AA9E57 /* DropItemModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -462,6 +471,7 @@
 				47C0622A1E15274200C25292 /* ExplanationViewController.xib in Resources */,
 				47C062341E152B8100C25292 /* ResultViewController.xib in Resources */,
 				8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */,
+				4772ABF61E2655EC00AA9E57 /* ShelfGameViewController.xib in Resources */,
 				8497B5A81DE6FFC60039E35C /* Assets.xcassets in Resources */,
 				8497B5A61DE6FFC60039E35C /* Main.storyboard in Resources */,
 				47C0622E1E15292A00C25292 /* GameViewController.xib in Resources */,
@@ -494,6 +504,7 @@
 				FAB1C47C1E13FCC000981731 /* EnemyListView.swift in Sources */,
 				8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */,
 				FAB1C4841E14089E00981731 /* EnemyProfileViewController.swift in Sources */,
+				4772ABF51E2655EC00AA9E57 /* ShelfGameViewController.swift in Sources */,
 				FAB1C4741E13EDAB00981731 /* EnemyTableViewController.swift in Sources */,
 				FAB1C4701E11BA8800981731 /* MainTabBarController.swift in Sources */,
 				FA6E5B0A1E08380600F88FFC /* ItemCollectionViewCell.swift in Sources */,
@@ -506,6 +517,7 @@
 				FAB1C45E1E0ED45C00981731 /* ItemCollectionView.swift in Sources */,
 				FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */,
 				47C0623D1E1542EC00C25292 /* Games.swift in Sources */,
+				4772ABF81E265B7400AA9E57 /* DropItemModel.swift in Sources */,
 				FAB1C46C1E11AB9600981731 /* Style.swift in Sources */,
 				FAB1C4681E117DFF00981731 /* ItemDetailViewController.swift in Sources */,
 				479CB0131E168FE000176D02 /* CountdownModel.swift in Sources */,

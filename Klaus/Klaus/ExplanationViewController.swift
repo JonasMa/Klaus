@@ -12,7 +12,7 @@ import UIKit
 class ExplanationViewController: UIViewController {
 
     @IBOutlet weak var explanationLabel: UILabel!
-    var vc = GameViewController()
+    var vc = UIViewController()
     var id: Int = 0
     
     //Calls appropriate GameController
@@ -33,10 +33,6 @@ class ExplanationViewController: UIViewController {
         super.viewDidLoad()
         delegateGameController()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     //TODO: attach appropriate GameControllers and Explanation Strings
     func delegateGameController() -> Void {
@@ -50,7 +46,7 @@ class ExplanationViewController: UIViewController {
             explanationLabel.text = Strings.simonSaysExplanation
             break
         case 3:
-            vc = GameViewController(nibName: "GameViewController", bundle: nil)
+            vc = ShelfGameViewController(nibName: "ShelfGameViewController", bundle: nil)
             explanationLabel.text = Strings.shelfGameExplanation
             break
         case 4:
