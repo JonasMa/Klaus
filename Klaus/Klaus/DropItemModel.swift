@@ -22,9 +22,9 @@ class DropItemModel: UIImageView {
             self.frame = CGRect(x: 120, y: 400, width: 50, height: 50)
             }, completion: { animationFinished in
                 if (!self.itemStopped){
+                    self.removeFromSuperview()
                     ShelfGameViewController.onItemTouchedFloor()
                 }
-                
         })
     }
     
@@ -34,8 +34,9 @@ class DropItemModel: UIImageView {
     
     func didTap(tapGR: UITapGestureRecognizer) {
         itemStopped = true
-        self.removeFromSuperview()
-        print("touch")
+        let layer = self.layer.presentation()! as CALayer
+        let frame = layer.frame
+        self.layer.removeAllAnimations()
+        self.frame = frame
     }
-
 }
