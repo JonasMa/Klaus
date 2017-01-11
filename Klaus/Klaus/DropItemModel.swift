@@ -9,15 +9,12 @@
 import Foundation
 import UIKit
 
-class DropItemModel: UIView {
+class DropItemModel: UIImageView {
     
     
     init() {
         super.init(frame: CGRect(origin: CGPoint(x: 120, y: 0), size: CGSize(width: 50, height: 50)))
-        self.backgroundColor = UIColor.blue
-        
-        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.didTap(tapGR:)))
-        addGestureRecognizer(tapGR)
+        self.image = UIImage(named: "porzelan")
         
         UIView.animate(withDuration: 3.0, animations: {
             self.frame = CGRect(x: 120, y: 400, width: 50, height: 50)
