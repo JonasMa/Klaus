@@ -25,4 +25,8 @@ class ShelfGameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    static func onItemTouchedFloor() {
+        NSLog("Game Over")
+    }
+    
 }
