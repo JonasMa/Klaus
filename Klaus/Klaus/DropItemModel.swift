@@ -25,8 +25,8 @@ class DropItemModel: UIImageView {
     
     init() {
         
-        self.xPosition = Int(arc4random_uniform(350) + 10)
-        self.speed = CGFloat(Int(arc4random_uniform(5) + 3))
+        self.xPosition = Int(arc4random_uniform(300) + 10)
+        self.speed = CGFloat(Int(arc4random_uniform(4) + 3))
         
         super.init(frame: CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: CGSize(width: frameWidth, height: frameHeight)))
         

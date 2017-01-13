@@ -9,17 +9,13 @@
 import UIKit
 
 class ShelfGameViewController: UIViewController {
-
+    
+    var logic: ShelfGameLogic!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        let item = DropItemModel()
-        let item2 = DropItemModel()
-        let item3 = DropItemModel()
-        self.view.addSubview(item)
-        self.view.addSubview(item2)
-        self.view.addSubview(item3)
-        
+        logic = ShelfGameLogic(vc: self)
     }
 
     override func didReceiveMemoryWarning() {

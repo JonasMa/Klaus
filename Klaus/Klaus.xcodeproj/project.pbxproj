@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4744C6061E293B1F00CF739C /* ShelfGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4744C6051E293B1F00CF739C /* ShelfGameLogic.swift */; };
 		4772ABF51E2655EC00AA9E57 /* ShelfGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772ABF31E2655EC00AA9E57 /* ShelfGameViewController.swift */; };
 		4772ABF61E2655EC00AA9E57 /* ShelfGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4772ABF41E2655EC00AA9E57 /* ShelfGameViewController.xib */; };
 		4772ABF81E265B7400AA9E57 /* DropItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772ABF71E265B7400AA9E57 /* DropItemModel.swift */; };
@@ -75,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4744C6051E293B1F00CF739C /* ShelfGameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelfGameLogic.swift; sourceTree = "<group>"; };
 		4772ABF31E2655EC00AA9E57 /* ShelfGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShelfGameViewController.swift; path = ../ShelfGameViewController.swift; sourceTree = "<group>"; };
 		4772ABF41E2655EC00AA9E57 /* ShelfGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShelfGameViewController.xib; path = ../ShelfGameViewController.xib; sourceTree = "<group>"; };
 		4772ABF71E265B7400AA9E57 /* DropItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropItemModel.swift; sourceTree = "<group>"; };
@@ -156,6 +158,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4744C6071E29419D00CF739C /* GameLogic */ = {
+			isa = PBXGroup;
+			children = (
+				4744C6051E293B1F00CF739C /* ShelfGameLogic.swift */,
+			);
+			name = GameLogic;
+			sourceTree = "<group>";
+		};
 		47C062351E152EA900C25292 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +205,8 @@
 				47C062351E152EA900C25292 /* Controller */,
 				47C062361E152EB900C25292 /* XIB */,
 				47C062371E152ED500C25292 /* Model */,
+				4744C6071E29419D00CF739C /* GameLogic */,
+				FAB1C49C1E14235D00981731 /* Util */,
 			);
 			name = Minigames;
 			sourceTree = "<group>";
@@ -230,7 +242,6 @@
 				FAB1C49B1E14231D00981731 /* Scenes */,
 				FAB1C49A1E1422EB00981731 /* DataModel */,
 				47DE44511E0BC90A006A20A4 /* Minigames */,
-				FAB1C49C1E14235D00981731 /* Util */,
 			);
 			path = Klaus;
 			sourceTree = "<group>";
@@ -516,6 +527,7 @@
 				FAB1C4861E14108700981731 /* PlayerItemCollectionViewController.swift in Sources */,
 				FAB1C45E1E0ED45C00981731 /* ItemCollectionView.swift in Sources */,
 				FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */,
+				4744C6061E293B1F00CF739C /* ShelfGameLogic.swift in Sources */,
 				47C0623D1E1542EC00C25292 /* Games.swift in Sources */,
 				4772ABF81E265B7400AA9E57 /* DropItemModel.swift in Sources */,
 				FAB1C46C1E11AB9600981731 /* Style.swift in Sources */,
