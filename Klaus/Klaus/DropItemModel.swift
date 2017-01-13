@@ -11,18 +11,23 @@ import UIKit
 
 class DropItemModel: UIImageView {
     
-    let xPosition: Int = 120
+    var xPosition: Int = 120
     let yPosition: Int = 30
     let frameWidth: Int = 60
     let frameHeight: Int = 60
-    let framesPerSecond: Int = 40
-    let speed: CGFloat = 4
+    let framesPerSecond: Int = 30
+    var speed: CGFloat = 5
     let groundCollision: CGFloat = 500
     
     var displayLink = CADisplayLink()
     var tapGesture = UITapGestureRecognizer()
+    var shelfGameVC = ShelfGameViewController()
     
     init() {
+        
+        self.xPosition = Int(arc4random_uniform(350) + 10)
+        self.speed = CGFloat(Int(arc4random_uniform(5) + 3))
+        
         super.init(frame: CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: CGSize(width: frameWidth, height: frameHeight)))
         
         //Defining as UIImageView and assigning graphic
@@ -41,8 +46,12 @@ class DropItemModel: UIImageView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         NSLog("touch began")
-        displayLink.invalidate()
+        displayLink.isPaused = true
         //self.removeFromSuperview()
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        displayLink.isPaused = false
     }
     
     func handleDisplayLink() {
@@ -51,7 +60,7 @@ class DropItemModel: UIImageView {
         self.frame = viewFrame
         if self.frame.origin.y >= groundCollision {
             displayLink.invalidate()
-            ShelfGameViewController.onItemTouchedFloor()
+            shelfGameVC.onItemTouchedFloor()
         }
     }
     

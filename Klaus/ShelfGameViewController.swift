@@ -13,8 +13,13 @@ class ShelfGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        let shapeView = DropItemModel()
-        self.view.addSubview(shapeView)
+        let item = DropItemModel()
+        let item2 = DropItemModel()
+        let item3 = DropItemModel()
+        self.view.addSubview(item)
+        self.view.addSubview(item2)
+        self.view.addSubview(item3)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,7 +27,7 @@ class ShelfGameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    static func onItemTouchedFloor() {
+     func onItemTouchedFloor() {
         NSLog("Game Over")
     }
     
