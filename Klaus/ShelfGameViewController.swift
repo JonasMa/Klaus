@@ -15,9 +15,6 @@ class ShelfGameViewController: UIViewController {
                 
         let shapeView = DropItemModel()
         self.view.addSubview(shapeView)
-        
-        let tapGR = UITapGestureRecognizer(target: shapeView, action: #selector(shapeView.didTap(tapGR:)))
-        self.view.addGestureRecognizer(tapGR)
     }
 
     override func didReceiveMemoryWarning() {

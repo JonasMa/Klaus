@@ -11,32 +11,49 @@ import UIKit
 
 class DropItemModel: UIImageView {
     
-    var itemStopped = false
+    let xPosition: Int = 120
+    let yPosition: Int = 30
+    let frameWidth: Int = 60
+    let frameHeight: Int = 60
+    let framesPerSecond: Int = 40
+    let speed: CGFloat = 4
+    let groundCollision: CGFloat = 500
+    
+    var displayLink = CADisplayLink()
+    var tapGesture = UITapGestureRecognizer()
     
     init() {
-        super.init(frame: CGRect(origin: CGPoint(x: 120, y: 0), size: CGSize(width: 50, height: 50)))
+        super.init(frame: CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: CGSize(width: frameWidth, height: frameHeight)))
         
+        //Defining as UIImageView and assigning graphic
         self.image = UIImage(named: "porzelan")
+        self.isUserInteractionEnabled = true
         
-        UIView.animate(withDuration: 3.0, animations: {
-            self.frame = CGRect(x: 120, y: 400, width: 50, height: 50)
-            }, completion: { animationFinished in
-                if (!self.itemStopped){
-                    self.removeFromSuperview()
-                    ShelfGameViewController.onItemTouchedFloor()
-                }
-        })
+        //Animation Loop initialization
+        displayLink = CADisplayLink(target: self, selector: #selector(self.handleDisplayLink))
+        displayLink.preferredFramesPerSecond = framesPerSecond
+        displayLink.add(to: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
     }
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func didTap(tapGR: UITapGestureRecognizer) {
-        itemStopped = true
-        let layer = self.layer.presentation()! as CALayer
-        let frame = layer.frame
-        self.layer.removeAllAnimations()
-        self.frame = frame
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        NSLog("touch began")
+        displayLink.invalidate()
+        //self.removeFromSuperview()
     }
+    
+    func handleDisplayLink() {
+        var viewFrame = self.frame
+        viewFrame.origin.y += speed
+        self.frame = viewFrame
+        if self.frame.origin.y >= groundCollision {
+            displayLink.invalidate()
+            ShelfGameViewController.onItemTouchedFloor()
+        }
+    }
+    
+    
 }
