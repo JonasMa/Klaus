@@ -444,6 +444,7 @@
 					};
 					8497B5B01DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 87X3F5FDGG;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 8497B59A1DE6FFC60039E35C;
 					};
@@ -732,6 +733,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = KlausTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nimmswag.de.KlausTests;
@@ -746,6 +748,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = KlausTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nimmswag.de.KlausTests;
@@ -761,7 +764,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = KlausUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswag.de.KlausUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg.de.KlausUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Klaus;
@@ -774,7 +777,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = KlausUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswag.de.KlausUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg.de.KlausUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Klaus;

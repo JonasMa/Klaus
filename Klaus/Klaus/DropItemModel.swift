@@ -11,6 +11,7 @@ import UIKit
 
 class DropItemModel: UIImageView {
     
+    var id: Int
     var xPosition: Int = 120
     let yPosition: Int = 30
     let frameWidth: Int = 60
@@ -23,9 +24,10 @@ class DropItemModel: UIImageView {
     var tapGesture = UITapGestureRecognizer()
     var shelfGameVC = ShelfGameViewController()
     
-    init() {
+    init(id: Int) {
         
-        self.xPosition = Int(arc4random_uniform(300) + 10)
+        self.id = id
+        self.xPosition = Int(arc4random_uniform(UInt32(UIScreen.main.bounds.width)-5) + 5)
         self.speed = CGFloat(Int(arc4random_uniform(4) + 3))
         
         super.init(frame: CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: CGSize(width: frameWidth, height: frameHeight)))
@@ -45,13 +47,18 @@ class DropItemModel: UIImageView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        NSLog("touch began")
         displayLink.isPaused = true
+        //shelfGameVC.onItemSelected(itemID: id)
         //self.removeFromSuperview()
+        ShelfGameLogic.itemSelected(selectedItemID: id)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         displayLink.isPaused = false
+    }
+    
+    func killItem () {
+        self.removeFromSuperview()
     }
     
     func handleDisplayLink() {
@@ -62,6 +69,10 @@ class DropItemModel: UIImageView {
             displayLink.invalidate()
             shelfGameVC.onItemTouchedFloor()
         }
+    }
+    
+    func getID () -> Int {
+        return id
     }
     
     

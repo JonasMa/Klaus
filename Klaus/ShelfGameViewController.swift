@@ -10,12 +10,11 @@ import UIKit
 
 class ShelfGameViewController: UIViewController {
     
-    var logic: ShelfGameLogic!
+    var logic = ShelfGameLogic()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        logic = ShelfGameLogic(vc: self)
+        logic.setVC(vc: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,8 +22,13 @@ class ShelfGameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-     func onItemTouchedFloor() {
-        NSLog("Game Over")
+    func onItemTouchedFloor() {
+        //NSLog("Game Over")
     }
+    
+    /*func onItemSelected(itemID: Int) {
+        //NSLog("Hallo: " + String(itemID))
+        logic.itemSelected(selectedItemID: itemID)
+    }*/
     
 }
