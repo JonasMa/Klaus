@@ -10,46 +10,49 @@ import Foundation
 
 class ShelfGameLogic {
     
+    static var selectedItemCount: Int = 0
+    
     var itemIDCount: Int = 0
     var shelfGameVC: ShelfGameViewController!
-    static var selectedItemIDs: [Int] = []
-    var initializedItems: [DropItemModel] = []
+    static var initializedItems: [DropItemModel] = []
     var currentItem: DropItemModel!
-    var isGameNotOver: Bool = true
+    var timer: Timer!
     
     init() {
-        
-        //_ = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
-        
+   
+    }
+    
+    func setVC(vc: ShelfGameViewController){
+        self.shelfGameVC = vc
+        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
     }
     
     @objc func update() {
         itemIDCount += 1
         currentItem = DropItemModel(id: itemIDCount)
-        initializedItems.append(currentItem)
+        ShelfGameLogic.initializedItems.append(currentItem)
         shelfGameVC.view.addSubview(currentItem)
-        //NSLog("Item Count: "+String(selectedItemIDs.count))
-        if ShelfGameLogic.selectedItemIDs.count == 3 {
-            let i = initializedItems.index(where: {$0.getID() == ShelfGameLogic.selectedItemIDs[0]})
-            NSLog("Index: \(i)")
-            let h = initializedItems.index(where: {$0.getID() == ShelfGameLogic.selectedItemIDs[1]})
-            NSLog("Index: \(h)")
-            let j = initializedItems.index(where: {$0.getID() == ShelfGameLogic.selectedItemIDs[2]})
-            NSLog("Index: \(j)")
-            initializedItems[i!].killItem()
-            initializedItems[h!].killItem()
-            initializedItems[j!].killItem()
+    }
+    
+    static func increaseSelectedItemCount() {
+        selectedItemCount += 1
+        NSLog("Item Count: \(selectedItemCount)")
+        if selectedItemCount == 3 {
+            for item in initializedItems {
+                if item.isPaused() {
+                    item.killItem()
+                }
+            }
+            selectedItemCount = 0
         }
     }
     
-    func setVC(vc: ShelfGameViewController){
-        self.shelfGameVC = vc
-        _ = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
+    func killGame(){
+        timer.invalidate()
     }
     
-    static func itemSelected(selectedItemID: Int) {
-        selectedItemIDs.append(selectedItemID)
-        NSLog("Item in der Logic Selected: \(selectedItemIDs.count)")
-        //NSLog("Item in der Logic Selected: " + String(selectedItemID))
+    static func decreaseSelectedItemCount() {
+        selectedItemCount -= 1
+        NSLog("Item Count decreased: \(selectedItemCount)")
     }
 }

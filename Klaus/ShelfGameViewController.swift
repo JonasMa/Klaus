@@ -23,12 +23,7 @@ class ShelfGameViewController: UIViewController {
     }
     
     func onItemTouchedFloor() {
-        //NSLog("Game Over")
+        NSLog("Game Over")
+        logic.killGame()
     }
-    
-    /*func onItemSelected(itemID: Int) {
-        //NSLog("Hallo: " + String(itemID))
-        logic.itemSelected(selectedItemID: itemID)
-    }*/
-    
 }
