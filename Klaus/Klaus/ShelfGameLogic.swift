@@ -7,16 +7,19 @@
 //
 
 import Foundation
+import AudioToolbox
 
 class ShelfGameLogic {
     
     static var selectedItemCount: Int = 0
-    
-    var itemIDCount: Int = 0
+    static var score: Double = 0
     var shelfGameVC: ShelfGameViewController!
     static var initializedItems: [DropItemModel] = []
     var currentItem: DropItemModel!
     static var timer = Timer.init()
+    static var speed: Double = 1.0
+    
+    static var gameOverYet: Bool = false
     
     init() {
    
@@ -24,35 +27,53 @@ class ShelfGameLogic {
     
     func setVC(vc: ShelfGameViewController){
         self.shelfGameVC = vc
-        ShelfGameLogic.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
+        ShelfGameLogic.timer = Timer.scheduledTimer(timeInterval: ShelfGameLogic.speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
     }
     
     @objc func update() {
-        itemIDCount += 1
-        currentItem = DropItemModel(id: itemIDCount)
+        currentItem = DropItemModel()
         ShelfGameLogic.initializedItems.append(currentItem)
         shelfGameVC.view.addSubview(currentItem)
+        ShelfGameLogic.timer = Timer.scheduledTimer(timeInterval: ShelfGameLogic.speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
+        if ShelfGameLogic.gameOverYet {
+            shelfGameVC.onItemTouchedFloor(score: ShelfGameLogic.score)
+            gameOver()
+        }
     }
     
     static func increaseSelectedItemCount() {
         selectedItemCount += 1
-        NSLog("Item Count: \(selectedItemCount)")
-        if selectedItemCount == 3 {
+        if selectedItemCount > 2 {
             for item in initializedItems {
                 if item.isPaused() {
                     item.killItem()
                 }
             }
             selectedItemCount = 0
+            score += 1.0
+            if speed > 0.6 {
+                speed -= 0.1
+                NSLog("Speed: \(speed)")
+            }
+            AudioServicesPlaySystemSound(1016)
+        }
+        NSLog("Score: \(score)")
+        NSLog("Speed: \(speed)")
+    }
+    
+    func gameOver(){
+        NSLog("Game Over")
+        ShelfGameLogic.timer.invalidate()
+        for item in ShelfGameLogic.initializedItems {
+            item.killItem()
         }
     }
     
-    static func killGame(){
-        ShelfGameLogic.timer.invalidate()
+    static func getScore() -> Double{
+        return score
     }
     
     static func decreaseSelectedItemCount() {
         selectedItemCount -= 1
-        NSLog("Item Count decreased: \(selectedItemCount)")
     }
 }

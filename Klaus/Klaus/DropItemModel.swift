@@ -13,8 +13,8 @@ import AudioToolbox
 class DropItemModel: UIImageView {
     
     var paused: Bool = false
+    var gameNotOverYet: Bool = true
     
-    var id: Int
     var xPosition: Int = 120
     let yPosition: Int = 30
     let frameWidth: Int = 60
@@ -27,10 +27,9 @@ class DropItemModel: UIImageView {
     var tapGesture = UITapGestureRecognizer()
     var shelfGameVC = ShelfGameViewController()
     
-    init(id: Int) {
+    init() {
         
-        self.id = id
-        self.xPosition = Int(arc4random_uniform(UInt32(UIScreen.main.bounds.width-20)-5) + 5)
+        self.xPosition = Int(arc4random_uniform(UInt32(UIScreen.main.bounds.width-50)-5) + 5)
         self.speed = CGFloat(Int(arc4random_uniform(4) + 3))
         
         super.init(frame: CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: CGSize(width: frameWidth, height: frameHeight)))
@@ -54,7 +53,6 @@ class DropItemModel: UIImageView {
         displayLink.isPaused = true
         paused = true
         ShelfGameLogic.increaseSelectedItemCount()
-        //ShelfGameLogic.itemSelected(selectedItemID: id)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -64,6 +62,7 @@ class DropItemModel: UIImageView {
     }
     
     func killItem () {
+        gameNotOverYet = false
         self.removeFromSuperview()
     }
     
@@ -77,7 +76,10 @@ class DropItemModel: UIImageView {
         self.frame = viewFrame
         if self.frame.origin.y >= groundCollision {
             displayLink.invalidate()
-            shelfGameVC.onItemTouchedFloor()
+            if gameNotOverYet {
+                ShelfGameLogic.gameOverYet = true
+            }
+
         }
     }
 }
