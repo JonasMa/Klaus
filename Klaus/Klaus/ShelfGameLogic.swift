@@ -16,7 +16,7 @@ class ShelfGameLogic {
     var shelfGameVC: ShelfGameViewController!
     static var initializedItems: [DropItemModel] = []
     var currentItem: DropItemModel!
-    var timer: Timer!
+    static var timer = Timer.init()
     
     init() {
    
@@ -24,7 +24,7 @@ class ShelfGameLogic {
     
     func setVC(vc: ShelfGameViewController){
         self.shelfGameVC = vc
-        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
+        ShelfGameLogic.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
     }
     
     @objc func update() {
@@ -47,8 +47,8 @@ class ShelfGameLogic {
         }
     }
     
-    func killGame(){
-        timer.invalidate()
+    static func killGame(){
+        ShelfGameLogic.timer.invalidate()
     }
     
     static func decreaseSelectedItemCount() {

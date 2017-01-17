@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AudioToolbox
 
 class DropItemModel: UIImageView {
     
@@ -49,6 +50,7 @@ class DropItemModel: UIImageView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         displayLink.isPaused = true
         paused = true
         ShelfGameLogic.increaseSelectedItemCount()
