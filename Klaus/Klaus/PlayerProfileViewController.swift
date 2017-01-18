@@ -19,7 +19,7 @@ class PlayerProfileViewController: ProfileViewController {
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         
-        self.title = "PlayerProfileView";
+        self.title = "My Profile";
         super.addConstraints();
         
         profileNameLabel.text = AppModel.sharedInstance.player.name;

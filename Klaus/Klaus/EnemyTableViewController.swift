@@ -20,7 +20,7 @@ class EnemyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.backgroundColor = Style.fresh;
+        self.tableView.backgroundColor = Style.bg;
         self.tableView.register(EnemyTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
 
     }
@@ -43,6 +43,7 @@ class EnemyTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! EnemyTableViewCell;
         let profile = AppModel.sharedInstance.enemiesList[indexPath.row];
         cell.textLabel!.text = profile.name;
+        cell.detailTextLabel?.text = String(profile.score);
         return cell
     }
     
