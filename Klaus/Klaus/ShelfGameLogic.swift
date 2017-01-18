@@ -11,37 +11,42 @@ import AudioToolbox
 
 class ShelfGameLogic {
     
-    static var selectedItemCount: Int = 0
-    static var score: Double = 0
+    var selectedItemCount: Int = 0
+    var score: Double = 0
     var shelfGameVC: ShelfGameViewController!
-    static var initializedItems: [DropItemModel] = []
+    var initializedItems: [DropItemModel] = []
     var currentItem: DropItemModel!
-    static var timer = Timer.init()
-    static var speed: Double = 1.0
+    var timer = Timer.init()
+    var speed: Double = 1.0
     
-    static var gameOverYet: Bool = false
+    var gameOverYet: Bool = false
     
-    init() {
-   
-    }
-    
-    func setVC(vc: ShelfGameViewController){
+    init(vc: ShelfGameViewController) {
+        initGameVariables()
         self.shelfGameVC = vc
-        ShelfGameLogic.timer = Timer.scheduledTimer(timeInterval: ShelfGameLogic.speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
+        timer = Timer.scheduledTimer(timeInterval: speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
     }
     
     @objc func update() {
-        currentItem = DropItemModel()
-        ShelfGameLogic.initializedItems.append(currentItem)
+        currentItem = DropItemModel(logic: self)
+        initializedItems.append(currentItem)
         shelfGameVC.view.addSubview(currentItem)
-        ShelfGameLogic.timer = Timer.scheduledTimer(timeInterval: ShelfGameLogic.speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
-        if ShelfGameLogic.gameOverYet {
-            shelfGameVC.onItemTouchedFloor(score: ShelfGameLogic.score)
+        timer = Timer.scheduledTimer(timeInterval: speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
+        if gameOverYet {
+            shelfGameVC.onItemTouchedFloor(score: score)
             gameOver()
         }
     }
     
-    static func increaseSelectedItemCount() {
+    func initGameVariables() {
+        initializedItems.removeAll()
+        selectedItemCount = 0
+        score = 0
+        speed = 1.0
+        gameOverYet = false
+    }
+    
+    func increaseSelectedItemCount() {
         selectedItemCount += 1
         if selectedItemCount > 2 {
             for item in initializedItems {
@@ -63,17 +68,13 @@ class ShelfGameLogic {
     
     func gameOver(){
         NSLog("Game Over")
-        ShelfGameLogic.timer.invalidate()
-        for item in ShelfGameLogic.initializedItems {
+        timer.invalidate()
+        for item in initializedItems {
             item.killItem()
         }
     }
     
-    static func getScore() -> Double{
-        return score
-    }
-    
-    static func decreaseSelectedItemCount() {
+    func decreaseSelectedItemCount() {
         selectedItemCount -= 1
     }
 }
