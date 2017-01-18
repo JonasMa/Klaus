@@ -469,6 +469,7 @@
 					};
 					8497B5BB1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 87X3F5FDGG;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 8497B59A1DE6FFC60039E35C;
 					};
@@ -774,6 +775,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = KlausUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg.de.KlausUITests;
@@ -787,6 +789,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = KlausUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg.de.KlausUITests;
