@@ -15,7 +15,7 @@ class ItemCollectionViewController: UICollectionViewController {
     var profile: Profile!;
 
     fileprivate let itemsPerRow: CGFloat = 3;
-    fileprivate let sectionInsets = UIEdgeInsets(top: 100.0, left: 10.0, bottom: 0.0, right: 10.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 100.0, left: 15.0, bottom: 0.0, right: 15.0)
 
     
     override func loadView() {

@@ -29,6 +29,7 @@ class AppModel {
         //load data from NSUserDefaults
     }
     
+    
     func updateEnemyList(enemiesList: Array<EnemyProfile>){
         self.enemiesList = enemiesList;
     }
