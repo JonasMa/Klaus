@@ -10,24 +10,24 @@ import UIKit
 
 class PlayerProfileViewController: ProfileViewController {
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         CentralPeripheralController.sharedInstance.setPassive()
         
+        let profile = AppModel.sharedInstance.player;
         //ITEM COLLECTION
         itemCollectionViewController = PlayerItemCollectionViewController();
+        itemCollectionViewController.profile = profile;
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         
         self.title = "My Profile";
         super.addConstraints();
         
-        profileNameLabel.text = AppModel.sharedInstance.player.name;
-        profileScoreLabel.text = String(AppModel.sharedInstance.player.score);
+        profileNameLabel.text = profile.name;
+        profileScoreLabel.text = String(profile.score);
 
-        
     }
 
     override func didReceiveMemoryWarning() {

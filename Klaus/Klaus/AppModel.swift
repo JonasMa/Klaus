@@ -13,7 +13,7 @@ class AppModel {
     static let sharedInstance: AppModel = AppModel();
     
     var enemiesList: Array<EnemyProfile>;
-    var player: PlayerProfile
+    let player: PlayerProfile
 
     
     init() {
