@@ -52,9 +52,11 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         // Opt out from any other state
         if #available(iOS 10.0, *) {
             if (peripheral.state != CBManagerState.poweredOn) {
+                print("CBManagerState != poweredOn")
                 return
             }
         } else {
+            print("TOO OLD IOS! ALARM!")
             // Fallback on earlier versions
         }
         
@@ -82,6 +84,10 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         // And add it to the peripheral manager
         peripheralManager!.add(transferService)
+        
+        if isAtvertising {
+            startStopAdvertising(true)
+        }
     }
     
     /** Catch when someone subscribes to our characteristic, then start sending them data
@@ -232,14 +238,15 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     func startStopAdvertising (_ doAdvertise: Bool) {
         
         isAtvertising = doAdvertise
-        
-        if doAdvertise {
-            // All we advertise is our service's UUID
-            peripheralManager!.startAdvertising([
-                CBAdvertisementDataServiceUUIDsKey : [transferServiceUUID]
+        if peripheralManager?.state == .poweredOn {
+            if doAdvertise && !peripheralManager!.isAdvertising {
+                // All we advertise is our service's UUID
+                peripheralManager!.startAdvertising([
+                    CBAdvertisementDataServiceUUIDsKey : [transferServiceUUID]
                 ])
-        } else {
-            peripheralManager?.stopAdvertising()
+            } else {
+                peripheralManager?.stopAdvertising()
+            }
         }
     }
     

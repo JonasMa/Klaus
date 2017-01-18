@@ -22,6 +22,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     // And somewhere to store the incoming data
     fileprivate let data = NSMutableData()
     
+    override init() {
+        super.init()
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+    }
     
     func setActive (){
         isActive = true
@@ -47,7 +51,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         else {
             isAvailable = false
         }
-        
+        print("centralManager isAvailable: " + String(isAvailable))
         // The state must be CBCentralManagerStatePoweredOn...
         // ... so start scanning
         //scan()
@@ -56,7 +60,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     /** Scan for peripherals - specifically for our service's 128bit CBUUID
      */
     func scan() {
-        
+        print("scan(). isAvailable: " + String(isAvailable))
         guard isAvailable else { return }
         
         centralManager?.scanForPeripherals(
@@ -96,6 +100,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             //centralManager?.connect(peripheral, options: nil)
             // TODO connect on enemy select
             let profile = EnemyProfile(name: peripheral.name!)
+            print("Enemy seen!! " + profile.name)
             AppModel.sharedInstance.addEnemyToList(enemy: profile)
         }
     }

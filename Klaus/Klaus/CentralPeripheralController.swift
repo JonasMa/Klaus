@@ -23,24 +23,21 @@ class CentralPeripheralController {
     
     init (){
         self.state = BluetoothState.peripheral
-        print("init1")
         setPassive()
-        print("init2")
     }
     
     func discoverEnemies (){
         // TODO set central active/ peripheral inactive
+        print("central active")
         state = BluetoothState.central
         central.setActive()
         peripheral.setInactive()
     }
     
     func setPassive (){
-        print("setPassive1")
         state = BluetoothState.peripheral
-        print("setPassive2")
+        print("central inactive")
         central.setInactive()
-        print("setPassive3")
         peripheral.setActive()
     }
 }
