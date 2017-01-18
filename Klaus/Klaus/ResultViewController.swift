@@ -15,6 +15,7 @@ class ResultViewController: UIViewController {
     
     init(result: Double){
         super.init(nibName: "ResultViewController", bundle: nil)
+        self.navigationItem.setHidesBackButton(true, animated: false)
         self.result = result
     }
     

@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated: false)
         accelerometerModel = AccelerometerModel()
         countdown = CountdownModel(vc: self)
     }
