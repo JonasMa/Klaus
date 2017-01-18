@@ -15,9 +15,32 @@ class CentralPeripheralController {
         case peripheral
     }
     
-    var state: BluetoothState = BluetoothState.peripheral
+    static let sharedInstance = CentralPeripheralController ()
+    
+    let peripheral: BTLEPeripheralModel = BTLEPeripheralModel()
+    let central: BTLECentralModel = BTLECentralModel()
+    var state: BluetoothState
     
     init (){
-        
+        self.state = BluetoothState.peripheral
+        print("init1")
+        setPassive()
+        print("init2")
+    }
+    
+    func discoverEnemies (){
+        // TODO set central active/ peripheral inactive
+        state = BluetoothState.central
+        central.setActive()
+        peripheral.setInactive()
+    }
+    
+    func setPassive (){
+        print("setPassive1")
+        state = BluetoothState.peripheral
+        print("setPassive2")
+        central.setInactive()
+        print("setPassive3")
+        peripheral.setActive()
     }
 }

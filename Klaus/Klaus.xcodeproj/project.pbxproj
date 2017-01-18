@@ -18,9 +18,9 @@
 		47C062341E152B8100C25292 /* ResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C062321E152B8100C25292 /* ResultViewController.xib */; };
 		47C0623D1E1542EC00C25292 /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C0623C1E1542EC00C25292 /* Games.swift */; };
 		6A4AA0641E2B063D00834712 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0631E2B063D00834712 /* Definitions.swift */; };
-		6A4AA0671E2B066000834712 /* BTLECentralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0651E2B066000834712 /* BTLECentralViewController.swift */; };
-		6A4AA0681E2B066000834712 /* BTLEPeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0661E2B066000834712 /* BTLEPeripheralViewController.swift */; };
 		6A4AA06B1E2B071400834712 /* CentralPeripheralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */; };
+		6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */; };
+		6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */; };
 		8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B59E1DE6FFC60039E35C /* AppDelegate.swift */; };
 		8497B5A61DE6FFC60039E35C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A41DE6FFC60039E35C /* Main.storyboard */; };
 		8497B5A81DE6FFC60039E35C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A71DE6FFC60039E35C /* Assets.xcassets */; };
@@ -87,9 +87,9 @@
 		47C062321E152B8100C25292 /* ResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultViewController.xib; sourceTree = "<group>"; };
 		47C0623C1E1542EC00C25292 /* Games.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
 		6A4AA0631E2B063D00834712 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
-		6A4AA0651E2B066000834712 /* BTLECentralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralViewController.swift; sourceTree = "<group>"; };
-		6A4AA0661E2B066000834712 /* BTLEPeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEPeripheralViewController.swift; sourceTree = "<group>"; };
 		6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralPeripheralController.swift; sourceTree = "<group>"; };
+		6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralModel.swift; sourceTree = "<group>"; };
+		6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEPeripheralModel.swift; sourceTree = "<group>"; };
 		8497B59B1DE6FFC60039E35C /* Klaus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8497B59E1DE6FFC60039E35C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8497B5A51DE6FFC60039E35C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -201,11 +201,19 @@
 		6A4AA0691E2B069C00834712 /* Connection */ = {
 			isa = PBXGroup;
 			children = (
-				6A4AA0651E2B066000834712 /* BTLECentralViewController.swift */,
-				6A4AA0661E2B066000834712 /* BTLEPeripheralViewController.swift */,
-				6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */,
+				6A4AA06C1E2BF4DF00834712 /* Model */,
 			);
 			name = Connection;
+			sourceTree = "<group>";
+		};
+		6A4AA06C1E2BF4DF00834712 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */,
+				6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */,
+				6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		8497B5921DE6FFC60039E35C = {
@@ -439,7 +447,7 @@
 				TargetAttributes = {
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 87X3F5FDGG;
+						DevelopmentTeam = MJPF8FFZ6P;
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -521,14 +529,14 @@
 				FAB1C47A1E13FCA700981731 /* EnemyListViewController.swift in Sources */,
 				FA161E211E07F87E001450E8 /* ItemCollectionViewController.swift in Sources */,
 				FAB1C4801E14081E00981731 /* PlayerItemDetailViewController.swift in Sources */,
+				6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */,
+				6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */,
 				479CB0111E168A9300176D02 /* Strings.swift in Sources */,
 				FAB1C4861E14108700981731 /* PlayerItemCollectionViewController.swift in Sources */,
 				FAB1C45E1E0ED45C00981731 /* ItemCollectionView.swift in Sources */,
 				FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */,
-				6A4AA0671E2B066000834712 /* BTLECentralViewController.swift in Sources */,
 				47C0623D1E1542EC00C25292 /* Games.swift in Sources */,
 				FAB1C46C1E11AB9600981731 /* Style.swift in Sources */,
-				6A4AA0681E2B066000834712 /* BTLEPeripheralViewController.swift in Sources */,
 				6A4AA06B1E2B071400834712 /* CentralPeripheralController.swift in Sources */,
 				FAB1C4681E117DFF00981731 /* ItemDetailViewController.swift in Sources */,
 				479CB0131E168FE000176D02 /* CountdownModel.swift in Sources */,
@@ -701,11 +709,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 87X3F5FDGG;
+				DEVELOPMENT_TEAM = MJPF8FFZ6P;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswaggy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -716,11 +724,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 87X3F5FDGG;
+				DEVELOPMENT_TEAM = MJPF8FFZ6P;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswaggy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

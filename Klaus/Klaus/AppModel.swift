@@ -13,7 +13,7 @@ class AppModel {
     static let sharedInstance: AppModel = AppModel();
     
     var enemiesList: Array<EnemyProfile>;
-    let player: PlayerProfile;
+    var player: PlayerProfile
 
     
     init() {
@@ -31,6 +31,11 @@ class AppModel {
     
     func updateEnemyList(enemiesList: Array<EnemyProfile>){
         self.enemiesList = enemiesList;
+    }
+    
+    func addEnemyToList(enemy: EnemyProfile){
+        enemiesList.append(enemy)
+        
     }
     
 }

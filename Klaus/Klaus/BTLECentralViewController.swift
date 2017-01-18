@@ -92,9 +92,12 @@ class BTLECentralViewController: UIViewController, CBCentralManagerDelegate, CBP
             discoveredPeripheral = peripheral
             
             // And connect
-            print("Connecting to peripheral \(peripheral)")
+            //print("Connecting to peripheral \(peripheral)")
             
-            centralManager?.connect(peripheral, options: nil)
+            //centralManager?.connect(peripheral, options: nil)
+            // TODO connect on enemy select
+            let profile = EnemyProfile(name: peripheral.name!)
+            AppModel.sharedInstance.addEnemyToList(enemy: profile)
         }
     }
     
