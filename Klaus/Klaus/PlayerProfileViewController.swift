@@ -13,7 +13,9 @@ class PlayerProfileViewController: ProfileViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        CentralPeripheralController.sharedInstance.setPassive()
+        
         //ITEM COLLECTION
         itemCollectionViewController = PlayerItemCollectionViewController();
         self.addChildViewController(itemCollectionViewController);

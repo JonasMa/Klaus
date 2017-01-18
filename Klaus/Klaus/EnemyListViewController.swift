@@ -21,12 +21,13 @@ class EnemyListViewController: UIViewController {
         CentralPeripheralController.sharedInstance.setPassive()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        CentralPeripheralController.sharedInstance.discoverEnemies()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("before")
-        CentralPeripheralController.sharedInstance.discoverEnemies()
-        print("after (hihi)")
         self.title = "Enemies In Range";
         enemyTableViewController = EnemyTableViewController()
         self.addChildViewController(enemyTableViewController);
