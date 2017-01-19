@@ -49,19 +49,26 @@ class AppModel {
     
     func updateEnemyListInView(){
         var enemyDict = Dictionary<Int,EnemyProfile>();
+        
         for i in 0...(enemiesList.count-1){
             enemyDict[i] = enemiesList[i];
-            
         }
         NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyListNotification, object: nil, userInfo: enemyDict)
     }
     
     func addEnemyToList(enemy: EnemyProfile){
-        enemiesList.append(enemy)
-        
+        enemiesList.append(enemy);
+        updateEnemyListInView();
     }
     
     func removeEnemyFromList(enemy: EnemyProfile){
+        if(enemiesList.contains(enemy)){
+            enemiesList.remove(at: enemiesList.index(of: enemy)!);
+            print("Enemy " + enemy.name + " with id " + enemy.id + " removed from list");
+            updateEnemyListInView();
+        }else{
+            print("Could not remove enemy " + enemy.name + " with id " + enemy.id + ", not in list");
+        }
     }
     
     
