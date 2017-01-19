@@ -16,7 +16,7 @@ class Profile {
     
     init(name: String){
         self.name = name;
-        self.score = 123456789;
+        self.score = 0;
         self.items = Array<Item>();
         
         //for testing

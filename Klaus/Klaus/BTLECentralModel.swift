@@ -16,8 +16,14 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     fileprivate var centralManager: CBCentralManager?
     fileprivate var discoveredPeripheral: CBPeripheral?
     
+    weak var delegate: ConnectingDelegate?
+    
     var isAvailable: Bool = false
     var isActive: Bool = false
+    
+    var currentEnemyProfile: EnemyProfile?
+    
+    var knownPeripherals: [CBPeripheral] = []
     
     // And somewhere to store the incoming data
     fileprivate let data = NSMutableData()
@@ -26,7 +32,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         super.init()
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
-    
+
     func setActive (){
         isActive = true
         scan() //TODO check if this has to be be invoked every time
@@ -34,7 +40,21 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     func setInactive (){
         isActive = false
+        stopScan()
         cleanup() // TODO check if this is too much holzhammer
+    }
+    
+    func stopScan() {
+        if (centralManager?.isScanning)! {
+            centralManager?.stopScan()
+        }
+    }
+    
+    func peripheralDidUpdateName(_ peripheral: CBPeripheral) {
+        if knownPeripherals.contains(peripheral) {
+            // TODO update name of peripheral
+            //peripheral.
+        }
     }
     
     /** centralManagerDidUpdateState is a required protocol method.
@@ -72,6 +92,18 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         print("Scanning started")
     }
     
+    
+    func connectToPeripheral (uuid: String){
+        
+        for peripheral: CBPeripheral in knownPeripherals {
+            if peripheral.identifier.uuidString == uuid {
+                centralManager?.connect(peripheral, options: nil)
+                return
+            }
+        }
+        print("no matching peripheral found for uuid " + uuid)
+    }
+    
     /** This callback comes whenever a peripheral that is advertising the TRANSFER_SERVICE_UUID is discovered.
      *  We check the RSSI, to make sure it's close enough that we're interested in it, and if it is,
      *  we start the connection process
@@ -85,22 +117,32 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         //            println("Device not at correct range")
         //            return
         //        }
-        
-        print("Discovered \(peripheral.name) at \(RSSI)")
-        
+
         // Ok, it's in range - have we already seen it?
         
+        
         if discoveredPeripheral != peripheral {
+            
+            print("Discovered new \(peripheral.name) with uuid \(peripheral.identifier.uuidString)")
+            print("Data: " + advertisementData.description)
+            
+            knownPeripherals.append(peripheral)
             // Save a local copy of the peripheral, so CoreBluetooth doesn't get rid of it
             discoveredPeripheral = peripheral
-            
             // And connect
             //print("Connecting to peripheral \(peripheral)")
             
             //centralManager?.connect(peripheral, options: nil)
             // TODO connect on enemy select
-            let profile = EnemyProfile(name: peripheral.name!)
-            print("Enemy seen!! " + profile.name)
+            var name: String
+            if let pName = peripheral.name {
+                name = pName
+            }
+            else {
+                name = DEFAULT_NAME //defaultName declared in Definitions
+            }
+            let profile = EnemyProfile(name: name)
+            print("Enemy seen!! " + name)
             AppModel.sharedInstance.addEnemyToList(enemy: profile)
         }
     }
@@ -119,8 +161,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         print("Peripheral Connected")
         
         // Stop scanning
-        centralManager?.stopScan()
-        print("Scanning stopped")
+        if centralManager!.isScanning {
+            centralManager?.stopScan()
+            print("Scanning stopped")
+        }
         
         // Clear the data that we may already have
         data.length = 0
@@ -198,7 +242,13 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             // We have, so show the data,
             //textView.text = String(data: data.copy() as! Data, encoding: String.Encoding.utf8)
             
-            // TODO send text to wherever
+            // TODO send data string to wherever (siehe oben)
+            // with delegate methods
+            let name: String = String(data: data.copy() as! Data, encoding: String.Encoding.utf8)!
+            
+            delegate?.didRetrievePlayerInfo(name: name)
+            // TODO define info
+            
             
             // Cancel our subscription to the characteristic
             peripheral.setNotifyValue(false, for: characteristic)

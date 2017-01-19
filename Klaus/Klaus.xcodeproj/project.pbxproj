@@ -25,6 +25,7 @@
 		6A4AA06B1E2B071400834712 /* CentralPeripheralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */; };
 		6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */; };
 		6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */; };
+		6A4AA0721E30E9C900834712 /* ConnectingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */; };
 		8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B59E1DE6FFC60039E35C /* AppDelegate.swift */; };
 		8497B5A81DE6FFC60039E35C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A71DE6FFC60039E35C /* Assets.xcassets */; };
 		8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */; };
@@ -95,6 +96,7 @@
 		6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralPeripheralController.swift; sourceTree = "<group>"; };
 		6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralModel.swift; sourceTree = "<group>"; };
 		6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEPeripheralModel.swift; sourceTree = "<group>"; };
+		6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingDelegate.swift; sourceTree = "<group>"; };
 		8497B59B1DE6FFC60039E35C /* Klaus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8497B59E1DE6FFC60039E35C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8497B5A71DE6FFC60039E35C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -224,9 +226,11 @@
 		6A4AA06C1E2BF4DF00834712 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6A4AA0631E2B063D00834712 /* Definitions.swift */,
 				6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */,
 				6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */,
 				6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */,
+				6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -383,7 +387,6 @@
 		FAB1C49C1E14235D00981731 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				6A4AA0631E2B063D00834712 /* Definitions.swift */,
 				FAB1C46B1E11AB9600981731 /* Style.swift */,
 				479CB0101E168A9300176D02 /* Strings.swift */,
 			);
@@ -458,7 +461,7 @@
 				TargetAttributes = {
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = L7VW28QFMH;
+						DevelopmentTeam = MJPF8FFZ6P;
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -570,6 +573,7 @@
 				FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */,
 				47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */,
 				47C062331E152B8100C25292 /* ResultViewController.swift in Sources */,
+				6A4AA0721E30E9C900834712 /* ConnectingDelegate.swift in Sources */,
 				FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */,
 				FAB1C4821E14087E00981731 /* EnemyItemDetailViewController.swift in Sources */,
 			);
@@ -715,11 +719,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = L7VW28QFMH;
+				DEVELOPMENT_TEAM = MJPF8FFZ6P;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswaggy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -730,11 +734,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = L7VW28QFMH;
+				DEVELOPMENT_TEAM = MJPF8FFZ6P;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswaggy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

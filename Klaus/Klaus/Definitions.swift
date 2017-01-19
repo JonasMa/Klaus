@@ -14,3 +14,5 @@ let NOTIFY_MTU = 20
 
 let transferServiceUUID = CBUUID(string: TRANSFER_SERVICE_UUID)
 let transferCharacteristicUUID = CBUUID(string: TRANSFER_CHARACTERISTIC_UUID)
+
+let DEFAULT_NAME = "Unidentified Player"
