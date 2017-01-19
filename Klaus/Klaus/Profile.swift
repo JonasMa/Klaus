@@ -8,13 +8,18 @@
 
 import Foundation
 
-class Profile {
+class Profile: Equatable{
     
+    var id: String;
     var name: String;
     var score: Int;
     var items: Array<Item>;
     
     init(name: String){
+        
+        //random String for id, temporary
+        self.id = String(arc4random_uniform(1000));
+        
         self.name = name;
         self.score = 0;
         self.items = Array<Item>();
@@ -25,12 +30,21 @@ class Profile {
         
     }
     
+    convenience init(id: String, name:String){
+        self.init(name: name);
+        self.id = id;
+    }
+    
     func addItem(item: Item){
         items.append(item);
     }
     
     func removeItemWithId(id: String){
         //TODO
+    }
+    
+    static func == (lhs: Profile, rhs: Profile) -> Bool{
+        return lhs.id == rhs.id;
     }
     
 }

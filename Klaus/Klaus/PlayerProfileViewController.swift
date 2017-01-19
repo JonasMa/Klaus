@@ -10,28 +10,42 @@ import UIKit
 
 class PlayerProfileViewController: ProfileViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, queue: nil, using: updateScore)
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil);
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         CentralPeripheralController.sharedInstance.setPassive()
         
+        let profile = AppModel.sharedInstance.player;
         //ITEM COLLECTION
         itemCollectionViewController = PlayerItemCollectionViewController();
+        itemCollectionViewController.profile = profile;
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         
         self.title = "My Profile";
         super.addConstraints();
         
-        profileNameLabel.text = AppModel.sharedInstance.player.name;
-        profileScoreLabel.text = String(AppModel.sharedInstance.player.score);
+        profileNameLabel.text = profile.name;
+        profileScoreLabel.text = String(profile.score);
+                
 
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func updateScore(notification:Notification){
+        profileScoreLabel.text = notification.userInfo?["newScore"] as? String;
     }
 
 }

@@ -31,13 +31,13 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return AppModel.sharedInstance.player.items.count
+        return profile.items.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PlayerItemCollectionViewCell
         
-        let item = AppModel.sharedInstance.player.items[indexPath.row];
+        let item = profile.items[indexPath.row];
         let name = item.name;
         cell.imageView.image = UIImage(named: name.lowercased())?.withRenderingMode(.alwaysTemplate);
         cell.label.text = name;
@@ -46,7 +46,7 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = PlayerItemDetailViewController();
-        detailViewController.item = AppModel.sharedInstance.player.items[indexPath.row];
+        detailViewController.item = profile.items[indexPath.row];
         self.navigationController?.pushViewController(detailViewController, animated: true);
     }
 

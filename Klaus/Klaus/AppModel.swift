@@ -13,7 +13,9 @@ class AppModel {
     static let sharedInstance: AppModel = AppModel();
     
     var enemiesList: Array<EnemyProfile>;
-    var player: PlayerProfile
+    let player: PlayerProfile
+    
+    var test: Int;
 
     
     init() {
@@ -21,22 +23,50 @@ class AppModel {
         
         //for testing
         player = PlayerProfile(name: "Ulf-Eugen");
-        let enemy1 = EnemyProfile(name: "Guenther");
-        let enemy2 = EnemyProfile(name: "Soeren");
-        enemiesList.append(enemy1);
-        enemiesList.append(enemy2);
         
+        //to test notifications
+        test = 0;
+        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
+        
+
         //load data from NSUserDefaults
     }
     
+    @objc func updateScoreForTesting(){
+        test += 1;
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(test)]);
+        if (test == 3){
+            addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+
+        }
+    }
     
-    func updateEnemyList(enemiesList: Array<EnemyProfile>){
-        self.enemiesList = enemiesList;
+    
+    func updateEnemyListInView(){
+        var enemyDict = Dictionary<Int,EnemyProfile>();
+        
+        for i in 0...(enemiesList.count-1){
+            enemyDict[i] = enemiesList[i];
+        }
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyListNotification, object: nil, userInfo: enemyDict)
     }
     
     func addEnemyToList(enemy: EnemyProfile){
-        enemiesList.append(enemy)
-        
+        enemiesList.append(enemy);
+        updateEnemyListInView();
     }
     
+    func removeEnemyFromList(enemy: EnemyProfile){
+        if(enemiesList.contains(enemy)){
+            enemiesList.remove(at: enemiesList.index(of: enemy)!);
+            print("Enemy " + enemy.name + " with id " + enemy.id + " removed from list");
+            updateEnemyListInView();
+        }else{
+            print("Could not remove enemy " + enemy.name + " with id " + enemy.id + ", not in list");
+        }
+    }
+    
+    
+    
 }
+

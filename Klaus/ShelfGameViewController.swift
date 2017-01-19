@@ -10,13 +10,13 @@ import UIKit
 
 class ShelfGameViewController: UIViewController {
     
-    var logic = ShelfGameLogic()
+    var logic: ShelfGameLogic!
     var gameScore: Double = 0
     
     override func viewDidLoad() {
+        logic = ShelfGameLogic(vc: self)
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
-        logic.setVC(vc: self)
     }
 
     override func didReceiveMemoryWarning() {
