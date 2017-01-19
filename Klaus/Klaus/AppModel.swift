@@ -23,14 +23,10 @@ class AppModel {
         
         //for testing
         player = PlayerProfile(name: "Ulf-Eugen");
-        let enemy1 = EnemyProfile(name: "Guenther");
-        let enemy2 = EnemyProfile(name: "Soeren");
-        enemiesList.append(enemy1);
-        enemiesList.append(enemy2);
         
         //to test notifications
         test = 0;
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
         
         
         //load data from NSUserDefaults
@@ -40,34 +36,34 @@ class AppModel {
         test += 1;
         NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(test)]);
         
-        let e1 = EnemyProfile(name: "Jorst");
-        let e2 = EnemyProfile(name: "Barakk");
-        let e3 = EnemyProfile(name: "Guenther");
-        let e4 = EnemyProfile(name: "Soeren");
-        let e5 = EnemyProfile(name: "Heribert");
-        let e6 = EnemyProfile(name: "Gerlinde");
-        let e7 = EnemyProfile(name: "Irmgard");
         
         switch test {
         case 2:
+            let e1 = EnemyProfile(name: "1 Jorst");
             addEnemyToList(enemy: e1);
             break;
         case 3:
+            let e2 = EnemyProfile(name: "2 Barakk");
             addEnemyToList(enemy: e2);
             break;
         case 4:
+            let e3 = EnemyProfile(name: "3 Guenther");
             addEnemyToList(enemy: e3);
             break;
         case 5:
+            let e4 = EnemyProfile(name: "4 Soeren");
             addEnemyToList(enemy: e4);
             break;
         case 6:
+            let e5 = EnemyProfile(name: "5 Heribert");
             addEnemyToList(enemy: e5);
             break;
         case 7:
+            let e6 = EnemyProfile(name: "6 Gerlinde");
             addEnemyToList(enemy: e6);
             break;
         case 8:
+            let e7 = EnemyProfile(name: "7 Irmgard");
             addEnemyToList(enemy: e7);
             break;
 

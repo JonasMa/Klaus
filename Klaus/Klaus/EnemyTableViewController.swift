@@ -66,8 +66,7 @@ class EnemyTableViewController: UITableViewController {
     
     func updateList(notification: Notification){
         enemiesList = Array(notification.userInfo!.values) as! Array<EnemyProfile>;
-        print("new Enemy List");
-        print(enemiesList);
+        print("Enemy List Updated!");
         self.tableView.reloadData();
         
     }
