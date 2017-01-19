@@ -23,12 +23,14 @@ class DropItemModel: UIImageView {
     var speed: CGFloat = 5
     let groundCollision: CGFloat = 500
     
+    var gameLogic: ShelfGameLogic
     var displayLink = CADisplayLink()
     var tapGesture = UITapGestureRecognizer()
     var shelfGameVC = ShelfGameViewController()
     
-    init() {
+    init(logic: ShelfGameLogic) {
         
+        self.gameLogic = logic
         self.xPosition = Int(arc4random_uniform(UInt32(UIScreen.main.bounds.width-50)-5) + 5)
         self.speed = CGFloat(Int(arc4random_uniform(4) + 3))
         
@@ -52,13 +54,13 @@ class DropItemModel: UIImageView {
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         displayLink.isPaused = true
         paused = true
-        ShelfGameLogic.increaseSelectedItemCount()
+        gameLogic.increaseSelectedItemCount()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         displayLink.isPaused = false
         paused = false
-        ShelfGameLogic.decreaseSelectedItemCount()
+        gameLogic.decreaseSelectedItemCount()
     }
     
     func killItem () {
@@ -77,7 +79,7 @@ class DropItemModel: UIImageView {
         if self.frame.origin.y >= groundCollision {
             displayLink.invalidate()
             if gameNotOverYet {
-                ShelfGameLogic.gameOverYet = true
+                gameLogic.gameOverYet = true
             }
 
         }
