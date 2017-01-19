@@ -16,7 +16,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     fileprivate var centralManager: CBCentralManager?
     fileprivate var discoveredPeripheral: CBPeripheral?
     
-    weak var delegate: ConnectingDelegate?
+    var delegate: ConnectingDelegate?
     
     var isAvailable: Bool = false
     var isActive: Bool = false

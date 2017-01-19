@@ -25,11 +25,11 @@ class CentralPeripheralController: ConnectingDelegate {
     let enemyPlayerProfile: EnemyProfile
     
     init (){
-        self.state = BluetoothState.peripheral
-        central.delegate = self
-        setPassive()
         enemyPlayerProfile = EnemyProfile(name: EMPTY_NAME)
+        state = BluetoothState.peripheral
+        setPassive()
         resetEnemyProfile()
+        central.delegate = self
     }
     
     func resetEnemyProfile(){
