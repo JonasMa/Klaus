@@ -14,6 +14,8 @@ class AppModel {
     
     var enemiesList: Array<EnemyProfile>;
     let player: PlayerProfile
+    
+    var test: Int;
 
     
     init() {
@@ -26,18 +28,32 @@ class AppModel {
         enemiesList.append(enemy1);
         enemiesList.append(enemy2);
         
+        //to test notifications
+        test = 0;
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
         
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateScoreTest), userInfo: nil, repeats: false);
+        
         //load data from NSUserDefaults
     }
     
-    @objc func updateScoreTest(){
-        print("test")
+    @objc func updateScoreForTesting(){
+        test += 1;
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(test)]);
+        
+        let e1 = EnemyProfile(name: "Jorst");
+        let e2 = EnemyProfile(name: "Barakk");
+        addEnemyToList(enemy: e1);
+        addEnemyToList(enemy: e2);
     }
     
     
-    func updateEnemyList(enemiesList: Array<EnemyProfile>){
-        self.enemiesList = enemiesList;
+    func updateEnemyListInView(){
+        var enemyDict = Dictionary<Int,EnemyProfile>();
+        for i in 0...(enemiesList.count-1){
+            enemyDict[i] = enemiesList[i];
+            
+        }
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyListNotification, object: nil, userInfo: enemyDict)
     }
     
     func addEnemyToList(enemy: EnemyProfile){
@@ -45,4 +61,10 @@ class AppModel {
         
     }
     
+    func removeEnemyFromList(enemy: EnemyProfile){
+    }
+    
+    
+    
 }
+
