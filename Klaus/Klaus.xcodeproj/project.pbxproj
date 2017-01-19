@@ -57,6 +57,7 @@
 		FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4871E1410A900981731 /* EnemyItemCollectionViewController.swift */; };
 		FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */; };
 		FAB1C4901E141F1600981731 /* EnemyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */; };
+		FAD668E11E2FE1BE000F6248 /* NSNotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD668E01E2FE1BE000F6248 /* NSNotificationCenterKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		FAB1C4871E1410A900981731 /* EnemyItemCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewController.swift; sourceTree = "<group>"; };
 		FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAD668E01E2FE1BE000F6248 /* NSNotificationCenterKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNotificationCenterKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,6 +385,7 @@
 		FAB1C49C1E14235D00981731 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				FAD668E01E2FE1BE000F6248 /* NSNotificationCenterKeys.swift */,
 				6A4AA0631E2B063D00834712 /* Definitions.swift */,
 				FAB1C46B1E11AB9600981731 /* Style.swift */,
 				479CB0101E168A9300176D02 /* Strings.swift */,
@@ -568,6 +571,7 @@
 				FA2A05181E15725E0079CD2A /* AppModel.swift in Sources */,
 				FAB1C46A1E117E1800981731 /* ItemDetailView.swift in Sources */,
 				FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */,
+				FAD668E11E2FE1BE000F6248 /* NSNotificationCenterKeys.swift in Sources */,
 				47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */,
 				47C062331E152B8100C25292 /* ResultViewController.swift in Sources */,
 				FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */,

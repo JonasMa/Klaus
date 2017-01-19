@@ -26,7 +26,13 @@ class AppModel {
         enemiesList.append(enemy1);
         enemiesList.append(enemy2);
         
+        
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateScoreTest), userInfo: nil, repeats: false);
         //load data from NSUserDefaults
+    }
+    
+    @objc func updateScoreTest(){
+        print("test")
     }
     
     

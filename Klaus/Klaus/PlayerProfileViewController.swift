@@ -27,6 +27,8 @@ class PlayerProfileViewController: ProfileViewController {
         
         profileNameLabel.text = profile.name;
         profileScoreLabel.text = String(profile.score);
+        
+        //NotificationCenter.default.addObserver(self, selector: #selector(updateScore), name: , object: )
 
     }
 
