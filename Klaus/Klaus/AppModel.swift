@@ -36,41 +36,6 @@ class AppModel {
         test += 1;
         NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(test)]);
         
-        
-        switch test {
-        case 2:
-            let e1 = EnemyProfile(name: "1 Jorst");
-            addEnemyToList(enemy: e1);
-            break;
-        case 3:
-            let e2 = EnemyProfile(name: "2 Barakk");
-            addEnemyToList(enemy: e2);
-            break;
-        case 4:
-            let e3 = EnemyProfile(name: "3 Guenther");
-            addEnemyToList(enemy: e3);
-            break;
-        case 5:
-            let e4 = EnemyProfile(name: "4 Soeren");
-            addEnemyToList(enemy: e4);
-            break;
-        case 6:
-            let e5 = EnemyProfile(name: "5 Heribert");
-            addEnemyToList(enemy: e5);
-            break;
-        case 7:
-            let e6 = EnemyProfile(name: "6 Gerlinde");
-            addEnemyToList(enemy: e6);
-            break;
-        case 8:
-            let e7 = EnemyProfile(name: "7 Irmgard");
-            addEnemyToList(enemy: e7);
-            break;
-
-        default: break
-            
-        }
-        
     }
     
     
