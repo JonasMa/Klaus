@@ -28,14 +28,17 @@ class AppModel {
         test = 0;
         Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
         
-        
+
         //load data from NSUserDefaults
     }
     
     @objc func updateScoreForTesting(){
         test += 1;
         NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(test)]);
-        
+        if (test == 3){
+            addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+
+        }
     }
     
     
