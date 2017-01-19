@@ -30,7 +30,7 @@ class AppModel {
         
         //to test notifications
         test = 0;
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
         
         
         //load data from NSUserDefaults
@@ -42,8 +42,39 @@ class AppModel {
         
         let e1 = EnemyProfile(name: "Jorst");
         let e2 = EnemyProfile(name: "Barakk");
-        addEnemyToList(enemy: e1);
-        addEnemyToList(enemy: e2);
+        let e3 = EnemyProfile(name: "Guenther");
+        let e4 = EnemyProfile(name: "Soeren");
+        let e5 = EnemyProfile(name: "Heribert");
+        let e6 = EnemyProfile(name: "Gerlinde");
+        let e7 = EnemyProfile(name: "Irmgard");
+        
+        switch test {
+        case 2:
+            addEnemyToList(enemy: e1);
+            break;
+        case 3:
+            addEnemyToList(enemy: e2);
+            break;
+        case 4:
+            addEnemyToList(enemy: e3);
+            break;
+        case 5:
+            addEnemyToList(enemy: e4);
+            break;
+        case 6:
+            addEnemyToList(enemy: e5);
+            break;
+        case 7:
+            addEnemyToList(enemy: e6);
+            break;
+        case 8:
+            addEnemyToList(enemy: e7);
+            break;
+
+        default: break
+            
+        }
+        
     }
     
     
