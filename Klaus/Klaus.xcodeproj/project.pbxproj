@@ -21,6 +21,7 @@
 		47C062331E152B8100C25292 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C062311E152B8100C25292 /* ResultViewController.swift */; };
 		47C062341E152B8100C25292 /* ResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C062321E152B8100C25292 /* ResultViewController.xib */; };
 		47C0623D1E1542EC00C25292 /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C0623C1E1542EC00C25292 /* Games.swift */; };
+		6A2ACBD71E32035D00118070 /* NotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2ACBD61E32035D00118070 /* NotificationCenterKeys.swift */; };
 		6A4AA0641E2B063D00834712 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0631E2B063D00834712 /* Definitions.swift */; };
 		6A4AA06B1E2B071400834712 /* CentralPeripheralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */; };
 		6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */; };
@@ -58,7 +59,6 @@
 		FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4871E1410A900981731 /* EnemyItemCollectionViewController.swift */; };
 		FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */; };
 		FAB1C4901E141F1600981731 /* EnemyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */; };
-		FAD668E11E2FE1BE000F6248 /* NotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD668E01E2FE1BE000F6248 /* NotificationCenterKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +93,7 @@
 		47C062311E152B8100C25292 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		47C062321E152B8100C25292 /* ResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultViewController.xib; sourceTree = "<group>"; };
 		47C0623C1E1542EC00C25292 /* Games.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
+		6A2ACBD61E32035D00118070 /* NotificationCenterKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenterKeys.swift; sourceTree = "<group>"; };
 		6A4AA0631E2B063D00834712 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralPeripheralController.swift; sourceTree = "<group>"; };
 		6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralModel.swift; sourceTree = "<group>"; };
@@ -136,7 +137,6 @@
 		FAB1C4871E1410A900981731 /* EnemyItemCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewController.swift; sourceTree = "<group>"; };
 		FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewCell.swift; sourceTree = "<group>"; };
-		FAD668E01E2FE1BE000F6248 /* NotificationCenterKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenterKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +260,7 @@
 		8497B59D1DE6FFC60039E35C /* Klaus */ = {
 			isa = PBXGroup;
 			children = (
+				6A2ACBD61E32035D00118070 /* NotificationCenterKeys.swift */,
 				6A4AA0691E2B069C00834712 /* Connection */,
 				8497B59E1DE6FFC60039E35C /* AppDelegate.swift */,
 				8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */,
@@ -547,6 +548,7 @@
 				47C0622D1E15292A00C25292 /* GameViewController.swift in Sources */,
 				FAB1C47A1E13FCA700981731 /* EnemyListViewController.swift in Sources */,
 				FA161E211E07F87E001450E8 /* ItemCollectionViewController.swift in Sources */,
+				6A2ACBD71E32035D00118070 /* NotificationCenterKeys.swift in Sources */,
 				FAB1C4801E14081E00981731 /* PlayerItemDetailViewController.swift in Sources */,
 				6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */,
 				6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */,
@@ -573,7 +575,6 @@
 				FA2A05181E15725E0079CD2A /* AppModel.swift in Sources */,
 				FAB1C46A1E117E1800981731 /* ItemDetailView.swift in Sources */,
 				FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */,
-				FAD668E11E2FE1BE000F6248 /* NotificationCenterKeys.swift in Sources */,
 				47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */,
 				47C062331E152B8100C25292 /* ResultViewController.swift in Sources */,
 				6A4AA0721E30E9C900834712 /* ConnectingDelegate.swift in Sources */,
