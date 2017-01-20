@@ -37,7 +37,13 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     }
     
     func buttonAction(sender: UIButton!) {
-        let vc = ExplanationViewController(id: 3);
+        var vc: ExplanationViewController!;
+        if(item.name == "Axe"){
+            vc = ExplanationViewController(id: 1)
+        }else if(item.name == "Coffee"){
+            vc = ExplanationViewController(id: 3);
+        }
+        
         navigationController?.pushViewController(vc, animated: true)
     }
 }

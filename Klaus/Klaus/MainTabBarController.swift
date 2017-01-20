@@ -18,8 +18,8 @@ class MainTabBarController: UITabBarController {
         let tabOne = UINavigationController()
         let tabTwo = UINavigationController();
         
-        let tabOneBarItem = UITabBarItem(title: "Profil", image: UIImage(named: "face"), tag: 0);
-        let tabTwoBarItem = UITabBarItem(title: "Gegner", image: UIImage(named: "knife"), tag: 1);
+        let tabOneBarItem = UITabBarItem(title: "Profil", image: UIImage(named: "profileTab"), tag: 0);
+        let tabTwoBarItem = UITabBarItem(title: "Gegner", image: UIImage(named: "enemyTab"), tag: 1);
         
         tabOne.tabBarItem = tabOneBarItem;
         tabTwo.tabBarItem = tabTwoBarItem;
