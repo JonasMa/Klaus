@@ -24,6 +24,10 @@ class EnemyListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         CentralPeripheralController.sharedInstance.discoverEnemies()
+        
+        //for testing
+        AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+
     }
     
     override func viewDidLoad() {

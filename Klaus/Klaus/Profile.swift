@@ -18,7 +18,7 @@ class Profile: Equatable{
     init(name: String){
         
         //random String for id, temporary
-        self.id = String(arc4random_uniform(1000));
+        self.id = String(arc4random_uniform(100000));
         
         self.name = name;
         self.score = 0;
