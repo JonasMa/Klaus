@@ -51,6 +51,14 @@ class Profile: Equatable{
         return score;
     }
     
+    func getScorePerSecond() -> Int{
+        var scorePerSecond = 0;
+        for item in items {
+            scorePerSecond += item.pointsPerSecond;
+        }
+        return scorePerSecond;
+    }
+    
     static func == (lhs: Profile, rhs: Profile) -> Bool{
         return lhs.id == rhs.id;
     }

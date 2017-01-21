@@ -15,9 +15,6 @@ class AppModel {
     var enemiesList: Array<EnemyProfile>;
     let player: PlayerProfile
     
-    var test: Int;
-
-    
     init() {
         enemiesList = Array<EnemyProfile>();
         
@@ -25,7 +22,6 @@ class AppModel {
         player = PlayerProfile(name: "Ulf-Eugen");
         
         //update notifications points based on items
-        test = 0;
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
 
         
@@ -33,8 +29,7 @@ class AppModel {
     
     
     @objc func updatePlayerScore(){
-        test += 1;
-        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(player.getAcquiredScore())]);
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
     }
     
     
