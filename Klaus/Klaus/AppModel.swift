@@ -24,17 +24,17 @@ class AppModel {
         //for testing
         player = PlayerProfile(name: "Ulf-Eugen");
         
-        //to test notifications
+        //update notifications points based on items
         test = 0;
-        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
-        
+        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
 
-        //load data from NSUserDefaults
+        
     }
     
-    @objc func updateScoreForTesting(){
+    
+    @objc func updatePlayerScore(){
         test += 1;
-        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(test)]);
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(player.getAcquiredScore())]);
     }
     
     

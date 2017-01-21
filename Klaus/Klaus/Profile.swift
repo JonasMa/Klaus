@@ -28,7 +28,6 @@ class Profile: Equatable{
         let item2 = CoffeeItem();
         let item1 = AxeItem();
         self.items = [item1,item1,item2,item1,item2,item1,item2,item2,item1,item2,item2,item1,item1,item1,item1];
-        
     }
     
     convenience init(id: String, name:String){
@@ -42,6 +41,14 @@ class Profile: Equatable{
     
     func removeItemWithId(id: String){
         //TODO
+    }
+    
+    func getAcquiredScore() -> Int{
+        var score = 0
+        for item in items {
+            score += item.getAcquiredScore()
+        }
+        return score;
     }
     
     static func == (lhs: Profile, rhs: Profile) -> Bool{

@@ -12,7 +12,7 @@ import UIKit
 class AxeItem: Item {
     
     init(){
-        super.init(displayName: "Axe", pointsPerSecond: 3);
+        super.init(displayName: "Axe", pointsPerSecond: 5);
     }
     
     override func getGameExplanation() -> String{
