@@ -34,8 +34,10 @@ class PlayerProfileViewController: ProfileViewController {
         self.title = "Profil";
         super.addConstraints();
         
-        profileNameLabel.text = profile.name;
-        profileScoreLabel.text = String(profile.score);
+        profileNameLabel.text = profile!.name;
+        profileScoreLabel.text = String(profile!.score);
+        
+        //AppModel.sharedInstance.saveData();
                 
 
     }

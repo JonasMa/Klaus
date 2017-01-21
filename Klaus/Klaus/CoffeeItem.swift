@@ -9,10 +9,17 @@
 import Foundation
 import UIKit
 
-class CoffeeItem: Item {
+class CoffeeItem: Item, NSCoding {
     
     init(){
         super.init(displayName: "Coffee", pointsPerSecond: 7);
+    }
+    
+    required convenience init(coder aDecoder: NSCoder) {
+        self.init()
+    }
+    
+    func encode(with aCoder: NSCoder) {
     }
     
     override func getGameExplanation() -> String{

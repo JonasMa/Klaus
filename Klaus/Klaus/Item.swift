@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Item {
+class Item: NSObject /*,NSCoding+*/ {
     var id: String;
     var displayName: String;
     var dateOfAcquisition: Date;
@@ -25,6 +25,17 @@ class Item {
         self.imageName = displayName;
         self.itemLevel = 0;
     }
+    
+//    required convenience init(coder aDecoder: NSCoder) {
+//        self.init(
+//            displayName: aDecoder.decodeObject(forKey: "displayName") as! String,
+//            pointsPerSecond: aDecoder.decodeInteger(forKey: "pointsPerSecond"));
+//    }
+//    
+//    func encode(with aCoder: NSCoder) {
+//        aCoder.encode(self.displayName, forKey: "displayName");
+//        aCoder.encode(self.pointsPerSecond, forKey: "pointsPerSecond");
+//    }
     
     func getGameExplanation() -> String{
         preconditionFailure("This function must be overridden!");

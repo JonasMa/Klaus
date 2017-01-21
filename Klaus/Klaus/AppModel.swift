@@ -13,17 +13,24 @@ class AppModel {
     static let sharedInstance: AppModel = AppModel();
     
     var enemiesList: Array<EnemyProfile>;
-    let player: PlayerProfile
+    var player: PlayerProfile!
     
     init() {
         enemiesList = Array<EnemyProfile>();
         
         //for testing
-        player = PlayerProfile(name: "Ulf-Eugen");
         
         //update notifications points based on items
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
-
+        
+        if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
+            player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
+            print("data loaded.")
+        }else{
+            player = PlayerProfile(id: "0", name: "Ulf-Eugen", items: initialItems());
+            print("new Profile created.");
+            saveData();
+        }
         
     }
     
@@ -55,6 +62,19 @@ class AppModel {
         }else{
             print("Could not remove enemy " + enemy.name + " with id " + enemy.id + ", not in list");
         }
+    }
+    
+    func saveData(){
+        let data = NSKeyedArchiver.archivedData(withRootObject: player);
+        UserDefaults.standard.set(data, forKey: "Player");
+        print("Data saved.")
+        
+    }
+    
+    func initialItems() -> Array<Item>{
+        let item2 = CoffeeItem();
+        let item1 = AxeItem();
+        return [item1,item1,item2,item1,item2,item1,item2,item2,item1,item2,item2,item1,item1,item1,item1];
     }
     
     

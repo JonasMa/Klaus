@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Profile: Equatable{
+class Profile: NSObject{
     
     var id: String;
     var name: String;
@@ -22,17 +22,20 @@ class Profile: Equatable{
         
         self.name = name;
         self.score = 0;
-        self.items = Array<Item>();
+        self.items = [];
         
-        //for testing
-        let item2 = CoffeeItem();
-        let item1 = AxeItem();
-        self.items = [item1,item1,item2,item1,item2,item1,item2,item2,item1,item2,item2,item1,item1,item1,item1];
+        
     }
     
     convenience init(id: String, name:String){
         self.init(name: name);
         self.id = id;
+        self.items = [];
+    }
+    
+    convenience init(id: String, name: String, items: Array<Item>) {
+        self.init(id: id, name: name);
+        self.items = items;
     }
     
     func addItem(item: Item){

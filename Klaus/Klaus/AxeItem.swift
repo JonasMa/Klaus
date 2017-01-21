@@ -9,10 +9,17 @@
 import Foundation
 import UIKit
 
-class AxeItem: Item {
+class AxeItem: Item, NSCoding {
     
     init(){
         super.init(displayName: "Axe", pointsPerSecond: 5);
+    }
+    
+    required convenience init(coder aDecoder: NSCoder) {
+        self.init()
+    }
+    
+    func encode(with aCoder: NSCoder) {
     }
     
     override func getGameExplanation() -> String{
