@@ -25,8 +25,8 @@ class Profile: Equatable{
         self.items = Array<Item>();
         
         //for testing
-        let item2 = Item(name: "Coffee", pointsPerSecond: 2);
-        let item1 = Item(name: "Axe", pointsPerSecond: 2);
+        let item2 = CoffeeItem();
+        let item1 = AxeItem();
         self.items = [item1,item1,item2,item1,item2,item1,item2,item2,item1,item2,item2,item1,item1,item1,item1];
         
     }

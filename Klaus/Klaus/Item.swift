@@ -7,19 +7,30 @@
 //
 
 import Foundation
+import UIKit
 
 class Item {
-    var name: String;
+    var id: String;
+    var displayName: String;
     var timeStamp: NSDate;
     var pointsPerSecond: Int;
     var imageName: String;
     var itemLevel: Int;
     
-    init(name: String, pointsPerSecond: Int) {
-        self.name = name;
+    init(displayName: String, pointsPerSecond: Int) {
+        self.id = displayName;
+        self.displayName = displayName;
         self.pointsPerSecond = pointsPerSecond;
         self.timeStamp = NSDate()
-        self.imageName = name;
+        self.imageName = displayName;
         self.itemLevel = 0;
+    }
+    
+    func getGameExplanation() -> String{
+        preconditionFailure("This function must be overridden!");
+    }
+    
+    func getAssociatedGameViewController() -> UIViewController{
+        preconditionFailure("This function must be overridden!");
     }
 }
