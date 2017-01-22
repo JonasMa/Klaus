@@ -23,9 +23,10 @@ class CentralPeripheralController: ConnectingDelegate {
     let discoverTimeout: Double = 5.0 // seconds
     var state: BluetoothState
     let enemyPlayerProfile: EnemyProfile
+    var isConnecting: Bool = false
     
     init (){
-        enemyPlayerProfile = EnemyProfile(name: EMPTY_NAME)
+        enemyPlayerProfile = EnemyProfile(name: EMPTY_NAME, uuid: "")
         state = BluetoothState.peripheral
         setPassive()
         resetEnemyProfile()
@@ -36,9 +37,12 @@ class CentralPeripheralController: ConnectingDelegate {
         enemyPlayerProfile.name = EMPTY_NAME;
         enemyPlayerProfile.items = Array<Item>()
         enemyPlayerProfile.score = -1
+        enemyPlayerProfile.uuid = ""
     }
  
     func discoverEnemies (){
+        guard !isConnecting else {
+            return}
         print("central active")
         Timer.scheduledTimer(timeInterval: discoverTimeout, target: self, selector: #selector(setPassive), userInfo: nil, repeats: true)
         state = BluetoothState.central
@@ -47,18 +51,22 @@ class CentralPeripheralController: ConnectingDelegate {
     }
     
     @objc func setPassive (){
+        guard !isConnecting else {
+            return}
+        
         print("central inactive")
         state = BluetoothState.peripheral
         central.setInactive()
         peripheral.setActive()
     }
     
-    func connectToPlayer (player: PlayerProfile) {
-        if state != BluetoothState.central {
+    func connectToPlayer (player: EnemyProfile) {
+        /*if state != BluetoothState.central {
             discoverEnemies()
-        }
-        
-        central.connectToPeripheral(uuid: player.name) // FIXME get right uuid
+        }*/
+        isConnecting = true
+        print("connect to player " + player.name)
+        central.connectToPeripheral(uuid: player.uuid)
     }
     
     func checkForEnemyProfileCompleted () {

@@ -36,7 +36,7 @@ class AppModel {
         test += 1;
         NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(test)]);
         if (test == 3){
-            addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+            addEnemyToList(enemy: EnemyProfile(name: "Gerlinde", uuid:""));
 
         }
     }

@@ -22,13 +22,13 @@
 		47C062341E152B8100C25292 /* ResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C062321E152B8100C25292 /* ResultViewController.xib */; };
 		47C0623D1E1542EC00C25292 /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C0623C1E1542EC00C25292 /* Games.swift */; };
 		6A2ACBD71E32035D00118070 /* NotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2ACBD61E32035D00118070 /* NotificationCenterKeys.swift */; };
+		6A2ACBDD1E321ED100118070 /* ItemDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2ACBDC1E321ED100118070 /* ItemDecoder.swift */; };
 		6A4AA0641E2B063D00834712 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0631E2B063D00834712 /* Definitions.swift */; };
 		6A4AA06B1E2B071400834712 /* CentralPeripheralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */; };
 		6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */; };
 		6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */; };
 		6A4AA0721E30E9C900834712 /* ConnectingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */; };
 		8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B59E1DE6FFC60039E35C /* AppDelegate.swift */; };
-		8497B5A81DE6FFC60039E35C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A71DE6FFC60039E35C /* Assets.xcassets */; };
 		8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */; };
 		8497B5B61DE6FFC60039E35C /* KlausTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B5B51DE6FFC60039E35C /* KlausTests.swift */; };
 		8497B5C11DE6FFC60039E35C /* KlausUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B5C01DE6FFC60039E35C /* KlausUITests.swift */; };
@@ -94,6 +94,7 @@
 		47C062321E152B8100C25292 /* ResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultViewController.xib; sourceTree = "<group>"; };
 		47C0623C1E1542EC00C25292 /* Games.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
 		6A2ACBD61E32035D00118070 /* NotificationCenterKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenterKeys.swift; sourceTree = "<group>"; };
+		6A2ACBDC1E321ED100118070 /* ItemDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDecoder.swift; sourceTree = "<group>"; };
 		6A4AA0631E2B063D00834712 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		6A4AA06A1E2B071400834712 /* CentralPeripheralController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralPeripheralController.swift; sourceTree = "<group>"; };
 		6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralModel.swift; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingDelegate.swift; sourceTree = "<group>"; };
 		8497B59B1DE6FFC60039E35C /* Klaus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8497B59E1DE6FFC60039E35C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8497B5A71DE6FFC60039E35C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8497B5AA1DE6FFC60039E35C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8497B5AC1DE6FFC60039E35C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8497B5B11DE6FFC60039E35C /* KlausTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KlausTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,6 +233,7 @@
 				6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */,
 				6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */,
 				6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */,
+				6A2ACBDC1E321ED100118070 /* ItemDecoder.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -264,7 +265,6 @@
 				6A4AA0691E2B069C00834712 /* Connection */,
 				8497B59E1DE6FFC60039E35C /* AppDelegate.swift */,
 				8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */,
-				8497B5A71DE6FFC60039E35C /* Assets.xcassets */,
 				8497B5AC1DE6FFC60039E35C /* Info.plist */,
 				FAB1C49B1E14231D00981731 /* Scenes */,
 				FAB1C49A1E1422EB00981731 /* DataModel */,
@@ -510,7 +510,6 @@
 				47C062341E152B8100C25292 /* ResultViewController.xib in Resources */,
 				8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */,
 				4772ABF61E2655EC00AA9E57 /* ShelfGameViewController.xib in Resources */,
-				8497B5A81DE6FFC60039E35C /* Assets.xcassets in Resources */,
 				47C0622E1E15292A00C25292 /* GameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,6 +550,7 @@
 				6A2ACBD71E32035D00118070 /* NotificationCenterKeys.swift in Sources */,
 				FAB1C4801E14081E00981731 /* PlayerItemDetailViewController.swift in Sources */,
 				6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */,
+				6A2ACBDD1E321ED100118070 /* ItemDecoder.swift in Sources */,
 				6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */,
 				479CB0111E168A9300176D02 /* Strings.swift in Sources */,
 				FAB1C4861E14108700981731 /* PlayerItemCollectionViewController.swift in Sources */,

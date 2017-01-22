@@ -5,6 +5,10 @@
 //  Created by Jonas Programmierer on 15.01.17.
 //  Copyright © 2017 Nimm Swag. All rights reserved.
 //
+// In structure it is based on
+// https://github.com/0x7fffffff/Core-Bluetooth-Transfer-Demo
+// which itself is a translation from
+// https://developer.apple.com/library/ios/samplecode/BTLE_Transfer/Introduction/Intro.html
 
 import CoreBluetooth
 
@@ -23,10 +27,20 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
+    private enum CharacteristicToSend {
+        case name
+        case score
+        case items
+        case undefined
+    }
+    
     fileprivate var peripheralManager: CBPeripheralManager?
-    fileprivate var transferCharacteristic: CBMutableCharacteristic?
+    fileprivate var nameCharacteristic: CBMutableCharacteristic?
+    fileprivate var scoreCharacteristic: CBMutableCharacteristic?
+    fileprivate var itemsCharacteristic: CBMutableCharacteristic?
     
     fileprivate var dataToSend: Data?
+    private var characteristicToSend: CharacteristicToSend = CharacteristicToSend.undefined
     fileprivate var sendDataIndex: Int?
     
     private var isAtvertising: Bool
@@ -43,6 +57,16 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     func setInactive (){
         startStopAdvertising(false)
+    }
+    
+    func getItemsString (items: [Item]) -> String{
+        var itemStrings = Array<String>()
+        for item in items {
+            let stringy = item.toString()
+            itemStrings.append(stringy)
+        }
+        
+        return itemStrings.joined(separator: Item.ITEM_SEPARATOR)
     }
     
     /** Required protocol method.  A full app should take care of all the possible states,
@@ -66,8 +90,20 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         // ... so build our service.
         
         // Start with the CBMutableCharacteristic
-        transferCharacteristic = CBMutableCharacteristic(
-            type: transferCharacteristicUUID,
+        nameCharacteristic = CBMutableCharacteristic(
+            type: nameCharacteristicUUID,
+            properties: CBCharacteristicProperties.notify,
+            value: nil,
+            permissions: CBAttributePermissions.readable
+        )
+        scoreCharacteristic = CBMutableCharacteristic(
+            type: scoreCharacteristicUUID,
+            properties: CBCharacteristicProperties.notify,
+            value: nil,
+            permissions: CBAttributePermissions.readable
+        )
+        itemsCharacteristic = CBMutableCharacteristic(
+            type: itemsCharacteristicUUID,
             properties: CBCharacteristicProperties.notify,
             value: nil,
             permissions: CBAttributePermissions.readable
@@ -75,12 +111,12 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         // Then the service
         let transferService = CBMutableService(
-            type: transferServiceUUID,
+            type: playerServiceUUID,
             primary: true
         )
         
         // Add the characteristic to the service
-        transferService.characteristics = [transferCharacteristic!]
+        transferService.characteristics = [nameCharacteristic!]
         
         // And add it to the peripheral manager
         peripheralManager!.add(transferService)
@@ -95,14 +131,34 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         print("Central subscribed to characteristic")
         
-        // Get the data
-        dataToSend = AppModel.sharedInstance.player.name.data(using: String.Encoding.utf8) //TODO send data here
+        var selectedCharacteristic: CBMutableCharacteristic?
+        
+        switch characteristic.uuid {
+        case nameCharacteristicUUID:
+            dataToSend = AppModel.sharedInstance.player.name.data(using: String.Encoding.utf8)
+            characteristicToSend = CharacteristicToSend.name
+            selectedCharacteristic = nameCharacteristic
+            break
+        case scoreCharacteristicUUID:
+            dataToSend = String(AppModel.sharedInstance.player.score).data(using: String.Encoding.utf8)
+            characteristicToSend = CharacteristicToSend.score
+            selectedCharacteristic = scoreCharacteristic
+            break
+        case itemsCharacteristicUUID:
+            // TODO encode Item Array properly
+            dataToSend = getItemsString(items: AppModel.sharedInstance.player.items).data(using: String.Encoding.utf8)
+            characteristicToSend = CharacteristicToSend.items
+            selectedCharacteristic = itemsCharacteristic
+            break
+        default:
+            break
+        }
         
         // Reset the index
         sendDataIndex = 0;
         
         // Start sending
-        sendData()
+        sendData(forCharacteristic: selectedCharacteristic)
     }
     
     /** Recognise when the central unsubscribes
@@ -116,12 +172,12 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     /** Sends the next amount of data to the connected central
      */
-    fileprivate func sendData() {
+    fileprivate func sendData(forCharacteristic: CBMutableCharacteristic?) {
         if sendingEOM {
             // send it
             let didSend = peripheralManager?.updateValue(
                 "EOM".data(using: String.Encoding.utf8)!,
-                for: transferCharacteristic!,
+                for: forCharacteristic!,
                 onSubscribedCentrals: nil
             )
             
@@ -170,7 +226,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             // Send it
             didSend = peripheralManager!.updateValue(
                 chunk,
-                for: transferCharacteristic!,
+                for: forCharacteristic!,
                 onSubscribedCentrals: nil
             )
             
@@ -200,7 +256,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 // Send it
                 let eomSent = peripheralManager!.updateValue(
                     "EOM".data(using: String.Encoding.utf8)!,
-                    for: transferCharacteristic!,
+                    for: forCharacteristic!,
                     onSubscribedCentrals: nil
                 )
                 
@@ -220,7 +276,22 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
      */
     func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
         // Start sending again
-        sendData()
+        var selectedCharacteristic: CBMutableCharacteristic?
+        
+        switch characteristicToSend {
+        case CharacteristicToSend.name:
+            selectedCharacteristic = nameCharacteristic
+            break
+        case CharacteristicToSend.score:
+            selectedCharacteristic = scoreCharacteristic
+            break
+        case CharacteristicToSend.items:
+            selectedCharacteristic = itemsCharacteristic
+            break
+        default:
+            break
+        }
+        sendData(forCharacteristic: selectedCharacteristic)
     }
     
     /** This is called when a change happens, so we know to stop advertising
@@ -242,7 +313,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             if doAdvertise && !peripheralManager!.isAdvertising {
                 // All we advertise is our service's UUID
                 peripheralManager!.startAdvertising([
-                    CBAdvertisementDataServiceUUIDsKey : [transferServiceUUID]
+                    CBAdvertisementDataServiceUUIDsKey : [playerServiceUUID]
                 ])
             } else {
                 peripheralManager?.stopAdvertising()
