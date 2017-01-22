@@ -26,6 +26,15 @@ class Item: NSObject /*,NSCoding+*/ {
         self.itemLevel = 0;
     }
     
+    init(displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date){
+        self.id = displayName;
+        self.displayName = displayName;
+        self.pointsPerSecond = pointsPerSecond;
+        self.dateOfAcquisition = dateOfAcquisition;
+        self.imageName = displayName;
+        self.itemLevel = 0;
+    }
+    
 //    required convenience init(coder aDecoder: NSCoder) {
 //        self.init(
 //            displayName: aDecoder.decodeObject(forKey: "displayName") as! String,

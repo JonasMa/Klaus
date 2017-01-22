@@ -13,8 +13,11 @@ class MainTabBarController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         
+            }
+    
+    override func viewDidLoad() {
         
-        
+        super.viewDidLoad()
         let tabOne = UINavigationController()
         let tabTwo = UINavigationController();
         
@@ -27,16 +30,11 @@ class MainTabBarController: UITabBarController {
         self.viewControllers = [tabOne,tabTwo];
         let playerProfileViewController = PlayerProfileViewController();
         tabOne.pushViewController(playerProfileViewController, animated: true)
-
+        
         let enemyListViewController = EnemyListViewController();
         tabTwo.pushViewController(enemyListViewController, animated: true);
+        
 
-    }
-    
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
         UITabBar.appearance().tintColor = Style.accentColor;
     }
     

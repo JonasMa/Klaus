@@ -10,7 +10,7 @@ import UIKit
 
 class AvatarViewController: UIViewController {
 
-    let dismissButton:UIButton! = UIButton(type: .custom);
+    var dismissButton:UIButton! = UIButton(type: .custom);
     var nameLabel: UILabel!;
     var nameTextField: UITextField!;
     var pageIndex = 2;
@@ -22,14 +22,17 @@ class AvatarViewController: UIViewController {
         self.view.backgroundColor = Style.bg;
 
         nameLabel = UILabel();
-        nameLabel.text = "Wähle einen Avatar";
+        nameLabel.text = "Tippe unten auf Okay, um fortzufahren!";
+        nameLabel.textAlignment = .center;
         nameLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(nameLabel);
         
-        //        nameTextField = UITextField();
-        //        nameTextField.placeholder = "Dein Name";
-        //        nameTextField.translatesAutoresizingMaskIntoConstraints = false;
-        //        self.view.addSubview(nameTextField);
+        dismissButton = UIButton(type: UIButtonType.roundedRect);
+        dismissButton.setTitle("Okay", for: .normal);
+        dismissButton.translatesAutoresizingMaskIntoConstraints = false;
+        dismissButton.tintColor = Style.accentColor;
+        self.view.addSubview(dismissButton);
+        dismissButton.addTarget(self, action: #selector(dismissTutorial), for: .touchDown)
         
         addConstraints()
         
@@ -43,8 +46,13 @@ class AvatarViewController: UIViewController {
     func addConstraints(){
         nameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         nameLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -40).isActive = true;
-        //        nameTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
-        //        nameTextField.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true;
+        dismissButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
+        dismissButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
+        
+    }
+    
+    func dismissTutorial(){
+        self.presentingViewController?.dismiss(animated: true, completion: nil);
     }
 
 

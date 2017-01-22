@@ -21,23 +21,25 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
     var controllers: Array<UIViewController>!;
     
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        
+        self.setViewControllers([controllers[0]], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil);
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self;
         self.dataSource = self;
         
+        
+        self.preferredContentSize = CGSize(width: 200, height: 200);
         controllers = [loginCtrl,avatarCtrl];
         
     
         
-        self.setViewControllers([controllers[0]], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil);
         
-        print(controllers);
-        let appearance = UIPageControl.appearance()
-        appearance.pageIndicatorTintColor = UIColor.gray
-        appearance.currentPageIndicatorTintColor = UIColor.white
-        appearance.backgroundColor = UIColor.darkGray;
+        
     }
     
     
@@ -54,19 +56,12 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         }
         lastIndex = index;
         index += 1;
-        print(index);
         return self.controllers[index];
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
         return nil;
-//        if(index <=  0 || isAnimating){
-//            return nil
-//        }
-//        index -= 1;
-//        print(index);
-//        return self.controllers[index];
         
     }
     
@@ -93,8 +88,6 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        print(finished);
-        print(completed);
         if(!completed){
             index = lastIndex;
         }

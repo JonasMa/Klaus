@@ -12,5 +12,8 @@ class EnemyProfile: Profile{
     
     override init(name: String){
         super.init(name: name);
+        
+        //for testing
+        self.items = AppModel.sharedInstance.initialItems();
     }
 }

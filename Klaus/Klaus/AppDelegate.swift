@@ -17,13 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        self.window?.rootViewController = MainTabBarController();
+        self.window?.rootViewController = MainTabBarController(nibName: "MainTabBarController", bundle: nil);
     
         self.window?.makeKeyAndVisible();
         self.window?.tintColor = Style.accentColor;
         
-        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.presentTutorialNotification, object: nil, queue: nil, using: presentTutorial);
-        return true;
+                return true;
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -51,8 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func presentTutorial(notification:Notification){
         let vc = TutorialPageViewController();
-        vc.modalTransitionStyle = .partialCurl;
-        //present(vc, animated: true, completion: nil);
+        vc.modalTransitionStyle = .crossDissolve;
         self.window?.rootViewController?.present(vc, animated: true, completion: nil);
     }
     
