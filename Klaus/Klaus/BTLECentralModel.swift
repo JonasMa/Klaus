@@ -15,13 +15,6 @@ import CoreBluetooth
 
 class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
-    enum CharacteristicDataType {
-        case name
-        case score
-        case items
-        case unknown
-    }
-    
     fileprivate var centralManager: CBCentralManager?
     fileprivate var discoveredPeripheral: CBPeripheral?
     fileprivate var discoveredServices: [CBService]?
@@ -35,10 +28,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     // And somewhere to store the incoming data
     private let data = NSMutableData()
-    
-    fileprivate let dataName = NSMutableData()
-    fileprivate let dataScore = NSMutableData()
-    fileprivate let dataItems = NSMutableData()
     
     override init() {
         super.init()
@@ -69,21 +58,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         }
     }
     
-    private func getCharacteristicDataType (characteristic: CBCharacteristic) -> CharacteristicDataType{
-        switch characteristic.uuid {
-        case nameCharacteristicUUID:
-            return CharacteristicDataType.name
-            
-        case scoreCharacteristicUUID:
-            return CharacteristicDataType.score
-            
-        case itemsCharacteristicUUID:
-            return CharacteristicDataType.items
-        default:
-            print ("ERROR: No UUID didn't match any known characteristics")
-            return CharacteristicDataType.unknown
-        }
-    }
     
     /** centralManagerDidUpdateState is a required protocol method.
      *  Usually, you'd check for other states to make sure the current device supports LE, is powered on, etc.
@@ -194,9 +168,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         }
         
         // Clear the data that we may already have
-        dataName.length = 0
-        dataItems.length = 0
-        dataScore.length = 0
+        data.length = 0
         
         // Make sure we get the discovery callbacks
         peripheral.delegate = self
@@ -205,7 +177,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         peripheral.discoverServices([playerServiceUUID])
     }
     
-    /** The Transfer Service was discovered
+    /** The Service was discovered
      */
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard error == nil else {
@@ -224,7 +196,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         discoveredServices = services
         
         for service in services {
-            peripheral.discoverCharacteristics([nameCharacteristicUUID], for: service)
+            peripheral.discoverCharacteristics([playerCharacteristicUUID], for: service)
         }
     }
     
@@ -247,12 +219,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         // Again, we loop through the array, just in case.
         for characteristic in characteristics {
             // And check if it's the right one
-            if characteristic.uuid.isEqual(nameCharacteristicUUID)
-                || characteristic.uuid.isEqual(scoreCharacteristicUUID)
-                || characteristic.uuid.isEqual(itemsCharacteristicUUID){
+            
+            if characteristic.uuid.isEqual(playerCharacteristicUUID){
                 // If it is, subscribe to it
                 peripheral.setNotifyValue(true, for: characteristic)
             }
+ 
         }
         // Once this is complete, we just need to wait for the data to come in.
     }
@@ -275,46 +247,35 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         // Have we got everything we need?
         if stringFromData.isEqual(to: "EOM") {
             // We have, so show the data
-            let type = getCharacteristicDataType(characteristic: characteristic)
             
-            switch type {
-            case .name:
-                let name: String = String(data: dataName.copy() as! Data, encoding: String.Encoding.utf8)!
-                delegate?.didRetrievePlayerInfo(name: name)
-                for service in discoveredServices! {
-                    discoveredPeripheral?.discoverCharacteristics([scoreCharacteristicUUID], for: service)
-                }
+            let dataString = String(data: data.copy() as! Data, encoding: String.Encoding.utf8)!
+            let splittedDataString = dataString.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
+            
+            let name: String = splittedDataString[INDEX_NAME]
+            
+            
+            let itemStrings = splittedDataString[INDEX_ITEMS].components(separatedBy: Item.ITEM_SEPARATOR)
+            var array: Array<Item> = Array<Item>()
+            for itemString in itemStrings {
+                let decoded: Item? = Item.decode(toDecode: itemString)
                 
-                print("name received: " + name)
-                break
-            case .score:
-                let score: Int = Int(String(data: dataScore.copy() as! Data, encoding: String.Encoding.utf8)!)!
-                delegate?.didRetrievePlayerInfo(score: score)
-                for service in discoveredServices! {
-                    discoveredPeripheral?.discoverCharacteristics([itemsCharacteristicUUID], for: service)
+                if decoded != nil {
+                    array.append(decoded!)
                 }
-                
-                print("score received: \(score)")
-                break
-            case .items:
-                let itemStrings = String(data: dataItems.copy() as! Data, encoding: String.Encoding.utf8)!.components(separatedBy: Item.SEPARATOR)
-                var array: Array<Item> = Array<Item>()
-                for itemString in itemStrings {
-                    let decoded: Item? = Item.decode(toDecode: itemString)
-
-                    if decoded != nil {
-                        array.append(decoded!)
-                    }
-                    else {
-                        print("Item not decodable")
-                    }
+                else {
+                    print("Item not decodable")
                 }
-                delegate?.didRetrievePlayerInfo(items: array)
-                print(String(array.count) + " items received")
-                break
-            default:
-                break
             }
+            
+            let score: Int = Int(splittedDataString[INDEX_SCORE])!
+            
+            delegate?.didRetrievePlayerInfo(name: name)
+            delegate?.didRetrievePlayerInfo(score: score)
+            delegate?.didRetrievePlayerInfo(items: array)
+            centralManager?.cancelPeripheralConnection(peripheral)
+            
+            print("name: \(name), score: \(score), item count: \(array.count)")
+            
             // Cancel our subscription to the characteristic
             peripheral.setNotifyValue(false, for: characteristic)
             
@@ -324,21 +285,13 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             
         } else {
             // Otherwise, just add the data on to what we already have
-            let type = getCharacteristicDataType(characteristic: characteristic)
             
-            switch type {
-            case .name:
-                dataName.append(characteristic.value!)
-                break
-            case .score:
-                dataScore.append(characteristic.value!)
-            case .items:
-                dataItems.append(characteristic.value!)
-            default:
-                break
+            if characteristic.value != nil {
+                data.append(characteristic.value!)
             }
-
-            
+            else {
+                print("Characteristic value is nil")
+            }
             
             // Log it
             print("Received: \(stringFromData)")
@@ -351,9 +304,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         print("Error changing notification state: \(error?.localizedDescription)")
         
         // Exit if it's not the transfer characteristic
-        guard characteristic.uuid.isEqual(scoreCharacteristicUUID)
-            || characteristic.uuid.isEqual(nameCharacteristicUUID)
-            || characteristic.uuid.isEqual(itemsCharacteristicUUID) else {
+        guard characteristic.uuid.isEqual(playerCharacteristicUUID) else {
             return
         }
         
@@ -373,7 +324,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         discoveredPeripheral = nil
         
         // We're disconnected, so start scanning again
-        scan()
+        // scan()
     }
     
     /** Call this when things either go wrong, or you're done with the connection.
@@ -399,9 +350,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             }
             
             for characteristic in characteristics {
-                if ((characteristic.uuid.isEqual(scoreCharacteristicUUID)
-                    || characteristic.uuid.isEqual(nameCharacteristicUUID)
-                    || characteristic.uuid.isEqual(itemsCharacteristicUUID))
+                if (characteristic.uuid.isEqual(playerCharacteristicUUID)
                     && characteristic.isNotifying) {
                     discoveredPeripheral?.setNotifyValue(false, for: characteristic)
                     // And we're done.

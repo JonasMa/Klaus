@@ -9,16 +9,15 @@
 import CoreBluetooth
 
 let PLAYER_SERVICE_UUID = "E20A39F4-73F5-4BC4-AAAA-17D1AD666661"
-let NAME_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-AAAA-72F6F66666D4"
-let SCORE_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-AAAA-72F6F66666D5"
-let ITEMS_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-AAAA-72F6F66666D6"
-let PLAYER_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-AAAA-72F6F66666D6" // only if single characteristic is taken
+let PLAYER_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-BBBB-72F6F66666D6" // only if single characteristic is taken
 let NOTIFY_MTU = 20
 
 let playerServiceUUID = CBUUID(string: PLAYER_SERVICE_UUID)
-let nameCharacteristicUUID = CBUUID(string: NAME_CHARACTERISTIC_UUID)
-let scoreCharacteristicUUID = CBUUID(string: SCORE_CHARACTERISTIC_UUID)
-let itemsCharacteristicUUID = CBUUID(string: ITEMS_CHARACTERISTIC_UUID)
-let playerCharacteristicUUID = CBUUID(string: ITEMS_CHARACTERISTIC_UUID) // only if single chrarcteristic
+let playerCharacteristicUUID = CBUUID(string: PLAYER_CHARACTERISTIC_UUID) // only if single chrarcteristic
 
 let DEFAULT_NAME = "Unidentified Player"
+let SEPARATOR_NAME_SCORE_ITEMS = "$%$"
+let INDEX_NAME: Int = 0
+let INDEX_SCORE: Int = 1
+let INDEX_ITEMS: Int = 2
+

@@ -15,6 +15,7 @@ class Item {
     var imageName: String;
     var itemLevel: Int;
     
+    static let dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
     static let SEPARATOR: String = "#"
     static let ITEM_SEPARATOR: String = "**"
     
@@ -36,7 +37,11 @@ class Item {
     
     func toString() -> String {
         var stringy: String
-        stringy = name + Item.SEPARATOR + timeStamp.description + Item.SEPARATOR + String(pointsPerSecond)
+        let formatter = DateFormatter()
+        formatter.dateFormat = Item.dateFormat
+        let date: String = formatter.string(from: timeStamp)
+        
+        stringy = name + Item.SEPARATOR + date + Item.SEPARATOR + String(pointsPerSecond) + Item.SEPARATOR + imageName + Item.SEPARATOR + String(itemLevel)
         return stringy
     }
     
@@ -47,8 +52,9 @@ class Item {
         var imageName: String
         var itemLevel: Int?
         
-        let splitted = toDecode.components(separatedBy: Item.SEPARATOR)
-        
+        //print("Item string is: \(toDecode), SEPARATOR is: \(Item.SEPARATOR)")
+        let splitted: [String] = toDecode.components(separatedBy: Item.SEPARATOR)
+        //print("Splitted item string length is \(splitted.count)")
         // check if splitting was successful in terms of length
         if splitted.count < 5 {
             print("decoding Item from String was not possible: Splitted array too short")
@@ -56,7 +62,7 @@ class Item {
         }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
+        formatter.dateFormat = dateFormat
         
         name = splitted[0]
         timeStamp = formatter.date(from: splitted[1])
@@ -65,10 +71,11 @@ class Item {
         itemLevel = Int(splitted[4])
         
         // check if unwrapping is safe
-        guard timeStamp == timeStamp!
-            && pointsPerSecond == pointsPerSecond!
-            && itemLevel == itemLevel!
+        guard timeStamp != nil
+            && pointsPerSecond != nil
+            && itemLevel != nil
             else {
+            print("unwrapping Item.decode was unsuccesful")
             return nil
         }
         
