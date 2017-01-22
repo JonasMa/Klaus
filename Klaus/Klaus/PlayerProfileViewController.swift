@@ -37,8 +37,7 @@ class PlayerProfileViewController: ProfileViewController {
         profileNameLabel.text = profile!.name;
         profileScoreLabel.text = String(profile!.score);
         
-        //AppModel.sharedInstance.saveData();
-                
+        
 
     }
 
@@ -51,5 +50,7 @@ class PlayerProfileViewController: ProfileViewController {
         let scorePerSecond = notification.userInfo?["scorePerSecond"] as? String;
         profileScoreLabel.text = score! + " (" +  scorePerSecond! + "/s)";
     }
+    
+
 
 }
