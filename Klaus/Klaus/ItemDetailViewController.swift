@@ -34,7 +34,7 @@ class ItemDetailViewController: UIViewController {
         self.itemImageContainer.translatesAutoresizingMaskIntoConstraints = false;
         
         self.itemImageView = UIImageView()
-        self.itemImageView.image = UIImage(named: item.displayName.lowercased())?.withRenderingMode(.alwaysTemplate);
+        self.itemImageView.image = UIImage(named: item.name.lowercased())?.withRenderingMode(.alwaysTemplate);
         self.itemImageView.tintColor = Style.primaryTextColor;
         self.itemImageView.contentMode = UIViewContentMode.scaleAspectFit;
         self.itemImageView.translatesAutoresizingMaskIntoConstraints = false;
@@ -54,7 +54,7 @@ class ItemDetailViewController: UIViewController {
         self.itemNameContainer.addSubview(itemLevelLabel);
 
         self.itemNameLabel = UILabel();
-        self.itemNameLabel.text = item.displayName.uppercased();
+        self.itemNameLabel.text = item.name.uppercased();
         self.itemNameLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemNameLabel.textAlignment = .center;
         self.itemNameLabel.font = UIFont.boldSystemFont(ofSize: 16);

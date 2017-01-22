@@ -27,11 +27,12 @@ class EnemyListViewController: UIViewController {
         
         //for testing
         AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Gegner in der Nähe";
+        self.title = "Enemies In Range";
         enemyTableViewController = EnemyTableViewController()
         self.addChildViewController(enemyTableViewController);
         self.view.addSubview(enemyTableViewController.view);

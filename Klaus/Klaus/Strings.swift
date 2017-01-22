@@ -15,5 +15,14 @@ struct Strings {
     static var simonSaysExplanation = "Simon Says. Merke dir die Reihenfolge der leuchtenden Tasten und gib sie korrekt wieder! Alles klar?"
     static var shelfGameExplanation = ""
     static var fourthGameExplanation = ""
+
+    
+    // Simon Says texts
+    static var simonSaysComputersTurnText = "Gib den richtigen Code ein!"
+    static var simonSaysPlayersTurnText = "Versau's nicht.."
+    static var simonSaysPlayerTakesLongText = "Beeil dich man!!!"
+    static var simonSaysLostText = "Du Versager..."
+    static var simonSaysSuccessText = "Geschafft, du Meisterdieb!"
     
 }
+

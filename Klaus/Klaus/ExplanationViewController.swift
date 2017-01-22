@@ -14,16 +14,15 @@ class ExplanationViewController: UIViewController {
     @IBOutlet weak var explanationLabel: UILabel!
     var vc = UIViewController()
     var id: Int = 0
-    var item: Item!;
     
     //Calls appropriate GameController
     @IBAction func startButton(_ sender: UIButton) {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    init(item: Item){
+    init(id: Int){
         super.init(nibName: "ExplanationViewController", bundle: nil)
-        self.item = item;
+        self.id = id
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,8 +36,26 @@ class ExplanationViewController: UIViewController {
     
     //TODO: attach appropriate GameControllers and Explanation Strings
     func delegateGameController() -> Void {
-        explanationLabel.text = item.getGameExplanation();
-        vc = item.getAssociatedGameViewController();
+        switch id {
+        case 1:
+            vc = GameViewController(nibName: "GameViewController", bundle: nil)
+            explanationLabel.text = Strings.axeGameExplanation
+            break
+        case 2:
+            vc = SimonSaysViewController(nibName: "SimonSaysViewController", bundle: nil)
+            explanationLabel.text = Strings.simonSaysExplanation
+            break
+        case 3:
+            vc = ShelfGameViewController(nibName: "ShelfGameViewController", bundle: nil)
+            explanationLabel.text = Strings.shelfGameExplanation
+            break
+        case 4:
+            vc = GameViewController(nibName: "GameViewController", bundle: nil)
+            explanationLabel.text = Strings.fourthGameExplanation
+            break
+        default:
+            break
+        }
     }
 
 }

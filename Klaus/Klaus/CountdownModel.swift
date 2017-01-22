@@ -13,10 +13,10 @@ class CountdownModel {
     
     var gameTimer: Timer!
     var count = 10
-    var viewController: AxeGameViewController
+    var viewController: GameViewController
     
     //Requires appropriate GameController
-    init(vc: AxeGameViewController) {
+    init(vc: GameViewController) {
         self.viewController = vc
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }

@@ -38,7 +38,7 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PlayerItemCollectionViewCell
         
         let item = profile.items[indexPath.row];
-        let name = item.displayName;
+        let name = item.name;
         cell.imageView.image = UIImage(named: name.lowercased())?.withRenderingMode(.alwaysTemplate);
         cell.label.text = name;
         return cell

@@ -1,5 +1,5 @@
 //
-//  AxeGameViewController.swift
+//  GameViewController.swift
 //  Klaus
 //
 //  Created by Oliver Pieper on 29.12.16.
@@ -9,7 +9,7 @@
 
 import UIKit
 
-class AxeGameViewController: UIViewController {
+class GameViewController: UIViewController {
 
     @IBOutlet weak var countdownValueLabel: UILabel!
     @IBOutlet weak var gametitleLabel: UILabel!

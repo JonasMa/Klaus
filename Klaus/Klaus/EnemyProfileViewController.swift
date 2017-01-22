@@ -21,7 +21,7 @@ class EnemyProfileViewController: ProfileViewController {
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         
-        self.title = profile.name;
+        self.title = "Profile";
         super.addConstraints();
         
         profileNameLabel.text = profile.name;

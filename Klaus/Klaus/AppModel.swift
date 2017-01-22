@@ -15,21 +15,26 @@ class AppModel {
     var enemiesList: Array<EnemyProfile>;
     let player: PlayerProfile
     
+    var test: Int;
+
+    
     init() {
         enemiesList = Array<EnemyProfile>();
         
         //for testing
         player = PlayerProfile(name: "Ulf-Eugen");
         
-        //update notifications points based on items
-        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
-
+        //to test notifications
+        test = 0;
+        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
         
+
+        //load data from NSUserDefaults
     }
     
-    
-    @objc func updatePlayerScore(){
-        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
+    @objc func updateScoreForTesting(){
+        test += 1;
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(test)]);
     }
     
     

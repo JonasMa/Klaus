@@ -31,7 +31,7 @@ class PlayerProfileViewController: ProfileViewController {
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         
-        self.title = "Profil";
+        self.title = "My Profile";
         super.addConstraints();
         
         profileNameLabel.text = profile.name;
@@ -45,9 +45,7 @@ class PlayerProfileViewController: ProfileViewController {
     }
     
     func updateScore(notification:Notification){
-        let score = notification.userInfo?["score"] as? String;
-        let scorePerSecond = notification.userInfo?["scorePerSecond"] as? String;
-        profileScoreLabel.text = score! + " (" +  scorePerSecond! + "/s)";
+        profileScoreLabel.text = notification.userInfo?["newScore"] as? String;
     }
 
 }
