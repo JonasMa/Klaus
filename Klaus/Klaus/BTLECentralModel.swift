@@ -251,10 +251,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             let dataString = String(data: data.copy() as! Data, encoding: String.Encoding.utf8)!
             let splittedDataString = dataString.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
             
-            let name: String = splittedDataString[INDEX_NAME]
+            let name: String = splittedDataString[DATA_INDEX_NAME]
             
             
-            let itemStrings = splittedDataString[INDEX_ITEMS].components(separatedBy: Item.ITEM_SEPARATOR)
+            let itemStrings = splittedDataString[DATA_INDEX_ITEMS].components(separatedBy: Item.ITEM_SEPARATOR)
             var array: Array<Item> = Array<Item>()
             for itemString in itemStrings {
                 let decoded: Item? = Item.decode(toDecode: itemString)
@@ -267,7 +267,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 }
             }
             
-            let score: Int = Int(splittedDataString[INDEX_SCORE])!
+            let score: Int = Int(splittedDataString[DATA_INDEX_SCORE])!
             
             delegate?.didRetrievePlayerInfo(name: name)
             delegate?.didRetrievePlayerInfo(score: score)

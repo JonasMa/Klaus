@@ -24,11 +24,14 @@ class EnemyListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         CentralPeripheralController.sharedInstance.discoverEnemies()
+        
+        //for testing
+        AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Enemies In Range";
+        self.title = "Gegner in der Nähe";
         enemyTableViewController = EnemyTableViewController()
         self.addChildViewController(enemyTableViewController);
         self.view.addSubview(enemyTableViewController.view);

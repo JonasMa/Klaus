@@ -110,7 +110,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         print("Central subscribed to characteristic")
         
-        let sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.score) + SEPARATOR_NAME_SCORE_ITEMS + getItemsString(items: AppModel.sharedInstance.player.items)
+        let sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + getItemsString(items: AppModel.sharedInstance.player.items)
         
         dataToSend = sendString.data(using: String.Encoding.utf8)
         

@@ -30,9 +30,8 @@ class ProfileViewController: UIViewController {
         
         //BACKGROUND
         grad = CAGradientLayer();
-        grad.colors = [Style.bg.cgColor,Style.bgTransparent.cgColor];
-        grad.startPoint = CGPoint(x: 0.5, y: 0.35)
-        grad.endPoint = CGPoint(x: 0.5, y: 0.45)
+        grad.colors = [Style.bg.cgColor, Style.bg.cgColor, UIColor.lightGray.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor];
+        grad.locations = gradientLocations();
         grad.frame = self.view.bounds;
         
         self.view.backgroundColor = Style.bg;
@@ -58,7 +57,11 @@ class ProfileViewController: UIViewController {
         profileScoreLabel.font = UIFont.systemFont(ofSize: 11);
         profileScoreLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileScoreLabel);
-    
+        
+        
+
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,12 +69,11 @@ class ProfileViewController: UIViewController {
     }
     
     func addConstraints(){
+        
         self.view.layer.addSublayer(grad);
 
         self.view.bringSubview(toFront: profileStatsView);
         self.view.bringSubview(toFront: profileImageView);
-
-        
         
         profileImageView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true;
@@ -93,7 +95,17 @@ class ProfileViewController: UIViewController {
         itemCollectionViewController.collectionView?.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
         itemCollectionViewController.collectionView?.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
         itemCollectionViewController.collectionView?.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
+        
+        
 
     }
     
+    func gradientLocations() -> [NSNumber]{
+        
+        let loc = 0.37;
+        
+        return [0.0,NSNumber(floatLiteral: loc), NSNumber(floatLiteral: loc + 0.000000001), NSNumber(floatLiteral: loc + 0.05), NSNumber(floatLiteral: loc + 0.0500000001),1.0]
+        
+        
+    }
 }

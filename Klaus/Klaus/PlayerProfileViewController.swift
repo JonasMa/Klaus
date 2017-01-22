@@ -10,8 +10,12 @@ import UIKit
 
 class PlayerProfileViewController: ProfileViewController {
     
+    var profile: PlayerProfile!;
+    var firstLaunch = false;
+    
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, queue: nil, using: updateScore)
+        profileNameLabel.text = profile!.name;
 
     }
     
@@ -19,24 +23,36 @@ class PlayerProfileViewController: ProfileViewController {
         NotificationCenter.default.removeObserver(self, name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil);
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if firstLaunch {
+            let vc = TutorialPageViewController(nibName: "TutorialPageViewController", bundle: nil);
+            vc.modalTransitionStyle = .flipHorizontal;
+            self.present(vc, animated: true, completion: nil);
+            firstLaunch = false;
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.presentTutorialNotification, object: nil, queue: nil, using: presentTutorial);
+
+        
         CentralPeripheralController.sharedInstance.setPassive()
         
-        let profile = AppModel.sharedInstance.player;
+        profile = AppModel.sharedInstance.player;
         //ITEM COLLECTION
         itemCollectionViewController = PlayerItemCollectionViewController();
         itemCollectionViewController.profile = profile;
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         
-        self.title = "My Profile";
+        self.title = "Profil";
         super.addConstraints();
         
-        profileNameLabel.text = profile.name;
-        profileScoreLabel.text = String(profile.score);
-                
+        profileScoreLabel.text = String(profile!.score);
+        
+        
 
     }
 
@@ -45,7 +61,15 @@ class PlayerProfileViewController: ProfileViewController {
     }
     
     func updateScore(notification:Notification){
-        profileScoreLabel.text = notification.userInfo?["newScore"] as? String;
+        let score = notification.userInfo?["score"] as? String;
+        let scorePerSecond = notification.userInfo?["scorePerSecond"] as? String;
+        profileScoreLabel.text = score! + " (" +  scorePerSecond! + "/s)";
     }
+    
+    func presentTutorial(notification:Notification){
+        firstLaunch = true;
+    }
+    
+
 
 }

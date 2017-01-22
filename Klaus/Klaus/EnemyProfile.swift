@@ -10,11 +10,21 @@ import Foundation
 
 class EnemyProfile: Profile{
     
+
     var uuid: String
 
     
     init (name: String, uuid: String){
         self.uuid = uuid
         super.init(name: name)
+    }
+    
+    override init(name: String){
+        uuid = ""
+        super.init(name: name)
+        
+        //for testing
+        self.items = AppModel.sharedInstance.initialItems();
+
     }
 }

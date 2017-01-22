@@ -11,5 +11,6 @@ import Foundation
 struct NotificationCenterKeys{
     
     static var updatePlayerScoreNotification = Notification.Name("updateScore");
-    static var updateEnemyListNotification = Notification.Name("updateEnemies")
+    static var updateEnemyListNotification = Notification.Name("updateEnemies");
+    static var presentTutorialNotification = Notification.Name("presentTutorial");
 }

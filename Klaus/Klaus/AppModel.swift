@@ -13,32 +13,28 @@ class AppModel {
     static let sharedInstance: AppModel = AppModel();
     
     var enemiesList: Array<EnemyProfile>;
-    let player: PlayerProfile
-    
-    var test: Int;
-
+    var player: PlayerProfile!
     
     init() {
         enemiesList = Array<EnemyProfile>();
         
-        //for testing
-        player = PlayerProfile(name: "Ulf-Eugen");
+        //update points based on items
+        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
         
-        //to test notifications
-        test = 0;
-        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateScoreForTesting), userInfo: nil, repeats: true);
-        
-
-        //load data from NSUserDefaults
-    }
-    
-    @objc func updateScoreForTesting(){
-        test += 1;
-        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["newScore":String(test)]);
-        if (test == 3){
-            addEnemyToList(enemy: EnemyProfile(name: "Gerlinde", uuid:""));
-
+        if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
+            player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
+            print("PlayerProfile loaded.");
+        }else{
+            NotificationCenter.default.post(name: NotificationCenterKeys.presentTutorialNotification, object: nil);
+            player = PlayerProfile(id: "0", name: "", items: initialItems());
+            print("new Profile created, presenting tutorialView.");
         }
+        
+    }
+
+    
+    @objc func updatePlayerScore(){
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
     }
     
     
@@ -64,6 +60,24 @@ class AppModel {
         }else{
             print("Could not remove enemy " + enemy.name + " with id " + enemy.id + ", not in list");
         }
+    }
+    
+    func saveData(){
+        let data = NSKeyedArchiver.archivedData(withRootObject: player);
+        UserDefaults.standard.set(data, forKey: "Player");
+        print("Data saved.")
+                
+    }
+    
+    func initialItems() -> Array<Item>{
+        let item2 = CoffeeItem();
+        let item1 = AxeItem();
+        return [item1,item1,item2,item1,item2,item1,item2,item2,item1,item2,item2,item1];
+    }
+    
+    func deleteData(){
+        UserDefaults.standard.set(nil, forKey: "Player");
+        print("PlayerProfile cleared.");
     }
     
     
