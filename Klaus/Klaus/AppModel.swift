@@ -13,24 +13,74 @@ class AppModel {
     static let sharedInstance: AppModel = AppModel();
     
     var enemiesList: Array<EnemyProfile>;
-    let player: PlayerProfile;
-
+    var player: PlayerProfile!
     
     init() {
         enemiesList = Array<EnemyProfile>();
         
-        //for testing
-        player = PlayerProfile(name: "Ulf-Eugen");
-        let enemy1 = EnemyProfile(name: "Guenther");
-        let enemy2 = EnemyProfile(name: "Soeren");
-        enemiesList.append(enemy1);
-        enemiesList.append(enemy2);
+        //update points based on items
+        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
         
-        //load data from NSUserDefaults
+        if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
+            player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
+            print("PlayerProfile loaded.");
+        }else{
+            NotificationCenter.default.post(name: NotificationCenterKeys.presentTutorialNotification, object: nil);
+            player = PlayerProfile(id: "0", name: "", items: initialItems());
+            print("new Profile created, presenting tutorialView.");
+        }
+        
     }
     
-    func updateEnemyList(enemiesList: Array<EnemyProfile>){
-        self.enemiesList = enemiesList;
+    
+    @objc func updatePlayerScore(){
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
     }
+    
+    
+    func updateEnemyListInView(){
+        var enemyDict = Dictionary<Int,EnemyProfile>();
+        
+        for i in 0...(enemiesList.count-1){
+            enemyDict[i] = enemiesList[i];
+        }
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyListNotification, object: nil, userInfo: enemyDict)
+    }
+    
+    func addEnemyToList(enemy: EnemyProfile){
+        enemiesList.append(enemy);
+        updateEnemyListInView();
+    }
+    
+    func removeEnemyFromList(enemy: EnemyProfile){
+        if(enemiesList.contains(enemy)){
+            enemiesList.remove(at: enemiesList.index(of: enemy)!);
+            print("Enemy " + enemy.name + " with id " + enemy.id + " removed from list");
+            updateEnemyListInView();
+        }else{
+            print("Could not remove enemy " + enemy.name + " with id " + enemy.id + ", not in list");
+        }
+    }
+    
+    func saveData(){
+        let data = NSKeyedArchiver.archivedData(withRootObject: player);
+        UserDefaults.standard.set(data, forKey: "Player");
+        print("Data saved.")
+                
+    }
+    
+    func initialItems() -> Array<Item>{
+        let item2 = CoffeeItem();
+        let item1 = AxeItem();
+        return [item1,item1,item2,item1,item2,item1,item2,item2,item1,item2,item2,item1];
+    }
+    
+    func deleteData(){
+        UserDefaults.standard.set(nil, forKey: "Player");
+        print("PlayerProfile cleared.");
+    }
+    
+    
     
 }
+

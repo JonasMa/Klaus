@@ -30,7 +30,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
 
         contentView.addSubview(label);
         
-    
         
     }
     

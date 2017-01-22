@@ -1,5 +1,5 @@
 //
-//  GameViewController.swift
+//  AxeGameViewController.swift
 //  Klaus
 //
 //  Created by Oliver Pieper on 29.12.16.
@@ -9,7 +9,7 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+class AxeGameViewController: UIViewController {
 
     @IBOutlet weak var countdownValueLabel: UILabel!
     @IBOutlet weak var gametitleLabel: UILabel!
@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated: false)
         accelerometerModel = AccelerometerModel()
         countdown = CountdownModel(vc: self)
     }
@@ -33,8 +34,7 @@ class GameViewController: UIViewController {
     }
     
     func startResultViewController() -> Void {
-        let vc = ResultViewController(nibName: "ResultViewController", bundle: nil)
-        vc.result = accelerometerModel.endRecording() //sends result value to resultViewController
+        let vc = ResultViewController(result: accelerometerModel.endRecording())
         navigationController?.pushViewController(vc, animated: true)
     }
     
