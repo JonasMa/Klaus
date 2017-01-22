@@ -96,9 +96,9 @@ class SimonSaysViewController: UIViewController {
         } else {
             tag = Int(digit)!
         }
-        let button = self.view.viewWithTag(tag) as! UIButton
-        changeColor(uiElement: button, color: "red")
-        delay(delay: 1.5) {self.changeColor(uiElement: button, color: "grey")}
+        let button = self.view.viewWithTag(tag) as? UIButton
+        changeColor(uiElement: button!, color: "red")
+        delay(delay: 1.5) {self.changeColor(uiElement: button!, color: "grey")}
     }
     
     func changeLabel(label: UILabel, newText: String) {
