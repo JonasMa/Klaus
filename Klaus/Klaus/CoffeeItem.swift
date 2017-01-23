@@ -9,22 +9,17 @@
 import Foundation
 import UIKit
 
-class CoffeeItem: Item, NSCoding {
+class CoffeeItem: Item {
     
-    init(){
-        super.init(displayName: "Coffee", pointsPerSecond: 2);
+    private static let IMAGE_NAME = "Coffee";
+    
+    override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int){
+        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level);
+        self.imageName = CoffeeItem.IMAGE_NAME;
     }
     
-    init(dateOfAcquisition: Date){
-        super.init(displayName: "Coffee", pointsPerSecond: 2, dateOfAcquisition: dateOfAcquisition);
-    }
-    
-    required convenience init(coder aDecoder: NSCoder) {
-        self.init(dateOfAcquisition: aDecoder.decodeObject(forKey: "dateOfAcquisition") as! Date);
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(dateOfAcquisition, forKey: "dateOfAcquisition");
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder);
     }
     
     override func getGameExplanation() -> String{
@@ -33,5 +28,9 @@ class CoffeeItem: Item, NSCoding {
     
     override func getAssociatedGameViewController() -> UIViewController {
         return ShelfGameViewController(nibName: "ShelfGameViewController", bundle: nil)
+    }
+    
+    static func initNewItem() -> Item{
+        return CoffeeItem(id: Item.newId(), displayName: "Kaffee", pointsPerSecond: 3, dateOfAcquisition: Date(), level: 1);
     }
 }

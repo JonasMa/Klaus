@@ -9,13 +9,16 @@
 import Foundation
 import UIKit
 
-class Item: NSObject /*,NSCoding+*/ {
+class Item: NSObject, NSCoding {
     var id: String;
     var displayName: String;
     var dateOfAcquisition: Date;
     var pointsPerSecond: Int;
-    var imageName: String;
+    var imageName: String!;
     var itemLevel: Int;
+    
+    private static var CURRENT_ID: Int = 0;
+    
     static let dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
     static let SEPARATOR: String = "#"
     static let ITEM_SEPARATOR: String = "**"
@@ -27,28 +30,25 @@ class Item: NSObject /*,NSCoding+*/ {
     private static let INDEX_IMAGE: Int = 4
     private static let INDEX_LEVEL: Int = 5
     
+    required init(coder aDecoder: NSCoder) {
+        id = aDecoder.decodeObject(forKey: "id") as! String;
+        displayName = aDecoder.decodeObject(forKey: "displayName") as! String;
+        pointsPerSecond = aDecoder.decodeObject(forKey: "pointsPerSecond") as! Int;
+        dateOfAcquisition = aDecoder.decodeObject(forKey: "dateOfAcquisition") as! Date;
+        itemLevel = aDecoder.decodeObject(forKey: "level") as! Int;
+    }
   
-    
-    init(displayName: String, pointsPerSecond: Int) {
-        self.id = displayName;
-        self.displayName = displayName;
-        self.pointsPerSecond = pointsPerSecond;
-        self.dateOfAcquisition = Date()
-        self.imageName = displayName;
-        self.itemLevel = 0;
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(id, forKey: "id");
+        aCoder.encode(displayName, forKey: "displayName");
+        aCoder.encode(pointsPerSecond, forKey: "pointsPerSecond");
+        aCoder.encode(dateOfAcquisition, forKey: "dateOfAcquisition");
+        aCoder.encode(itemLevel, forKey: "level");
     }
     
-    init(displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date){
-        self.id = displayName;
-        self.displayName = displayName;
-        self.pointsPerSecond = pointsPerSecond;
-        self.dateOfAcquisition = dateOfAcquisition;
-        self.imageName = displayName;
-        self.itemLevel = 0;
-    }
-    
-    init(displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int){
-        self.id = displayName;
+    //do not use
+    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int){
+        self.id = id;
         self.displayName = displayName;
         self.pointsPerSecond = pointsPerSecond;
         self.dateOfAcquisition = dateOfAcquisition;
@@ -67,7 +67,7 @@ class Item: NSObject /*,NSCoding+*/ {
     }
     
     static func decode (toDecode: String) -> Item? {
-        //var id: String // wie schaut das denn jetzt aus? datenstruktur? was braucht man jetzt?
+        var id: String // wie schaut das denn jetzt aus? datenstruktur? was braucht man jetzt?
         var name: String
         var timeStamp: Date?
         var pointsPerSecond: Int?
@@ -85,7 +85,7 @@ class Item: NSObject /*,NSCoding+*/ {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat
         
-        //id = splitted[INDEX_ID]
+        id = splitted[INDEX_ID]
         name = splitted[INDEX_NAME]
         timeStamp = formatter.date(from: splitted[INDEX_DATE])
         pointsPerSecond = Int(splitted[INDEX_POINTS])
@@ -100,21 +100,20 @@ class Item: NSObject /*,NSCoding+*/ {
             print("unwrapping Item.decode was unsuccesful")
             return nil
         }
-        return Item(displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!)
+        
+        //workaround LUL
+        switch name {
+        case "Axe":
+            return AxeItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!);
+        case "Coffee":
+            return CoffeeItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!);
+        default:
+                print("unknown displayname");
+                return nil;
+        }
+//        return Item(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!)
     }
 
-    
-//    required convenience init(coder aDecoder: NSCoder) {
-//        self.init(
-//            displayName: aDecoder.decodeObject(forKey: "displayName") as! String,
-//            pointsPerSecond: aDecoder.decodeInteger(forKey: "pointsPerSecond"));
-//    }
-//    
-//    func encode(with aCoder: NSCoder) {
-//        aCoder.encode(self.displayName, forKey: "displayName");
-//        aCoder.encode(self.pointsPerSecond, forKey: "pointsPerSecond");
-//    }
-    
     func getGameExplanation() -> String{
         preconditionFailure("This function must be overridden!");
     }
@@ -128,5 +127,10 @@ class Item: NSObject /*,NSCoding+*/ {
         return abs(Int(interval) * pointsPerSecond);
     }
     
-
+    static func newId() -> String{
+        let id = String(format: "%04d", CURRENT_ID);
+        CURRENT_ID += 1;
+        return (UIDevice.current.identifierForVendor?.uuidString)! +  id;
+    }
+    
 }

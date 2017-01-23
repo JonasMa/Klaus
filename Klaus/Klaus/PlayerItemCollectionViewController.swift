@@ -39,7 +39,7 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
         
         let item = profile.items[indexPath.row];
         let name = item.displayName;
-        cell.imageView.image = UIImage(named: name.lowercased())?.withRenderingMode(.alwaysTemplate);
+        cell.imageView.image = UIImage(named: item.imageName.lowercased())?.withRenderingMode(.alwaysTemplate);
         cell.label.text = name;
         return cell
     }

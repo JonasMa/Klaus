@@ -70,9 +70,7 @@ class AppModel {
     }
     
     func initialItems() -> Array<Item>{
-        let item2 = CoffeeItem();
-        let item1 = AxeItem();
-        return [item1,item1,item2,item1,item2,item1,item2,item2,item1,item2,item2,item1];
+        return [CoffeeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem()];
     }
     
     func deleteData(){
