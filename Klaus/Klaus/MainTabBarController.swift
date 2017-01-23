@@ -10,6 +10,9 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
+    let tabOne = UINavigationController()
+    let tabTwo = UINavigationController();
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         
@@ -18,8 +21,8 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        let tabOne = UINavigationController()
-        let tabTwo = UINavigationController();
+        
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, queue: nil, using: triggerExplanationView)
         
         let tabOneBarItem = UITabBarItem(title: "Profil", image: UIImage(named: "profileTab"), tag: 0);
         let tabTwoBarItem = UITabBarItem(title: "Gegner", image: UIImage(named: "enemyTab"), tag: 1);
@@ -41,6 +44,11 @@ class MainTabBarController: UITabBarController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func triggerExplanationView(notification:Notification) {
+        let vc = ExplanationViewController(item: notification.userInfo?["item"] as! Item)
+        tabTwo.pushViewController(vc, animated: true)
     }
 
 }

@@ -80,7 +80,14 @@ class AppModel {
         print("PlayerProfile cleared.");
     }
     
+    func triggerEnemyGameInstance(stolenItem: Item) {
+        //TODO: Per Bluetooth Item an Gegner senden
+        NSLog("Enemy Challenge triggered with item: \(stolenItem.displayName)")
+    }
     
+    func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
+        NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
+    }
     
 }
 
