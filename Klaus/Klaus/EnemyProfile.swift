@@ -20,11 +20,11 @@ class EnemyProfile: Profile{
     }
     
     override init(name: String){
-        uuid = ""
+        self.uuid = ""
         super.init(name: name)
         
         //for testing
-        self.items = AppModel.sharedInstance.initialItems();
+        self.setItems(items: AppModel.sharedInstance.initialItems());
 
     }
     
@@ -37,6 +37,7 @@ class EnemyProfile: Profile{
     }
     
     func setScore (score: Int){
+        self.score = score;
         NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyScoreNotification, object: nil, userInfo: ["score": score]);
     }
     

@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 class Item: NSObject, NSCoding {
-    var id: String;
-    var displayName: String;
-    var dateOfAcquisition: Date;
-    var pointsPerSecond: Int;
+    private(set) var id: String;
+    private(set) var displayName: String;
+    private(set) var dateOfAcquisition: Date;
+    private(set) var pointsPerSecond: Int;
     var imageName: String!;
-    var itemLevel: Int;
+    private(set) var itemLevel: Int;
     
     private static var CURRENT_ID: Int = 0;
     

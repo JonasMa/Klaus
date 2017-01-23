@@ -35,7 +35,7 @@ class CentralPeripheralController: ConnectingDelegate {
     
     func resetEnemyProfile(){
         enemyPlayerProfile.name = EMPTY_NAME;
-        enemyPlayerProfile.items = Array<Item>()
+        enemyPlayerProfile.setItems(items: Array<Item>());
         enemyPlayerProfile.score = -1
         enemyPlayerProfile.uuid = ""
     }
@@ -89,12 +89,12 @@ class CentralPeripheralController: ConnectingDelegate {
     }
     
     func didRetrievePlayerInfo(items: Array<Item>) {
-        enemyPlayerProfile.items = items
-        checkForEnemyProfileCompleted()
+        enemyPlayerProfile.setItems(items: items);
+        checkForEnemyProfileCompleted();
     }
 
     func didRetrievePlayerInfo(score: Int) {
-        enemyPlayerProfile.score = score
+        enemyPlayerProfile.setScore(score: score);
         checkForEnemyProfileCompleted()
     }
 }

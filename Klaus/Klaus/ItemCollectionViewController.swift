@@ -12,7 +12,7 @@ import UIKit
 class ItemCollectionViewController: UICollectionViewController {
     
     var flowLayout:UICollectionViewFlowLayout!;
-    var profile: Profile!;
+    var items: Array<Item>!;
 
     fileprivate let itemsPerRow: CGFloat = 3;
     fileprivate let sectionInsets = UIEdgeInsets(top: 110, left: 15.0, bottom: 0.0, right: 15.0)
@@ -38,7 +38,8 @@ class ItemCollectionViewController: UICollectionViewController {
     }
 
     func updateItems(notification: Notification){
-        profile.items = Array(notification.userInfo!.values) as! Array<Item>;
+        items = Array(notification.userInfo!.values) as? Array<Item>;
+        print(items);
         print("Item List Updated!");
         self.collectionView?.reloadData();
     }

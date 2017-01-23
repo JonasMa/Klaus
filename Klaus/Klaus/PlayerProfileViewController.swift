@@ -14,12 +14,14 @@ class PlayerProfileViewController: ProfileViewController {
     var firstLaunch = false;
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, queue: nil, using: updateScore)
         profileNameLabel.text = profile!.name;
 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated);
         NotificationCenter.default.removeObserver(self, name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil);
     }
     
@@ -43,7 +45,7 @@ class PlayerProfileViewController: ProfileViewController {
         profile = AppModel.sharedInstance.player;
         //ITEM COLLECTION
         itemCollectionViewController = PlayerItemCollectionViewController();
-        itemCollectionViewController.profile = profile;
+        itemCollectionViewController.items = profile.items;
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         
