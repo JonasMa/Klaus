@@ -16,7 +16,7 @@
 		47C062291E15274200C25292 /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C062271E15274200C25292 /* ExplanationViewController.swift */; };
 		47C0622A1E15274200C25292 /* ExplanationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C062281E15274200C25292 /* ExplanationViewController.xib */; };
 		47C0622D1E15292A00C25292 /* AxeGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C0622B1E15292A00C25292 /* AxeGameViewController.swift */; };
-		47C0622E1E15292A00C25292 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C0622C1E15292A00C25292 /* GameViewController.xib */; };
+		47C0622E1E15292A00C25292 /* AxeGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C0622C1E15292A00C25292 /* AxeGameViewController.xib */; };
 		47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C0622F1E152B0800C25292 /* AccelerometerModel.swift */; };
 		47C062331E152B8100C25292 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C062311E152B8100C25292 /* ResultViewController.swift */; };
 		47C062341E152B8100C25292 /* ResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C062321E152B8100C25292 /* ResultViewController.xib */; };
@@ -93,7 +93,7 @@
 		47C062271E15274200C25292 /* ExplanationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
 		47C062281E15274200C25292 /* ExplanationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExplanationViewController.xib; sourceTree = "<group>"; };
 		47C0622B1E15292A00C25292 /* AxeGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxeGameViewController.swift; sourceTree = "<group>"; };
-		47C0622C1E15292A00C25292 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
+		47C0622C1E15292A00C25292 /* AxeGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AxeGameViewController.xib; sourceTree = "<group>"; };
 		47C0622F1E152B0800C25292 /* AccelerometerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerModel.swift; sourceTree = "<group>"; };
 		47C062311E152B8100C25292 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		47C062321E152B8100C25292 /* ResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultViewController.xib; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 				47C062281E15274200C25292 /* ExplanationViewController.xib */,
 				47C062321E152B8100C25292 /* ResultViewController.xib */,
 				4772ABF41E2655EC00AA9E57 /* ShelfGameViewController.xib */,
-				47C0622C1E15292A00C25292 /* GameViewController.xib */,
+				47C0622C1E15292A00C25292 /* AxeGameViewController.xib */,
 			);
 			name = XIB;
 			sourceTree = "<group>";
@@ -479,7 +479,7 @@
 				TargetAttributes = {
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = MJPF8FFZ6P;
+						DevelopmentTeam = 87X3F5FDGG;
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -525,7 +525,7 @@
 				47C062341E152B8100C25292 /* ResultViewController.xib in Resources */,
 				8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */,
 				4772ABF61E2655EC00AA9E57 /* ShelfGameViewController.xib in Resources */,
-				47C0622E1E15292A00C25292 /* GameViewController.xib in Resources */,
+				47C0622E1E15292A00C25292 /* AxeGameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,7 +743,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MJPF8FFZ6P;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -758,7 +758,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MJPF8FFZ6P;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
