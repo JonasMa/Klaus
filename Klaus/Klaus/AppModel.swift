@@ -10,10 +10,14 @@ import Foundation
 
 class AppModel {
     
+    let winningStatement: Int = 2
     static let sharedInstance: AppModel = AppModel();
     
     var enemiesList: Array<EnemyProfile>;
     var player: PlayerProfile!
+    var scores = [Double]()
+    var personalScore: Double!
+    var underAttack: Bool = false
     
     init() {
         enemiesList = Array<EnemyProfile>();
@@ -78,7 +82,39 @@ class AppModel {
         print("PlayerProfile cleared.");
     }
     
+    func triggerEnemyGameInstance(stolenItem: Item) {
+        //TODO: Per Bluetooth Item an Gegner senden
+        NSLog("Enemy Challenge triggered with item: \(stolenItem.displayName)")
+    }
     
+    func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
+        underAttack = true
+        NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
+    }
+    
+    func pushScore(score: Double) {
+        scores.append(score)
+        if scores.count == winningStatement && score == personalScore{ //winning condition
+            //TODO: Notify enemy
+            NSLog("Gewonnen")
+            scores.removeAll()
+            underAttack = false
+        } else if scores.count == winningStatement && score != personalScore { //losing condition
+            //TODO: Notify enemy
+            NSLog("Verloren")
+            scores.removeAll()
+            underAttack = false
+        }
+        NSLog("Score aus AppModel: \(scores[0])")
+    }
+    
+    func sendOwnScoreAsAffectedPersonToEnemy(score: Double) {
+        //Sende score an Challenger
+    }
+    
+    func receiveOverallGameResult() {
+        //Angegriffener erfährt ob er gewonnen hat oder nicht
+    }
     
 }
 
