@@ -13,10 +13,16 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     var result: Double = 0.0
     
+    @IBAction func backButton(_ sender: UIButton) {
+        NSLog("BackButton gedrückt.")
+    }
+    
     init(result: Double){
         super.init(nibName: "ResultViewController", bundle: nil)
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.result = result
+        AppModel.sharedInstance.personalScore = result
+        AppModel.sharedInstance.pushScore(score: result)
     }
     
     required init?(coder aDecoder: NSCoder) {

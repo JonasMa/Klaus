@@ -10,10 +10,13 @@ import Foundation
 
 class AppModel {
     
+    let winningStatement: Int = 2
     static let sharedInstance: AppModel = AppModel();
     
     var enemiesList: Array<EnemyProfile>;
     var player: PlayerProfile!
+    var scores = [Double]()
+    var personalScore: Double!
     
     init() {
         enemiesList = Array<EnemyProfile>();
@@ -87,6 +90,18 @@ class AppModel {
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
+    }
+    
+    func pushScore(score: Double) {
+        scores.append(score)
+        if scores.count == winningStatement && score == personalScore{
+            //gewonnen
+            NSLog("Gewonnen")
+        } else if scores.count == winningStatement && score != personalScore {
+            //verloren
+            NSLog("Verloren")
+        }
+        NSLog("Score aus AppModel: \(scores[0])")
     }
     
 }
