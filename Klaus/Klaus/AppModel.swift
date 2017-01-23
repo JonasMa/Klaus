@@ -17,6 +17,7 @@ class AppModel {
     var player: PlayerProfile!
     var scores = [Double]()
     var personalScore: Double!
+    var underAttack: Bool = false
     
     init() {
         enemiesList = Array<EnemyProfile>();
@@ -89,6 +90,7 @@ class AppModel {
     }
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
+        underAttack = true
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
     }
     
@@ -97,9 +99,13 @@ class AppModel {
         if scores.count == winningStatement && score == personalScore{
             //gewonnen
             NSLog("Gewonnen")
+            scores.removeAll()
+            underAttack = false
         } else if scores.count == winningStatement && score != personalScore {
             //verloren
             NSLog("Verloren")
+            scores.removeAll()
+            underAttack = false
         }
         NSLog("Score aus AppModel: \(scores[0])")
     }
