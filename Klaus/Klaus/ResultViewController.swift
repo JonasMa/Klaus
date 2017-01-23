@@ -22,7 +22,7 @@ class ResultViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.result = result
         AppModel.sharedInstance.personalScore = result
-        AppModel.sharedInstance.pushScore(score: result)
+        handleScore()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,6 +34,14 @@ class ResultViewController: UIViewController {
         super.viewDidLoad()
         resultLabel.text = String(result)
         
+    }
+    
+    func handleScore() {
+        if AppModel.sharedInstance.underAttack {
+            AppModel.sharedInstance.sendOwnScoreAsAffectedPersonToEnemy(score: result)
+        }else{
+            AppModel.sharedInstance.pushScore(score: result)
+        }
     }
 
     override func didReceiveMemoryWarning() {

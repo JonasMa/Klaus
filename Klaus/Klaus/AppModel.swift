@@ -96,18 +96,26 @@ class AppModel {
     
     func pushScore(score: Double) {
         scores.append(score)
-        if scores.count == winningStatement && score == personalScore{
-            //gewonnen
+        if scores.count == winningStatement && score == personalScore{ //winning condition
+            //TODO: Notify enemy
             NSLog("Gewonnen")
             scores.removeAll()
             underAttack = false
-        } else if scores.count == winningStatement && score != personalScore {
-            //verloren
+        } else if scores.count == winningStatement && score != personalScore { //losing condition
+            //TODO: Notify enemy
             NSLog("Verloren")
             scores.removeAll()
             underAttack = false
         }
         NSLog("Score aus AppModel: \(scores[0])")
+    }
+    
+    func sendOwnScoreAsAffectedPersonToEnemy(score: Double) {
+        //Sende score an Challenger
+    }
+    
+    func receiveOverallGameResult() {
+        //Angegriffener erfährt ob er gewonnen hat oder nicht
     }
     
 }
