@@ -62,8 +62,4 @@ class Profile: NSObject{
         return scorePerSecond;
     }
     
-    static func == (lhs: Profile, rhs: Profile) -> Bool{
-        return lhs.id == rhs.id;
-    }
-    
 }

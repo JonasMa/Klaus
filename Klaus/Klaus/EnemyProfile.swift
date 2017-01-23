@@ -27,4 +27,14 @@ class EnemyProfile: Profile{
         self.items = AppModel.sharedInstance.initialItems();
 
     }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        if let object = object as? EnemyProfile {
+            return self.uuid == object.uuid;
+        }else{
+            return false;
+        }
+    }
+    
+    
 }
