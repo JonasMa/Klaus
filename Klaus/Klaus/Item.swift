@@ -33,9 +33,9 @@ class Item: NSObject, NSCoding {
     required init(coder aDecoder: NSCoder) {
         id = aDecoder.decodeObject(forKey: "id") as! String;
         displayName = aDecoder.decodeObject(forKey: "displayName") as! String;
-        pointsPerSecond = aDecoder.decodeObject(forKey: "pointsPerSecond") as! Int;
+        pointsPerSecond = aDecoder.decodeInteger(forKey: "pointsPerSecond");
         dateOfAcquisition = aDecoder.decodeObject(forKey: "dateOfAcquisition") as! Date;
-        itemLevel = aDecoder.decodeObject(forKey: "level") as! Int;
+        itemLevel = aDecoder.decodeInteger(forKey: "level");
     }
   
     func encode(with aCoder: NSCoder) {
