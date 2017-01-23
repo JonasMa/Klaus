@@ -62,4 +62,13 @@ class Profile: NSObject{
         return scorePerSecond;
     }
     
+    func setItems(items: Array<Item>){
+        var itemDict = Dictionary<Int,Item>();
+        
+        for i in 0...(items.count-1){
+            itemDict[i] = items[i];
+        }
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateItemsNotification, object: nil, userInfo: itemDict)
+    }
+    
 }

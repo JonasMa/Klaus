@@ -20,6 +20,7 @@ class CoffeeItem: Item {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
+        self.imageName = CoffeeItem.IMAGE_NAME;
     }
     
     override func getGameExplanation() -> String{

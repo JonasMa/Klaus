@@ -36,5 +36,8 @@ class EnemyProfile: Profile{
         }
     }
     
+    func setScore (score: Int){
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyScoreNotification, object: nil, userInfo: ["score": score]);
+    }
     
 }

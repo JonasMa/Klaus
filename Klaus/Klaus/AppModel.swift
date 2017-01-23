@@ -23,9 +23,9 @@ class AppModel {
         enemiesList = Array<EnemyProfile>();
         
         //update points based on items
-        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
         
-        if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
+        if let savedPlayer = UserDefaults.standard.object(forKey: "PlayerData") as? Data {
             player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
             print("PlayerProfile loaded.");
         }else{
@@ -39,6 +39,7 @@ class AppModel {
     
     @objc func updatePlayerScore(){
         NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
+        //player.setItems(items: [CoffeeItem.initNewItem(),AxeItem.initNewItem(),AxeItem.initNewItem()]);
     }
     
     
@@ -68,7 +69,7 @@ class AppModel {
     
     func saveData(){
         let data = NSKeyedArchiver.archivedData(withRootObject: player);
-        UserDefaults.standard.set(data, forKey: "Player");
+        UserDefaults.standard.set(data, forKey: "PlayerData");
         print("Data saved.")
                 
     }

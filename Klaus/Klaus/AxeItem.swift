@@ -20,6 +20,7 @@ class AxeItem: Item {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
+        self.imageName = AxeItem.IMAGE_NAME;
     }
     
     override func getGameExplanation() -> String{
