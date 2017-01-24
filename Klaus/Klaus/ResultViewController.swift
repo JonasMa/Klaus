@@ -20,7 +20,7 @@ class ResultViewController: UIViewController {
     init(result: Double){
         super.init(nibName: "ResultViewController", bundle: nil)
         self.navigationItem.setHidesBackButton(true, animated: false)
-        self.result = result
+        self.result = round(10000 * result) / 10000
         AppModel.sharedInstance.personalScore = result
         handleScore()
     }

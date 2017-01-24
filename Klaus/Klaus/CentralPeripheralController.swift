@@ -100,6 +100,7 @@ class CentralPeripheralController: ConnectingDelegate {
     
     // functions for sending and receiving game challenges
     func sendGameRequestToAtackedPerson(itemToBeStolen: Item) {
+        NSLog("CPC itemToBeStolen: \(itemToBeStolen.id)")
         // TODO: Jonas schick das Item itemToBeStolen an den Gegner und empfange es
         // beim Gegner mit der Methode, die hier als nächstes dann kommt: receiveGameRequestFromAttacker()
     }
@@ -108,11 +109,12 @@ class CentralPeripheralController: ConnectingDelegate {
         // TODO: Jonas les das Item aus sendGameRequestToAttackedPerson aus und übergib 
         // als Parameter an die hier implementierte Funktion des AppModels
         
-        AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: <#T##Item#>)
+        //AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: <#T##Item#>)
     }
     
     // functions for sending and receiving game scores
     func sendScoreToEnemy(ownScore: Double) {
+        NSLog("CPC ownScore: \(ownScore)")
         // TODO: Schicke ownScore an receiveScoreFromEnemy des Gegners
     }
     
@@ -120,6 +122,6 @@ class CentralPeripheralController: ConnectingDelegate {
         // TODO: Empfange Score des Gegners aus sendScoreToEnemy und übergebe es an
         // den entsprechenden Methodenaufruf des AppModels: pushScore()
         
-        AppModel.sharedInstance.pushScore(score: <#T##Double#>)
+        //AppModel.sharedInstance.pushScore(score: <#T##Double#>)
     }
 }
