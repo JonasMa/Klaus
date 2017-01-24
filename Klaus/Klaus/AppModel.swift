@@ -79,8 +79,7 @@ class AppModel {
     }
 
     func triggerEnemyGameInstance(stolenItem: Item) {
-        //TODO: Per Bluetooth Item an Gegner senden
-        NSLog("Enemy Challenge triggered with item: \(stolenItem.displayName)")
+        CentralPeripheralController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
     }
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {

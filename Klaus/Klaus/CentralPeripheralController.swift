@@ -97,4 +97,17 @@ class CentralPeripheralController: ConnectingDelegate {
         enemyPlayerProfile.setScore(score: score);
         checkForEnemyProfileCompleted()
     }
+    
+    // functions for sending and receiving game challenges
+    func sendGameRequestToAtackedPerson(itemToBeStolen: Item) {
+        // TODO: Jonas schick das Item itemToBeStolen an den Gegner und empfange es
+        // beim Gegner mit der Methode, die hier als nächstes dann kommt: receiveGameRequestFromAttacker()
+    }
+    
+    func receiveGameRequestFromAttacker() {
+        // TODO: Jonas les das Item aus sendGameRequestToAttackedPerson aus und übergib 
+        // als Parameter an die hier implementierte Funktion des AppModels
+        
+        AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: <#T##Item#>)
+    }
 }
