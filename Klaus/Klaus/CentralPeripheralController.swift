@@ -107,7 +107,8 @@ class CentralPeripheralController: ConnectingDelegate {
     
     func receiveGameRequestFromAttacker() {
         // TODO: Jonas les das Item aus sendGameRequestToAttackedPerson aus und übergib 
-        // als Parameter an die hier implementierte Funktion des AppModels
+        // als Parameter an die hier implementierte Funktion des AppModels. Der Methodenaufruf 
+        // ist auskommentiert, da es so jetzt nicht kompilieren würde. Einfachh dann den Kommentar entffernen
         
         //AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: <#T##Item#>)
     }
