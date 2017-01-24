@@ -37,11 +37,8 @@ class ResultViewController: UIViewController {
     }
     
     func handleScore() {
-        if AppModel.sharedInstance.underAttack {
-            AppModel.sharedInstance.sendOwnScoreAsAffectedPersonToEnemy(score: result)
-        }else{
-            AppModel.sharedInstance.pushScore(score: result)
-        }
+        AppModel.sharedInstance.sendOwnScoreToEnemy(score: result)
+        AppModel.sharedInstance.pushScore(score: result)
     }
 
     override func didReceiveMemoryWarning() {

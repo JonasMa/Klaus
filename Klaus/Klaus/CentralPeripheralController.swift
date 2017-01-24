@@ -110,4 +110,16 @@ class CentralPeripheralController: ConnectingDelegate {
         
         AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: <#T##Item#>)
     }
+    
+    // functions for sending and receiving game scores
+    func sendScoreToEnemy(ownScore: Double) {
+        // TODO: Schicke ownScore an receiveScoreFromEnemy des Gegners
+    }
+    
+    func receiveScoreFromEnemy() {
+        // TODO: Empfange Score des Gegners aus sendScoreToEnemy und übergebe es an
+        // den entsprechenden Methodenaufruf des AppModels: pushScore()
+        
+        AppModel.sharedInstance.pushScore(score: <#T##Double#>)
+    }
 }

@@ -89,22 +89,21 @@ class AppModel {
     
     func pushScore(score: Double) {
         scores.append(score)
-        if scores.count == winningStatement && score == personalScore{ //winning condition
-            //TODO: Notify enemy
-            NSLog("Gewonnen")
-            scores.removeAll()
-            underAttack = false
-        } else if scores.count == winningStatement && score != personalScore { //losing condition
-            //TODO: Notify enemy
-            NSLog("Verloren")
+        if scores.count == winningStatement {
+            if ((scores[0] > scores[1]) && (scores[0] == personalScore))||((scores[0] < scores[1]) && (scores[1] == personalScore)){
+            //gewonnen
+                
+            }else{
+            //verloren
+                
+            }
             scores.removeAll()
             underAttack = false
         }
-        NSLog("Score aus AppModel: \(scores[0])")
     }
     
-    func sendOwnScoreAsAffectedPersonToEnemy(score: Double) {
-        //Sende score an Challenger
+    func sendOwnScoreToEnemy(score: Double) {
+        CentralPeripheralController.sharedInstance.sendScoreToEnemy(ownScore: score)
     }
     
     func receiveOverallGameResult() {
