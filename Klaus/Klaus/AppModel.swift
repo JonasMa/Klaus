@@ -18,6 +18,7 @@ class AppModel {
     var scores = [Double]()
     var personalScore: Double!
     var underAttack: Bool = false
+    var attackedItem: Item
     
     init() {
         enemiesList = Array<EnemyProfile>();
@@ -84,6 +85,7 @@ class AppModel {
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
         underAttack = true
+        attackedItem = itemToBeStolen
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
         //TODO: Hinweis, dass man angegriffen wurde
     }
