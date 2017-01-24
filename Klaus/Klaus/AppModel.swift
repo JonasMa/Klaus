@@ -85,6 +85,7 @@ class AppModel {
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
         underAttack = true
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
+        //TODO: Hinweis, dass man angegriffen wurde
     }
     
     func pushScore(score: Double) {
@@ -92,10 +93,18 @@ class AppModel {
         if scores.count == winningStatement {
             if ((scores[0] > scores[1]) && (scores[0] == personalScore))||((scores[0] < scores[1]) && (scores[1] == personalScore)){
             //gewonnen
-                
+                if underAttack { // Item Verteidigt
+                    //TODO: Hinweis dass du erfolgreich verteidigt hast
+                }else{ //Item gewonnen
+                    //TODO: Erhalte/behalte Item
+                }
             }else{
             //verloren
-                
+                if underAttack { // Item verloren
+                    //TODO: Gib das Item ab / lösche es aus deinem Profil
+                }else{ //Item konnte nicht gewonnen werden
+                    //TODO: Hinweis: Du hast verkackt ein Item zu stehlen
+                }
             }
             scores.removeAll()
             underAttack = false
