@@ -94,31 +94,8 @@ class AppModel {
     func pushScore(score: Double) {
         scores.append(score)
         if scores.count == winningStatement {
-            if ((scores[0] > scores[1]) && (scores[0] == personalScore))||((scores[0] < scores[1]) && (scores[1] == personalScore)){
-            //gewonnen
-                if underAttack { // Item Verteidigt
-                    displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
-                }else{ //Item gewonnen
-                    displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
-                    
-                    //TODO: Erhalte/behalte Item
-                }
-            }else{
-            //verloren
-                if underAttack { // Item verloren
-                    displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
-                    
-                    //TODO: Gib das Item ab / lösche es aus deinem Profil
-                }else{ //Item konnte nicht gewonnen werden
-                    displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
-                }
-            }
-            scores.removeAll()
-            underAttack = false
+            Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(sendGameResultMessages), userInfo: nil, repeats: false);
         }
-        NSLog("Personal Score: \(personalScore)")
-        NSLog("Item ID: \(attackedItem.id)")
-        NSLog("Scores: \(scores)")
     }
     
     func sendOwnScoreToEnemy(score: Double) {
@@ -127,6 +104,33 @@ class AppModel {
     
     func displayAlert(title: String, message: String, buttonTitle: String) {
                 NotificationCenter.default.post(name: NotificationCenterKeys.showAlertNotification, object: nil, userInfo: ["title": title,"message": message, "buttonTitle": buttonTitle]);
+    }
+    
+    @objc func sendGameResultMessages(){
+        if ((scores[0] > scores[1]) && (scores[0] == personalScore))||((scores[0] < scores[1]) && (scores[1] == personalScore)){
+            //gewonnen
+            if underAttack { // Item Verteidigt
+                displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
+            }else{ //Item gewonnen
+                displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
+                
+                //TODO: Erhalte/behalte Item
+            }
+        }else{
+            //verloren
+            if underAttack { // Item verloren
+                displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
+                
+                //TODO: Gib das Item ab / lösche es aus deinem Profil
+            }else{ //Item konnte nicht gewonnen werden
+                displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
+            }
+        }
+        scores.removeAll()
+        underAttack = false
+        NSLog("Personal Score: \(personalScore)")
+        NSLog("Item ID: \(attackedItem.id)")
+        NSLog("Scores: \(scores)")
     }
 }
 

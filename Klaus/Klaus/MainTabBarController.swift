@@ -41,7 +41,6 @@ class MainTabBarController: UITabBarController {
 
         UITabBar.appearance().tintColor = Style.accentColor;
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
