@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         
+        
         self.window?.rootViewController = MainTabBarController(nibName: "MainTabBarController", bundle: nil);
     
         self.window?.makeKeyAndVisible();
