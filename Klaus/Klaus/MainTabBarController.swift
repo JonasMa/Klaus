@@ -47,14 +47,17 @@ class MainTabBarController: UITabBarController {
     }
     
     func triggerExplanationView(notification:Notification) {
-        let vc = ExplanationViewController(item: notification.userInfo?["item"] as! Item)
-        tabTwo.pushViewController(vc, animated: true)
+        let alert = UIAlertController(title: Strings.attention, message: Strings.attackOnYou, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: Strings.startDefense, style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+            let vc = ExplanationViewController(item: notification.userInfo?["item"] as! Item)
+            self.tabTwo.pushViewController(vc, animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func displayAlert(notification: Notification) {
-        
         let alert = UIAlertController(title: notification.userInfo?["title"] as? String, message: notification.userInfo?["message"] as? String, preferredStyle: UIAlertControllerStyle.alert)
-        
         alert.addAction(UIAlertAction(title: notification.userInfo?["buttonTitle"] as? String, style: UIAlertActionStyle.default, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
         }))

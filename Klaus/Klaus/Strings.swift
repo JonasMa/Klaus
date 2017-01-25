@@ -24,5 +24,8 @@ struct Strings {
     static var failedAttack = "Du warst zu wack um das Item zu klauen"
     static var happyConfirmation = "Nice"
     static var sadConfirmation = "Bam Bam Bam"
+    static var attention = "Obacht"
+    static var attackOnYou = "Jemand versucht ein Item von dir zu klauen."
+    static var startDefense = "Verteidigen"
     
 }

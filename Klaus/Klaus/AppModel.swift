@@ -126,6 +126,7 @@ class AppModel {
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
             }
         }else if (scores[0] == scores[1]){
+            //unentschieden
             if underAttack {
                 displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
             }else{
