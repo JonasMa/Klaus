@@ -84,7 +84,7 @@ class PlayerProfileViewController: ProfileViewController {
     func resetProfile(){
         Config.clearPlayerDataOnNextLaunch = true;
         
-        let alert = UIAlertController(title: "Profildaten gelöscht!", message: "Bitte start die App neu, um dein neues Profil anzulegen.", preferredStyle: .alert);
+        let alert = UIAlertController(title: "Profildaten gelöscht!", message: "Bitte starte die App neu, um dein neues Profil anzulegen.", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
         self.present(alert, animated: true, completion: nil);
         
