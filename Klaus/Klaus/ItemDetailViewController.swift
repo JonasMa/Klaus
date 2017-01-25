@@ -22,6 +22,7 @@ class ItemDetailViewController: UIViewController {
     var itemDateLabel: UILabel!;
     var itemDateValue: UILabel!;
     
+    
     var grad: CAGradientLayer!;
     
     override func loadView() {
@@ -47,7 +48,7 @@ class ItemDetailViewController: UIViewController {
         self.itemImageContainer.translatesAutoresizingMaskIntoConstraints = false;
         
         self.itemImageView = UIImageView()
-        self.itemImageView.image = UIImage(named: item.displayName.lowercased())?.withRenderingMode(.alwaysTemplate);
+        self.itemImageView.image = UIImage(named: item.imageName.lowercased())?.withRenderingMode(.alwaysTemplate);
         self.itemImageView.tintColor = Style.primaryTextColor;
         self.itemImageView.contentMode = UIViewContentMode.scaleAspectFit;
         self.itemImageView.translatesAutoresizingMaskIntoConstraints = false;
