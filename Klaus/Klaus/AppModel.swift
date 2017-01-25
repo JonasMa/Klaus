@@ -80,6 +80,8 @@ class AppModel {
         return [CoffeeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem()];
     }
 
+    
+    //(callback)functions used for delegating game impulses, determining winning statement
     func triggerEnemyGameInstance(stolenItem: Item) {
         CentralPeripheralController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
     }
@@ -93,6 +95,7 @@ class AppModel {
     
     func pushScore(score: Double) {
         scores.append(score)
+        NSLog("Personal Score AppModel: \(personalScore)")
         if scores.count == winningStatement {
             Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(sendGameResultMessages), userInfo: nil, repeats: false);
         }
@@ -135,7 +138,6 @@ class AppModel {
         }
         scores.removeAll()
         underAttack = false
-        NSLog("Personal Score: \(personalScore)")
         NSLog("Item ID: \(attackedItem.id)")
         NSLog("Scores: \(scores)")
     }
