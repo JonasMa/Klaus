@@ -15,6 +15,7 @@ class ResultViewController: UIViewController {
     
     @IBAction func backButton(_ sender: UIButton) {
         NSLog("BackButton gedrückt.")
+        _ = navigationController?.popToRootViewController(animated: true)
     }
     
     init(result: Double){
