@@ -116,13 +116,19 @@ class AppModel {
                 
                 //TODO: Erhalte/behalte Item
             }
-        }else{
+        }else if ((scores[0] > scores[1]) && (scores[0] != personalScore))||((scores[0] < scores[1]) && (scores[1] != personalScore)){
             //verloren
             if underAttack { // Item verloren
                 displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
                 
                 //TODO: Gib das Item ab / lösche es aus deinem Profil
             }else{ //Item konnte nicht gewonnen werden
+                displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
+            }
+        }else if (scores[0] == scores[1]){
+            if underAttack {
+                displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
+            }else{
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
             }
         }
