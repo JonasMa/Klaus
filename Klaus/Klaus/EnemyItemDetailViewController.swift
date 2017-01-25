@@ -39,5 +39,7 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     func buttonAction(sender: UIButton!) {
         let vc = ExplanationViewController(item: item);
         navigationController?.pushViewController(vc, animated: true)
+        AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item)
+        AppModel.sharedInstance.attackedItem = item
     }
 }

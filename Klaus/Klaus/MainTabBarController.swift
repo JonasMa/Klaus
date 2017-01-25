@@ -10,6 +10,9 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
+    let tabOne = UINavigationController()
+    let tabTwo = UINavigationController();
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         
@@ -18,8 +21,9 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        let tabOne = UINavigationController()
-        let tabTwo = UINavigationController();
+        
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, queue: nil, using: triggerExplanationView)
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.showAlertNotification, object: nil, queue: nil, using: displayAlert)
         
         let tabOneBarItem = UITabBarItem(title: "Profil", image: UIImage(named: "profileTab"), tag: 0);
         let tabTwoBarItem = UITabBarItem(title: "Gegner", image: UIImage(named: "enemyTab"), tag: 1);
@@ -37,10 +41,27 @@ class MainTabBarController: UITabBarController {
 
         UITabBar.appearance().tintColor = Style.accentColor;
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func triggerExplanationView(notification:Notification) {
+        let alert = UIAlertController(title: Strings.attention, message: Strings.attackOnYou, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: Strings.startDefense, style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+            let vc = ExplanationViewController(item: notification.userInfo?["item"] as! Item)
+            self.tabTwo.pushViewController(vc, animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func displayAlert(notification: Notification) {
+        let alert = UIAlertController(title: notification.userInfo?["title"] as? String, message: notification.userInfo?["message"] as? String, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: notification.userInfo?["buttonTitle"] as? String, style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 
 }

@@ -60,6 +60,8 @@ class EnemyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileViewController = EnemyProfileViewController();
         profileViewController.profile = self.enemiesList[indexPath.row];
+        // trigger boadcast instead?
+        CentralPeripheralController.sharedInstance.connectToPlayer(player: profileViewController.profile)
         self.navigationController?.pushViewController(profileViewController, animated: true);
         
     }

@@ -12,14 +12,17 @@ class PlayerProfileViewController: ProfileViewController {
     
     var profile: PlayerProfile!;
     var firstLaunch = false;
+    var clearPlayerDataButton: UIButton!;
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, queue: nil, using: updateScore)
         profileNameLabel.text = profile!.name;
 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated);
         NotificationCenter.default.removeObserver(self, name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil);
     }
     
@@ -43,16 +46,24 @@ class PlayerProfileViewController: ProfileViewController {
         profile = AppModel.sharedInstance.player;
         //ITEM COLLECTION
         itemCollectionViewController = PlayerItemCollectionViewController();
-        itemCollectionViewController.profile = profile;
+        itemCollectionViewController.items = profile.items;
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         
         self.title = "Profil";
+        
+        self.clearPlayerDataButton = UIButton(type: .roundedRect);
+        self.clearPlayerDataButton.setTitle("Profil zurücksetzen", for: .normal);
+        self.clearPlayerDataButton.addTarget(self, action: #selector(resetProfile), for: .touchDown);
+        self.clearPlayerDataButton.translatesAutoresizingMaskIntoConstraints = false;
+        self.view.addSubview(clearPlayerDataButton);
+        
         super.addConstraints();
         
+        clearPlayerDataButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
+        clearPlayerDataButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
+        
         profileScoreLabel.text = String(profile!.score);
-        
-        
 
     }
 
@@ -68,6 +79,15 @@ class PlayerProfileViewController: ProfileViewController {
     
     func presentTutorial(notification:Notification){
         firstLaunch = true;
+    }
+    
+    func resetProfile(){
+        Config.clearPlayerDataOnNextLaunch = true;
+        
+        let alert = UIAlertController(title: "Profildaten gelöscht!", message: "Bitte starte die App neu, um dein neues Profil anzulegen.", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+        
     }
     
 

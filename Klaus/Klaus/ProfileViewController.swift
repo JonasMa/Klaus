@@ -30,8 +30,8 @@ class ProfileViewController: UIViewController {
         
         //BACKGROUND
         grad = CAGradientLayer();
-        grad.colors = [Style.bg.cgColor, Style.bg.cgColor, UIColor.lightGray.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor];
-        grad.locations = gradientLocations();
+        grad.colors = Style.gradientColors
+        grad.locations = Style.gradientLocations();
         grad.frame = self.view.bounds;
         
         self.view.backgroundColor = Style.bg;
@@ -98,14 +98,5 @@ class ProfileViewController: UIViewController {
         
         
 
-    }
-    
-    func gradientLocations() -> [NSNumber]{
-        
-        let loc = 0.37;
-        
-        return [0.0,NSNumber(floatLiteral: loc), NSNumber(floatLiteral: loc + 0.000000001), NSNumber(floatLiteral: loc + 0.05), NSNumber(floatLiteral: loc + 0.0500000001),1.0]
-        
-        
     }
 }

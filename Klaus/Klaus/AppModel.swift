@@ -7,18 +7,24 @@
 //
 
 import Foundation
+import UIKit
 
 class AppModel {
     
+    let winningStatement: Int = 2
     static let sharedInstance: AppModel = AppModel();
     
-    var enemiesList: Array<EnemyProfile>;
-    var player: PlayerProfile!
+    private(set) var enemiesList: Array<EnemyProfile>;
+    private(set) var player: PlayerProfile!
+    var scores = [Double]()
+    var personalScore: Double!
+    var underAttack: Bool = false
+    var attackedItem: Item!
     
     init() {
         enemiesList = Array<EnemyProfile>();
         
-        //update points based on items
+        //regularly update points based on items
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
         
         if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
@@ -26,12 +32,12 @@ class AppModel {
             print("PlayerProfile loaded.");
         }else{
             NotificationCenter.default.post(name: NotificationCenterKeys.presentTutorialNotification, object: nil);
-            player = PlayerProfile(id: "0", name: "", items: initialItems());
+            player = PlayerProfile(name: "", items: initialItems());
             print("new Profile created, presenting tutorialView.");
         }
         
     }
-    
+
     
     @objc func updatePlayerScore(){
         NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
@@ -40,7 +46,6 @@ class AppModel {
     
     func updateEnemyListInView(){
         var enemyDict = Dictionary<Int,EnemyProfile>();
-        
         for i in 0...(enemiesList.count-1){
             enemyDict[i] = enemiesList[i];
         }
@@ -55,32 +60,86 @@ class AppModel {
     func removeEnemyFromList(enemy: EnemyProfile){
         if(enemiesList.contains(enemy)){
             enemiesList.remove(at: enemiesList.index(of: enemy)!);
-            print("Enemy " + enemy.name + " with id " + enemy.id + " removed from list");
+            print("Enemy " + enemy.name + " with id " + enemy.uuid + " removed from list");
             updateEnemyListInView();
         }else{
-            print("Could not remove enemy " + enemy.name + " with id " + enemy.id + ", not in list");
+            print("Could not remove enemy " + enemy.name + " with id " + enemy.uuid + ", not in list");
         }
     }
     
+    
     func saveData(){
         let data = NSKeyedArchiver.archivedData(withRootObject: player);
+        UserDefaults.standard.removeObject(forKey: "Player");
         UserDefaults.standard.set(data, forKey: "Player");
         print("Data saved.")
-                
     }
     
+    //initial items the player gets after first launch
     func initialItems() -> Array<Item>{
-        let item2 = CoffeeItem();
-        let item1 = AxeItem();
-        return [item1,item1,item2,item1,item2,item1,item2,item2,item1,item2,item2,item1];
+        return [CoffeeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem()];
+    }
+
+    
+    //(callback)functions used for delegating game impulses, determining winning statement
+    func triggerEnemyGameInstance(stolenItem: Item) {
+        CentralPeripheralController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
     }
     
-    func deleteData(){
-        UserDefaults.standard.set(nil, forKey: "Player");
-        print("PlayerProfile cleared.");
+    func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
+        underAttack = true
+        attackedItem = itemToBeStolen
+        NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
+        //TODO: Hinweis, dass man angegriffen wurde
     }
     
+    func pushScore(score: Double) {
+        scores.append(score)
+        NSLog("Personal Score AppModel: \(personalScore)")
+        if scores.count == winningStatement {
+            Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(sendGameResultMessages), userInfo: nil, repeats: false);
+        }
+    }
     
+    func sendOwnScoreToEnemy(score: Double) {
+        CentralPeripheralController.sharedInstance.sendScoreToEnemy(ownScore: score)
+    }
     
+    func displayAlert(title: String, message: String, buttonTitle: String) {
+                NotificationCenter.default.post(name: NotificationCenterKeys.showAlertNotification, object: nil, userInfo: ["title": title,"message": message, "buttonTitle": buttonTitle]);
+    }
+    
+    @objc func sendGameResultMessages(){
+        if ((scores[0] > scores[1]) && (scores[0] == personalScore))||((scores[0] < scores[1]) && (scores[1] == personalScore)){
+            //gewonnen
+            if underAttack { // Item Verteidigt
+                displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
+            }else{ //Item gewonnen
+                displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
+                self.player.addItem(item: attackedItem);
+                //TODO: Erhalte/behalte Item
+            }
+        }else if ((scores[0] > scores[1]) && (scores[0] != personalScore))||((scores[0] < scores[1]) && (scores[1] != personalScore)){
+            //verloren
+            if underAttack { // Item verloren
+                displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
+                self.player.removeItem(item: attackedItem);
+                //TODO: Gib das Item ab / lösche es aus deinem Profil
+            }else{ //Item konnte nicht gewonnen werden
+                displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
+            }
+        }else if (scores[0] == scores[1]){
+            //unentschieden
+            if underAttack {
+                displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
+            }else{
+                displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
+            }
+        }
+        scores.removeAll()
+        underAttack = false
+        NSLog("Item ID: \(attackedItem.id)")
+        NSLog("Scores: \(scores)")
+    }
 }
 

@@ -5,6 +5,10 @@
 //  Created by Jonas Programmierer on 15.01.17.
 //  Copyright © 2017 Nimm Swag. All rights reserved.
 //
+// In structure it is based on
+// https://github.com/0x7fffffff/Core-Bluetooth-Transfer-Demo
+// which itself is a translation from
+// https://developer.apple.com/library/ios/samplecode/BTLE_Transfer/Introduction/Intro.html
 
 import CoreBluetooth
 
@@ -24,7 +28,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     fileprivate var peripheralManager: CBPeripheralManager?
-    fileprivate var transferCharacteristic: CBMutableCharacteristic?
+    fileprivate var playerCharacteristic: CBMutableCharacteristic?
     
     fileprivate var dataToSend: Data?
     fileprivate var sendDataIndex: Int?
@@ -43,6 +47,16 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     func setInactive (){
         startStopAdvertising(false)
+    }
+    
+    func getItemsString (items: [Item]) -> String{
+        var itemStrings = Array<String>()
+        for item in items {
+            let stringy = item.toString()
+            itemStrings.append(stringy)
+        }
+        
+        return itemStrings.joined(separator: Item.ITEM_SEPARATOR)
     }
     
     /** Required protocol method.  A full app should take care of all the possible states,
@@ -66,21 +80,22 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         // ... so build our service.
         
         // Start with the CBMutableCharacteristic
-        transferCharacteristic = CBMutableCharacteristic(
-            type: transferCharacteristicUUID,
+        playerCharacteristic = CBMutableCharacteristic(
+            type: playerCharacteristicUUID,
             properties: CBCharacteristicProperties.notify,
             value: nil,
             permissions: CBAttributePermissions.readable
         )
+
         
         // Then the service
         let transferService = CBMutableService(
-            type: transferServiceUUID,
+            type: playerServiceUUID,
             primary: true
         )
         
         // Add the characteristic to the service
-        transferService.characteristics = [transferCharacteristic!]
+        transferService.characteristics = [playerCharacteristic!]
         
         // And add it to the peripheral manager
         peripheralManager!.add(transferService)
@@ -95,14 +110,15 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         print("Central subscribed to characteristic")
         
-        // Get the data
-        dataToSend = AppModel.sharedInstance.player.name.data(using: String.Encoding.utf8) //TODO send data here
+        let sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + getItemsString(items: AppModel.sharedInstance.player.items)
+        
+        dataToSend = sendString.data(using: String.Encoding.utf8)
         
         // Reset the index
         sendDataIndex = 0;
         
         // Start sending
-        sendData()
+        sendData(forCharacteristic: playerCharacteristic)
     }
     
     /** Recognise when the central unsubscribes
@@ -116,12 +132,12 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     /** Sends the next amount of data to the connected central
      */
-    fileprivate func sendData() {
+    fileprivate func sendData(forCharacteristic: CBMutableCharacteristic?) {
         if sendingEOM {
             // send it
             let didSend = peripheralManager?.updateValue(
                 "EOM".data(using: String.Encoding.utf8)!,
-                for: transferCharacteristic!,
+                for: forCharacteristic!,
                 onSubscribedCentrals: nil
             )
             
@@ -160,7 +176,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 amountToSend = NOTIFY_MTU;
             }
             
-            let ptr = (dataToSend! as NSData).bytes.assumingMemoryBound(to: UInt8.self)
+            let ptr = ((dataToSend! as NSData).bytes + sendDataIndex!).assumingMemoryBound(to: UInt8.self)
             // Copy out the data we want
             let chunk = Data(
                 bytes: ptr, //UnsafePointer<UInt8>((dataToSend! as NSData).bytes + sendDataIndex!),
@@ -170,7 +186,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             // Send it
             didSend = peripheralManager!.updateValue(
                 chunk,
-                for: transferCharacteristic!,
+                for: forCharacteristic!,
                 onSubscribedCentrals: nil
             )
             
@@ -200,7 +216,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 // Send it
                 let eomSent = peripheralManager!.updateValue(
                     "EOM".data(using: String.Encoding.utf8)!,
-                    for: transferCharacteristic!,
+                    for: forCharacteristic!,
                     onSubscribedCentrals: nil
                 )
                 
@@ -220,7 +236,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
      */
     func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
         // Start sending again
-        sendData()
+        sendData(forCharacteristic: playerCharacteristic)
     }
     
     /** This is called when a change happens, so we know to stop advertising
@@ -242,7 +258,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             if doAdvertise && !peripheralManager!.isAdvertising {
                 // All we advertise is our service's UUID
                 peripheralManager!.startAdvertising([
-                    CBAdvertisementDataServiceUUIDsKey : [transferServiceUUID]
+                    CBAdvertisementDataServiceUUIDsKey : [playerServiceUUID]
                 ])
             } else {
                 peripheralManager?.stopAdvertising()

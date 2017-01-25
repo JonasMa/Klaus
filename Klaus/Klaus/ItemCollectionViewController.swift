@@ -12,7 +12,7 @@ import UIKit
 class ItemCollectionViewController: UICollectionViewController {
     
     var flowLayout:UICollectionViewFlowLayout!;
-    var profile: Profile!;
+    var items: Array<Item>!;
 
     fileprivate let itemsPerRow: CGFloat = 3;
     fileprivate let sectionInsets = UIEdgeInsets(top: 110, left: 15.0, bottom: 0.0, right: 15.0)
@@ -27,6 +27,8 @@ class ItemCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updateItemsNotification, object: nil, queue: nil, using: updateItems);
+        
         self.collectionView!.translatesAutoresizingMaskIntoConstraints = false;
         self.collectionView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
     }
@@ -35,6 +37,12 @@ class ItemCollectionViewController: UICollectionViewController {
         super.didReceiveMemoryWarning()
     }
 
+    func updateItems(notification: Notification){
+        items = Array(notification.userInfo!.values) as? Array<Item>;
+        print(items);
+        print("Item List Updated!");
+        self.collectionView?.reloadData();
+    }
 
 }
 

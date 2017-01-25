@@ -9,23 +9,18 @@
 import Foundation
 import UIKit
 
-class AxeItem: Item, NSCoding {
+class AxeItem: Item {
     
-    init(){
-        super.init(displayName: "Axe", pointsPerSecond: 1);
+    private static let IMAGE_NAME = "Axe";
+    
+    override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int){
+        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level);
+        self.imageName = AxeItem.IMAGE_NAME;
     }
     
-    init(dateOfAcquisition: Date){
-        super.init(displayName: "Axe", pointsPerSecond: 1, dateOfAcquisition: dateOfAcquisition);
-
-    }
-    
-    required convenience init(coder aDecoder: NSCoder) {
-        self.init(dateOfAcquisition: aDecoder.decodeObject(forKey: "dateOfAcquisition") as! Date);
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(dateOfAcquisition, forKey: "dateOfAcquisition");
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder);
+        self.imageName = AxeItem.IMAGE_NAME;
     }
     
     override func getGameExplanation() -> String{
@@ -34,5 +29,9 @@ class AxeItem: Item, NSCoding {
     
     override func getAssociatedGameViewController() -> UIViewController {
         return AxeGameViewController(nibName: "AxeGameViewController", bundle: nil) as UIViewController;
+    }
+    
+    static func initNewItem() -> Item{
+        return AxeItem(id: Item.newId(), displayName: "Axt", pointsPerSecond: 2, dateOfAcquisition: Date(), level: 1);
     }
 }

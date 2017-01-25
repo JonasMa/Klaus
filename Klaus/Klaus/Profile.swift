@@ -10,40 +10,39 @@ import Foundation
 
 class Profile: NSObject{
     
-    var id: String;
-    var name: String;
-    var score: Int;
-    var items: Array<Item>;
+    var name: String!;
+    var score: Int!;
+    private(set) var items: Array<Item>!;
     
-    init(name: String){
-        
-        //random String for id, temporary
-        self.id = String(arc4random_uniform(100000));
-        
+    init(name: String, items: Array<Item>){
+        super.init();
+        self.name = name;
+        self.score = 0;
+        self.setItems(items: items);
+    }
+    
+    init(name:String){
+        super.init();
         self.name = name;
         self.score = 0;
         self.items = [];
-        
-        
-    }
-    
-    convenience init(id: String, name:String){
-        self.init(name: name);
-        self.id = id;
-        self.items = [];
-    }
-    
-    convenience init(id: String, name: String, items: Array<Item>) {
-        self.init(id: id, name: name);
-        self.items = items;
     }
     
     func addItem(item: Item){
         items.append(item);
+        self.updateItemsInView()
     }
     
-    func removeItemWithId(id: String){
-        //TODO
+    func removeItem(item: Item ){
+        if(!items.contains(item)){
+            print("fehler");
+            return;
+            
+        }else{
+            items.remove(at: items.index(of: item)!);
+            print("item removed with id: " +  String(item.id));
+        }
+        self.updateItemsInView();
     }
     
     func getAcquiredScore() -> Int{
@@ -62,8 +61,21 @@ class Profile: NSObject{
         return scorePerSecond;
     }
     
-    static func == (lhs: Profile, rhs: Profile) -> Bool{
-        return lhs.id == rhs.id;
+    func setItems(items: Array<Item>){
+        self.items = items;
+        self.updateItemsInView();
     }
+    
+    func updateItemsInView(){
+        var itemDict = Dictionary<Int,Item>();
+        if !items.isEmpty{
+            for i in 0...(items.count-1){
+                itemDict[i] = items[i];
+            }
+        }
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateItemsNotification, object: nil, userInfo: itemDict)
+    }
+    
+    
     
 }

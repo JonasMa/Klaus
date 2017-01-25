@@ -18,6 +18,9 @@ class ItemDetailViewController: UIViewController {
     var itemLevelLabel: UILabel!;
     var itemNameContainer: UIView!;
     var itemPointsLabel: UILabel!;
+    var itemPointsValue: UILabel!;
+    
+    var grad: CAGradientLayer!;
     
     override func loadView() {
         self.view = ItemDetailView(frame: UIScreen.main.bounds);
@@ -27,6 +30,14 @@ class ItemDetailViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = Style.bg;
+        
+        //BACKGROUND
+        grad = CAGradientLayer();
+        grad.colors = Style.gradientColors;
+        grad.locations = Style.gradientLocations();
+        grad.frame = self.view.bounds;
+        self.view.layer.addSublayer(grad);
+ 
         
         //IMAGE - container for padding
         self.itemImageContainer = UIView();
@@ -62,11 +73,20 @@ class ItemDetailViewController: UIViewController {
         self.itemNameContainer.addSubview(itemNameLabel);
         
         //POINTS PER SECOND
-        //        self.itemPointsLabel = UILabel();
-        //        self.itemPointsLabel.text = String(item.pointsPerSecond);
-        //        self.itemPointsLabel.font = UIFont.systemFont(ofSize: 20);
-        //        self.itemPointsLabel.translatesAutoresizingMaskIntoConstraints = false;
-        //        self.view.addSubview(itemPointsLabel);
+        self.itemPointsLabel = UILabel();
+        self.itemPointsLabel.text = String("Punkte/s");
+        self.itemPointsLabel.font = UIFont.boldSystemFont(ofSize: 16);
+        self.itemPointsLabel.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemPointsLabel.textAlignment = .left;
+        self.view.addSubview(itemPointsLabel);
+        
+        self.itemPointsValue = UILabel();
+        self.itemPointsValue.text = String(item.pointsPerSecond);
+        self.itemPointsValue.font = UIFont.boldSystemFont(ofSize: 16);
+        self.itemPointsValue.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemPointsValue.textAlignment = .right;
+        self.view.addSubview(itemPointsValue);
+        
         
         
         //CONSTRAINTS
@@ -90,7 +110,18 @@ class ItemDetailViewController: UIViewController {
         
         itemLevelLabel.topAnchor.constraint(equalTo: itemNameContainer.centerYAnchor).isActive = true;
         itemLevelLabel.centerXAnchor.constraint(equalTo: itemNameContainer.centerXAnchor).isActive = true;
+        
+        itemPointsLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 5).isActive = true;
+        itemPointsLabel.rightAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
+        itemPointsLabel.topAnchor.constraint(equalTo: itemImageContainer.bottomAnchor,constant: 10).isActive = true;
+        
+        itemPointsValue.leftAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
+        itemPointsValue.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -5).isActive = true;
+        itemPointsValue.topAnchor.constraint(equalTo: itemImageContainer.bottomAnchor, constant: 10).isActive = true;
+        
+        
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

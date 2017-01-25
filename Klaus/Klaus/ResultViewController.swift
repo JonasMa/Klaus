@@ -13,10 +13,17 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     var result: Double = 0.0
     
+    @IBAction func backButton(_ sender: UIButton) {
+        NSLog("BackButton gedrückt.")
+        _ = navigationController?.popToRootViewController(animated: true)
+    }
+    
     init(result: Double){
         super.init(nibName: "ResultViewController", bundle: nil)
         self.navigationItem.setHidesBackButton(true, animated: false)
-        self.result = result
+        self.result = round(10000 * result) / 10000
+        AppModel.sharedInstance.personalScore = self.result
+        handleScore()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,6 +35,11 @@ class ResultViewController: UIViewController {
         super.viewDidLoad()
         resultLabel.text = String(result)
         
+    }
+    
+    func handleScore() {
+        AppModel.sharedInstance.sendOwnScoreToEnemy(score: result)
+        AppModel.sharedInstance.pushScore(score: result)
     }
 
     override func didReceiveMemoryWarning() {
