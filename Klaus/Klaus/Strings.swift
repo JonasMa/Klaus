@@ -28,4 +28,11 @@ struct Strings {
     static var attackOnYou = "Jemand versucht ein Item von dir zu klauen."
     static var startDefense = "Verteidigen"
     
+    // Simon Says texts
+    static var simonSaysComputersTurnText = "Gib den richtigen Code ein!"
+    static var simonSaysPlayersTurnText = "Versau's nicht.."
+    static var simonSaysPlayerTakesLongText = "Beeil dich man!!!"
+    static var simonSaysLostText = "Du Versager..."
+    static var simonSaysSuccessText = "Geschafft, du Meisterdieb!"
+    
 }
