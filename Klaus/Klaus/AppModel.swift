@@ -116,14 +116,14 @@ class AppModel {
                 displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
             }else{ //Item gewonnen
                 displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
-                
+                self.player.addItem(item: attackedItem);
                 //TODO: Erhalte/behalte Item
             }
         }else if ((scores[0] > scores[1]) && (scores[0] != personalScore))||((scores[0] < scores[1]) && (scores[1] != personalScore)){
             //verloren
             if underAttack { // Item verloren
                 displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
-                
+                self.player.removeItem(item: attackedItem);
                 //TODO: Gib das Item ab / lösche es aus deinem Profil
             }else{ //Item konnte nicht gewonnen werden
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)

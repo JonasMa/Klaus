@@ -30,10 +30,19 @@ class Profile: NSObject{
     
     func addItem(item: Item){
         items.append(item);
+        self.updateItemsInView()
     }
     
-    func removeItemWithId(id: String){
-        //TODO
+    func removeItem(item: Item ){
+        if(!items.contains(item)){
+            print("fehler");
+            return;
+            
+        }else{
+            items.remove(at: items.index(of: item)!);
+            print("item removed with id: " +  String(item.id));
+        }
+        self.updateItemsInView();
     }
     
     func getAcquiredScore() -> Int{
@@ -54,6 +63,10 @@ class Profile: NSObject{
     
     func setItems(items: Array<Item>){
         self.items = items;
+        self.updateItemsInView();
+    }
+    
+    func updateItemsInView(){
         var itemDict = Dictionary<Int,Item>();
         if !items.isEmpty{
             for i in 0...(items.count-1){
@@ -62,5 +75,7 @@ class Profile: NSObject{
         }
         NotificationCenter.default.post(name: NotificationCenterKeys.updateItemsNotification, object: nil, userInfo: itemDict)
     }
+    
+    
     
 }

@@ -133,4 +133,13 @@ class Item: NSObject, NSCoding {
         return (UIDevice.current.identifierForVendor?.uuidString)! +  id;
     }
     
+    override func isEqual(_ object: Any?) -> Bool {
+        if let object = object as? Item {
+            return self.id == object.id;
+        }else{
+            return false;
+        }
+    }
+    
+    
 }
