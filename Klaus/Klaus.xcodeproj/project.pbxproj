@@ -64,6 +64,7 @@
 		FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4871E1410A900981731 /* EnemyItemCollectionViewController.swift */; };
 		FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */; };
 		FAB1C4901E141F1600981731 /* EnemyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */; };
+		FAB4B3151E38CE65003408FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4B3141E38CE65003408FE /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		FAB1C4871E1410A900981731 /* EnemyItemCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewController.swift; sourceTree = "<group>"; };
 		FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAB4B3141E38CE65003408FE /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -407,6 +409,7 @@
 			children = (
 				FAB1C46B1E11AB9600981731 /* Style.swift */,
 				479CB0101E168A9300176D02 /* Strings.swift */,
+				FAB4B3141E38CE65003408FE /* Config.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -479,7 +482,7 @@
 				TargetAttributes = {
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 87X3F5FDGG;
+						DevelopmentTeam = L7VW28QFMH;
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -588,6 +591,7 @@
 				6A4AA0641E2B063D00834712 /* Definitions.swift in Sources */,
 				FA2A05161E15694C0079CD2A /* EnemyProfile.swift in Sources */,
 				FA161E251E07FD29001450E8 /* Item.swift in Sources */,
+				FAB4B3151E38CE65003408FE /* Config.swift in Sources */,
 				FA8D53381E33B3C400C96370 /* AxeItem.swift in Sources */,
 				FAB1C4781E13F12C00981731 /* EnemyTableViewCell.swift in Sources */,
 				FA8D534C1E341A1300C96370 /* TutorialPageViewController.swift in Sources */,
@@ -743,11 +747,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 87X3F5FDGG;
+				DEVELOPMENT_TEAM = L7VW28QFMH;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -758,11 +762,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 87X3F5FDGG;
+				DEVELOPMENT_TEAM = L7VW28QFMH;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagg;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

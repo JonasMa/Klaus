@@ -12,6 +12,7 @@ class PlayerProfileViewController: ProfileViewController {
     
     var profile: PlayerProfile!;
     var firstLaunch = false;
+    var clearPlayerDataButton: UIButton!;
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
@@ -50,11 +51,19 @@ class PlayerProfileViewController: ProfileViewController {
         self.view.addSubview(itemCollectionViewController.view);
         
         self.title = "Profil";
+        
+        self.clearPlayerDataButton = UIButton(type: .roundedRect);
+        self.clearPlayerDataButton.setTitle("Profil zurücksetzen", for: .normal);
+        self.clearPlayerDataButton.addTarget(self, action: #selector(resetProfile), for: .touchDown);
+        self.clearPlayerDataButton.translatesAutoresizingMaskIntoConstraints = false;
+        self.view.addSubview(clearPlayerDataButton);
+        
         super.addConstraints();
         
+        clearPlayerDataButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
+        clearPlayerDataButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
+        
         profileScoreLabel.text = String(profile!.score);
-        
-        
 
     }
 
@@ -70,6 +79,15 @@ class PlayerProfileViewController: ProfileViewController {
     
     func presentTutorial(notification:Notification){
         firstLaunch = true;
+    }
+    
+    func resetProfile(){
+        Config.clearPlayerDataOnNextLaunch = true;
+        
+        let alert = UIAlertController(title: "Profildaten gelöscht!", message: "Bitte start die App neu, um dein neues Profil anzulegen.", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+        
     }
     
 
