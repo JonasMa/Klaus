@@ -16,13 +16,15 @@ struct Style{
     //static var gradientTop = UIColor(red: 82.0/255.0, green: 237.0/255.0, blue: 199.0/255.0, alpha: 1);
     //static var gradientBottom = UIColor(red: 90.0/255.0, green: 200.0/255.0, blue: 251.0/255.0, alpha: 1);
     
-    static var bg = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1);
+    static var bg = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1);
+    static var lines = UIColor(red: 206.0/255.0, green: 206.0/255.0, blue: 210.0/255.0, alpha: 1);
+    
+    
     static var bgTransparent = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 0.0);
     static var accentColor = UIColor(red: 52.0/255.0, green: 170.0/255.0, blue: 220.0/255.0, alpha: 1);
 
-    
     //GRADIENT
-    static var gradientColors = [Style.bg.cgColor, Style.bg.cgColor, UIColor.lightGray.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor];
+    static var gradientColors = [Style.bg.cgColor, Style.bg.cgColor, Style.lines.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor];
     
     static func gradientLocations() -> [NSNumber]{
         let loc = 0.37;

@@ -48,13 +48,13 @@ class ProfileViewController: UIViewController {
         
         profileNameLabel = UILabel();
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileNameLabel.font = UIFont.boldSystemFont(ofSize: 16);
+        profileNameLabel.font = UIFont.boldSystemFont(ofSize: 17);
         profileNameLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileNameLabel);
         
         profileScoreLabel = UILabel();
         profileScoreLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileScoreLabel.font = UIFont.systemFont(ofSize: 11);
+        profileScoreLabel.font = UIFont.systemFont(ofSize: 12);
         profileScoreLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileScoreLabel);
         
