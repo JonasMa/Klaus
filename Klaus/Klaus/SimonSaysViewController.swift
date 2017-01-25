@@ -63,8 +63,8 @@ class SimonSaysViewController: UIViewController {
         changeLabel(label: display, newText: digitsCurrentlyDisplayed + button)
         
         switch simonSaysModel.playersTurn(playerInput: button) {
-        case "wrong": changeColor(uiElement: display, color:"red"); gameFinished(gameWon: false);
-        case "right": changeColor(uiElement: display, color:"green"); delay(delay: 1.0) {self.animateCurrentCode()};
+        case "wrong": changeColor(uiElement: display, color:"red"); allowUserInteraction(possible: false); gameFinished(gameWon: false);
+        case "right": changeColor(uiElement: display, color:"green"); allowUserInteraction(possible: false); delay(delay: 1.0) {self.animateCurrentCode()};
         case "not finished": break
         default: break
         }
@@ -97,7 +97,7 @@ class SimonSaysViewController: UIViewController {
             tag = Int(digit)!
         }
         let button = self.view.viewWithTag(tag) as? UIButton
-        changeColor(uiElement: button!, color: "red")
+        changeColor(uiElement: button!, color: "pink")
         delay(delay: 1.5) {self.changeColor(uiElement: button!, color: "grey")}
     }
     
@@ -117,6 +117,7 @@ class SimonSaysViewController: UIViewController {
         case "green": uiElement.backgroundColor = UIColor.green
         case "black": uiElement.backgroundColor = UIColor.black
         case "grey": uiElement.backgroundColor = UIColor.lightGray
+        case "pink": uiElement.backgroundColor = UIColor(red: 0.93, green: 0.44, blue: 0.86, alpha: 1.0)
         default: break
         }
     }

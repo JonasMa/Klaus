@@ -204,7 +204,6 @@
 				47C0622B1E15292A00C25292 /* AxeGameViewController.swift */,
 				47C062311E152B8100C25292 /* ResultViewController.swift */,
 				841ED7671E39061E00210F31 /* SimonSaysViewController.swift */,
-				841ED7681E39061E00210F31 /* SimonSaysViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -213,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				47C062281E15274200C25292 /* ExplanationViewController.xib */,
+				841ED7681E39061E00210F31 /* SimonSaysViewController.xib */,
 				47C062321E152B8100C25292 /* ResultViewController.xib */,
 				4772ABF41E2655EC00AA9E57 /* ShelfGameViewController.xib */,
 				47C0622C1E15292A00C25292 /* AxeGameViewController.xib */,

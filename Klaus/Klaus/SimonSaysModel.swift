@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import AudioToolbox
 
 class SimonSaysModel {
     
-    let maxNumberOfRounds = 4
+    let maxNumberOfRounds = 14
     let digitsForCode = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#"]
     
     var round = 0
@@ -68,6 +69,7 @@ class SimonSaysModel {
             score += 1
             return "right"
         } else {
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             return "wrong"
         }
     }
