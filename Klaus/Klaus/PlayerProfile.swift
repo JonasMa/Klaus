@@ -11,6 +11,7 @@ import Foundation
 class PlayerProfile: Profile, NSCoding{
     
     
+    
     required convenience init(coder aDecoder: NSCoder) {
         self.init(
             name: aDecoder.decodeObject(forKey: "name") as! String,

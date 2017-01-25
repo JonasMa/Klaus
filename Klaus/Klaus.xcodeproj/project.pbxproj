@@ -65,6 +65,7 @@
 		FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */; };
 		FAB1C4901E141F1600981731 /* EnemyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */; };
 		FAB4B3151E38CE65003408FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4B3141E38CE65003408FE /* Config.swift */; };
+		FAB4B3171E38D947003408FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB4B3161E38D946003408FE /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		FAB1C4891E14144000981731 /* PlayerItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAB4B3141E38CE65003408FE /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		FAB4B3161E38D946003408FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +283,7 @@
 				FAB1C49B1E14231D00981731 /* Scenes */,
 				FAB1C49A1E1422EB00981731 /* DataModel */,
 				47DE44511E0BC90A006A20A4 /* Minigames */,
+				FAB4B3161E38D946003408FE /* Assets.xcassets */,
 			);
 			path = Klaus;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				47C0622A1E15274200C25292 /* ExplanationViewController.xib in Resources */,
 				47C062341E152B8100C25292 /* ResultViewController.xib in Resources */,
 				8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */,
+				FAB4B3171E38D947003408FE /* Assets.xcassets in Resources */,
 				4772ABF61E2655EC00AA9E57 /* ShelfGameViewController.xib in Resources */,
 				47C0622E1E15292A00C25292 /* AxeGameViewController.xib in Resources */,
 			);
