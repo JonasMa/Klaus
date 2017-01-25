@@ -14,7 +14,7 @@ struct Strings {
     static var axeGameExplanation = "Schwing die Axt! Schüttel dein Handy so schnell du kannst innerhalb von 10 Sekunden. Alles klar?"
     static var simonSaysExplanation = "Simon Says. Merke dir die Reihenfolge der leuchtenden Tasten und gib sie korrekt wieder! Alles klar?"
     static var shelfGameExplanation = "Fotzen Katz! Nacheinander schmeisst eine böse Katze Gegenstände vom Regal. Halte 3 Gegenstände mit 3 Fingern gleichzeitig gedrückt, um sie zu eleminieren. Sobald ein Gegenstand den Boden berührt hast du verloren."
-    static var fourthGameExplanation = ""
+    static var seitenschneiderExplanation = "Schneid das richtige Kabel durch, du Sepp!"
     
     static var gratulation = "Gratulation!"
     static var fail = "Leider verkackt!"
