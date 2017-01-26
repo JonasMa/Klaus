@@ -30,12 +30,20 @@ class Item: NSObject, NSCoding {
     private static let INDEX_IMAGE: Int = 4
     private static let INDEX_LEVEL: Int = 5
     
+    static let TYPE_ITEM = 0
+    static let TYPE_COFFEE = 1
+    static let TYPE_ALARM = 2
+    static let TYPE_AXE = 3
+    static let TYPE_SEITENSCHNEIDER = 4
+    var itemType: Int
+    
     required init(coder aDecoder: NSCoder) {
         id = aDecoder.decodeObject(forKey: "id") as! String;
         displayName = aDecoder.decodeObject(forKey: "displayName") as! String;
         pointsPerSecond = aDecoder.decodeInteger(forKey: "pointsPerSecond");
         dateOfAcquisition = aDecoder.decodeObject(forKey: "dateOfAcquisition") as! Date;
         itemLevel = aDecoder.decodeInteger(forKey: "level");
+        itemType = Item.TYPE_ITEM
     }
   
     func encode(with aCoder: NSCoder) {
@@ -98,7 +106,6 @@ class Item: NSObject, NSCoding {
             && itemLevel != nil
             else {
             print("unwrapping Item.decode was unsuccesful")
-            return nil
         }
         
         //workaround LUL

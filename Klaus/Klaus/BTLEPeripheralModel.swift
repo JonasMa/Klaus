@@ -29,6 +29,9 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     fileprivate var peripheralManager: CBPeripheralManager?
     fileprivate var playerCharacteristic: CBMutableCharacteristic?
+    fileprivate var attackCharacteristic: CBMutableCharacteristic?
+    fileprivate var readScoreCharacteristic: CBMutableCharacteristic?
+    fileprivate var writeScoreCharacteristic: CBMutableCharacteristic?
     
     fileprivate var dataToSend: Data?
     fileprivate var sendDataIndex: Int?
@@ -86,6 +89,26 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             value: nil,
             permissions: CBAttributePermissions.readable
         )
+        
+        attackCharacteristic = CBMutableCharacteristic(
+            type: attackCharacteristicUUID,
+            properties: CBCharacteristicProperties.write,
+            value: nil,
+            permissions: CBAttributePermissions.writeable
+        )
+        
+        readScoreCharacteristic = CBMutableCharacteristic(
+            type: scoreCharacteristicUUID,
+            properties: CBCharacteristicProperties.notify,
+            value: nil,
+            permissions: CBAttributePermissions.readable
+        )
+        writeScoreCharacteristic = CBMutableCharacteristic(
+            type: scoreCharacteristicUUID,
+            properties: CBCharacteristicProperties.write,
+            value: nil,
+            permissions: CBAttributePermissions.writeable
+        )
 
         
         // Then the service
@@ -96,6 +119,9 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         // Add the characteristic to the service
         transferService.characteristics = [playerCharacteristic!]
+        transferService.characteristics = [attackCharacteristic!]
+        transferService.characteristics = [readScoreCharacteristic!]
+        transferService.characteristics = [writeScoreCharacteristic!]
         
         // And add it to the peripheral manager
         peripheralManager!.add(transferService)
@@ -110,7 +136,29 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         print("Central subscribed to characteristic")
         
-        let sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + getItemsString(items: AppModel.sharedInstance.player.items)
+        var sendString: String
+        var sendCharacteristic: CBMutableCharacteristic?
+        
+        switch characteristic.uuid {
+        case (playerCharacteristic?.uuid)!:
+            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + getItemsString(items: AppModel.sharedInstance.player.items)
+            sendCharacteristic = playerCharacteristic
+            break
+        case (readScoreCharacteristic?.uuid)!:
+            sendString = AppModel.sharedInstance.player.score // TODO wrong score! get from game
+            sendCharacteristic = readScoreCharacteristic
+            break
+        case (writeScoreCharacteristic?.uuid)!:
+            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + getItemsString(items: AppModel.sharedInstance.player.items)
+            sendCharacteristic = writeScoreCharacteristic
+            break
+        case (attackCharacteristic?.uuid)!:
+            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + getItemsString(items: AppModel.sharedInstance.player.items)
+            sendCharacteristic = attackCharacteristic
+            break
+        default:
+            print("no uuid matching characteristic.uuid (\(characteristic.uuid))")
+        }
         
         dataToSend = sendString.data(using: String.Encoding.utf8)
         
@@ -118,7 +166,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         sendDataIndex = 0;
         
         // Start sending
-        sendData(forCharacteristic: playerCharacteristic)
+        sendData(forCharacteristic: sendCharacteristic)
     }
     
     /** Recognise when the central unsubscribes
@@ -257,17 +305,22 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         if peripheralManager?.state == .poweredOn {
             if doAdvertise && !peripheralManager!.isAdvertising {
                 // All we advertise is our service's UUID
-                peripheralManager!.startAdvertising([
+                peripheralManager?.startAdvertising([
                     CBAdvertisementDataServiceUUIDsKey : [playerServiceUUID]
                 ])
             } else {
                 peripheralManager?.stopAdvertising()
+                
             }
         }
     }
     
     func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
         print(error ?? "start advertising")
+    }
+    
+    func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
+        print("write request received: " + requests.description)
     }
     
 }

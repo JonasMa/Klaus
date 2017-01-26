@@ -58,6 +58,22 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         }
     }
     
+    func writeToPeripheral (uuid: String, value: String){
+        var success = false
+        for peripheral in knownPeripherals {
+            if peripheral.identifier.uuidString == uuid {
+                let sendData = value.data(using: String.Encoding.utf8)
+                peripheral.writeValue(sendData, for: <#T##CBCharacteristic#>, type: <#T##CBCharacteristicWriteType#>)
+                success = true
+            }
+        }
+        
+        if success == false {
+            print("No success writing on peripheral")
+        }
+        
+    }
+    
     
     /** centralManagerDidUpdateState is a required protocol method.
      *  Usually, you'd check for other states to make sure the current device supports LE, is powered on, etc.
@@ -130,6 +146,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             knownPeripherals.append(peripheral)
             // Save a local copy of the peripheral, so CoreBluetooth doesn't get rid of it
             discoveredPeripheral = peripheral
+            
             // And connect
             //print("Connecting to peripheral \(peripheral)")
             

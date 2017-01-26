@@ -9,11 +9,13 @@ class SeitenschneiderItem: Item {
     override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int){
         super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level);
         self.imageName = SeitenschneiderItem.IMAGE_NAME;
+        itemType = Item.TYPE_SEITENSCHNEIDER
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
         self.imageName = SeitenschneiderItem.IMAGE_NAME;
+        itemType = Item.TYPE_SEITENSCHNEIDER
     }
     
     override func getGameExplanation() -> String{

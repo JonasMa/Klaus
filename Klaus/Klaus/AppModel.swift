@@ -83,7 +83,7 @@ class AppModel {
     
     //(callback)functions used for delegating game impulses, determining winning statement
     func triggerEnemyGameInstance(stolenItem: Item) {
-        CentralPeripheralController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
+        BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
     }
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
@@ -102,7 +102,7 @@ class AppModel {
     }
     
     func sendOwnScoreToEnemy(score: Double) {
-        CentralPeripheralController.sharedInstance.sendScoreToEnemy(ownScore: score)
+        BluetoothController.sharedInstance.sendScoreToEnemy(ownScore: score)
     }
     
     func displayAlert(title: String, message: String, buttonTitle: String) {

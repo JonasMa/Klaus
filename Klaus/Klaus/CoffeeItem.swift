@@ -16,11 +16,13 @@ class CoffeeItem: Item {
     override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int){
         super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level);
         self.imageName = CoffeeItem.IMAGE_NAME;
+        itemType = Item.TYPE_COFFEE
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
         self.imageName = CoffeeItem.IMAGE_NAME;
+        itemType = Item.TYPE_COFFEE
     }
     
     override func getGameExplanation() -> String{

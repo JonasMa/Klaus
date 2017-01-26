@@ -1,5 +1,5 @@
 //
-//  CentralPeripheralController.swift
+//  BluetoothController.swift
 //  Klaus
 //
 //  Created by Jonas Programmierer on 15.01.17.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-class CentralPeripheralController: ConnectingDelegate {
+class BluetoothController: ConnectingDelegate {
     
     enum BluetoothState {
         case central
         case peripheral
     }
     
-    static let sharedInstance = CentralPeripheralController ()
+    static let sharedInstance = BluetoothController ()
     
     let EMPTY_NAME = "empty"
     let peripheral: BTLEPeripheralModel = BTLEPeripheralModel()
@@ -105,7 +105,7 @@ class CentralPeripheralController: ConnectingDelegate {
         // beim Gegner mit der Methode, die hier als nächstes dann kommt: receiveGameRequestFromAttacker()
     }
     
-    func receiveGameRequestFromAttacker() {
+    func receiveGameRequestFromAttacker(itemToBeStolen: Item) {
         // TODO: Jonas les das Item aus sendGameRequestToAttackedPerson aus und übergib 
         // als Parameter an die hier implementierte Funktion des AppModels. Der Methodenaufruf 
         // ist auskommentiert, da es so jetzt nicht kompilieren würde. Einfachh dann den Kommentar entffernen
@@ -119,7 +119,7 @@ class CentralPeripheralController: ConnectingDelegate {
         // TODO: Schicke ownScore an receiveScoreFromEnemy des Gegners
     }
     
-    func receiveScoreFromEnemy() {
+    func receiveScoreFromEnemy(score: Double) {
         // TODO: Empfange Score des Gegners aus sendScoreToEnemy und übergebe es an
         // den entsprechenden Methodenaufruf des AppModels: pushScore()
         

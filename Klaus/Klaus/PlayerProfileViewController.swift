@@ -41,7 +41,7 @@ class PlayerProfileViewController: ProfileViewController {
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.presentTutorialNotification, object: nil, queue: nil, using: presentTutorial);
 
         
-        CentralPeripheralController.sharedInstance.setPassive()
+        BluetoothController.sharedInstance.setPassive()
         
         profile = AppModel.sharedInstance.player;
         //ITEM COLLECTION

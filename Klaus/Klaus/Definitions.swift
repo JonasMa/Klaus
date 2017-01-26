@@ -8,12 +8,18 @@
 
 import CoreBluetooth
 
+// TODO: split in playeritems and playerinfo characteristic
+
 let PLAYER_SERVICE_UUID = "E20A39F4-73F5-4BC4-AAAA-17D1AD666661"
-let PLAYER_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-BBBB-72F6F66666D6" // only if single characteristic is taken
+let PLAYER_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-BBBB-72F6F66666D6"
+let ATTACK_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-CCCC-72F6F66666D6"
+let SCORE_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-DDDD-72F6F66666D6"
 let NOTIFY_MTU = 20
 
 let playerServiceUUID = CBUUID(string: PLAYER_SERVICE_UUID)
-let playerCharacteristicUUID = CBUUID(string: PLAYER_CHARACTERISTIC_UUID) // only if single chrarcteristic
+let playerCharacteristicUUID = CBUUID(string: PLAYER_CHARACTERISTIC_UUID)
+let attackCharacteristicUUID = CBUUID(string: ATTACK_CHARACTERISTIC_UUID)
+let scoreCharacteristicUUID = CBUUID(string: SCORE_CHARACTERISTIC_UUID)
 
 let DEFAULT_NAME = "Unidentified Player"
 let SEPARATOR_NAME_SCORE_ITEMS = "$%$"
