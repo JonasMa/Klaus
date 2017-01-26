@@ -112,13 +112,12 @@ class ItemDetailViewController: UIViewController {
         self.itemDateValue.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(itemDateValue);
         
-        
-        
         self.itemText = UITextView();
         self.itemText.translatesAutoresizingMaskIntoConstraints = false;
         self.itemText.backgroundColor = UIColor.init(hue: 0, saturation: 0, brightness: 0, alpha: 0);
         self.itemText.text = item.getInfoString();
         self.itemText.textAlignment = .center;
+        self.itemText.isEditable = false;
         self.view.addSubview(itemText);
         
         
