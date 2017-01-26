@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible();
         self.window?.tintColor = Style.accentColor;
         
-                return true;
+        return true;
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -76,6 +76,7 @@
 		FAB1C4901E141F1600981731 /* EnemyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */; };
 		FAB4B3151E38CE65003408FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4B3141E38CE65003408FE /* Config.swift */; };
 		FAB4B3171E38D947003408FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB4B3161E38D946003408FE /* Assets.xcassets */; };
+		FABB862D1E39F852003657CC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB862C1E39F851003657CC /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAB4B3141E38CE65003408FE /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		FAB4B3161E38D946003408FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FABB862C1E39F851003657CC /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,6 +445,7 @@
 				479CB0101E168A9300176D02 /* Strings.swift */,
 				FAB4B3141E38CE65003408FE /* Config.swift */,
 				841ED76D1E39072700210F31 /* StopwatchTimer.swift */,
+				FABB862C1E39F851003657CC /* Color.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -515,7 +518,7 @@
 				TargetAttributes = {
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = M97UUX8YVB;
+						DevelopmentTeam = L7VW28QFMH;
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -641,6 +644,7 @@
 				FA2A05181E15725E0079CD2A /* AppModel.swift in Sources */,
 				FAB1C46A1E117E1800981731 /* ItemDetailView.swift in Sources */,
 				841ED7731E391EE200210F31 /* SeitenschneiderViewController.swift in Sources */,
+				FABB862D1E39F852003657CC /* Color.swift in Sources */,
 				FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */,
 				47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */,
 				47C062331E152B8100C25292 /* ResultViewController.swift in Sources */,
@@ -791,11 +795,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = M97UUX8YVB;
+				DEVELOPMENT_TEAM = L7VW28QFMH;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagsf;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -806,11 +810,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = M97UUX8YVB;
+				DEVELOPMENT_TEAM = L7VW28QFMH;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagsf;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
