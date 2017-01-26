@@ -13,8 +13,8 @@ class AlarmItem: Item {
     
     private static let IMAGE_NAME = "Alarm";
     
-    override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int){
-        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level);
+    override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
+        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor);
         self.imageName = AlarmItem.IMAGE_NAME;
     }
     
@@ -32,6 +32,6 @@ class AlarmItem: Item {
     }
     
     static func initNewItem() -> Item{
-        return AlarmItem(id: Item.newId(), displayName: "Alarm", pointsPerSecond: 3, dateOfAcquisition: Date(), level: 3);
+        return AlarmItem(id: Item.newId(), displayName: "Alarm", pointsPerSecond: 3, dateOfAcquisition: Date(), level: 3, itemColor: UIColor.yellow);
     }
 }
