@@ -19,7 +19,11 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     fileprivate var discoveredPeripheral: CBPeripheral?
     fileprivate var discoveredServices: [CBService]?
     
+    private var connectedPeripheral: CBPeripheral?
+    
     var delegate: ConnectingDelegate?
+    var writeScore: CBCharacteristic?
+    var writeAttack: CBCharacteristic?
     
     var isAvailable: Bool = false
     var isActive: Bool = false
@@ -58,22 +62,37 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         }
     }
     
-    func writeToPeripheral (uuid: String, value: String){
-        var success = false
-        for peripheral in knownPeripherals {
-            if peripheral.identifier.uuidString == uuid {
-                let sendData = value.data(using: String.Encoding.utf8)
-                peripheral.writeValue(sendData, for: <#T##CBCharacteristic#>, type: <#T##CBCharacteristicWriteType#>)
-                success = true
-            }
+    func sendAttack (toWrite value: String){
+        if writeScore != nil
+            && connectedPeripheral != nil{
+            writeToPeripheral(onCharacteristic: writeScore!, toWrite: value)
         }
-        
-        if success == false {
-            print("No success writing on peripheral")
+        else {
+            print("characteristic writeScore or peripheral not known :(")
         }
+    }
+    
+    func sendScore (toWrite value: String){
+        if writeAttack != nil {
+            writeToPeripheral(onCharacteristic: writeAttack!, toWrite: value)
+        }
+        else {
+            print("characteristic writeAttack peripheral not known :(")
+        }
+    }
+    
+
+    private func writeToPeripheral (onCharacteristic char: CBCharacteristic, toWrite value: String){
+
+        let sendData = value.data(using: String.Encoding.utf8)
+        connectedPeripheral.writeValue(data: sendData, for: char, type: CBCharacteristicWriteType.withResponse)
+
         
     }
     
+    func didChangeValue(forKey key: String) {
+        <#code#>
+    }
     
     /** centralManagerDidUpdateState is a required protocol method.
      *  Usually, you'd check for other states to make sure the current device supports LE, is powered on, etc.
@@ -138,7 +157,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
 
         // Ok, it's in range - have we already seen it?
         
-        
         if discoveredPeripheral != peripheral {
             
             print("Discovered new \(peripheral.name) with uuid \(peripheral.identifier.uuidString)")
@@ -153,13 +171,21 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             //centralManager?.connect(peripheral, options: nil)
             // TODO connect on enemy select
             var name: String
-            if let pName = peripheral.name {
-                name = pName
+            if let pName = peripheral.value(forKey: KEY_NAME){
+                name = pName as! String
             }
             else {
                 name = DEFAULT_NAME //defaultName declared in Definitions
             }
-            let profile = EnemyProfile(name: name, uuid: (discoveredPeripheral?.identifier.uuidString)!)
+            
+            var score: Int
+            if let pScore = peripheral.value(forKey: KEY_SCORE){
+                score = pScore as! Int
+            }
+            else {
+                score = 0 //defaultName declared in Definitions
+            }
+            let profile = EnemyProfile(name: name, score: score, uuid: (discoveredPeripheral?.identifier.uuidString)!)
             print("Enemy seen!! " + name)
             AppModel.sharedInstance.addEnemyToList(enemy: profile)
         }
@@ -169,7 +195,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
      */
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("Failed to connect to \(peripheral). (\(error!.localizedDescription))")
-        
+        discoveredPeripheral = nil
         cleanup()
     }
     
@@ -177,7 +203,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
      */
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Peripheral Connected")
-        
+        connectedPeripheral = peripheral
         // Stop scanning
         if centralManager!.isScanning {
             centralManager?.stopScan()
@@ -214,8 +240,21 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
         for service in services {
             peripheral.discoverCharacteristics([playerCharacteristicUUID], for: service)
+            peripheral.discoverCharacteristics([scoreWriteCharacteristicUUID], for: service)
+            peripheral.discoverCharacteristics([scoreReadCharacteristicUUID], for: service)
+            peripheral.discoverCharacteristics([attackCharacteristicUUID], for: service)
         }
     }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        if error == nil {
+            print("write on peripheral successful")
+        }
+        else {
+            print("write on peripheral NOT successful")
+        }
+    }
+    
     
     /** A characteristic was discovered.
      *  Once this has been found, we want to subscribe to it, which lets the peripheral know we want the data it contains
@@ -237,10 +276,19 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         for characteristic in characteristics {
             // And check if it's the right one
             
-            if characteristic.uuid.isEqual(playerCharacteristicUUID){
+            if characteristic.uuid.isEqual(playerCharacteristicUUID)
+                || characteristic.uuid.isEqual(scoreReadCharacteristicUUID){
                 // If it is, subscribe to it
                 peripheral.setNotifyValue(true, for: characteristic)
             }
+            else if characteristic.uuid.isEqual(scoreWriteCharacteristicUUID){
+                delegate?.didDiscoverWriteScroreCharacteristic(characteristic: characteristic)
+            }
+            else if characteristic.uuid.isEqual(attackCharacteristicUUID){
+                delegate?.didDiscoverWriteAttackCharacteristic(characteristic: characteristic)
+            }
+            
+            
  
         }
         // Once this is complete, we just need to wait for the data to come in.
@@ -343,6 +391,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         // We're disconnected, so start scanning again
         // scan()
     }
+    
     
     /** Call this when things either go wrong, or you're done with the connection.
      *  This cancels any subscriptions if there are any, or straight disconnects if not.

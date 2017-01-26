@@ -14,8 +14,9 @@ class EnemyProfile: Profile{
     var uuid: String
 
     
-    init (name: String, uuid: String){
+    init (name: String, score: Int, uuid: String){
         self.uuid = uuid
+        self.score = score
         super.init(name: name)
     }
     

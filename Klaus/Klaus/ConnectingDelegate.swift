@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 
 protocol ConnectingDelegate {
@@ -16,4 +17,8 @@ protocol ConnectingDelegate {
     func didRetrievePlayerInfo(score: Int)
     
     func didRetrievePlayerInfo(items: Array<Item>)
+    
+    func didDiscoverWriteScroreCharacteristic (characteristic: CBCharacteristic)
+    
+    func didDiscoverWriteAttackCharacteristic (characteristic: CBCharacteristic)
 }

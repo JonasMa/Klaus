@@ -42,6 +42,8 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         isAtvertising = false
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
+        peripheralManager!.setValue(value: AppModel.sharedInstance.player.name, forKey: KEY_NAME)
+        peripheralManager!.setValue(value: AppModel.sharedInstance.player.score, forKey: KEY_SCORE)
     }
     
     func setActive (){
@@ -61,6 +63,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         return itemStrings.joined(separator: Item.ITEM_SEPARATOR)
     }
+
     
     /** Required protocol method.  A full app should take care of all the possible states,
      *  but we're just waiting for  to know when the CBPeripheralManager is ready
@@ -92,20 +95,20 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         attackCharacteristic = CBMutableCharacteristic(
             type: attackCharacteristicUUID,
-            properties: CBCharacteristicProperties.write,
+            properties: CBCharacteristicProperties.notify,
             value: nil,
             permissions: CBAttributePermissions.writeable
         )
         
         readScoreCharacteristic = CBMutableCharacteristic(
-            type: scoreCharacteristicUUID,
+            type: scoreReadCharacteristicUUID,
             properties: CBCharacteristicProperties.notify,
             value: nil,
             permissions: CBAttributePermissions.readable
         )
         writeScoreCharacteristic = CBMutableCharacteristic(
-            type: scoreCharacteristicUUID,
-            properties: CBCharacteristicProperties.write,
+            type: scoreWriteCharacteristicUUID,
+            properties: CBCharacteristicProperties.notify, // TODO: check if .write is necessary
             value: nil,
             permissions: CBAttributePermissions.writeable
         )
@@ -145,7 +148,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             sendCharacteristic = playerCharacteristic
             break
         case (readScoreCharacteristic?.uuid)!:
-            sendString = AppModel.sharedInstance.player.score // TODO wrong score! get from game
+            sendString = "1.75" // TODO wrong score! get from game
             sendCharacteristic = readScoreCharacteristic
             break
         case (writeScoreCharacteristic?.uuid)!:
@@ -168,6 +171,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         // Start sending
         sendData(forCharacteristic: sendCharacteristic)
     }
+    
     
     /** Recognise when the central unsubscribes
      */
@@ -313,6 +317,10 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 
             }
         }
+    }
+    
+    override func didChangeValue(forKey key: String) {
+        <#code#>
     }
     
     func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {

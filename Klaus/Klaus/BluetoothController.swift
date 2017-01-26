@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 class BluetoothController: ConnectingDelegate {
     
@@ -98,6 +99,14 @@ class BluetoothController: ConnectingDelegate {
         checkForEnemyProfileCompleted()
     }
     
+    func didDiscoverWriteAttackCharacteristic(characteristic: CBCharacteristic) {
+        central.writeAttack = characteristic
+    }
+    
+    func didDiscoverWriteScroreCharacteristic(characteristic: CBCharacteristic) {
+        central.writeScore = characteristic
+    }
+    
     // functions for sending and receiving game challenges
     func sendGameRequestToAtackedPerson(itemToBeStolen: Item) {
         NSLog("CPC itemToBeStolen: \(itemToBeStolen.id)")
@@ -116,6 +125,12 @@ class BluetoothController: ConnectingDelegate {
     // functions for sending and receiving game scores
     func sendScoreToEnemy(ownScore: Double) {
         NSLog("CPC ownScore: \(ownScore)")
+        if state == BluetoothState.central {
+            central.sendScore(peripheral: <#T##String#>, toWrite: <#T##String#>)
+        }
+        else if state == BluetoothState.peripheral {
+            
+        }
         // TODO: Schicke ownScore an receiveScoreFromEnemy des Gegners
     }
     
