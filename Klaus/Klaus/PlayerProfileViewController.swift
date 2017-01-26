@@ -30,7 +30,7 @@ class PlayerProfileViewController: ProfileViewController {
         if firstLaunch {
             let vc = TutorialPageViewController(nibName: "TutorialPageViewController", bundle: nil);
             vc.modalTransitionStyle = .flipHorizontal;
-            self.present(vc, animated: true, completion: nil);
+            self.present(vc, animated: false, completion: nil);
             firstLaunch = false;
         }
     }
