@@ -66,7 +66,7 @@ class ItemDetailViewController: UIViewController {
         self.view.addSubview(itemNameContainer);
         
         self.itemLevelLabel = UILabel();
-        self.itemLevelLabel.text = String(item.itemLevel);
+        self.itemLevelLabel.text = String("LEVEL \(item.itemLevel)");
         self.itemLevelLabel.font = UIFont.systemFont(ofSize: 17);
         self.itemLevelLabel.textAlignment = .center;
         self.itemLevelLabel.translatesAutoresizingMaskIntoConstraints = false;
@@ -87,6 +87,7 @@ class ItemDetailViewController: UIViewController {
         self.itemPointsLabel.font = UIFont.systemFont(ofSize: 17)
         self.itemPointsLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemPointsLabel.textAlignment = .left;
+        self.itemPointsLabel.textColor = Style.primaryTextColor;
         self.view.addSubview(itemPointsLabel);
         
         self.itemPointsValue = UILabel();
@@ -94,6 +95,7 @@ class ItemDetailViewController: UIViewController {
         self.itemPointsValue.font = UIFont.systemFont(ofSize: 17);
         self.itemPointsValue.translatesAutoresizingMaskIntoConstraints = false;
         self.itemPointsValue.textAlignment = .right;
+        self.itemPointsValue.textColor = Style.primaryTextColor;
         self.view.addSubview(itemPointsValue);
         
         //DATE
@@ -101,6 +103,7 @@ class ItemDetailViewController: UIViewController {
         self.itemDateLabel.text = String("Hab ich seit");
         self.itemDateLabel.font = UIFont.systemFont(ofSize: 17)
         self.itemDateLabel.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemDateLabel.textColor = Style.primaryTextColor;
         self.itemDateLabel.textAlignment = .left;
         self.view.addSubview(itemDateLabel);
         
@@ -110,14 +113,17 @@ class ItemDetailViewController: UIViewController {
         self.itemDateValue.font = UIFont.systemFont(ofSize: 17);
         self.itemDateValue.textAlignment = .right;
         self.itemDateValue.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemDateValue.textColor = Style.primaryTextColor;
         self.view.addSubview(itemDateValue);
         
+        //ITEM DESCRIPTION
         self.itemText = UITextView();
         self.itemText.translatesAutoresizingMaskIntoConstraints = false;
         self.itemText.backgroundColor = UIColor.init(hue: 0, saturation: 0, brightness: 0, alpha: 0);
         self.itemText.text = item.getInfoString();
         self.itemText.textAlignment = .center;
         self.itemText.isEditable = false;
+        self.itemText.textColor = Style.primaryTextColor;
         self.view.addSubview(itemText);
         
         
