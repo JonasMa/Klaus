@@ -91,7 +91,7 @@ class ItemDetailViewController: UIViewController {
         self.view.addSubview(itemPointsLabel);
         
         self.itemPointsValue = UILabel();
-        self.itemPointsValue.text = String(item.pointsPerSecond);
+        self.itemPointsValue.text = String(item.pointsPerSecond * item.itemLevel);
         self.itemPointsValue.font = UIFont.systemFont(ofSize: 17);
         self.itemPointsValue.translatesAutoresizingMaskIntoConstraints = false;
         self.itemPointsValue.textAlignment = .right;

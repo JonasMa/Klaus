@@ -40,7 +40,7 @@ class AppModel {
 
     
     @objc func updatePlayerScore(){
-        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.score + player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
     }
     
     

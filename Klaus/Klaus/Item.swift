@@ -134,7 +134,7 @@ class Item: NSObject, NSCoding {
     
     func getAcquiredScore() -> Int{
         let interval = dateOfAcquisition.timeIntervalSinceNow;
-        return abs(Int(interval) * pointsPerSecond);
+        return abs(Int(interval) * pointsPerSecond * itemLevel);
     }
     
     static func newId() -> String{
