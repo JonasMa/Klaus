@@ -49,7 +49,7 @@ class Item: NSObject, NSCoding {
         aCoder.encode(pointsPerSecond, forKey: "pointsPerSecond");
         aCoder.encode(dateOfAcquisition, forKey: "dateOfAcquisition");
         aCoder.encode(itemLevel, forKey: "level");
-        aCoder.encode(itemColor, forKey: "itemLevel");
+        aCoder.encode(itemColor, forKey: "itemColor");
     }
     
     //do not use
