@@ -22,6 +22,8 @@ class ItemDetailViewController: UIViewController {
     var itemDateLabel: UILabel!;
     var itemDateValue: UILabel!;
     
+    var itemText: UITextView!;
+    
     
     var grad: CAGradientLayer!;
     
@@ -102,9 +104,20 @@ class ItemDetailViewController: UIViewController {
         self.itemDateValue.text = DateFormatter.localizedString(from: item.dateOfAcquisition, dateStyle: .short, timeStyle: .short);
         self.itemDateValue.lineBreakMode = .byClipping
         self.itemDateValue.font = UIFont.systemFont(ofSize: 17);
-        self.itemDateValue.translatesAutoresizingMaskIntoConstraints = false;
         self.itemDateValue.textAlignment = .right;
+        self.itemDateValue.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(itemDateValue);
+        
+        
+        
+        self.itemText = UITextView();
+        self.itemText.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemText.backgroundColor = UIColor.init(hue: 0, saturation: 0, brightness: 0, alpha: 0);
+        self.itemText.text = item.getInfoString();
+        self.itemText.textAlignment = .center;
+        self.view.addSubview(itemText);
+        
+        
         
         
         
@@ -146,7 +159,10 @@ class ItemDetailViewController: UIViewController {
         itemDateValue.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
         itemDateValue.topAnchor.constraint(equalTo: itemPointsValue.bottomAnchor, constant: 8).isActive = true;
 
-        
+        itemText.topAnchor.constraint(equalTo: self.itemDateLabel.bottomAnchor, constant: 8).isActive = true;
+        itemText.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
+        itemText.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
+        itemText.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true;
     }
     
 

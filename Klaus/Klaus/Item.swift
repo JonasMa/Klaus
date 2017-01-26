@@ -20,6 +20,8 @@ class Item: NSObject, NSCoding {
     
     private static var CURRENT_ID: Int = 0;
     
+    static var INFO_STRING: String!;
+    
     static let dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
     static let SEPARATOR: String = "#"
     static let ITEM_SEPARATOR: String = "**"
@@ -58,7 +60,6 @@ class Item: NSObject, NSCoding {
         self.displayName = displayName;
         self.pointsPerSecond = pointsPerSecond;
         self.dateOfAcquisition = dateOfAcquisition;
-        self.imageName = displayName;
         self.itemLevel = level;
         self.itemColor = itemColor;
     }
@@ -150,5 +151,8 @@ class Item: NSObject, NSCoding {
         }
     }
     
+    func getInfoString() -> String{
+        preconditionFailure("This function must be overridden!")
+    }
     
 }

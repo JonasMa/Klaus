@@ -34,4 +34,8 @@ class AxeItem: Item {
     static func initNewItem() -> Item{
         return AxeItem(id: Item.newId(), displayName: "Axt", pointsPerSecond: 2, dateOfAcquisition: Date(), level: 1, itemColor: UIColor.brown);
     }
+    
+    override func getInfoString() -> String{
+        return Strings.axeInfo;
+    }
 }

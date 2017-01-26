@@ -35,4 +35,10 @@ struct Strings {
     static var simonSaysLostText = "Du Versager..."
     static var simonSaysSuccessText = "Geschafft, du Meisterdieb!"
     
+    // Item infos
+    static var axeInfo = "Die Axt ist eine heimtückische, als einfaches Holzbearbeitungswerkzeug getarnte Waffe! Die Meinung zur Verwendungsfähigkeit von Äxten als Liebesspielzeug ist ebenso gespalten wie manche Verfechter dieser These.";
+    static var coffeeInfo = "Der beliebte Grundstoff ist schwarz, stark, und vor allem extrem heiß. Richtig dunkelschwarzer, kochend heißer Kaffee. Der unvergleichliche Geschmack nach verbrannten Hülsenfrüchten wie auch die kraftvolle Rußfarbe des bitteren schwarzen Wassers animieren täglich Millionen europäischer Lohnsklaven in ihren grauen Büros zum gemeinsamen Sodbrennen.";
+    static var seitenschneiderInfo = "Der Seitenschneider ist ein nicht verzehrbares Eisending. Die Verwendung ist jedoch von Art zu Art unterschiedlich. Der Seitenschneider ist eine typisch deutsche Erfindung: Ein Allzweckwerkzeug, dass immer griffbereit und sehr handlich ist. ";
+    static var alarmInfo = "Alarm ist das, was ausgelöst wird, wenn die Unfähigkeit eines oder mehrerer Menschen die Grenzen des guten Geschmacks übersteigt und so zur Gefahr der Allgemeinheit wird.";
+    
 }
