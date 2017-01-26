@@ -28,8 +28,16 @@ struct Style{
     
     static func gradientLocations() -> [NSNumber]{
         let loc = 0.37;
-        return [0.0,NSNumber(floatLiteral: loc), NSNumber(floatLiteral: loc + 0.000000001), NSNumber(floatLiteral: loc + 0.05), NSNumber(floatLiteral: loc + 0.0500000001),1.0]
-        
-        
+        return [0.0,NSNumber(floatLiteral: loc), NSNumber(floatLiteral: loc + 0.000000001), NSNumber(floatLiteral: loc + 0.05), NSNumber(floatLiteral: loc + 0.0500000001),1.0];
     }
+    
+    static func gradientColorsWithTintColor(tintColor: UIColor) -> Array<CGColor>{
+        let t = tintColor.withAlphaComponent(1);
+        var grad = Style.gradientColors
+        grad[0] = t.cgColor
+        grad[1] = t.cgColor;
+        return grad;
+    }
+    
+    
 }

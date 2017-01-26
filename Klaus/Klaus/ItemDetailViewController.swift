@@ -54,6 +54,10 @@ class ItemDetailViewController: UIViewController {
         self.itemImageView.tintColor = Style.primaryTextColor;
         self.itemImageView.contentMode = UIViewContentMode.scaleAspectFit;
         self.itemImageView.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemImageView.layer.shadowColor = item.itemColor.cgColor;
+        self.itemImageView.layer.shadowRadius = 5;
+        self.itemImageView.layer.shadowOpacity = 1;
+        self.itemImageView.layer.shadowOffset = CGSize(width: 0, height: 0);
         self.itemImageContainer.addSubview(itemImageView);
         
         //ITEMNAME
