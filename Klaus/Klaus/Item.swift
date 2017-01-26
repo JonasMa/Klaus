@@ -69,6 +69,7 @@ class Item: NSObject, NSCoding {
         self.imageName = displayName;
         self.itemLevel = level;
         self.itemColor = itemColor;
+        self.itemType = Item.TYPE_ITEM;
     }
     
     func toString() -> String {
@@ -110,10 +111,9 @@ class Item: NSObject, NSCoding {
         itemColor = UIColor(hexString: splitted[INDEX_COLOR]);
         
         // check if unwrapping is safe
-        guard timeStamp != nil
-            && pointsPerSecond != nil
-            && itemLevel != nil
-            else {
+        if timeStamp == nil
+            || pointsPerSecond == nil
+            || itemLevel == nil {
             print("unwrapping Item.decode was unsuccesful")
         }
         

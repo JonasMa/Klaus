@@ -10,6 +10,7 @@
 // which itself is a translation from
 // https://developer.apple.com/library/ios/samplecode/BTLE_Transfer/Introduction/Intro.html
 
+import UIKit
 import CoreBluetooth
 
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
@@ -42,8 +43,8 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         isAtvertising = false
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
-        peripheralManager!.setValue(value: AppModel.sharedInstance.player.name, forKey: KEY_NAME)
-        peripheralManager!.setValue(value: AppModel.sharedInstance.player.score, forKey: KEY_SCORE)
+        peripheralManager!.setValue(AppModel.sharedInstance.player.name, forKey: KEY_NAME)
+        peripheralManager!.setValue(AppModel.sharedInstance.player.score, forKey: KEY_SCORE)
     }
     
     func setActive (){
@@ -62,6 +63,10 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         }
         
         return itemStrings.joined(separator: Item.ITEM_SEPARATOR)
+    }
+    
+    func setOwnScore (score: String){
+        
     }
 
     
@@ -160,6 +165,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             sendCharacteristic = attackCharacteristic
             break
         default:
+            sendString = ""
             print("no uuid matching characteristic.uuid (\(characteristic.uuid))")
         }
         
@@ -171,6 +177,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         // Start sending
         sendData(forCharacteristic: sendCharacteristic)
     }
+    
     
     
     /** Recognise when the central unsubscribes
@@ -319,9 +326,6 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         }
     }
     
-    override func didChangeValue(forKey key: String) {
-        <#code#>
-    }
     
     func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
         print(error ?? "start advertising")

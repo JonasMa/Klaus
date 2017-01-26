@@ -16,8 +16,8 @@ class EnemyProfile: Profile{
     
     init (name: String, score: Int, uuid: String){
         self.uuid = uuid
-        self.score = score
         super.init(name: name)
+        self.score = score
     }
     
     override init(name: String){

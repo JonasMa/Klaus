@@ -62,14 +62,14 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         }
     }
     
-    func sendAttack (toWrite value: String){
-        if writeScore != nil
-            && connectedPeripheral != nil{
+    func sendAttack (write value: String) {
+        
+        if writeScore != nil {
             writeToPeripheral(onCharacteristic: writeScore!, toWrite: value)
-        }
-        else {
+        } else {
             print("characteristic writeScore or peripheral not known :(")
         }
+
     }
     
     func sendScore (toWrite value: String){
@@ -82,17 +82,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
 
-    private func writeToPeripheral (onCharacteristic char: CBCharacteristic, toWrite value: String){
+    private func writeToPeripheral (onCharacteristic char: CBCharacteristic, toWrite value: String) {
 
-        let sendData = value.data(using: String.Encoding.utf8)
-        connectedPeripheral.writeValue(data: sendData, for: char, type: CBCharacteristicWriteType.withResponse)
-
-        
+        let sendData: Data = value.data(using: String.Encoding.utf8)!
+        connectedPeripheral?.writeValue(sendData, for: char, type: CBCharacteristicWriteType.withResponse)
     }
     
-    func didChangeValue(forKey key: String) {
-        <#code#>
-    }
     
     /** centralManagerDidUpdateState is a required protocol method.
      *  Usually, you'd check for other states to make sure the current device supports LE, is powered on, etc.
@@ -142,8 +137,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     /** This callback comes whenever a peripheral that is advertising the PLAYER_SERVICE_UUID is discovered.
-     *  We check the RSSI, to make sure it's close enough that we're interested in it, and if it is,
-     *  we start the connection process
      */
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
@@ -171,7 +164,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             //centralManager?.connect(peripheral, options: nil)
             // TODO connect on enemy select
             var name: String
-            if let pName = peripheral.value(forKey: KEY_NAME){
+            if let pName = peripheral.value(forKey: KEY_NAME){ // TODO check if advertisementData is more suitable for getting name and score
                 name = pName as! String
             }
             else {
@@ -183,7 +176,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 score = pScore as! Int
             }
             else {
-                score = 0 //defaultName declared in Definitions
+                score = 0
             }
             let profile = EnemyProfile(name: name, score: score, uuid: (discoveredPeripheral?.identifier.uuidString)!)
             print("Enemy seen!! " + name)

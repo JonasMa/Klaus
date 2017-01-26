@@ -27,7 +27,7 @@ class BluetoothController: ConnectingDelegate {
     var isConnecting: Bool = false
     
     init (){
-        enemyPlayerProfile = EnemyProfile(name: EMPTY_NAME, uuid: "")
+        enemyPlayerProfile = EnemyProfile(name: EMPTY_NAME, score: 0, uuid: "")
         state = BluetoothState.peripheral
         setPassive()
         resetEnemyProfile()
@@ -126,10 +126,10 @@ class BluetoothController: ConnectingDelegate {
     func sendScoreToEnemy(ownScore: Double) {
         NSLog("CPC ownScore: \(ownScore)")
         if state == BluetoothState.central {
-            central.sendScore(peripheral: <#T##String#>, toWrite: <#T##String#>)
+            central.sendScore(toWrite: String(ownScore))
         }
         else if state == BluetoothState.peripheral {
-            
+            peripheral
         }
         // TODO: Schicke ownScore an receiveScoreFromEnemy des Gegners
     }
