@@ -32,7 +32,7 @@ class AxeItem: Item {
     }
     
     static func initNewItem() -> Item{
-        return AxeItem(id: Item.newId(), displayName: "Axt", pointsPerSecond: 2, dateOfAcquisition: Date(), level: 1, itemColor: UIColor.brown);
+        return AxeItem(id: Item.newId(), displayName: "Axt", pointsPerSecond: Config.axeBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
     }
     
     override func getInfoString() -> String{

@@ -32,7 +32,7 @@ class AlarmItem: Item {
     }
     
     static func initNewItem() -> Item{
-        return AlarmItem(id: Item.newId(), displayName: "Alarm", pointsPerSecond: 3, dateOfAcquisition: Date(), level: 3, itemColor: UIColor.yellow);
+        return AlarmItem(id: Item.newId(), displayName: "Alarm", pointsPerSecond: Config.alarmBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
     }
     
     override func getInfoString() -> String{

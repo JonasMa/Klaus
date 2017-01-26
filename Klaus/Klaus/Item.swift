@@ -155,4 +155,9 @@ class Item: NSObject, NSCoding {
         preconditionFailure("This function must be overridden!")
     }
     
+    static func getRandomItemColor() -> UIColor{
+        let rnd = Int(arc4random_uniform(UInt32(Config.possibleColors.count)));
+        return Config.possibleColors[rnd];
+    }
+    
 }
