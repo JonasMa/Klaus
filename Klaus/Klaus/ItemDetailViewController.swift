@@ -22,6 +22,8 @@ class ItemDetailViewController: UIViewController {
     var itemDateLabel: UILabel!;
     var itemDateValue: UILabel!;
     
+    var itemText: UITextView!;
+    
     
     var grad: CAGradientLayer!;
     
@@ -52,6 +54,10 @@ class ItemDetailViewController: UIViewController {
         self.itemImageView.tintColor = Style.primaryTextColor;
         self.itemImageView.contentMode = UIViewContentMode.scaleAspectFit;
         self.itemImageView.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemImageView.layer.shadowColor = item.itemColor.cgColor;
+        self.itemImageView.layer.shadowRadius = 5;
+        self.itemImageView.layer.shadowOpacity = 1;
+        self.itemImageView.layer.shadowOffset = CGSize(width: 0, height: 0);
         self.itemImageContainer.addSubview(itemImageView);
         
         //ITEMNAME
@@ -60,7 +66,7 @@ class ItemDetailViewController: UIViewController {
         self.view.addSubview(itemNameContainer);
         
         self.itemLevelLabel = UILabel();
-        self.itemLevelLabel.text = String(item.itemLevel);
+        self.itemLevelLabel.text = String("LEVEL \(item.itemLevel)");
         self.itemLevelLabel.font = UIFont.systemFont(ofSize: 17);
         self.itemLevelLabel.textAlignment = .center;
         self.itemLevelLabel.translatesAutoresizingMaskIntoConstraints = false;
@@ -81,13 +87,15 @@ class ItemDetailViewController: UIViewController {
         self.itemPointsLabel.font = UIFont.systemFont(ofSize: 17)
         self.itemPointsLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemPointsLabel.textAlignment = .left;
+        self.itemPointsLabel.textColor = Style.primaryTextColor;
         self.view.addSubview(itemPointsLabel);
         
         self.itemPointsValue = UILabel();
-        self.itemPointsValue.text = String(item.pointsPerSecond);
+        self.itemPointsValue.text = String(item.pointsPerSecond * item.itemLevel);
         self.itemPointsValue.font = UIFont.systemFont(ofSize: 17);
         self.itemPointsValue.translatesAutoresizingMaskIntoConstraints = false;
         self.itemPointsValue.textAlignment = .right;
+        self.itemPointsValue.textColor = Style.primaryTextColor;
         self.view.addSubview(itemPointsValue);
         
         //DATE
@@ -95,6 +103,7 @@ class ItemDetailViewController: UIViewController {
         self.itemDateLabel.text = String("Hab ich seit");
         self.itemDateLabel.font = UIFont.systemFont(ofSize: 17)
         self.itemDateLabel.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemDateLabel.textColor = Style.primaryTextColor;
         self.itemDateLabel.textAlignment = .left;
         self.view.addSubview(itemDateLabel);
         
@@ -102,9 +111,22 @@ class ItemDetailViewController: UIViewController {
         self.itemDateValue.text = DateFormatter.localizedString(from: item.dateOfAcquisition, dateStyle: .short, timeStyle: .short);
         self.itemDateValue.lineBreakMode = .byClipping
         self.itemDateValue.font = UIFont.systemFont(ofSize: 17);
-        self.itemDateValue.translatesAutoresizingMaskIntoConstraints = false;
         self.itemDateValue.textAlignment = .right;
+        self.itemDateValue.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemDateValue.textColor = Style.primaryTextColor;
         self.view.addSubview(itemDateValue);
+        
+        //ITEM DESCRIPTION
+        self.itemText = UITextView();
+        self.itemText.translatesAutoresizingMaskIntoConstraints = false;
+        self.itemText.backgroundColor = UIColor.init(hue: 0, saturation: 0, brightness: 0, alpha: 0);
+        self.itemText.text = item.getInfoString();
+        self.itemText.textAlignment = .center;
+        self.itemText.isEditable = false;
+        self.itemText.textColor = Style.primaryTextColor;
+        self.view.addSubview(itemText);
+        
+        
         
         
         
@@ -146,7 +168,10 @@ class ItemDetailViewController: UIViewController {
         itemDateValue.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
         itemDateValue.topAnchor.constraint(equalTo: itemPointsValue.bottomAnchor, constant: 8).isActive = true;
 
-        
+        itemText.topAnchor.constraint(equalTo: self.itemDateLabel.bottomAnchor, constant: 8).isActive = true;
+        itemText.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
+        itemText.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
+        itemText.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true;
     }
     
 

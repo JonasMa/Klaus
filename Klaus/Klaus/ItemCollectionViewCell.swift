@@ -15,9 +15,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame);
         
-        //self.backgroundColor = UIColor.white;
-        //self.layer.cornerRadius = 20.0;
-        
         imageView = UIImageView(frame: CGRect(x: 0, y: frame.size.height/5, width: frame.size.width , height: frame.size.width*2/5));
         imageView.contentMode = UIViewContentMode.scaleAspectFit;
         imageView.tintColor = Style.primaryTextColor;
@@ -31,6 +28,13 @@ class ItemCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(label);
         
         
+    }
+    
+    func setItemShadow(color: UIColor){
+        self.layer.shadowColor = color.cgColor;
+        self.layer.shadowOffset = CGSize(width: 0,height: 0);
+        self.layer.shadowOpacity = 0.5;
+        self.layer.shadowRadius = 1;
     }
     
     required init?(coder aDecoder: NSCoder) {

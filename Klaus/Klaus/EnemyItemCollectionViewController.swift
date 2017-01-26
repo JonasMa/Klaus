@@ -41,7 +41,8 @@ class EnemyItemCollectionViewController: ItemCollectionViewController {
         let name = item.displayName;
         cell.imageView.image = UIImage(named: item.imageName.lowercased())?.withRenderingMode(.alwaysTemplate);
         cell.label.text = name;
-        return cell
+        cell.setItemShadow(color: item.itemColor);
+        return cell;
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

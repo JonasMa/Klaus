@@ -40,7 +40,7 @@ class AppModel {
 
     
     @objc func updatePlayerScore(){
-        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.score + player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
     }
     
     
@@ -77,7 +77,16 @@ class AppModel {
     
     //initial items the player gets after first launch
     func initialItems() -> Array<Item>{
-        return [CoffeeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),AxeItem.initNewItem(),CoffeeItem.initNewItem(),AxeItem.initNewItem(),AxeItem.initNewItem(),AlarmItem.initNewItem(),SeitenschneiderItem.initNewItem()];
+        return [CoffeeItem.initNewItem(),
+                AxeItem.initNewItem(),
+                SeitenschneiderItem.initNewItem(),
+                CoffeeItem.initNewItem(),
+                AlarmItem.initNewItem(),
+                AxeItem.initNewItem(),
+                AlarmItem.initNewItem(),
+                SeitenschneiderItem.initNewItem(),
+                AxeItem.initNewItem(),
+                CoffeeItem.initNewItem()];
     }
 
     

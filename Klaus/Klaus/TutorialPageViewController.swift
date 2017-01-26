@@ -51,7 +51,7 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
     
-        if(index >= (self.controllers.count)-1 || isAnimating){
+        if(index >= (self.controllers.count)-1 || isAnimating || self.loginCtrl.nameTextField.text == ""){
             return nil
         }
         lastIndex = index;

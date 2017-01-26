@@ -41,6 +41,7 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
         let name = item.displayName;
         cell.imageView.image = UIImage(named: item.imageName.lowercased())?.withRenderingMode(.alwaysTemplate);
         cell.label.text = name;
+        cell.setItemShadow(color: item.itemColor);
         return cell
     }
     

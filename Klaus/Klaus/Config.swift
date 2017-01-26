@@ -7,9 +7,23 @@
 //
 
 import Foundation
+import UIKit
 
 struct Config {
     
     static var clearPlayerDataOnNextLaunch = false;
+    
+    // points per second w/ lvl 1
+    static var axeBasePointsPerSecond = 2;
+    static var coffeeBasePointsPerSecond = 2;
+    static var seitenschneidBasePointsPerSecond = 2;
+    static var alarmBasePointsPerSecond = 2;
+    
+    static var possibleColors = [UIColor.red,
+                                 UIColor.blue,
+                                 UIColor.orange,
+                                 UIColor.green,
+                                 UIColor.yellow,
+                                 UIColor.cyan]
     
 }
