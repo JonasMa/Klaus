@@ -56,9 +56,11 @@ class PlayerProfileViewController: ProfileViewController {
         self.clearPlayerDataButton.setTitle("Profil zurücksetzen", for: .normal);
         self.clearPlayerDataButton.addTarget(self, action: #selector(resetProfile), for: .touchDown);
         self.clearPlayerDataButton.translatesAutoresizingMaskIntoConstraints = false;
-        self.view.addSubview(clearPlayerDataButton);
         
         super.addConstraints();
+        
+        self.view.addSubview(clearPlayerDataButton);
+
         
         clearPlayerDataButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         clearPlayerDataButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
