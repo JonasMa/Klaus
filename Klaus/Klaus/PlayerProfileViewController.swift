@@ -88,6 +88,7 @@ class PlayerProfileViewController: ProfileViewController {
     func updatePlayerLevel(notification:Notification){
         let level = notification.userInfo?["level"] as? String;
         profileLevelLabel.text = level!
+        profile.profileLevel = Int(level!)
     }
     
     func presentTutorial(notification:Notification){
