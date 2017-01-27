@@ -15,8 +15,6 @@ class ProfileViewController: UIViewController {
     var profileNameLabel: UILabel!;
     var profileLevelLabel: UILabel!;
     var profileScoreLabel: UILabel!;
-    
-   // var avatarPath: String!;
     var grad: CAGradientLayer!;
     
     var itemCollectionViewController: ItemCollectionViewController!;
@@ -38,7 +36,6 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = Style.bg;
         
         //IMAGE
-        print("second")
         profileImageView  = UIImageView(frame: CGRect(x:0, y:0, width:80, height:80));
         profileImageView.image = UIImage(named: "axt")
         profileImageView.translatesAutoresizingMaskIntoConstraints = false;
@@ -49,15 +46,10 @@ class ProfileViewController: UIViewController {
         profileStatsView.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(profileStatsView);
 
-        
         profileNameLabel = UILabel();
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false;
         profileNameLabel.font = UIFont.boldSystemFont(ofSize: 17);
         profileNameLabel.textColor = Style.primaryTextColor;
-//        self.itemImageView.layer.shadowColor = item.itemColor.cgColor;
-//        self.itemImageView.layer.shadowRadius = 5;
-//        self.itemImageView.layer.shadowOpacity = 1;
-//        self.itemImageView.layer.shadowOffset = CGSize(width: 0, height: 0);
         profileStatsView.addSubview(profileNameLabel);
         
         profileScoreLabel = UILabel();
@@ -84,23 +76,23 @@ class ProfileViewController: UIViewController {
         self.view.bringSubview(toFront: profileStatsView);
         self.view.bringSubview(toFront: profileImageView);
         
-        profileImageView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
+        profileImageView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor, constant: 20).isActive = true;
         profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true;
-        profileImageView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
-        profileImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true;
+        profileImageView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 20).isActive = true;
+        profileImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true;
         
         profileStatsView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         profileStatsView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
         profileStatsView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true;
         profileStatsView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor).isActive = true;
         
-        profileNameLabel.bottomAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
+        profileNameLabel.bottomAnchor.constraint(equalTo: profileStatsView.centerYAnchor, constant: -20).isActive = true;
         profileNameLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
         
-        profileScoreLabel.topAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
+        profileScoreLabel.topAnchor.constraint(equalTo: profileLevelLabel.centerYAnchor, constant: 20).isActive = true;
         profileScoreLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
         
-        profileLevelLabel.topAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
+        profileLevelLabel.topAnchor.constraint(equalTo: profileNameLabel.centerYAnchor, constant: 20).isActive = true;
         profileLevelLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
 
         itemCollectionViewController.collectionView?.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;

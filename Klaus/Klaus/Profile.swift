@@ -22,7 +22,7 @@ class Profile: NSObject{
         super.init();
         self.name = name;
         self.score = 0;
-        self.profileLevel = 0;
+        self.profileLevel = 1;
         self.profileAvatar = "";
         self.setItems(items: items);
     }
@@ -31,7 +31,7 @@ class Profile: NSObject{
         super.init();
         self.name = name;
         self.score = 0;
-        self.profileLevel = 0;
+        self.profileLevel = 1;
         self.profileAvatar = "";
         self.items = [];
     }

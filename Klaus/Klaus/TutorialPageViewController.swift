@@ -35,11 +35,7 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         
         self.preferredContentSize = CGSize(width: 200, height: 200);
         controllers = [loginCtrl,avatarCtrl];
-        
     
-        
-        
-        
     }
     
     

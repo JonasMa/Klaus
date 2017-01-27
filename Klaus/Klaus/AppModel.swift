@@ -11,6 +11,7 @@ import UIKit
 
 class AppModel {
     
+    var updateToNextLevel = 1000
     let winningStatement: Int = 2
     static let sharedInstance: AppModel = AppModel();
     
@@ -41,8 +42,16 @@ class AppModel {
     
     @objc func updatePlayerScore(){
         NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
+        updatePlayerLevel()
     }
     
+    @objc func updatePlayerLevel(){
+        let scoreNeededForNextLevel = updateToNextLevel * player.profileLevel * (1 + player.profileLevel)
+        if player.getAcquiredScore() >= scoreNeededForNextLevel {
+            let newLevel = player.profileLevel + 1
+            NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerLevelNotification, object: nil, userInfo: ["level":String(newLevel)]);
+        }
+    }
     
     func updateEnemyListInView(){
         var enemyDict = Dictionary<Int,EnemyProfile>();
@@ -69,6 +78,7 @@ class AppModel {
     
     
     func saveData(){
+        // level, farbe, und avatar müssen noch gespeichert werden
         let data = NSKeyedArchiver.archivedData(withRootObject: player);
         UserDefaults.standard.removeObject(forKey: "Player");
         UserDefaults.standard.set(data, forKey: "Player");

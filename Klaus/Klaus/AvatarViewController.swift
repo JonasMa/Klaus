@@ -35,8 +35,6 @@ class AvatarViewController: UIViewController {
         dismissButton.addTarget(self, action: #selector(dismissTutorial), for: .touchDown)
         
         addConstraints()
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
