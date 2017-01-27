@@ -17,6 +17,7 @@ class Profile: NSObject{
     var profileLevel: Int!;
     var profileAvatar: String!;
     private(set) var items: Array<Item>!;
+
     
     init(name: String, items: Array<Item>){
         super.init();
@@ -24,6 +25,7 @@ class Profile: NSObject{
         self.score = 0;
         self.profileLevel = 1;
         self.profileAvatar = "";
+        self.profileColor = UIColor.blue;
         self.setItems(items: items);
     }
     
@@ -33,6 +35,7 @@ class Profile: NSObject{
         self.score = 0;
         self.profileLevel = 1;
         self.profileAvatar = "";
+        self.profileColor = UIColor.blue;
         self.items = [];
     }
     
