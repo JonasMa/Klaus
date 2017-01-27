@@ -16,8 +16,11 @@ class Item: NSObject, NSCoding {
     private(set) var pointsPerSecond: Int;
     var imageName: String!;
     private(set) var itemLevel: Int;
+    private(set) var itemColor: UIColor;
     
     private static var CURRENT_ID: Int = 0;
+    
+    static var INFO_STRING: String!;
     
     static let dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
     static let SEPARATOR: String = "#"
@@ -29,6 +32,9 @@ class Item: NSObject, NSCoding {
     private static let INDEX_POINTS: Int = 3
     private static let INDEX_IMAGE: Int = 4
     private static let INDEX_LEVEL: Int = 5
+    private static let INDEX_COLOR: Int = 6
+    
+    private static let NUMBER_OF_PROPERTIES: Int = 7
     
     required init(coder aDecoder: NSCoder) {
         id = aDecoder.decodeObject(forKey: "id") as! String;
@@ -36,6 +42,7 @@ class Item: NSObject, NSCoding {
         pointsPerSecond = aDecoder.decodeInteger(forKey: "pointsPerSecond");
         dateOfAcquisition = aDecoder.decodeObject(forKey: "dateOfAcquisition") as! Date;
         itemLevel = aDecoder.decodeInteger(forKey: "level");
+        itemColor = UIColor(hexString: aDecoder.decodeObject(forKey: "itemColor") as! String);
     }
   
     func encode(with aCoder: NSCoder) {
@@ -44,16 +51,17 @@ class Item: NSObject, NSCoding {
         aCoder.encode(pointsPerSecond, forKey: "pointsPerSecond");
         aCoder.encode(dateOfAcquisition, forKey: "dateOfAcquisition");
         aCoder.encode(itemLevel, forKey: "level");
+        aCoder.encode(itemColor.toHexString(), forKey: "itemColor");
     }
     
     //do not use
-    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int){
+    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
         self.id = id;
         self.displayName = displayName;
         self.pointsPerSecond = pointsPerSecond;
         self.dateOfAcquisition = dateOfAcquisition;
-        self.imageName = displayName;
-        self.itemLevel = 0;
+        self.itemLevel = level;
+        self.itemColor = itemColor;
     }
     
     func toString() -> String {
@@ -62,7 +70,7 @@ class Item: NSObject, NSCoding {
         formatter.dateFormat = Item.dateFormat
         let date: String = formatter.string(from: dateOfAcquisition)
         
-        stringy = id + Item.SEPARATOR + displayName + Item.SEPARATOR + date + Item.SEPARATOR + String(pointsPerSecond) + Item.SEPARATOR + imageName + Item.SEPARATOR + String(itemLevel)
+        stringy = id + Item.SEPARATOR + displayName + Item.SEPARATOR + date + Item.SEPARATOR + String(pointsPerSecond) + Item.SEPARATOR + imageName + Item.SEPARATOR + String(itemLevel) + Item.SEPARATOR + itemColor.toHexString();
         return stringy
     }
     
@@ -73,11 +81,12 @@ class Item: NSObject, NSCoding {
         var pointsPerSecond: Int?
         //var imageName: String
         var itemLevel: Int?
+        var itemColor: UIColor?;
         
         let splitted: [String] = toDecode.components(separatedBy: Item.SEPARATOR)
         
         // check if splitting was successful in terms of length
-        if splitted.count < 6 {
+        if splitted.count < NUMBER_OF_PROPERTIES {
             print("decoding Item from String was not possible: Splitted array too short (\(splitted.count))")
             return nil
         }
@@ -91,6 +100,7 @@ class Item: NSObject, NSCoding {
         pointsPerSecond = Int(splitted[INDEX_POINTS])
         //imageName = splitted[INDEX_NAME]
         itemLevel = Int(splitted[INDEX_LEVEL])
+        itemColor = UIColor(hexString: splitted[INDEX_COLOR]);
         
         // check if unwrapping is safe
         guard timeStamp != nil
@@ -104,9 +114,9 @@ class Item: NSObject, NSCoding {
         //workaround LUL
         switch name {
         case "Axe":
-            return AxeItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!);
+            return AxeItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
         case "Coffee":
-            return CoffeeItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!);
+            return CoffeeItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
         default:
                 print("unknown displayname");
                 return nil;
@@ -124,7 +134,7 @@ class Item: NSObject, NSCoding {
     
     func getAcquiredScore() -> Int{
         let interval = dateOfAcquisition.timeIntervalSinceNow;
-        return abs(Int(interval) * pointsPerSecond);
+        return abs(Int(interval) * pointsPerSecond * itemLevel);
     }
     
     static func newId() -> String{
@@ -141,5 +151,13 @@ class Item: NSObject, NSCoding {
         }
     }
     
+    func getInfoString() -> String{
+        preconditionFailure("This function must be overridden!")
+    }
+    
+    static func getRandomItemColor() -> UIColor{
+        let rnd = Int(arc4random_uniform(UInt32(Config.possibleColors.count)));
+        return Config.possibleColors[rnd];
+    }
     
 }

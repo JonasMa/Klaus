@@ -28,6 +28,16 @@
 		6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */; };
 		6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */; };
 		6A4AA0721E30E9C900834712 /* ConnectingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */; };
+		841ED7661E39048C00210F31 /* AlarmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7651E39048C00210F31 /* AlarmItem.swift */; };
+		841ED7691E39061E00210F31 /* SimonSaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7671E39061E00210F31 /* SimonSaysViewController.swift */; };
+		841ED76A1E39061E00210F31 /* SimonSaysViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841ED7681E39061E00210F31 /* SimonSaysViewController.xib */; };
+		841ED76C1E3906F300210F31 /* SimonSaysModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED76B1E3906F300210F31 /* SimonSaysModel.swift */; };
+		841ED76E1E39072700210F31 /* StopwatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED76D1E39072700210F31 /* StopwatchTimer.swift */; };
+		841ED7701E391D9100210F31 /* SeitenschneiderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED76F1E391D9100210F31 /* SeitenschneiderItem.swift */; };
+		841ED7731E391EE200210F31 /* SeitenschneiderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7711E391EE200210F31 /* SeitenschneiderViewController.swift */; };
+		841ED7741E391EE300210F31 /* SeitenschneiderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841ED7721E391EE200210F31 /* SeitenschneiderViewController.xib */; };
+		841ED7761E392E1800210F31 /* CableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7751E392E1800210F31 /* CableModel.swift */; };
+		841ED7781E39312700210F31 /* SeitenschneiderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7771E39312700210F31 /* SeitenschneiderModel.swift */; };
 		8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B59E1DE6FFC60039E35C /* AppDelegate.swift */; };
 		8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */; };
 		8497B5B61DE6FFC60039E35C /* KlausTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B5B51DE6FFC60039E35C /* KlausTests.swift */; };
@@ -66,6 +76,7 @@
 		FAB1C4901E141F1600981731 /* EnemyItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */; };
 		FAB4B3151E38CE65003408FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4B3141E38CE65003408FE /* Config.swift */; };
 		FAB4B3171E38D947003408FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB4B3161E38D946003408FE /* Assets.xcassets */; };
+		FABB862D1E39F852003657CC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB862C1E39F851003657CC /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +118,16 @@
 		6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralModel.swift; sourceTree = "<group>"; };
 		6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEPeripheralModel.swift; sourceTree = "<group>"; };
 		6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingDelegate.swift; sourceTree = "<group>"; };
+		841ED7651E39048C00210F31 /* AlarmItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmItem.swift; sourceTree = "<group>"; };
+		841ED7671E39061E00210F31 /* SimonSaysViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimonSaysViewController.swift; sourceTree = "<group>"; };
+		841ED7681E39061E00210F31 /* SimonSaysViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimonSaysViewController.xib; sourceTree = "<group>"; };
+		841ED76B1E3906F300210F31 /* SimonSaysModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimonSaysModel.swift; sourceTree = "<group>"; };
+		841ED76D1E39072700210F31 /* StopwatchTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopwatchTimer.swift; sourceTree = "<group>"; };
+		841ED76F1E391D9100210F31 /* SeitenschneiderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeitenschneiderItem.swift; sourceTree = "<group>"; };
+		841ED7711E391EE200210F31 /* SeitenschneiderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeitenschneiderViewController.swift; sourceTree = "<group>"; };
+		841ED7721E391EE200210F31 /* SeitenschneiderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeitenschneiderViewController.xib; sourceTree = "<group>"; };
+		841ED7751E392E1800210F31 /* CableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CableModel.swift; sourceTree = "<group>"; };
+		841ED7771E39312700210F31 /* SeitenschneiderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeitenschneiderModel.swift; sourceTree = "<group>"; };
 		8497B59B1DE6FFC60039E35C /* Klaus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8497B59E1DE6FFC60039E35C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8497B5AA1DE6FFC60039E35C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -151,6 +172,7 @@
 		FAB1C48F1E141F1600981731 /* EnemyItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAB4B3141E38CE65003408FE /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		FAB4B3161E38D946003408FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FABB862C1E39F851003657CC /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +215,8 @@
 				4772ABF31E2655EC00AA9E57 /* ShelfGameViewController.swift */,
 				47C0622B1E15292A00C25292 /* AxeGameViewController.swift */,
 				47C062311E152B8100C25292 /* ResultViewController.swift */,
+				841ED7671E39061E00210F31 /* SimonSaysViewController.swift */,
+				841ED7711E391EE200210F31 /* SeitenschneiderViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -200,7 +224,9 @@
 		47C062361E152EB900C25292 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				841ED7721E391EE200210F31 /* SeitenschneiderViewController.xib */,
 				47C062281E15274200C25292 /* ExplanationViewController.xib */,
+				841ED7681E39061E00210F31 /* SimonSaysViewController.xib */,
 				47C062321E152B8100C25292 /* ResultViewController.xib */,
 				4772ABF41E2655EC00AA9E57 /* ShelfGameViewController.xib */,
 				47C0622C1E15292A00C25292 /* AxeGameViewController.xib */,
@@ -215,6 +241,9 @@
 				47C0623C1E1542EC00C25292 /* Games.swift */,
 				479CB0121E168FE000176D02 /* CountdownModel.swift */,
 				4772ABF71E265B7400AA9E57 /* DropItemModel.swift */,
+				841ED76B1E3906F300210F31 /* SimonSaysModel.swift */,
+				841ED7751E392E1800210F31 /* CableModel.swift */,
+				841ED7771E39312700210F31 /* SeitenschneiderModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -393,6 +422,8 @@
 				FA2A05151E15694C0079CD2A /* EnemyProfile.swift */,
 				FA2A05171E15725D0079CD2A /* AppModel.swift */,
 				FA8D53391E33B40900C96370 /* CoffeeItem.swift */,
+				841ED7651E39048C00210F31 /* AlarmItem.swift */,
+				841ED76F1E391D9100210F31 /* SeitenschneiderItem.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -413,6 +444,8 @@
 				FAB1C46B1E11AB9600981731 /* Style.swift */,
 				479CB0101E168A9300176D02 /* Strings.swift */,
 				FAB4B3141E38CE65003408FE /* Config.swift */,
+				841ED76D1E39072700210F31 /* StopwatchTimer.swift */,
+				FABB862C1E39F851003657CC /* Color.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -529,8 +562,10 @@
 			files = (
 				47C0622A1E15274200C25292 /* ExplanationViewController.xib in Resources */,
 				47C062341E152B8100C25292 /* ResultViewController.xib in Resources */,
+				841ED7741E391EE300210F31 /* SeitenschneiderViewController.xib in Resources */,
 				8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */,
 				FAB4B3171E38D947003408FE /* Assets.xcassets in Resources */,
+				841ED76A1E39061E00210F31 /* SimonSaysViewController.xib in Resources */,
 				4772ABF61E2655EC00AA9E57 /* ShelfGameViewController.xib in Resources */,
 				47C0622E1E15292A00C25292 /* AxeGameViewController.xib in Resources */,
 			);
@@ -558,10 +593,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				47C062291E15274200C25292 /* ExplanationViewController.swift in Sources */,
+				841ED76E1E39072700210F31 /* StopwatchTimer.swift in Sources */,
 				FAB1C4761E13EDFB00981731 /* EnemyTableView.swift in Sources */,
 				FAB1C47C1E13FCC000981731 /* EnemyListView.swift in Sources */,
 				8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */,
 				FAB1C4841E14089E00981731 /* EnemyProfileViewController.swift in Sources */,
+				841ED7691E39061E00210F31 /* SimonSaysViewController.swift in Sources */,
+				841ED7761E392E1800210F31 /* CableModel.swift in Sources */,
 				4772ABF51E2655EC00AA9E57 /* ShelfGameViewController.swift in Sources */,
 				FAB1C4741E13EDAB00981731 /* EnemyTableViewController.swift in Sources */,
 				FAB1C4701E11BA8800981731 /* MainTabBarController.swift in Sources */,
@@ -571,6 +609,7 @@
 				FA8D534E1E341E7B00C96370 /* AvatarViewController.swift in Sources */,
 				FA161E211E07F87E001450E8 /* ItemCollectionViewController.swift in Sources */,
 				6A2ACBD71E32035D00118070 /* NotificationCenterKeys.swift in Sources */,
+				841ED7701E391D9100210F31 /* SeitenschneiderItem.swift in Sources */,
 				FAB1C4801E14081E00981731 /* PlayerItemDetailViewController.swift in Sources */,
 				6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */,
 				6A2ACBDD1E321ED100118070 /* ItemDecoder.swift in Sources */,
@@ -579,6 +618,7 @@
 				FAB1C4861E14108700981731 /* PlayerItemCollectionViewController.swift in Sources */,
 				FAB1C45E1E0ED45C00981731 /* ItemCollectionView.swift in Sources */,
 				FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */,
+				841ED7661E39048C00210F31 /* AlarmItem.swift in Sources */,
 				4744C6061E293B1F00CF739C /* ShelfGameLogic.swift in Sources */,
 				FA8D534A1E34139600C96370 /* LoginViewController.swift in Sources */,
 				47C0623D1E1542EC00C25292 /* Games.swift in Sources */,
@@ -592,7 +632,9 @@
 				FA161E231E07F957001450E8 /* PlayerProfile.swift in Sources */,
 				FA8D533A1E33B40900C96370 /* CoffeeItem.swift in Sources */,
 				FAB1C4661E0FE20800981731 /* ProfileViewController.swift in Sources */,
+				841ED7781E39312700210F31 /* SeitenschneiderModel.swift in Sources */,
 				6A4AA0641E2B063D00834712 /* Definitions.swift in Sources */,
+				841ED76C1E3906F300210F31 /* SimonSaysModel.swift in Sources */,
 				FA2A05161E15694C0079CD2A /* EnemyProfile.swift in Sources */,
 				FA161E251E07FD29001450E8 /* Item.swift in Sources */,
 				FAB4B3151E38CE65003408FE /* Config.swift in Sources */,
@@ -602,6 +644,8 @@
 				FA2A05141E1569390079CD2A /* Profile.swift in Sources */,
 				FA2A05181E15725E0079CD2A /* AppModel.swift in Sources */,
 				FAB1C46A1E117E1800981731 /* ItemDetailView.swift in Sources */,
+				841ED7731E391EE200210F31 /* SeitenschneiderViewController.swift in Sources */,
+				FABB862D1E39F852003657CC /* Color.swift in Sources */,
 				FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */,
 				47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */,
 				47C062331E152B8100C25292 /* ResultViewController.swift in Sources */,
