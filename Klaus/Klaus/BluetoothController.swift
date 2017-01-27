@@ -47,7 +47,7 @@ class BluetoothController: ConnectingDelegate {
         print("central active")
         Timer.scheduledTimer(timeInterval: discoverTimeout, target: self, selector: #selector(setPassive), userInfo: nil, repeats: true)
         state = BluetoothState.central
-        central.setActive()
+        central.discoverPlayers()
         peripheral.setInactive()
     }
     
@@ -84,19 +84,24 @@ class BluetoothController: ConnectingDelegate {
     }
     
     // delegate functions
-    func didRetrievePlayerInfo(name: String) {
-        enemyPlayerProfile.name = name
-        checkForEnemyProfileCompleted()
+    func didRetrievePlayerInfo(name: String, score: Int, uuid: String) {
+        let enemy = EnemyProfile (name: name)
+        enemy.setScore(score: score);
+        enemy.uuid = uuid
+        //checkForEnemyProfileCompleted()
+        
+        if AppModel.sharedInstance.enemiesList.contains(enemy){
+            AppModel.sharedInstance.updateEnemyInfo(name: name, score: score, uuid: uuid)
+        }
+        else {
+            AppModel.sharedInstance.addEnemyToList(enemy: enemy)
+        }
     }
     
-    func didRetrievePlayerInfo(items: Array<Item>) {
+    func didRetrievePlayerInfo(items: Array<Item>, uuid: String) {
         enemyPlayerProfile.setItems(items: items);
-        checkForEnemyProfileCompleted();
-    }
-
-    func didRetrievePlayerInfo(score: Int) {
-        enemyPlayerProfile.setScore(score: score);
-        checkForEnemyProfileCompleted()
+        //checkForEnemyProfileCompleted();
+        AppModel.sharedInstance.updateEnemyItemsInList(items: items, uuid: uuid)
     }
     
     func didDiscoverWriteAttackCharacteristic(characteristic: CBCharacteristic) {
@@ -125,11 +130,12 @@ class BluetoothController: ConnectingDelegate {
     // functions for sending and receiving game scores
     func sendScoreToEnemy(ownScore: Double) {
         NSLog("CPC ownScore: \(ownScore)")
+        let score: String = String(ownScore)
         if state == BluetoothState.central {
-            central.sendScore(toWrite: String(ownScore))
+            central.sendScore(toWrite: score)
         }
         else if state == BluetoothState.peripheral {
-            peripheral
+            peripheral.setOwnScore(score: score)
         }
         // TODO: Schicke ownScore an receiveScoreFromEnemy des Gegners
     }
@@ -140,4 +146,5 @@ class BluetoothController: ConnectingDelegate {
         
         //AppModel.sharedInstance.pushScore(score: <#T##Double#>)
     }
+    
 }

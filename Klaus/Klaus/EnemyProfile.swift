@@ -42,4 +42,15 @@ class EnemyProfile: Profile{
         NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyScoreNotification, object: nil, userInfo: ["score": score]);
     }
     
+    /*!
+     * Compares if the uuid is the same
+     *
+    func isEqual (profile: EnemyProfile) -> Bool{
+        return uuid == profile.uuid
+    }
+    */
+    static func ==(lhs:EnemyProfile, rhs:EnemyProfile) -> Bool { // Implement Equatable
+        return lhs.uuid == rhs.uuid
+    }
+    
 }

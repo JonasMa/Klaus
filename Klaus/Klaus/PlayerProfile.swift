@@ -22,6 +22,6 @@ class PlayerProfile: Profile, NSCoding{
         aCoder.encode(self.name, forKey: "name");
         aCoder.encode(self.items, forKey: "items");
     }
-
+    
 
 }

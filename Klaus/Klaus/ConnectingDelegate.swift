@@ -12,11 +12,9 @@ import CoreBluetooth
 
 protocol ConnectingDelegate {
     
-    func didRetrievePlayerInfo(name: String)
+    func didRetrievePlayerInfo(name: String, score: Int, uuid: String)
     
-    func didRetrievePlayerInfo(score: Int)
-    
-    func didRetrievePlayerInfo(items: Array<Item>)
+    func didRetrievePlayerInfo(items: Array<Item>, uuid: String)
     
     func didDiscoverWriteScroreCharacteristic (characteristic: CBCharacteristic)
     

@@ -43,7 +43,6 @@ class AppModel {
         NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.score + player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
     }
     
-    
     func updateEnemyListInView(){
         var enemyDict = Dictionary<Int,EnemyProfile>();
         for i in 0...(enemiesList.count-1){
@@ -55,6 +54,31 @@ class AppModel {
     func addEnemyToList(enemy: EnemyProfile){
         enemiesList.append(enemy);
         updateEnemyListInView();
+    }
+    
+    func updateEnemyItemsInList(items: [Item], uuid: String){
+
+        getEnemyByUuid(uuid: uuid)?.setItems(items: items)
+    }
+    
+    func updateEnemyInfo(name: String, score: Int, uuid: String) {
+        let enemy: EnemyProfile? = getEnemyByUuid(uuid: uuid)
+        guard let enemyUnwrapped = enemy else {
+            print("unwrapping enemy unsuccessful")
+            return
+        }
+        enemyUnwrapped.name = name
+        enemyUnwrapped.score = score
+        updateEnemyListInView();
+    }
+    
+    private func getEnemyByUuid(uuid: String) -> EnemyProfile? {
+        for enemy in enemiesList {
+            if enemy.uuid == uuid {
+                return enemy
+            }
+        }
+        return nil
     }
     
     func removeEnemyFromList(enemy: EnemyProfile){

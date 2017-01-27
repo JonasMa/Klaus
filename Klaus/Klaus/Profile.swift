@@ -77,5 +77,14 @@ class Profile: NSObject{
     }
     
     
+    func getItemsString () -> String{
+        var itemStrings = Array<String>()
+        for item in items {
+            let stringy = item.toString()
+            itemStrings.append(stringy)
+        }
+        
+        return itemStrings.joined(separator: Item.ITEM_SEPARATOR)
+    }
     
 }
