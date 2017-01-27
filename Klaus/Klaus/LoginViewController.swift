@@ -54,6 +54,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         AppModel.sharedInstance.player.name = textField.text!;
+        // des kommt dann in die nächste view
+        AppModel.sharedInstance.player.profileLevel = 2
+        AppModel.sharedInstance.player.setColor(color: UIColor.green)
+        AppModel.sharedInstance.player.setAvatar(avatar: "alarm")
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

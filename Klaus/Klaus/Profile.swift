@@ -7,17 +7,23 @@
 //
 
 import Foundation
+import UIKit
 
 class Profile: NSObject{
     
     var name: String!;
     var score: Int!;
+    var profileColor: UIColor!;
+    var profileLevel: Int!;
+    var profileAvatar: String!;
     private(set) var items: Array<Item>!;
     
     init(name: String, items: Array<Item>){
         super.init();
         self.name = name;
         self.score = 0;
+        self.profileLevel = 0;
+        self.profileAvatar = "";
         self.setItems(items: items);
     }
     
@@ -25,7 +31,17 @@ class Profile: NSObject{
         super.init();
         self.name = name;
         self.score = 0;
+        self.profileLevel = 0;
+        self.profileAvatar = "";
         self.items = [];
+    }
+    
+    func setColor(color: UIColor){
+        self.profileColor = color
+    }
+    
+    func setAvatar(avatar: String){
+        self.profileAvatar = avatar
     }
     
     func addItem(item: Item){
