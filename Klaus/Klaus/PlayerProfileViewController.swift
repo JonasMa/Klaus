@@ -17,7 +17,14 @@ class PlayerProfileViewController: ProfileViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, queue: nil, using: updateScore)
+        
+        // Muss noch geändert werden
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerLevelNotification, object: nil, queue: nil, using: updatePlayerLevel)
+        
         profileNameLabel.text = profile!.name;
+        profileNameLabel.textColor = profile!.profileColor
+        profileLevelLabel.text = String(profile!.profileLevel)
+        profileImageView.image = UIImage(named: profile!.profileAvatar)
 
     }
     
@@ -66,7 +73,6 @@ class PlayerProfileViewController: ProfileViewController {
         clearPlayerDataButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
         
         profileScoreLabel.text = String(profile!.score);
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,6 +83,12 @@ class PlayerProfileViewController: ProfileViewController {
         let score = notification.userInfo?["score"] as? String;
         let scorePerSecond = notification.userInfo?["scorePerSecond"] as? String;
         profileScoreLabel.text = score! + " (" +  scorePerSecond! + "/s)";
+    }
+    
+    func updatePlayerLevel(notification:Notification){
+        let level = notification.userInfo?["level"] as? String;
+        profileLevelLabel.text = level!
+        profile.profileLevel = Int(level!)
     }
     
     func presentTutorial(notification:Notification){

@@ -12,9 +12,11 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
 
     let loginCtrl = LoginViewController();
     let avatarCtrl = AvatarViewController();
+    let colorCtrl = SelectColorViewController();
     var index = 0;
     var lastIndex = 0;
-    var pageCount = 2;
+//    var pageCount = 2;
+    var pageCount = 3;
     
     var isAnimating = false;
     
@@ -34,12 +36,8 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         
         
         self.preferredContentSize = CGSize(width: 200, height: 200);
-        controllers = [loginCtrl,avatarCtrl];
-        
-    
-        
-        
-        
+//        controllers = [loginCtrl,avatarCtrl];
+        controllers = [loginCtrl,avatarCtrl,colorCtrl];
     }
     
     
@@ -78,7 +76,9 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
             return LoginViewController();
         }else if(index == 1){
             return AvatarViewController();
-        }else{
+        }else if (index == 2) {
+            return SelectColorViewController();
+        } else {
             return nil;
         }
     }

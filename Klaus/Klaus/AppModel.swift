@@ -11,6 +11,7 @@ import UIKit
 
 class AppModel {
     
+    var updateToNextLevel = 1000
     let winningStatement: Int = 2
     static let sharedInstance: AppModel = AppModel();
     
@@ -29,20 +30,33 @@ class AppModel {
         
         if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
             player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
+            if let savedAvatar = UserDefaults.standard.object(forKey: "PlayerAvatar") as? String {
+                player.profileAvatar = savedAvatar
+            }
+            if let savedColor = UserDefaults.standard.object(forKey: "PlayerColor") as? Data{
+                player.profileColor = NSKeyedUnarchiver.unarchiveObject(with: savedColor) as? UIColor;
+            }
             print("PlayerProfile loaded.");
         }else{
             NotificationCenter.default.post(name: NotificationCenterKeys.presentTutorialNotification, object: nil);
             player = PlayerProfile(name: "", items: initialItems());
             print("new Profile created, presenting tutorialView.");
         }
-        
     }
 
     
     @objc func updatePlayerScore(){
         NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.score + player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
+        updatePlayerLevel()
     }
     
+    @objc func updatePlayerLevel(){
+        let scoreNeededForNextLevel = updateToNextLevel * player.profileLevel * (1 + player.profileLevel)
+        if player.getAcquiredScore() >= scoreNeededForNextLevel {
+            let newLevel = player.profileLevel + 1
+            NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerLevelNotification, object: nil, userInfo: ["level":String(newLevel)]);
+        }
+    }
     
     func updateEnemyListInView(){
         var enemyDict = Dictionary<Int,EnemyProfile>();
@@ -69,9 +83,17 @@ class AppModel {
     
     
     func saveData(){
+        // level, farbe, und avatar müssen noch gespeichert werden
         let data = NSKeyedArchiver.archivedData(withRootObject: player);
         UserDefaults.standard.removeObject(forKey: "Player");
         UserDefaults.standard.set(data, forKey: "Player");
+        
+        UserDefaults.standard.removeObject(forKey: "PlayerAvatar");
+        UserDefaults.standard.set(player.profileAvatar, forKey: "PlayerAvatar")
+        
+        let colorData = NSKeyedArchiver.archivedData(withRootObject: player.profileColor);
+        UserDefaults.standard.removeObject(forKey: "PlayerColor");
+        UserDefaults.standard.set(colorData, forKey: "PlayerColor")
         print("Data saved.")
     }
     
