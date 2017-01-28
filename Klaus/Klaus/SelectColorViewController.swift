@@ -43,7 +43,7 @@ class SelectColorViewController: UIViewController {
         self.view.addSubview(descriptionColor);
         
         endTutorialButton = UIButton(type: UIButtonType.roundedRect);
-        endTutorialButton.setTitle(Strings.tutorialSwipeText, for: .normal);
+        endTutorialButton.setTitle(Strings.tutorialEndText, for: .normal);
         endTutorialButton.translatesAutoresizingMaskIntoConstraints = false;
         endTutorialButton.tintColor = Style.accentColor;
         self.view.addSubview(endTutorialButton);
@@ -90,7 +90,7 @@ class SelectColorViewController: UIViewController {
         let topConstraint = NSLayoutConstraint(item: button, attribute: .top, relatedBy: .equal, toItem: influencedObject, attribute: .bottomMargin, multiplier: 1.0, constant: 40)
         let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0.1, constant: 0)
         view.addConstraints([leftConstraint, rightConstraint, topConstraint, heightConstraint])
-        button.addTarget(self, action: #selector(selectPlayerColor(sender:)), for: .touchDown)
+        button.addTarget(self, action: #selector(selectPlayerColor(sender:)), for: .touchUpInside)
     }
     
     func addConstraints(){
@@ -108,6 +108,14 @@ class SelectColorViewController: UIViewController {
     
     func selectPlayerColor(sender: UIButton) {
         AppModel.sharedInstance.player.setColor(color: sender.backgroundColor!)
+        sender.backgroundColor = sender.backgroundColor?.darker(by: 30)
+        switch sender {
+        case buttonRed: buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
+            case buttonBlue: buttonRed.backgroundColor = Style.colorRed; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
+        case buttonYellow: buttonBlue.backgroundColor = Style.colorBlue; buttonRed.backgroundColor = Style.colorRed; buttonGreen.backgroundColor = Style.colorGreen
+        case buttonGreen: buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonRed.backgroundColor = Style.colorRed
+            default: break
+        }
     }
     
     func dismissTutorial(){

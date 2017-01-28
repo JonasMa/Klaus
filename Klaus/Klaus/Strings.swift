@@ -49,6 +49,7 @@ struct Strings {
     static var colorGreenText = "Grün wie Gras"
     static var colorYellowText = "Gelb wie Senf"
     
+    static var tutorialEndText = "Sicher? Drücke um zu klauen!"
     static var tutorialSwipeText = "Swipe nach rechts wenn du dir sicher bist"
     
 }
