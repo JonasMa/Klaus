@@ -76,15 +76,17 @@ class ProfileViewController: UIViewController {
         self.view.bringSubview(toFront: profileStatsView);
         self.view.bringSubview(toFront: profileImageView);
         
-        profileImageView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor, constant: 20).isActive = true;
-        profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true;
-        profileImageView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 20).isActive = true;
-        profileImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true;
-        
         profileStatsView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         profileStatsView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
-        profileStatsView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true;
-        profileStatsView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor).isActive = true;
+        profileStatsView.heightAnchor.constraint(equalTo: profileStatsView.widthAnchor).isActive = true;
+        profileStatsView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true;
+        
+        profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true;
+        
+        profileImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -(UIScreen.main.bounds.width * 0.25)).isActive = true;
+        profileImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true;
+        profileImageView.centerYAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
+        
         
         profileNameLabel.bottomAnchor.constraint(equalTo: profileStatsView.centerYAnchor, constant: -20).isActive = true;
         profileNameLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
