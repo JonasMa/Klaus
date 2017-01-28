@@ -10,7 +10,7 @@ import Foundation
 import CoreBluetooth
 
 
-protocol ConnectingDelegate {
+protocol CentralDelegate {
     
     func didRetrievePlayerInfo(name: String, score: Int, uuid: String)
     
@@ -19,4 +19,17 @@ protocol ConnectingDelegate {
     func didDiscoverWriteScroreCharacteristic (characteristic: CBCharacteristic)
     
     func didDiscoverWriteAttackCharacteristic (characteristic: CBCharacteristic)
+    
+    func receiveScoreFromEnemy (score: Double)
+    
+    func onConnectionEstablished (uuid: String)
+    
+    func onConnectionAborted (uuid: String)
+}
+
+protocol PeripheralDelegate {
+    
+    func receiveScoreFromEnemy(score: Double)
+    
+    func receiveGameRequestFromAttacker(itemToBeStolen: Item)
 }

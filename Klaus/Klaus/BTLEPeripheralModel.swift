@@ -26,13 +26,6 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     }
 }
 
-fileprivate enum Characteristic {
-    case player
-    case items
-    case attack
-    case readScore
-    case writeScore
-}
 
 class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
@@ -56,6 +49,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
 
     override init (){
         isAtvertising = false
+        sendDataIndex = 0
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
@@ -68,8 +62,8 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         startStopAdvertising(false)
     }
     
-    func setOwnScore (score: String){
-        sendingData = score.data(using: String.Encoding.utf8)
+    func setOwnScore (score: Double){
+        sendingData = String(score).data(using: String.Encoding.utf8)
         sendData(forCharacteristic: readScoreCharacteristic)
     }
     
@@ -94,11 +88,14 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         // ... so build our service.
         
+        let playerString: String = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.score)
+        let playerData: Data = playerString.data(using: String.Encoding.utf8)!
+        
         // Start with the CBMutableCharacteristic
         playerCharacteristic = CBMutableCharacteristic(
             type: playerCharacteristicUUID,
             properties: CBCharacteristicProperties.notify,
-            value: nil,
+            value: playerData,
             permissions: CBAttributePermissions.readable
         )
         
@@ -159,26 +156,26 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         var sendString: String?
         //var data: Data?
-        var sendCharacteristic: CBMutableCharacteristic?
         
         switch characteristic.uuid {
         case (playerCharacteristic?.uuid)!:
-            sendString = /* name deleted */ SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) // + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.getItemsString()
-            sendCharacteristic = playerCharacteristic
+            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) // + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.getItemsString()
+            sendingCharacteristic = playerCharacteristic
             break
         case (readScoreCharacteristic?.uuid)!:
             break
         case (writeScoreCharacteristic?.uuid)!:
             // WRITE ONLY
-            //sendCharacteristic = writeScoreCharacteristic
+            //sendingCharacteristic = writeScoreCharacteristic
             break
         case (attackCharacteristic?.uuid)!:
             // WRITE ONLY
-            //sendCharacteristic = attackCharacteristic
+            //sendingCharacteristic = attackCharacteristic
             break
         case (itemsCharacteristic?.uuid)!:
             sendString = AppModel.sharedInstance.player.getItemsString()
-            sendCharacteristic = itemsCharacteristic
+            sendingCharacteristic = itemsCharacteristic
+            print("send own Items")
             break
         default:
             print("no uuid matching characteristic.uuid (\(characteristic.uuid))")
@@ -190,7 +187,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
 
             
             // Start sending
-            sendData(forCharacteristic: sendCharacteristic)
+            sendData(forCharacteristic: sendingCharacteristic)
         }
     }
     
@@ -218,7 +215,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             print("Error unwrapping characteristic")
             return
         }
-        if sendingCharacteristic != nil {
+        if sendingCharacteristic == nil {
             sendingCharacteristic = characteristic
         }
         if sendingEOM {

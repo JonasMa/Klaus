@@ -9,11 +9,17 @@
 import Foundation
 import CoreBluetooth
 
-class BluetoothController: ConnectingDelegate {
+class BluetoothController: CentralDelegate, PeripheralDelegate {
     
     enum BluetoothState {
         case central
         case peripheral
+    }
+    
+    enum ConnectionState {
+        case connected
+        case connecting
+        case disconnected
     }
     
     static let sharedInstance = BluetoothController ()
@@ -25,7 +31,6 @@ class BluetoothController: ConnectingDelegate {
     var state: BluetoothState
     let enemyPlayerProfile: EnemyProfile
     var isConnecting: Bool = false
-    
     init (){
         enemyPlayerProfile = EnemyProfile(name: EMPTY_NAME, score: 0, uuid: "")
         state = BluetoothState.peripheral
@@ -45,7 +50,7 @@ class BluetoothController: ConnectingDelegate {
         guard !isConnecting else {
             return}
         print("central active")
-        Timer.scheduledTimer(timeInterval: discoverTimeout, target: self, selector: #selector(setPassive), userInfo: nil, repeats: true)
+        //Timer.scheduledTimer(timeInterval: discoverTimeout, target: self, selector: #selector(setPassive), userInfo: nil, repeats: true)
         state = BluetoothState.central
         central.discoverPlayers()
         peripheral.setInactive()
@@ -99,9 +104,10 @@ class BluetoothController: ConnectingDelegate {
     }
     
     func didRetrievePlayerInfo(items: Array<Item>, uuid: String) {
+        print("didRetrievePlayerInfo")
         enemyPlayerProfile.setItems(items: items);
         //checkForEnemyProfileCompleted();
-        AppModel.sharedInstance.updateEnemyItemsInList(items: items, uuid: uuid)
+        //AppModel.sharedInstance.updateEnemyItemsInList(items: items, uuid: uuid)
     }
     
     func didDiscoverWriteAttackCharacteristic(characteristic: CBCharacteristic) {
@@ -112,9 +118,18 @@ class BluetoothController: ConnectingDelegate {
         central.writeScore = characteristic
     }
     
+    func onConnectionEstablished(uuid: String) {
+        enemyPlayerProfile.uuid = uuid
+    }
+    
+    func onConnectionAborted (uuid: String) {
+        enemyPlayerProfile.uuid = ""
+    }
+    
     // functions for sending and receiving game challenges
     func sendGameRequestToAtackedPerson(itemToBeStolen: Item) {
         NSLog("CPC itemToBeStolen: \(itemToBeStolen.id)")
+        central.sendAttack(itemToBeStolen: itemToBeStolen)
         // TODO: Jonas schick das Item itemToBeStolen an den Gegner und empfange es
         // beim Gegner mit der Methode, die hier als nächstes dann kommt: receiveGameRequestFromAttacker()
     }
@@ -130,12 +145,11 @@ class BluetoothController: ConnectingDelegate {
     // functions for sending and receiving game scores
     func sendScoreToEnemy(ownScore: Double) {
         NSLog("CPC ownScore: \(ownScore)")
-        let score: String = String(ownScore)
         if state == BluetoothState.central {
-            central.sendScore(toWrite: score)
+            central.sendScore(score: ownScore)
         }
         else if state == BluetoothState.peripheral {
-            peripheral.setOwnScore(score: score)
+            peripheral.setOwnScore(score: ownScore)
         }
         // TODO: Schicke ownScore an receiveScoreFromEnemy des Gegners
     }
@@ -146,5 +160,7 @@ class BluetoothController: ConnectingDelegate {
         
         //AppModel.sharedInstance.pushScore(score: <#T##Double#>)
     }
+    
+    
     
 }

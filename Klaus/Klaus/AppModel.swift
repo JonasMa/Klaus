@@ -59,6 +59,8 @@ class AppModel {
     func updateEnemyItemsInList(items: [Item], uuid: String){
 
         getEnemyByUuid(uuid: uuid)?.setItems(items: items)
+        print("update enemy items")
+        updateEnemyListInView()
     }
     
     func updateEnemyInfo(name: String, score: Int, uuid: String) {
@@ -69,6 +71,7 @@ class AppModel {
         }
         enemyUnwrapped.name = name
         enemyUnwrapped.score = score
+        print("enemy info updated for \(name)")
         updateEnemyListInView();
     }
     
