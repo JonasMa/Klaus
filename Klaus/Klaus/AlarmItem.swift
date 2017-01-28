@@ -13,14 +13,16 @@ class AlarmItem: Item {
     
     private static let IMAGE_NAME = "Alarm";
 
-    override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
-        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor);
+    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
+        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor, itemType: Item.TYPE_ALARM);
         self.imageName = AlarmItem.IMAGE_NAME;
+        //itemType = Item.TYPE_ALARM
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
         self.imageName = AlarmItem.IMAGE_NAME;
+        //itemType = Item.TYPE_ALARM
     }
     
     override func getGameExplanation() -> String{

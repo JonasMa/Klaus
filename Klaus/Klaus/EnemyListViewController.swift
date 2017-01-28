@@ -18,12 +18,11 @@ class EnemyListViewController: UIViewController {
     
     
     override func viewDidDisappear(_ animated: Bool) {
-        CentralPeripheralController.sharedInstance.setPassive()
+        BluetoothController.sharedInstance.setPassive()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        CentralPeripheralController.sharedInstance.discoverEnemies()
+        BluetoothController.sharedInstance.discoverEnemies()
         
         //for testing
         AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));

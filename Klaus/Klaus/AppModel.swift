@@ -68,6 +68,34 @@ class AppModel {
         updateEnemyListInView();
     }
     
+    func updateEnemyItemsInList(items: [Item], uuid: String){
+
+        getEnemyByUuid(uuid: uuid)?.setItems(items: items)
+        print("update enemy items")
+        updateEnemyListInView()
+    }
+    
+    func updateEnemyInfo(name: String, score: Int, uuid: String) {
+        let enemy: EnemyProfile? = getEnemyByUuid(uuid: uuid)
+        guard let enemyUnwrapped = enemy else {
+            print("unwrapping enemy unsuccessful")
+            return
+        }
+        enemyUnwrapped.name = name
+        enemyUnwrapped.score = score
+        print("enemy info updated for \(name)")
+        updateEnemyListInView();
+    }
+    
+    private func getEnemyByUuid(uuid: String) -> EnemyProfile? {
+        for enemy in enemiesList {
+            if enemy.uuid == uuid {
+                return enemy
+            }
+        }
+        return nil
+    }
+    
     func removeEnemyFromList(enemy: EnemyProfile){
         if(enemiesList.contains(enemy)){
             enemiesList.remove(at: enemiesList.index(of: enemy)!);
@@ -103,7 +131,7 @@ class AppModel {
     
     //(callback)functions used for delegating game impulses, determining winning statement
     func triggerEnemyGameInstance(stolenItem: Item) {
-        CentralPeripheralController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
+        BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
     }
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
@@ -122,7 +150,7 @@ class AppModel {
     }
     
     func sendOwnScoreToEnemy(score: Double) {
-        CentralPeripheralController.sharedInstance.sendScoreToEnemy(ownScore: score)
+        BluetoothController.sharedInstance.sendScoreToEnemy(ownScore: score)
     }
     
     func displayAlert(title: String, message: String, buttonTitle: String) {
