@@ -42,6 +42,7 @@
 		8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */; };
 		8497B5B61DE6FFC60039E35C /* KlausTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B5B51DE6FFC60039E35C /* KlausTests.swift */; };
 		8497B5C11DE6FFC60039E35C /* KlausUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B5C01DE6FFC60039E35C /* KlausUITests.swift */; };
+		84B4990D1E3BB44500C0C514 /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4990C1E3BB44500C0C514 /* SelectColorViewController.swift */; };
 		FA161E211E07F87E001450E8 /* ItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA161E201E07F87E001450E8 /* ItemCollectionViewController.swift */; };
 		FA161E231E07F957001450E8 /* PlayerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA161E221E07F957001450E8 /* PlayerProfile.swift */; };
 		FA161E251E07FD29001450E8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA161E241E07FD29001450E8 /* Item.swift */; };
@@ -138,6 +139,7 @@
 		8497B5BC1DE6FFC60039E35C /* KlausUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KlausUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8497B5C01DE6FFC60039E35C /* KlausUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KlausUITests.swift; sourceTree = "<group>"; };
 		8497B5C21DE6FFC60039E35C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84B4990C1E3BB44500C0C514 /* SelectColorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectColorViewController.swift; sourceTree = "<group>"; };
 		FA161E201E07F87E001450E8 /* ItemCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewController.swift; sourceTree = "<group>"; };
 		FA161E221E07F957001450E8 /* PlayerProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProfile.swift; sourceTree = "<group>"; };
 		FA161E241E07FD29001450E8 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				FA8D53491E34139600C96370 /* LoginViewController.swift */,
 				FA8D534B1E341A1300C96370 /* TutorialPageViewController.swift */,
 				FA8D534D1E341E7B00C96370 /* AvatarViewController.swift */,
+				84B4990C1E3BB44500C0C514 /* SelectColorViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -631,6 +634,7 @@
 				FAB1C4901E141F1600981731 /* EnemyItemCollectionViewCell.swift in Sources */,
 				FA161E231E07F957001450E8 /* PlayerProfile.swift in Sources */,
 				FA8D533A1E33B40900C96370 /* CoffeeItem.swift in Sources */,
+				84B4990D1E3BB44500C0C514 /* SelectColorViewController.swift in Sources */,
 				FAB1C4661E0FE20800981731 /* ProfileViewController.swift in Sources */,
 				841ED7781E39312700210F31 /* SeitenschneiderModel.swift in Sources */,
 				6A4AA0641E2B063D00834712 /* Definitions.swift in Sources */,
