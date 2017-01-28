@@ -65,11 +65,11 @@ class Profile: NSObject{
     }
     
     func getAcquiredScore() -> Int{
-        var score = 0
+        var sc = self.score!;
         for item in items {
-            score += item.getAcquiredScore()
+            sc += item.getAcquiredScore()
         }
-        return score;
+        return sc;
     }
     
     func getScorePerSecond() -> Int{
@@ -94,7 +94,5 @@ class Profile: NSObject{
         }
         NotificationCenter.default.post(name: NotificationCenterKeys.updateItemsNotification, object: nil, userInfo: itemDict)
     }
-    
-    
     
 }

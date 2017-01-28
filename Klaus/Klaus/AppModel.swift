@@ -11,7 +11,6 @@ import UIKit
 
 class AppModel {
     
-    var updateToNextLevel = 1000
     let winningStatement: Int = 2
     static let sharedInstance: AppModel = AppModel();
     
@@ -26,7 +25,7 @@ class AppModel {
         enemiesList = Array<EnemyProfile>();
         
         //regularly update points based on items
-        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerStats), userInfo: nil, repeats: true);
         
         if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
             player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
@@ -39,17 +38,12 @@ class AppModel {
     }
 
     
-    @objc func updatePlayerScore(){
-        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.score + player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
-        updatePlayerLevel()
-    }
-    
-    @objc func updatePlayerLevel(){
-        let scoreNeededForNextLevel = updateToNextLevel * player.profileLevel * (1 + player.profileLevel)
-        if player.getAcquiredScore() >= scoreNeededForNextLevel {
-            let newLevel = player.profileLevel + 1
-            NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerLevelNotification, object: nil, userInfo: ["level":String(newLevel)]);
+    @objc func updatePlayerStats(){
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
+        if checkPlayerLevelUp(){
+            NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerLevelNotification, object: nil, userInfo: ["level": String(player.profileLevel)]);
         }
+        
     }
     
     func updateEnemyListInView(){
@@ -58,6 +52,15 @@ class AppModel {
             enemyDict[i] = enemiesList[i];
         }
         NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyListNotification, object: nil, userInfo: enemyDict)
+    }
+    
+    func checkPlayerLevelUp() -> Bool{
+        let scoreNeeded = Config.scoreToLevelUpBase * player.profileLevel * (1 + player.profileLevel)
+        if player.getAcquiredScore() >= scoreNeeded {
+            player.profileLevel! += 1;
+            return true;
+        }
+        return false;
     }
     
     func addEnemyToList(enemy: EnemyProfile){
