@@ -42,7 +42,6 @@
 		8497B5B61DE6FFC60039E35C /* KlausTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B5B51DE6FFC60039E35C /* KlausTests.swift */; };
 		8497B5C11DE6FFC60039E35C /* KlausUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B5C01DE6FFC60039E35C /* KlausUITests.swift */; };
 		84B4990D1E3BB44500C0C514 /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4990C1E3BB44500C0C514 /* SelectColorViewController.swift */; };
-		84B499391E3DEEE800C0C514 /* AvatarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B499381E3DEEE800C0C514 /* AvatarCollectionViewController.swift */; };
 		84B4993B1E3DF0B800C0C514 /* AvatarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4993A1E3DF0B800C0C514 /* AvatarCollectionViewCell.swift */; };
 		FA161E211E07F87E001450E8 /* ItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA161E201E07F87E001450E8 /* ItemCollectionViewController.swift */; };
 		FA161E231E07F957001450E8 /* PlayerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA161E221E07F957001450E8 /* PlayerProfile.swift */; };
@@ -79,6 +78,7 @@
 		FAB4B3151E38CE65003408FE /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4B3141E38CE65003408FE /* Config.swift */; };
 		FAB4B3171E38D947003408FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB4B3161E38D946003408FE /* Assets.xcassets */; };
 		FABB862D1E39F852003657CC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB862C1E39F851003657CC /* Color.swift */; };
+		FABB862E1E3E4398003657CC /* AvatarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B499381E3DEEE800C0C514 /* AvatarCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -598,6 +598,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FABB862E1E3E4398003657CC /* AvatarCollectionViewController.swift in Sources */,
 				47C062291E15274200C25292 /* ExplanationViewController.swift in Sources */,
 				841ED76E1E39072700210F31 /* StopwatchTimer.swift in Sources */,
 				FAB1C4761E13EDFB00981731 /* EnemyTableView.swift in Sources */,
