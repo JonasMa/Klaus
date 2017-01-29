@@ -16,7 +16,6 @@ class AxeItem: Item {
     init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
         super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor, itemType: Item.TYPE_AXE);
         self.imageName = AxeItem.IMAGE_NAME;
-        //self.itemType = Item.TYPE_AXE
     }
     
     required init(coder aDecoder: NSCoder) {

@@ -39,7 +39,7 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         avatarCollectionView.backgroundColor = Style.bg
         avatarCollectionView.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(avatarCollectionView)
-
+        
         chooseAvatarLabel = UILabel();
         chooseAvatarLabel.text = Strings.chooseAvatarText
         chooseAvatarLabel.textAlignment = .center;
@@ -64,23 +64,23 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         
         addConstraints()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
-
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return avatarImages.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AvatarCollectionViewCell
-    
+        
         let avatar = avatarImages[indexPath.row]
         cell.imageView.image = UIImage(named: avatar)
         return cell
@@ -90,15 +90,20 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         chosenAvatar = avatarImages[indexPath.row]
         print(chosenAvatar)
         AppModel.sharedInstance.player.setAvatar(avatar: chosenAvatar)
+        
+        
+//        var cell = collectionView.cellForItemAtIndexPath(indexPath)
+//        cell.layer.borderWidth = 2.0
+//        cell.layer.borderColor = UIColor.grayColor().CGColor
     }
     
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-            return sectionInsets
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
     
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return sectionInsets.left
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
     
     
     func addConstraints(){

@@ -93,6 +93,8 @@ class SimonSaysViewController: UIViewController {
             tag = 10
         } else if digit == "#" {
             tag = 11
+        } else  if digit == "0" {
+            tag = 12
         } else {
             tag = Int(digit)!
         }
