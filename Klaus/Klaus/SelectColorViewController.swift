@@ -10,7 +10,7 @@ import UIKit
 
 class SelectColorViewController: UIViewController {
     
-    
+    var colorSelected = false
     var headLineColor: UILabel!
     var descriptionColor: UILabel!
     
@@ -94,7 +94,7 @@ class SelectColorViewController: UIViewController {
     }
     
     func addConstraints(){
-        headLineColor.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true;
+        headLineColor.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60).isActive = true;
         headLineColor.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         
         descriptionColor.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
@@ -107,6 +107,7 @@ class SelectColorViewController: UIViewController {
     }
     
     func selectPlayerColor(sender: UIButton) {
+        colorSelected = true
         AppModel.sharedInstance.player.setColor(color: sender.backgroundColor!)
         sender.backgroundColor = sender.backgroundColor?.darker(by: 30)
         switch sender {
@@ -119,7 +120,9 @@ class SelectColorViewController: UIViewController {
     }
     
     func dismissTutorial(){
-        self.presentingViewController?.dismiss(animated: true, completion: nil);
+        if colorSelected {
+            self.presentingViewController?.dismiss(animated: true, completion: nil);
+        }
     }
     
     

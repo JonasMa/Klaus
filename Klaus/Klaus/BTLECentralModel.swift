@@ -86,6 +86,8 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     func sendScore (score value: Double) {
         let string: String = String(value)
         if writeScore != nil {
+            
+            connectedPeripheral?.setNotifyValue(true, for: writeScore!) // TOCO check if necessary
             writeToPeripheral(onCharacteristic: writeScore!, toWrite: string)
         } else {
             print("characteristic writeScore or peripheral not known :(")
@@ -96,6 +98,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     func sendAttack (itemToBeStolen: Item){
         let itemString: String = itemToBeStolen.toString()
         if writeAttack != nil {
+            connectedPeripheral?.setNotifyValue(true, for: writeAttack!) // TOCO check if necessary
             writeToPeripheral(onCharacteristic: writeAttack!, toWrite: itemString)
         }
         else {
@@ -259,10 +262,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 peripheral.discoverCharacteristics([playerCharacteristicUUID], for: service)
             }
             else {
-                peripheral.discoverCharacteristics([scoreWriteCharacteristicUUID], for: service)
-                peripheral.discoverCharacteristics([scoreReadCharacteristicUUID], for: service)
-                peripheral.discoverCharacteristics([attackCharacteristicUUID], for: service)
-                peripheral.discoverCharacteristics([itemsCharacteristicUUID], for: service)
+                peripheral.discoverCharacteristics([scoreWriteCharacteristicUUID,scoreReadCharacteristicUUID, attackCharacteristicUUID, itemsCharacteristicUUID], for: service)
+                //peripheral.discoverCharacteristics([scoreReadCharacteristicUUID], for: service)
+                //peripheral.discoverCharacteristics([attackCharacteristicUUID], for: service)
+                //peripheral.discoverCharacteristics([itemsCharacteristicUUID], for: service)
             }
         }
     }
@@ -296,19 +299,17 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         // Again, we loop through the array, just in case.
         for characteristic in characteristics {
             // And check if it's the right one
-            if characteristic.uuid.isEqual(scoreReadCharacteristicUUID)
-                || characteristic.uuid.isEqual(itemsCharacteristicUUID){
-                if characteristic.uuid.isEqual(itemsCharacteristicUUID) {
-                    print("CM found itemsCharacteristic")
-                } else {
-                    print("CM found scoreCharacteristic")
-                }
-                
-                // If it is, subscribe to it
+            switch characteristic.uuid {
+            case scoreReadCharacteristicUUID:
+                print("CM found scoreCharacteristic")
+                // fall through
+            case itemsCharacteristicUUID:
+                print("CM found itemsCharacteristic")
                 peripheral.setNotifyValue(true, for: characteristic)
-            }
-            else if characteristic.uuid.isEqual(playerCharacteristicUUID) {
+                break
+            case playerCharacteristicUUID:
                 print("CM found playerCharacteristic")
+                /* will be included, commented out for fix
                 let playerInfo: [String] = String(data: characteristic.value!, encoding: String.Encoding.utf8)!.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
                 
                 if playerInfo.count > 1 {
@@ -319,18 +320,21 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                     }
                     else { print("score could not be unwrapped") }
                 } else { print("playerInfo could not be splitted") }
-                
-            }
-            else if characteristic.uuid.isEqual(scoreWriteCharacteristicUUID){
+                 */
+                break
+            case scoreWriteCharacteristicUUID:
                 print("CM found scoreWriteCharacteristic")
                 delegate?.didDiscoverWriteScroreCharacteristic(characteristic: characteristic)
-            }
-            else if characteristic.uuid.isEqual(attackCharacteristicUUID){
+                break
+            case attackCharacteristicUUID:
                 print("CM found writeAttackCharacteristic")
                 delegate?.didDiscoverWriteAttackCharacteristic(characteristic: characteristic)
+                break
+            default:
+                print("CM found unidentified Characteristic with uuid " + characteristic.uuid.uuidString)
+                
+            
             }
-            
-            
  
         }
         // Once this is complete, we just need to wait for the data to come in.

@@ -139,7 +139,7 @@ class BluetoothController: CentralDelegate, PeripheralDelegate {
         // als Parameter an die hier implementierte Funktion des AppModels. Der Methodenaufruf 
         // ist auskommentiert, da es so jetzt nicht kompilieren würde. Einfachh dann den Kommentar entffernen
         
-        //AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: <#T##Item#>)
+        AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: itemToBeStolen)
     }
     
     // functions for sending and receiving game scores
