@@ -36,6 +36,10 @@ struct Style{
         return [0.0,NSNumber(floatLiteral: loc), NSNumber(floatLiteral: loc + 0.000000001), NSNumber(floatLiteral: loc + 0.05), NSNumber(floatLiteral: loc + 0.0500000001),1.0];
     }
     
+    static func gradientColorsWithTopColor(color: UIColor) -> [CGColor]{
+        return [color.lighter(by: 30)!.cgColor, color.lighter(by: 50)!.cgColor, Style.lines.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor]
+    }
+    
 
     
     
