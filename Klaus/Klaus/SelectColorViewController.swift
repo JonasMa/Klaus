@@ -10,7 +10,7 @@ import UIKit
 
 class SelectColorViewController: UIViewController {
     
-    
+    var colorSelected = false
     var headLineColor: UILabel!
     var descriptionColor: UILabel!
     
@@ -107,6 +107,7 @@ class SelectColorViewController: UIViewController {
     }
     
     func selectPlayerColor(sender: UIButton) {
+        colorSelected = true
         AppModel.sharedInstance.player.setColor(color: sender.backgroundColor!)
         sender.backgroundColor = sender.backgroundColor?.darker(by: 30)
         switch sender {
@@ -119,7 +120,9 @@ class SelectColorViewController: UIViewController {
     }
     
     func dismissTutorial(){
-        self.presentingViewController?.dismiss(animated: true, completion: nil);
+        if colorSelected {
+            self.presentingViewController?.dismiss(animated: true, completion: nil);
+        }
     }
     
     
