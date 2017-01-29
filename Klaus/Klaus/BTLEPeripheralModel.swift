@@ -95,13 +95,13 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         playerCharacteristic = CBMutableCharacteristic(
             type: playerCharacteristicUUID,
             properties: CBCharacteristicProperties.notify,
-            value: playerData,
+            value: nil, // TODO handle player data
             permissions: CBAttributePermissions.readable
         )
         
         attackCharacteristic = CBMutableCharacteristic(
             type: attackCharacteristicUUID,
-            properties: CBCharacteristicProperties.notify,
+            properties: CBCharacteristicProperties.write,
             value: nil,
             permissions: CBAttributePermissions.writeable
         )
@@ -115,7 +115,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         writeScoreCharacteristic = CBMutableCharacteristic(
             type: scoreWriteCharacteristicUUID,
-            properties: CBCharacteristicProperties.notify, // TODO: check if .write is necessary
+            properties: CBCharacteristicProperties.write, // TODO: check if .write is necessary
             value: nil,
             permissions: CBAttributePermissions.writeable
         )
@@ -129,20 +129,16 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
 
         
         // Then the service
-        let transferService = CBMutableService(
+        let playerService = CBMutableService(
             type: playerServiceUUID,
             primary: true
         )
         
         // Add the characteristic to the service
-        transferService.characteristics = [playerCharacteristic!]
-        transferService.characteristics = [attackCharacteristic!]
-        transferService.characteristics = [readScoreCharacteristic!]
-        transferService.characteristics = [writeScoreCharacteristic!]
-        transferService.characteristics = [itemsCharacteristic!]
+        playerService.characteristics = [playerCharacteristic!, attackCharacteristic!, readScoreCharacteristic!, writeScoreCharacteristic!, itemsCharacteristic!]
         
         // And add it to the peripheral manager
-        peripheralManager!.add(transferService)
+        peripheralManager!.add(playerService)
         
         if isAtvertising {
             startStopAdvertising(true)

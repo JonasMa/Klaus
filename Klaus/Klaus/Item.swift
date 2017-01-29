@@ -16,7 +16,7 @@ class Item: NSObject, NSCoding {
     private(set) var pointsPerSecond: Int;
     var imageName: String!;
     private(set) var itemLevel: Int;
-    private(set) var itemType: Int;
+    private(set) var itemType: Int!;
     private(set) var itemColor: UIColor;
     
     private static var CURRENT_ID: Int = 0;
@@ -47,18 +47,15 @@ class Item: NSObject, NSCoding {
     
     required init(coder aDecoder: NSCoder) {
         id = aDecoder.decodeObject(forKey: "id") as! String;
-        itemType = aDecoder.decodeObject(forKey: "itemType") as! Int;
         displayName = aDecoder.decodeObject(forKey: "displayName") as! String;
         pointsPerSecond = aDecoder.decodeInteger(forKey: "pointsPerSecond");
         dateOfAcquisition = aDecoder.decodeObject(forKey: "dateOfAcquisition") as! Date;
         itemLevel = aDecoder.decodeInteger(forKey: "level");
-        //itemType = Item.TYPE_ITEM
         itemColor = UIColor(hexString: aDecoder.decodeObject(forKey: "itemColor") as! String);
     }
   
     func encode(with aCoder: NSCoder) {
         aCoder.encode(id, forKey: "id");
-        aCoder.encode(itemType, forKey: "itemType");
         aCoder.encode(displayName, forKey: "displayName");
         aCoder.encode(pointsPerSecond, forKey: "pointsPerSecond");
         aCoder.encode(dateOfAcquisition, forKey: "dateOfAcquisition");
