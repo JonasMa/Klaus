@@ -61,7 +61,7 @@ class EnemyTableViewController: UITableViewController {
         let profileViewController = EnemyProfileViewController();
         profileViewController.profile = self.enemiesList[indexPath.row];
         // trigger boadcast instead?
-        BluetoothController.sharedInstance.connectToPlayer(player: profileViewController.profile)
+        BluetoothController.sharedInstance.connectToPlayer(playerUuid: profileViewController.profile.uuid)
         self.navigationController?.pushViewController(profileViewController, animated: true);
         
     }

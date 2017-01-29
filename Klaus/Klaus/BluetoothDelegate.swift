@@ -7,10 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 protocol BluetoothCentralDelegate {
     
     func onPlayerDiscovered (name: String, score: Int, color: UIColor, uuid: String)
     
-    func connectToPlayer (playerUuid uuid: String)
+    func onItemsAndAvatarReceived (items: [Item], avatar: String)
+    
+    func onReceiveScoreFromEnemy (score: Double)
+
 }

@@ -46,13 +46,15 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     private var isAtvertising: Bool
     private var sendingCharacteristic: CBMutableCharacteristic?
-
+    
     override init (){
         isAtvertising = false
         sendDataIndex = 0
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
+   
+    
     
     func setActive (){
         startStopAdvertising(true)
@@ -123,7 +125,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             value: nil,
             permissions: CBAttributePermissions.readable
         )
-
+        
         
         // Then the service
         let playerService = CBMutableService(
@@ -152,7 +154,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         switch characteristic.uuid {
         case (playerCharacteristic?.uuid)!:
-            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) // + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.getItemsString()
+            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileColor.toHexString()
             sendingCharacteristic = playerCharacteristic
             break
         case (readScoreCharacteristic?.uuid)!:
@@ -166,7 +168,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             //sendingCharacteristic = attackCharacteristic
             break
         case (itemsCharacteristic?.uuid)!:
-            sendString = AppModel.sharedInstance.player.getItemsString()
+            sendString = AppModel.sharedInstance.player.getItemsString() + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileAvatar
             sendingCharacteristic = itemsCharacteristic
             print("send own Items")
             break
@@ -177,7 +179,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         if sendString != nil {
             sendingData = sendString!.data(using: String.Encoding.utf8)
             
-
+            
             
             // Start sending
             sendData(forCharacteristic: sendingCharacteristic)
@@ -324,13 +326,13 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     /** This is called when a change happens, so we know to stop advertising
      *
-    func textViewDidChange(_ textView: UITextView) {
-        // If we're already advertising, stop
-        if (advertisingSwitch.isOn) {
-            advertisingSwitch.setOn(false, animated: true)
-            peripheralManager?.stopAdvertising()
-        }
-    }*/
+     func textViewDidChange(_ textView: UITextView) {
+     // If we're already advertising, stop
+     if (advertisingSwitch.isOn) {
+     advertisingSwitch.setOn(false, animated: true)
+     peripheralManager?.stopAdvertising()
+     }
+     }*/
     
     /** Start/stop advertising
      */
@@ -342,7 +344,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 // All we advertise is our service's UUID
                 peripheralManager?.startAdvertising([
                     CBAdvertisementDataServiceUUIDsKey : [playerServiceUUID]
-                ])
+                    ])
             } else {
                 peripheralManager?.stopAdvertising()
                 

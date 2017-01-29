@@ -135,11 +135,10 @@ class Item: NSObject, NSCoding {
             return SeitenschneiderItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
         case TYPE_ITEM:
             print("normal item was not expected")
-            return Item(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
-            
+            return nil
         default:
-                print("unknown displayname");
-                return nil;
+            print("unknown displayname");
+            return nil;
         }
 //        return Item(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!)
     }
