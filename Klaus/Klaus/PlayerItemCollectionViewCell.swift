@@ -9,5 +9,16 @@
 import UIKit
 
 class PlayerItemCollectionViewCell: ItemCollectionViewCell {
-
+    
+    func highlight(){
+        UIView.animate(withDuration: 1, delay: 0.0, options:[UIViewAnimationOptions.repeat, UIViewAnimationOptions.autoreverse], animations: {
+            self.backgroundColor = UIColor.green
+            self.backgroundColor = nil;
+        }, completion: nil)
+    }
+    
+    func unhighlight(){
+        self.backgroundColor = nil;
+    }
+    
 }

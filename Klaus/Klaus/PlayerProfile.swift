@@ -12,7 +12,6 @@ import UIKit
 class PlayerProfile: Profile, NSCoding{
     
     
-    
     required convenience init(coder aDecoder: NSCoder) {
         self.init(
             name: aDecoder.decodeObject(forKey: "name") as! String,
@@ -32,6 +31,11 @@ class PlayerProfile: Profile, NSCoding{
     override func removeItem(item: Item) {
         self.score! += item.getAcquiredScore();
         super.removeItem(item: item);
+    }
+    
+    override func addItem(item: Item) {
+        NotificationCenter.default.post(name: NotificationCenterKeys.highlightItemNotification, object: nil, userInfo: ["item": item]);
+        super.addItem(item: item);
     }
 
 }

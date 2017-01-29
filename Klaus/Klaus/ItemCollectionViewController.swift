@@ -39,8 +39,6 @@ class ItemCollectionViewController: UICollectionViewController {
 
     func updateItems(notification: Notification){
         items = Array(notification.userInfo!.values) as? Array<Item>;
-        print(items);
-        print("Item List Updated!");
         self.collectionView?.reloadData();
     }
 
