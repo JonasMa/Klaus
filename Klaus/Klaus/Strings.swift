@@ -41,4 +41,18 @@ struct Strings {
     static var seitenschneiderInfo = "Der Seitenschneider ist ein nicht verzehrbares Eisending. Die Verwendung ist jedoch von Art zu Art unterschiedlich. Der Seitenschneider ist eine typisch deutsche Erfindung: Ein Allzweckwerkzeug, dass immer griffbereit und sehr handlich ist. ";
     static var alarmInfo = "Alarm ist das, was ausgelöst wird, wenn die Unfähigkeit eines oder mehrerer Menschen die Grenzen des guten Geschmacks übersteigt und so zur Gefahr der Allgemeinheit wird.";
     
+    // Tutorial texts
+    static var chooseAvatarText = "Tarnung Wählen"
+    static var chooseAvatarDescriptionText = "Suche dir einen Avatar aus, dem deine Visage am meisten ähnelt."
+    
+    static var headLineColorText = "Farbe Bekennen"
+    static var descritpionColorText = "Wähle eine Farbe aus, die zu deiner diebischen Seele passt."
+    static var colorRedText = "Rot wie Rum"
+    static var colorBlueText = "Blau wie Chloroform"
+    static var colorGreenText = "Grün wie Gras"
+    static var colorYellowText = "Gelb wie Senf"
+    
+    static var tutorialEndText = "Sicher? Drücke um zu klauen!"
+    static var tutorialSwipeText = "Swipe nach rechts wenn du dir sicher bist"
+    
 }

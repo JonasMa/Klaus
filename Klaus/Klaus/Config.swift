@@ -19,6 +19,11 @@ struct Config {
     static var seitenschneidBasePointsPerSecond = 2;
     static var alarmBasePointsPerSecond = 2;
     
+    static var scoreToLevelUpBase = 1000;
+    
+    static var stealBonus = 1000;
+    static var stealPenalty = 1000;
+    
     static var possibleColors = [UIColor.red,
                                  UIColor.blue,
                                  UIColor.orange,
