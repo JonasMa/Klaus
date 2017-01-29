@@ -99,6 +99,12 @@ class SelectColorViewController: UIViewController {
         
         descriptionColor.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         descriptionColor.centerYAnchor.constraint(equalTo: headLineColor.bottomAnchor, constant: 20).isActive = true;
+        descriptionColor.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10).isActive = true;
+        //descriptionColor.topAnchor.constraint(equalTo: self.headLineColor.bottomAnchor, constant: 20).isActive = true;
+        descriptionColor.lineBreakMode = NSLineBreakMode.byWordWrapping
+        descriptionColor.numberOfLines = 3
+        descriptionColor.textAlignment = .center
+
 //        descriptionColor.sizeToFit()
 //        descriptionColor.heightAnchor.constraint(equalToConstant: 100.0)
         
