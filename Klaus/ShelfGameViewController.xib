@@ -25,12 +25,14 @@
                         </stackView>
                     </subviews>
                 </stackView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="boden_start" translatesAutoresizingMaskIntoConstraints="NO" id="owg-TU-tap">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="boden_start" translatesAutoresizingMaskIntoConstraints="NO" id="owg-TU-tap">
                     <frame key="frameInset" minX="-50" minY="530" width="470" height="215"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="owg-TU-tap" secondAttribute="bottom" constant="-80" id="wjh-w2-pBl"/>
+            </constraints>
             <point key="canvasLocation" x="33.5" y="54.5"/>
         </view>
     </objects>
