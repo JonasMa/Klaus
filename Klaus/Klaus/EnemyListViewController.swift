@@ -14,6 +14,10 @@ class EnemyListViewController: UIViewController {
     
     override func loadView() {
         self.view = EnemyListView(frame: UIScreen.main.bounds);
+        
+        //for testing
+        AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+
     }
     
     
@@ -23,9 +27,6 @@ class EnemyListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         BluetoothController.sharedInstance.discoverEnemies()
-        
-        //for testing
-        AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
     }
     
     override func viewDidLoad() {
