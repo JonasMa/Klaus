@@ -94,7 +94,7 @@ class SelectColorViewController: UIViewController {
     }
     
     func addConstraints(){
-        headLineColor.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true;
+        headLineColor.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60).isActive = true;
         headLineColor.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         
         descriptionColor.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
