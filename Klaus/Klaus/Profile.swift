@@ -49,16 +49,18 @@ class Profile: NSObject{
     
     func addItem(item: Item){
         items.append(item);
+        score! += Config.stealBonus
         self.updateItemsInView()
     }
     
-    func removeItem(item: Item ){
+    func removeItem(item: Item){
         if(!items.contains(item)){
-            print("fehler");
+            print("player does not own Item \(item.id)");
             return;
             
         }else{
             items.remove(at: items.index(of: item)!);
+            score! -= Config.stealPenalty
             print("item removed with id: " +  String(item.id));
         }
         self.updateItemsInView();
