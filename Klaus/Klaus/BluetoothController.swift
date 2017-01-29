@@ -31,19 +31,14 @@ class BluetoothController: CentralDelegate, PeripheralDelegate {
     var state: BluetoothState
     let enemyPlayerProfile: EnemyProfile
     var isConnecting: Bool = false
+    var connectionState = ConnectionState.disconnected
+    
     init (){
         enemyPlayerProfile = EnemyProfile(name: EMPTY_NAME, score: 0, uuid: "")
+        enemyPlayerProfile.setItems(items: Array<Item>());
         state = BluetoothState.peripheral
         setPassive()
-        resetEnemyProfile()
         central.delegate = self
-    }
-    
-    func resetEnemyProfile(){
-        enemyPlayerProfile.name = EMPTY_NAME;
-        enemyPlayerProfile.setItems(items: Array<Item>());
-        enemyPlayerProfile.score = -1
-        enemyPlayerProfile.uuid = ""
     }
  
     func discoverEnemies (){
@@ -96,6 +91,7 @@ class BluetoothController: CentralDelegate, PeripheralDelegate {
         //checkForEnemyProfileCompleted()
         
         if AppModel.sharedInstance.enemiesList.contains(enemy){
+            print("update enemy info for " + name)
             AppModel.sharedInstance.updateEnemyInfo(name: name, score: score, uuid: uuid)
         }
         else {

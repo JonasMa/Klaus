@@ -16,7 +16,7 @@ class Item: NSObject, NSCoding {
     private(set) var pointsPerSecond: Int;
     var imageName: String!;
     private(set) var itemLevel: Int;
-    private(set) var itemType: Int!;
+    var itemType: Int!;
     private(set) var itemColor: UIColor;
     
     private static var CURRENT_ID: Int = 0;
@@ -64,14 +64,13 @@ class Item: NSObject, NSCoding {
     }
     
     //do not use
-    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor, itemType: Int){
+    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
         self.id = id;
         self.displayName = displayName;
         self.pointsPerSecond = pointsPerSecond;
         self.dateOfAcquisition = dateOfAcquisition;
         self.itemLevel = level;
         self.itemColor = itemColor;
-        self.itemType = itemType;
     }
     
     func toString() -> String {
@@ -136,7 +135,7 @@ class Item: NSObject, NSCoding {
             return SeitenschneiderItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
         case TYPE_ITEM:
             print("normal item was not expected")
-            return Item(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!, itemType: Item.TYPE_ITEM);
+            return Item(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
             
         default:
                 print("unknown displayname");

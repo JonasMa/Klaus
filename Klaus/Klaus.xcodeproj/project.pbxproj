@@ -26,6 +26,10 @@
 		6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */; };
 		6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */; };
 		6A4AA0721E30E9C900834712 /* ConnectingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */; };
+		6A58BD4E1E3E483B000E410D /* BluetoothHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A58BD4D1E3E483B000E410D /* BluetoothHelper.swift */; };
+		6A58BD501E3E4CD3000E410D /* BTLECentralModel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A58BD4F1E3E4CD3000E410D /* BTLECentralModel2.swift */; };
+		6A58BD521E3E4CED000E410D /* BTLEPeripheralModel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A58BD511E3E4CED000E410D /* BTLEPeripheralModel2.swift */; };
+		6A58BD541E3E4F6C000E410D /* BluetoothDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A58BD531E3E4F6C000E410D /* BluetoothDelegate.swift */; };
 		6AB8F0401E39F13000C18953 /* BluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8F03F1E39F13000C18953 /* BluetoothController.swift */; };
 		841ED7661E39048C00210F31 /* AlarmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7651E39048C00210F31 /* AlarmItem.swift */; };
 		841ED7691E39061E00210F31 /* SimonSaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7671E39061E00210F31 /* SimonSaysViewController.swift */; };
@@ -115,6 +119,10 @@
 		6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralModel.swift; sourceTree = "<group>"; };
 		6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEPeripheralModel.swift; sourceTree = "<group>"; };
 		6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingDelegate.swift; sourceTree = "<group>"; };
+		6A58BD4D1E3E483B000E410D /* BluetoothHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothHelper.swift; sourceTree = "<group>"; };
+		6A58BD4F1E3E4CD3000E410D /* BTLECentralModel2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralModel2.swift; sourceTree = "<group>"; };
+		6A58BD511E3E4CED000E410D /* BTLEPeripheralModel2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEPeripheralModel2.swift; sourceTree = "<group>"; };
+		6A58BD531E3E4F6C000E410D /* BluetoothDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothDelegate.swift; sourceTree = "<group>"; };
 		6AB8F03F1E39F13000C18953 /* BluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothController.swift; sourceTree = "<group>"; };
 		841ED7651E39048C00210F31 /* AlarmItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmItem.swift; sourceTree = "<group>"; };
 		841ED7671E39061E00210F31 /* SimonSaysViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimonSaysViewController.swift; sourceTree = "<group>"; };
@@ -274,6 +282,10 @@
 				6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */,
 				6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */,
 				6A4AA0711E30E9C900834712 /* ConnectingDelegate.swift */,
+				6A58BD4D1E3E483B000E410D /* BluetoothHelper.swift */,
+				6A58BD4F1E3E4CD3000E410D /* BTLECentralModel2.swift */,
+				6A58BD511E3E4CED000E410D /* BTLEPeripheralModel2.swift */,
+				6A58BD531E3E4F6C000E410D /* BluetoothDelegate.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -591,6 +603,7 @@
 			files = (
 				47C062291E15274200C25292 /* ExplanationViewController.swift in Sources */,
 				841ED76E1E39072700210F31 /* StopwatchTimer.swift in Sources */,
+				6A58BD4E1E3E483B000E410D /* BluetoothHelper.swift in Sources */,
 				FAB1C4761E13EDFB00981731 /* EnemyTableView.swift in Sources */,
 				FAB1C47C1E13FCC000981731 /* EnemyListView.swift in Sources */,
 				8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */,
@@ -632,6 +645,7 @@
 				841ED76C1E3906F300210F31 /* SimonSaysModel.swift in Sources */,
 				FA2A05161E15694C0079CD2A /* EnemyProfile.swift in Sources */,
 				FA161E251E07FD29001450E8 /* Item.swift in Sources */,
+				6A58BD501E3E4CD3000E410D /* BTLECentralModel2.swift in Sources */,
 				FAB4B3151E38CE65003408FE /* Config.swift in Sources */,
 				FA8D53381E33B3C400C96370 /* AxeItem.swift in Sources */,
 				FAB1C4781E13F12C00981731 /* EnemyTableViewCell.swift in Sources */,
@@ -642,10 +656,12 @@
 				841ED7731E391EE200210F31 /* SeitenschneiderViewController.swift in Sources */,
 				FABB862D1E39F852003657CC /* Color.swift in Sources */,
 				FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */,
+				6A58BD521E3E4CED000E410D /* BTLEPeripheralModel2.swift in Sources */,
 				47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */,
 				47C062331E152B8100C25292 /* ResultViewController.swift in Sources */,
 				6A4AA0721E30E9C900834712 /* ConnectingDelegate.swift in Sources */,
 				FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */,
+				6A58BD541E3E4F6C000E410D /* BluetoothDelegate.swift in Sources */,
 				6AB8F0401E39F13000C18953 /* BluetoothController.swift in Sources */,
 				FAB1C4821E14087E00981731 /* EnemyItemDetailViewController.swift in Sources */,
 			);

@@ -27,7 +27,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
+class BTLEPeripheralModel2 : NSObject, CBPeripheralManagerDelegate {
     
     fileprivate var peripheralManager: CBPeripheralManager?
     fileprivate var playerCharacteristic: CBMutableCharacteristic?
@@ -46,13 +46,21 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     private var isAtvertising: Bool
     private var sendingCharacteristic: CBMutableCharacteristic?
-
+    
     override init (){
         isAtvertising = false
         sendDataIndex = 0
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
     func setActive (){
         startStopAdvertising(true)
@@ -123,7 +131,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             value: nil,
             permissions: CBAttributePermissions.readable
         )
-
+        
         
         // Then the service
         let playerService = CBMutableService(
@@ -177,7 +185,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         if sendString != nil {
             sendingData = sendString!.data(using: String.Encoding.utf8)
             
-
+            
             
             // Start sending
             sendData(forCharacteristic: sendingCharacteristic)
@@ -324,13 +332,13 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     /** This is called when a change happens, so we know to stop advertising
      *
-    func textViewDidChange(_ textView: UITextView) {
-        // If we're already advertising, stop
-        if (advertisingSwitch.isOn) {
-            advertisingSwitch.setOn(false, animated: true)
-            peripheralManager?.stopAdvertising()
-        }
-    }*/
+     func textViewDidChange(_ textView: UITextView) {
+     // If we're already advertising, stop
+     if (advertisingSwitch.isOn) {
+     advertisingSwitch.setOn(false, animated: true)
+     peripheralManager?.stopAdvertising()
+     }
+     }*/
     
     /** Start/stop advertising
      */
@@ -342,7 +350,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 // All we advertise is our service's UUID
                 peripheralManager?.startAdvertising([
                     CBAdvertisementDataServiceUUIDsKey : [playerServiceUUID]
-                ])
+                    ])
             } else {
                 peripheralManager?.stopAdvertising()
                 
