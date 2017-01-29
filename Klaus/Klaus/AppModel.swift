@@ -25,7 +25,7 @@ class AppModel {
         enemiesList = Array<EnemyProfile>();
         
         //regularly update points based on items
-        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerScore), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerStats), userInfo: nil, repeats: true);
         
         if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
             player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
@@ -35,14 +35,16 @@ class AppModel {
             player = PlayerProfile(name: "", items: initialItems());
             print("new Profile created, presenting tutorialView.");
         }
-        
     }
 
     
-    @objc func updatePlayerScore(){
-        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.score + player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
+    @objc func updatePlayerStats(){
+        NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, userInfo: ["score":String(player.getAcquiredScore()),"scorePerSecond": String(player.getScorePerSecond())]);
+        if checkPlayerLevelUp(){
+            NotificationCenter.default.post(name: NotificationCenterKeys.updatePlayerLevelNotification, object: nil, userInfo: ["level": String(player.profileLevel)]);
+        }
+        
     }
-    
     
     func updateEnemyListInView(){
         var enemyDict = Dictionary<Int,EnemyProfile>();
@@ -52,9 +54,46 @@ class AppModel {
         NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyListNotification, object: nil, userInfo: enemyDict)
     }
     
+    func checkPlayerLevelUp() -> Bool{
+        let scoreNeeded = Config.scoreToLevelUpBase * player.profileLevel * (1 + player.profileLevel)
+        if player.getAcquiredScore() >= scoreNeeded {
+            player.profileLevel! += 1;
+            return true;
+        }
+        return false;
+    }
+    
     func addEnemyToList(enemy: EnemyProfile){
         enemiesList.append(enemy);
         updateEnemyListInView();
+    }
+    
+    func updateEnemyItemsInList(items: [Item], uuid: String){
+
+        getEnemyByUuid(uuid: uuid)?.setItems(items: items)
+        print("update enemy items")
+        updateEnemyListInView()
+    }
+    
+    func updateEnemyInfo(name: String, score: Int, uuid: String) {
+        let enemy: EnemyProfile? = getEnemyByUuid(uuid: uuid)
+        guard let enemyUnwrapped = enemy else {
+            print("unwrapping enemy unsuccessful")
+            return
+        }
+        enemyUnwrapped.name = name
+        enemyUnwrapped.score = score
+        print("enemy info updated for \(name)")
+        updateEnemyListInView();
+    }
+    
+    private func getEnemyByUuid(uuid: String) -> EnemyProfile? {
+        for enemy in enemiesList {
+            if enemy.uuid == uuid {
+                return enemy
+            }
+        }
+        return nil
     }
     
     func removeEnemyFromList(enemy: EnemyProfile){
@@ -92,7 +131,7 @@ class AppModel {
     
     //(callback)functions used for delegating game impulses, determining winning statement
     func triggerEnemyGameInstance(stolenItem: Item) {
-        CentralPeripheralController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
+        BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
     }
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
@@ -111,7 +150,7 @@ class AppModel {
     }
     
     func sendOwnScoreToEnemy(score: Double) {
-        CentralPeripheralController.sharedInstance.sendScoreToEnemy(ownScore: score)
+        BluetoothController.sharedInstance.sendScoreToEnemy(ownScore: score)
     }
     
     func displayAlert(title: String, message: String, buttonTitle: String) {

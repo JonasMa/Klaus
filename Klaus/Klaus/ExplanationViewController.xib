@@ -17,16 +17,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Schwing die Axt so stark du kannst! Alles klar?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qdn-Jg-8DV">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Schwing die Axt so stark du kannst! Alles klar?" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qdn-Jg-8DV">
                     <frame key="frameInset" minX="35" minY="145" width="304" height="174"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4H7-Qp-2lu">
-                    <frame key="frameInset" minX="119" minY="423" width="136" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4H7-Qp-2lu">
+                    <frame key="frameInset" minX="113" minY="422" width="149" height="30"/>
                     <state key="normal" title="Auf zum Spiel!"/>
                     <connections>
                         <action selector="startButton:" destination="-1" eventType="touchUpInside" id="zzd-aI-4Mv"/>
@@ -34,6 +32,14 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="4H7-Qp-2lu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="8r8-Mt-jWQ"/>
+                <constraint firstAttribute="trailing" secondItem="Qdn-Jg-8DV" secondAttribute="trailing" constant="30" id="Ive-aN-8lR"/>
+                <constraint firstItem="Qdn-Jg-8DV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="LhR-1j-CT0"/>
+                <constraint firstAttribute="trailing" secondItem="4H7-Qp-2lu" secondAttribute="trailing" constant="20" id="ajj-40-vV7"/>
+                <constraint firstItem="4H7-Qp-2lu" firstAttribute="top" secondItem="Qdn-Jg-8DV" secondAttribute="bottom" constant="100" id="pfm-OL-0LL"/>
+                <constraint firstItem="Qdn-Jg-8DV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="150" id="qSf-BP-KC8"/>
+            </constraints>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>

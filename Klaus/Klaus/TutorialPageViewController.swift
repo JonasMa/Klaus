@@ -11,10 +11,12 @@ import UIKit
 class TutorialPageViewController: UIPageViewController , UIPageViewControllerDelegate, UIPageViewControllerDataSource{
 
     let loginCtrl = LoginViewController();
-    let avatarCtrl = AvatarViewController();
+    let avatarCtrl = AvatarCollectionViewController();
+    let colorCtrl = SelectColorViewController();
     var index = 0;
     var lastIndex = 0;
-    var pageCount = 2;
+//    var pageCount = 2;
+    var pageCount = 3;
     
     var isAnimating = false;
     
@@ -34,12 +36,8 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         
         
         self.preferredContentSize = CGSize(width: 200, height: 200);
-        controllers = [loginCtrl,avatarCtrl];
-        
-    
-        
-        
-        
+//        controllers = [loginCtrl,avatarCtrl];
+        controllers = [loginCtrl,avatarCtrl,colorCtrl];
     }
     
     
@@ -52,6 +50,8 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
     
         if(index >= (self.controllers.count)-1 || isAnimating || self.loginCtrl.nameTextField.text == ""){
+            return nil
+        } else if index == self.avatarCtrl.pageIndex-1 && self.avatarCtrl.chosenAvatar == "" {
             return nil
         }
         lastIndex = index;
@@ -78,7 +78,9 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
             return LoginViewController();
         }else if(index == 1){
             return AvatarViewController();
-        }else{
+        }else if (index == 2) {
+            return SelectColorViewController();
+        } else {
             return nil;
         }
     }

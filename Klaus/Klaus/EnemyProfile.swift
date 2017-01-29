@@ -14,9 +14,10 @@ class EnemyProfile: Profile{
     var uuid: String
 
     
-    init (name: String, uuid: String){
+    init (name: String, score: Int, uuid: String){
         self.uuid = uuid
         super.init(name: name)
+        self.score = score
     }
     
     override init(name: String){
@@ -39,6 +40,17 @@ class EnemyProfile: Profile{
     func setScore (score: Int){
         self.score = score;
         NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyScoreNotification, object: nil, userInfo: ["score": score]);
+    }
+    
+    /*!
+     * Compares if the uuid is the same
+     *
+    func isEqual (profile: EnemyProfile) -> Bool{
+        return uuid == profile.uuid
+    }
+    */
+    static func ==(lhs:EnemyProfile, rhs:EnemyProfile) -> Bool { // Implement Equatable
+        return lhs.uuid == rhs.uuid
     }
     
 }

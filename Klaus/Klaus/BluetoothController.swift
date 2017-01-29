@@ -1,5 +1,5 @@
 //
-//  CentralPeripheralController.swift
+//  BluetoothController.swift
 //  Klaus
 //
 //  Created by Jonas Programmierer on 15.01.17.
@@ -7,15 +7,22 @@
 //
 
 import Foundation
+import CoreBluetooth
 
-class CentralPeripheralController: ConnectingDelegate {
+class BluetoothController: CentralDelegate, PeripheralDelegate {
     
     enum BluetoothState {
         case central
         case peripheral
     }
     
-    static let sharedInstance = CentralPeripheralController ()
+    enum ConnectionState {
+        case connected
+        case connecting
+        case disconnected
+    }
+    
+    static let sharedInstance = BluetoothController ()
     
     let EMPTY_NAME = "empty"
     let peripheral: BTLEPeripheralModel = BTLEPeripheralModel()
@@ -24,9 +31,8 @@ class CentralPeripheralController: ConnectingDelegate {
     var state: BluetoothState
     let enemyPlayerProfile: EnemyProfile
     var isConnecting: Bool = false
-    
     init (){
-        enemyPlayerProfile = EnemyProfile(name: EMPTY_NAME, uuid: "")
+        enemyPlayerProfile = EnemyProfile(name: EMPTY_NAME, score: 0, uuid: "")
         state = BluetoothState.peripheral
         setPassive()
         resetEnemyProfile()
@@ -44,9 +50,9 @@ class CentralPeripheralController: ConnectingDelegate {
         guard !isConnecting else {
             return}
         print("central active")
-        Timer.scheduledTimer(timeInterval: discoverTimeout, target: self, selector: #selector(setPassive), userInfo: nil, repeats: true)
+        //Timer.scheduledTimer(timeInterval: discoverTimeout, target: self, selector: #selector(setPassive), userInfo: nil, repeats: true)
         state = BluetoothState.central
-        central.setActive()
+        central.discoverPlayers()
         peripheral.setInactive()
     }
     
@@ -83,46 +89,78 @@ class CentralPeripheralController: ConnectingDelegate {
     }
     
     // delegate functions
-    func didRetrievePlayerInfo(name: String) {
-        enemyPlayerProfile.name = name
-        checkForEnemyProfileCompleted()
+    func didRetrievePlayerInfo(name: String, score: Int, uuid: String) {
+        let enemy = EnemyProfile (name: name)
+        enemy.setScore(score: score);
+        enemy.uuid = uuid
+        //checkForEnemyProfileCompleted()
+        
+        if AppModel.sharedInstance.enemiesList.contains(enemy){
+            AppModel.sharedInstance.updateEnemyInfo(name: name, score: score, uuid: uuid)
+        }
+        else {
+            AppModel.sharedInstance.addEnemyToList(enemy: enemy)
+        }
     }
     
-    func didRetrievePlayerInfo(items: Array<Item>) {
+    func didRetrievePlayerInfo(items: Array<Item>, uuid: String) {
+        print("didRetrievePlayerInfo")
         enemyPlayerProfile.setItems(items: items);
-        checkForEnemyProfileCompleted();
+        //checkForEnemyProfileCompleted();
+        //AppModel.sharedInstance.updateEnemyItemsInList(items: items, uuid: uuid)
     }
-
-    func didRetrievePlayerInfo(score: Int) {
-        enemyPlayerProfile.setScore(score: score);
-        checkForEnemyProfileCompleted()
+    
+    func didDiscoverWriteAttackCharacteristic(characteristic: CBCharacteristic) {
+        central.writeAttack = characteristic
+    }
+    
+    func didDiscoverWriteScroreCharacteristic(characteristic: CBCharacteristic) {
+        central.writeScore = characteristic
+    }
+    
+    func onConnectionEstablished(uuid: String) {
+        enemyPlayerProfile.uuid = uuid
+    }
+    
+    func onConnectionAborted (uuid: String) {
+        enemyPlayerProfile.uuid = ""
     }
     
     // functions for sending and receiving game challenges
     func sendGameRequestToAtackedPerson(itemToBeStolen: Item) {
         NSLog("CPC itemToBeStolen: \(itemToBeStolen.id)")
+        central.sendAttack(itemToBeStolen: itemToBeStolen)
         // TODO: Jonas schick das Item itemToBeStolen an den Gegner und empfange es
         // beim Gegner mit der Methode, die hier als nächstes dann kommt: receiveGameRequestFromAttacker()
     }
     
-    func receiveGameRequestFromAttacker() {
+    func receiveGameRequestFromAttacker(itemToBeStolen: Item) {
         // TODO: Jonas les das Item aus sendGameRequestToAttackedPerson aus und übergib 
         // als Parameter an die hier implementierte Funktion des AppModels. Der Methodenaufruf 
         // ist auskommentiert, da es so jetzt nicht kompilieren würde. Einfachh dann den Kommentar entffernen
         
-        //AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: <#T##Item#>)
+        AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: itemToBeStolen)
     }
     
     // functions for sending and receiving game scores
     func sendScoreToEnemy(ownScore: Double) {
         NSLog("CPC ownScore: \(ownScore)")
+        if state == BluetoothState.central {
+            central.sendScore(score: ownScore)
+        }
+        else if state == BluetoothState.peripheral {
+            peripheral.setOwnScore(score: ownScore)
+        }
         // TODO: Schicke ownScore an receiveScoreFromEnemy des Gegners
     }
     
-    func receiveScoreFromEnemy() {
+    func receiveScoreFromEnemy(score: Double) {
         // TODO: Empfange Score des Gegners aus sendScoreToEnemy und übergebe es an
         // den entsprechenden Methodenaufruf des AppModels: pushScore()
         
         //AppModel.sharedInstance.pushScore(score: <#T##Double#>)
     }
+    
+    
+    
 }

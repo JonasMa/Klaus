@@ -13,11 +13,11 @@ class ProfileViewController: UIViewController {
     var profileImageView: UIImageView!;
     var profileStatsView: UIView!;
     var profileNameLabel: UILabel!;
+    var profileLevelLabel: UILabel!;
     var profileScoreLabel: UILabel!;
     var grad: CAGradientLayer!;
     
     var itemCollectionViewController: ItemCollectionViewController!;
-    
     
     override func loadView() {
         self.view = ProfileView(frame: UIScreen.main.bounds);
@@ -33,19 +33,19 @@ class ProfileViewController: UIViewController {
         grad.colors = Style.gradientColors
         grad.locations = Style.gradientLocations();
         grad.frame = self.view.bounds;
-        
         self.view.backgroundColor = Style.bg;
+        
         //IMAGE
-        profileImageView = UIImageView(frame: CGRect());
+        profileImageView  = UIImageView(frame: CGRect(x:0, y:0, width:80, height:80));
+        profileImageView.image = UIImage(named: "axt")
         profileImageView.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(profileImageView);
         
-        //STATS - name - score
+        //STATS - name - score - level
         profileStatsView = UIView(frame: CGRect());
         profileStatsView.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(profileStatsView);
 
-        
         profileNameLabel = UILabel();
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false;
         profileNameLabel.font = UIFont.boldSystemFont(ofSize: 17);
@@ -58,10 +58,11 @@ class ProfileViewController: UIViewController {
         profileScoreLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileScoreLabel);
         
-        
-
-        
-        
+        profileLevelLabel = UILabel();
+        profileLevelLabel.translatesAutoresizingMaskIntoConstraints = false;
+        profileLevelLabel.font = UIFont.systemFont(ofSize: 12);
+        profileLevelLabel.textColor = Style.primaryTextColor;
+        profileStatsView.addSubview(profileLevelLabel);
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,21 +76,26 @@ class ProfileViewController: UIViewController {
         self.view.bringSubview(toFront: profileStatsView);
         self.view.bringSubview(toFront: profileImageView);
         
-        profileImageView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
-        profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true;
-        profileImageView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
-        profileImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true;
-        
         profileStatsView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         profileStatsView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
-        profileStatsView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true;
-        profileStatsView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor).isActive = true;
+        profileStatsView.heightAnchor.constraint(equalTo: profileStatsView.widthAnchor).isActive = true;
+        profileStatsView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true;
         
-        profileNameLabel.bottomAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
+        profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true;
+        
+        profileImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -(UIScreen.main.bounds.width * 0.25)).isActive = true;
+        profileImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true;
+        profileImageView.centerYAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
+        
+        
+        profileNameLabel.bottomAnchor.constraint(equalTo: profileStatsView.centerYAnchor, constant: -20).isActive = true;
         profileNameLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
         
-        profileScoreLabel.topAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
+        profileScoreLabel.topAnchor.constraint(equalTo: profileLevelLabel.centerYAnchor, constant: 20).isActive = true;
         profileScoreLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
+        
+        profileLevelLabel.topAnchor.constraint(equalTo: profileNameLabel.centerYAnchor, constant: 20).isActive = true;
+        profileLevelLabel.centerXAnchor.constraint(equalTo: profileStatsView.centerXAnchor).isActive = true;
 
         itemCollectionViewController.collectionView?.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         itemCollectionViewController.collectionView?.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;

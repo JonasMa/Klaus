@@ -15,7 +15,7 @@ class ItemCollectionViewController: UICollectionViewController {
     var items: Array<Item>!;
 
     fileprivate let itemsPerRow: CGFloat = 3;
-    fileprivate let sectionInsets = UIEdgeInsets(top: 110, left: 15.0, bottom: 0.0, right: 15.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: UIScreen.main.bounds.height/5, left: 15.0, bottom: 0.0, right: 15.0)
 
     
     override func loadView() {
@@ -39,8 +39,6 @@ class ItemCollectionViewController: UICollectionViewController {
 
     func updateItems(notification: Notification){
         items = Array(notification.userInfo!.values) as? Array<Item>;
-        print(items);
-        print("Item List Updated!");
         self.collectionView?.reloadData();
     }
 

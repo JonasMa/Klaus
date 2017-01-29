@@ -16,6 +16,7 @@ class Item: NSObject, NSCoding {
     private(set) var pointsPerSecond: Int;
     var imageName: String!;
     private(set) var itemLevel: Int;
+    private(set) var itemType: Int!;
     private(set) var itemColor: UIColor;
     
     private static var CURRENT_ID: Int = 0;
@@ -23,7 +24,7 @@ class Item: NSObject, NSCoding {
     static var INFO_STRING: String!;
     
     static let dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
-    static let SEPARATOR: String = "#"
+    static let SEPARATOR: String = "?=?"
     static let ITEM_SEPARATOR: String = "**"
     
     private static let INDEX_ID: Int = 0
@@ -33,8 +34,16 @@ class Item: NSObject, NSCoding {
     private static let INDEX_IMAGE: Int = 4
     private static let INDEX_LEVEL: Int = 5
     private static let INDEX_COLOR: Int = 6
+    private static let INDEX_TYPE: Int = 7
     
-    private static let NUMBER_OF_PROPERTIES: Int = 7
+    private static let NUMBER_OF_PROPERTIES: Int = 8
+    
+    static let TYPE_ITEM = 0
+    static let TYPE_COFFEE = 1
+    static let TYPE_ALARM = 2
+    static let TYPE_AXE = 3
+    static let TYPE_SEITENSCHNEIDER = 4
+    //var itemType: Int
     
     required init(coder aDecoder: NSCoder) {
         id = aDecoder.decodeObject(forKey: "id") as! String;
@@ -55,13 +64,14 @@ class Item: NSObject, NSCoding {
     }
     
     //do not use
-    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
+    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor, itemType: Int){
         self.id = id;
         self.displayName = displayName;
         self.pointsPerSecond = pointsPerSecond;
         self.dateOfAcquisition = dateOfAcquisition;
         self.itemLevel = level;
         self.itemColor = itemColor;
+        self.itemType = itemType;
     }
     
     func toString() -> String {
@@ -70,7 +80,7 @@ class Item: NSObject, NSCoding {
         formatter.dateFormat = Item.dateFormat
         let date: String = formatter.string(from: dateOfAcquisition)
         
-        stringy = id + Item.SEPARATOR + displayName + Item.SEPARATOR + date + Item.SEPARATOR + String(pointsPerSecond) + Item.SEPARATOR + imageName + Item.SEPARATOR + String(itemLevel) + Item.SEPARATOR + itemColor.toHexString();
+        stringy = id + Item.SEPARATOR + displayName + Item.SEPARATOR + date + Item.SEPARATOR + String(pointsPerSecond) + Item.SEPARATOR + imageName + Item.SEPARATOR + String(itemLevel) + Item.SEPARATOR + itemColor.toHexString() + Item.SEPARATOR + String(itemType)
         return stringy
     }
     
@@ -81,7 +91,8 @@ class Item: NSObject, NSCoding {
         var pointsPerSecond: Int?
         //var imageName: String
         var itemLevel: Int?
-        var itemColor: UIColor?;
+        var itemColor: UIColor?
+        var itemType: Int?
         
         let splitted: [String] = toDecode.components(separatedBy: Item.SEPARATOR)
         
@@ -100,23 +111,32 @@ class Item: NSObject, NSCoding {
         pointsPerSecond = Int(splitted[INDEX_POINTS])
         //imageName = splitted[INDEX_NAME]
         itemLevel = Int(splitted[INDEX_LEVEL])
-        itemColor = UIColor(hexString: splitted[INDEX_COLOR]);
+        itemColor = UIColor(hexString: splitted[INDEX_COLOR])
+        itemType = Int(splitted[INDEX_TYPE])
         
         // check if unwrapping is safe
-        guard timeStamp != nil
-            && pointsPerSecond != nil
-            && itemLevel != nil
-            else {
+        if timeStamp == nil
+            || pointsPerSecond == nil
+            || itemLevel == nil {
             print("unwrapping Item.decode was unsuccesful")
-            return nil
         }
         
-        //workaround LUL
-        switch name {
-        case "Axe":
+        guard let itemTypeDec = itemType else {
+            print("itemType couldn't be decoded. String is:" + toDecode)
+            return nil
+        }
+        switch itemTypeDec {
+        case TYPE_AXE:
             return AxeItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
-        case "Coffee":
+        case TYPE_ALARM:
+            return AlarmItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
+        case TYPE_COFFEE:
             return CoffeeItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
+        case TYPE_SEITENSCHNEIDER:
+            return SeitenschneiderItem(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!);
+        case TYPE_ITEM:
+            print("normal item was not expected")
+            return Item(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!, itemColor: itemColor!, itemType: Item.TYPE_ITEM);
         default:
                 print("unknown displayname");
                 return nil;
@@ -153,6 +173,10 @@ class Item: NSObject, NSCoding {
     
     func getInfoString() -> String{
         preconditionFailure("This function must be overridden!")
+    }
+    
+    func incItemLevel(){
+        self.itemLevel += 1;
     }
     
     static func getRandomItemColor() -> UIColor{

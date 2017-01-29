@@ -48,7 +48,7 @@ class CableModel: UIImageView {
     }
     
     func checkTouch(touchLocation: CGPoint) -> Bool{
-        let cableYCoordinate = self.layer.presentation()?.frame.origin.y
+//        let cableYCoordinate = self.layer.presentation()?.frame.origin.y
         let currentCableLocation = self.layer.presentation()?.frame
         let cableXCoordinate = currentCableLocation?.origin.x
         

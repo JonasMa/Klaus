@@ -12,21 +12,27 @@ class EnemyListViewController: UIViewController {
 
     var enemyTableViewController: EnemyTableViewController!;
     
+    //test
+    var gerlinde = true;
+    
     override func loadView() {
         self.view = EnemyListView(frame: UIScreen.main.bounds);
     }
     
     
     override func viewDidDisappear(_ animated: Bool) {
-        CentralPeripheralController.sharedInstance.setPassive()
+        BluetoothController.sharedInstance.setPassive()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        CentralPeripheralController.sharedInstance.discoverEnemies()
+        BluetoothController.sharedInstance.discoverEnemies()
         
         //for testing
-        AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+        if(gerlinde){
+            AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+            gerlinde = false;
+        }
+
     }
     
     override func viewDidLoad() {

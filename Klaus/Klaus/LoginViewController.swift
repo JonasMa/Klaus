@@ -10,7 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate{
     
-    let dismissButton:UIButton! = UIButton(type: .custom);
+    var swipeLabel: UILabel!;
     var nameLabel: UILabel!;
     var nameTextField: UITextField!;
     var pageIndex = 1;
@@ -35,10 +35,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         nameTextField.font = UIFont.systemFont(ofSize: 16);
         nameTextField.textAlignment = .center;
         self.view.addSubview(nameTextField);
+        nameTextField.becomeFirstResponder()
+        
+        swipeLabel = UILabel()
+        swipeLabel.text = Strings.tutorialSwipeText
+        swipeLabel.textAlignment = .center
+        swipeLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(swipeLabel)
         
         addConstraints()
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,6 +55,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         nameLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true;
         nameTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         nameTextField.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -170).isActive = true;
+        swipeLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        swipeLabel.centerYAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true;
+        swipeLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 20).isActive = true;
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
