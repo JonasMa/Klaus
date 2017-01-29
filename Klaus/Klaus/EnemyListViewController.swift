@@ -12,12 +12,11 @@ class EnemyListViewController: UIViewController {
 
     var enemyTableViewController: EnemyTableViewController!;
     
+    //test
+    var gerlinde = true;
+    
     override func loadView() {
         self.view = EnemyListView(frame: UIScreen.main.bounds);
-        
-        //for testing
-        AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
-
     }
     
     
@@ -27,6 +26,13 @@ class EnemyListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         BluetoothController.sharedInstance.discoverEnemies()
+        
+        //for testing
+        if(gerlinde){
+            AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+            gerlinde = false;
+        }
+
     }
     
     override func viewDidLoad() {
