@@ -75,18 +75,6 @@ class AppModel {
         updateEnemyListInView()
     }
     
-    func updateEnemyInfo(name: String, score: Int, uuid: String) {
-        let enemy: EnemyProfile? = getEnemyByUuid(uuid: uuid)
-        guard let enemyUnwrapped = enemy else {
-            print("unwrapping enemy unsuccessful")
-            return
-        }
-        enemyUnwrapped.name = name
-        enemyUnwrapped.score = score
-        print("enemy info updated for \(name)")
-        updateEnemyListInView();
-    }
-    
     private func getEnemyByUuid(uuid: String) -> EnemyProfile? {
         for enemy in enemiesList {
             if enemy.uuid == uuid {
@@ -150,7 +138,7 @@ class AppModel {
     }
     
     func sendOwnScoreToEnemy(score: Double) {
-        BluetoothController.sharedInstance.sendScoreToEnemy(ownScore: score)
+        BluetoothController.sharedInstance.sendScoreToEnemy(score: score)
     }
     
     func displayAlert(title: String, message: String, buttonTitle: String) {

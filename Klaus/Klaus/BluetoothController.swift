@@ -32,11 +32,16 @@ class BluetoothController: BluetoothCentralDelegate {
     //var isConnecting: Bool = false
     //var connectionState = ConnectionState.disconnected
 
+    init () {
+        central.delegate = self
+        setPassive()
+    }
     // gets triggered by system
-    func setPassive(){}
-    func discoverEnemies() {}
+    func setPassive(){
+        changeBluetoothState(toNewState: BluetoothState.peripheral)
+    }
     
-    func discoverOtherPlayers () {
+    func discoverEnemies () {
         
         central.discoverOtherPlayers()
         changeBluetoothState(toNewState: BluetoothState.central)
@@ -55,7 +60,7 @@ class BluetoothController: BluetoothCentralDelegate {
         // retrieve items and icon
     }
     
-    func onItemsAndAvatarReceived (items: [Item], avatar: String) {
+    func onItemsAndAvatarReceived (items: [Item], avatar: String, uuid: String) {
         AppModel.sharedInstance.updateEnemyItemsInList(items: items, uuid: uuid)
     }
     
@@ -64,7 +69,11 @@ class BluetoothController: BluetoothCentralDelegate {
     }
     
     func sendGameRequestToAtackedPerson (itemToBeStolen: Item) {
-        
+        central.sendAttack(itemToBeStolen: itemToBeStolen)
+    }
+    
+    func sendScoreToEnemy (score: Double) {
+        central.sendScore(score: score)
     }
 
     private func changeBluetoothState (toNewState state: BluetoothState){

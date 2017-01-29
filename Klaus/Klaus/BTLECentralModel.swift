@@ -73,7 +73,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
         let playerInfo: [String] = data.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
         
-        guard playerInfo.count > 2 else {
+        guard playerInfo.count > 1 else {
             print("playerInfo is too short")
             return
         }
@@ -111,8 +111,8 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             }
             else {print("item decoding not successful")}
         }
-        
-        delegate?.onItemsAndAvatarReceived(items: items, avatar: data[DATA_INDEX_AVATAR])
+        // Indexoutofrange
+        delegate?.onItemsAndAvatarReceived(items: items, avatar: data[DATA_INDEX_AVATAR], uuid: uuid)
     }
     
     
@@ -386,7 +386,8 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             switch characteristic.uuid {
             case playerCharacteristicUUID:
                 print("EOM from player characteristic received")
-                onPlayerInfoReceived(receivedDataString: stringFromData, uuid: peripheral.identifier.uuidString)
+                let dataString: String = String(data: dataPlayer as Data, encoding: String.Encoding.utf8)!
+                onPlayerInfoReceived(receivedDataString: dataString, uuid: peripheral.identifier.uuidString)
                 break
             case scoreReadCharacteristicUUID:
                 let dataString = String (data: dataPlayer as Data, encoding: String.Encoding.utf8)

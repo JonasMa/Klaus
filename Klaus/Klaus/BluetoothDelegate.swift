@@ -13,7 +13,7 @@ protocol BluetoothCentralDelegate {
     
     func onPlayerDiscovered (name: String, score: Int, color: UIColor, uuid: String)
     
-    func onItemsAndAvatarReceived (items: [Item], avatar: String)
+    func onItemsAndAvatarReceived (items: [Item], avatar: String, uuid: String)
     
     func onReceiveScoreFromEnemy (score: Double)
 

@@ -57,11 +57,11 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     
     func setActive (){
-        startStopAdvertising(true)
+        startStopAdvertising(doAdvertise: true)
     }
     
     func setInactive (){
-        startStopAdvertising(false)
+        startStopAdvertising(doAdvertise: false)
     }
     
     func setOwnScore (score: Double){
@@ -140,7 +140,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         peripheralManager!.add(playerService)
         
         if isAtvertising {
-            startStopAdvertising(true)
+            startStopAdvertising(doAdvertise: true)
         }
     }
     
@@ -336,7 +336,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     /** Start/stop advertising
      */
-    func startStopAdvertising (_ doAdvertise: Bool) {
+    func startStopAdvertising (doAdvertise: Bool) {
         
         isAtvertising = doAdvertise
         if peripheralManager?.state == .poweredOn {
