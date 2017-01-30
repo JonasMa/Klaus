@@ -63,24 +63,24 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             
         case attackCharacteristicUUID:
             guard let item = Item.decode(toDecode: dataString) else {
-                print("item not decodable in attack request. \(dataString)")
+                print("PM item not decodable in attack request. \(dataString)")
                 return
             }
-            print("write on attackCharacteristic: item name: \(item.displayName)")
+            print("PM received on attackCharacteristic: item name: \(item.displayName)")
             delegate?.receiveGameRequestFromAttacker(itemToBeStolen: item)
             break
             
         case scoreWriteCharacteristicUUID:
             guard let score = Double(dataString) else {
-                print("double not decodable in attack request. \(dataString)")
+                print("PM double not decodable in attack request. \(dataString)")
                 return
             }
-            print("write on scoreCharacteristic: \(score)")
+            print("PM received on scoreCharacteristic: \(score)")
             delegate?.onReceiveScoreFromEnemy(score: score)
             break
             
         default:
-            print("write request on unknown characterisitc. value: \(dataString)")
+            print("PM write request on unknown characterisitc. value: \(dataString)")
             break
         }
     }
@@ -112,7 +112,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         switch characteristicUUID {
         case (playerCharacteristic?.uuid)!:
-            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileColor.toHexString()
+            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.profileLevel) + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileColor.toHexString() + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileAvatar
             sendingCharacteristic = playerCharacteristic
             break
         case (readScoreCharacteristic?.uuid)!:
@@ -124,12 +124,12 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             // WRITE ONLY see peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest])
             break
         case (itemsCharacteristic?.uuid)!:
-            sendString = AppModel.sharedInstance.player.getItemsString() + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileAvatar
+            sendString = AppModel.sharedInstance.player.getItemsString()
             sendingCharacteristic = itemsCharacteristic
-            print("send own Items")
+            print("PM send own Items")
             break
         default:
-            print("no uuid matching characteristic.uuid (\(characteristicUUID.uuidString))")
+            print("PM no uuid matching characteristic.uuid (\(characteristicUUID.uuidString))")
         }
         
         if sendString != nil {
@@ -185,7 +185,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
      */
     private func sendData(forCharacteristic: CBMutableCharacteristic?) {
         guard let characteristic = forCharacteristic else {
-            print("Error unwrapping characteristic")
+            print("PM Error unwrapping characteristic")
             return
         }
         if sendingCharacteristic == nil {
@@ -235,7 +235,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 encoding: String.Encoding.utf8.rawValue
             )
             
-            print("Sent: \(stringFromData)")
+            print("PM Sent: \(stringFromData)")
             
             // It did send, so update our index
             sendDataIndex! += amountToSend;
@@ -268,7 +268,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             sendingCharacteristic = nil
             sendDataIndex = 0
             sendingData?.count = 0
-            print("Sent: EOM")
+            print("PM Sent: EOM")
         }
         
 
@@ -297,16 +297,16 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         // Opt out from any other state
         if #available(iOS 10.0, *) {
             if (peripheral.state != CBManagerState.poweredOn) {
-                print("CBManagerState != poweredOn")
+                print("PM CBManagerState != poweredOn")
                 return
             }
         } else {
-            print("TOO OLD IOS! ALARM!")
+            print("PM TOO OLD IOS! ALARM!")
             // Fallback on earlier versions
         }
         
         // We're in CBPeripheralManagerStatePoweredOn state...
-        print("self.peripheralManager powered on.")
+        print("PM self.peripheralManager powered on.")
         
         // Then the service
         let playerService = CBMutableService(
@@ -329,7 +329,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     /** Catch when someone subscribes to our characteristic, then start sending them data
      */
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
-        print("Central subscribed to characteristic")
+        print("PM Central subscribed to characteristic")
         sendDataToCharacteristic(characteristicUUID: characteristic.uuid)
     }
     
@@ -338,7 +338,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     /** Recognise when the central unsubscribes
      */
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
-        print("Central unsubscribed from characteristic")
+        print("PM Central unsubscribed from characteristic")
     }
 
     
@@ -356,10 +356,10 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
-        print("write request received: " + requests.description)
+        print("PM write request received: " + requests.description)
         
         guard let dataString = String(data: requests[0].value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) else {
-            print("data empty or not stringable. \(requests.description)")
+            print("PM data empty or not stringable. \(requests.description)")
             return
         }
         
