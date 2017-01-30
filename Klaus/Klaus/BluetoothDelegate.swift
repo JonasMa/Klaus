@@ -16,6 +16,8 @@ protocol BluetoothCentralDelegate {
     func onItemsAndAvatarReceived (items: [Item], avatar: String, uuid: String)
     
     func onReceiveScoreFromEnemy (score: Double)
+    
+    func onEnemyDisappear (uuid: String)
 
 }
 

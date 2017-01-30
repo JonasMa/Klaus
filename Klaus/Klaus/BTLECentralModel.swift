@@ -15,12 +15,16 @@ import UIKit
 
 class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
-    fileprivate var centralManager: CBCentralManager?
+    // peripherals which were seen later than TIMEOUT_SECONDS ago will be deleted
+    private let TIMEOUT_SECONDS: Double = 10.0
+    
+    private var centralManager: CBCentralManager?
     private var knownPeripherals: [CBPeripheral] = []
     private var getPlayerInfo = false
     private var connectedPeripheral: CBPeripheral?
     private var discoveredPeripheral: CBPeripheral?
     private var peripheralsWaitingList: [CBPeripheral] = []
+    private var peripheralLastSeen: [String:Double] = [:]
     
     private var writeScore: CBCharacteristic?
     private var writeAttack: CBCharacteristic?
@@ -101,6 +105,17 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         print("no matching peripheral found for uuid " + uuid)
     }
     
+    func refreshEnemyList (){
+        let epoch: Double = Date().timeIntervalSince1970
+        for (index, peripheral) in knownPeripherals.enumerated() {
+            if epoch - peripheralLastSeen[peripheral.identifier.uuidString]! > TIMEOUT_SECONDS {
+                knownPeripherals.remove(at: index)
+                peripheralLastSeen[peripheral.identifier.uuidString] = nil
+                delegate?.onEnemyDisappear (uuid: peripheral.identifier.uuidString)
+            }
+        }
+    }
+    
     /*
       PRIVATE FUNCTIONS
     */
@@ -118,7 +133,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
         let playerInfo: [String] = data.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
         
-        guard playerInfo.count > 1 else {
+        guard playerInfo.count > 2 else {
             print("playerInfo is too short")
             return
         }
@@ -278,9 +293,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
      */
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
+        peripheralLastSeen[peripheral.identifier.uuidString] = Date().timeIntervalSince1970
+        
         // Ok, it's in range - have we already seen it?
         if !knownPeripherals.contains(peripheral){
-            //if discoveredPeripheral != peripheral {
             
             print("Discovered new \(peripheral.name)")
             
