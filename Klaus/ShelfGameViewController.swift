@@ -17,6 +17,7 @@ class ShelfGameViewController: UIViewController {
         logic = ShelfGameLogic(vc: self)
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
+
     }
 
     override func didReceiveMemoryWarning() {

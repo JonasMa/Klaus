@@ -26,6 +26,7 @@ class ItemCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad();
+
         
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updateItemsNotification, object: nil, queue: nil, using: updateItems);
         

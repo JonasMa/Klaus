@@ -33,7 +33,12 @@ class ExplanationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
+
         delegateGameController()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     //TODO: attach appropriate GameControllers and Explanation Strings
