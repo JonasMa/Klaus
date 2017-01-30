@@ -14,7 +14,7 @@ class EnemyTableViewCell: UITableViewCell {
     override init(style : UITableViewCellStyle, reuseIdentifier: String?){
         super.init(style: UITableViewCellStyle.value1, reuseIdentifier: reuseIdentifier);
         self.textLabel?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
-        self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
+        self.backgroundColor = Style.bg;
         self.textLabel?.textColor = Style.primaryTextColor;
         self.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightThin);
         self.detailTextLabel?.font = UIFont.systemFont(ofSize: 17, weight: UIFontWeightThin)

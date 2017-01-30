@@ -32,7 +32,18 @@ class EnemyTableViewController: UITableViewController {
         
         self.tableView.backgroundColor = Style.bg;
         self.tableView.register(EnemyTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        
+        self.refreshControl = UIRefreshControl();
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
 
+        self.view.addSubview(refreshControl!);
+        self.view.sendSubview(toBack: refreshControl!);
+
+    }
+    
+    func handleRefresh() {
+        //TODO
+        refreshControl?.endRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
