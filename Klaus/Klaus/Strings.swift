@@ -11,10 +11,10 @@ import Foundation
 struct Strings {
     
     // Game titles
-    static var axeGameTitle = "Axt Schwengel"
-    static var simonSaysTitle = "Pin Code MC"
-    static var shelfGameTitle = "Böse Katze"
-    static var seitenschneiderTitle = "Seiddeschneider Müsli"
+    static var axeGameTitle = "Axt Schwengel!"
+    static var simonSaysTitle = "Pin Code MC!"
+    static var shelfGameTitle = "Böse Katze!"
+    static var seitenschneiderTitle = "Seiddeschneider Müsli!"
     
     // Game explanations
     static var axeGameExplanation = "Schwing die Axt! Schüttel dein Handy so schnell du kannst innerhalb von 10 Sekunden. Alles klar?"
@@ -23,10 +23,10 @@ struct Strings {
     static var seitenschneiderExplanation = "Schneid die blauen Kabel durch damit der Alarm nicht losgeht, du Sepp!"
     
     // Result strings
-    static var axeGameResult = "Holla die Waldfee! Dein Schwendelfaktor beträgt:"
-    static var simonSaysResult = "Unfassbar oder? So viele Zahlen konntest du dir merken bevor dein Hirn dich im Stich gelassen hat:"
-    static var shelfGameResult = "Da geht was! So viele Gegenstände konntest du auffangen:"
-    static var seitenschneiderResult = "In anbetracht der geltenden Regeln für dieses Spiel konntest du so viele Drähte durschneiden:"
+    static var axeGameResult = "Holla die Waldfee! Dein Schwengelfaktor beträgt: "
+    static var simonSaysResult = "Unfassbar oder? So viele Zahlen konntest du dir merken bevor dein Hirn dich im Stich gelassen hat: "
+    static var shelfGameResult = "Da geht was! So viele Gegenstände konntest du auffangen: "
+    static var seitenschneiderResult = "In anbetracht der geltenden Regeln für dieses Spiel konntest du so viele Drähte durschneiden: "
     
     // Attack texts
     static var gratulation = "Gratulation!"

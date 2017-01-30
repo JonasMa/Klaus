@@ -8,6 +8,7 @@ class SeitenschneiderViewController: UIViewController {
     var seitenSchneiderModel: SeitenschneiderModel!
     
     let screenSize: CGRect = UIScreen.main.bounds
+    let gameID = 3
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
     
@@ -36,7 +37,7 @@ class SeitenschneiderViewController: UIViewController {
 
     func startResultViewController() {
         let score = seitenSchneiderModel.score
-        let vc = ResultViewController(result: Double(score))
+        let vc = ResultViewController(result: Double(score), gameID: gameID)
         navigationController?.pushViewController(vc, animated: true)
     }
 
