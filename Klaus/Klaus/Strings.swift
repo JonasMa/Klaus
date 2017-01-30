@@ -22,17 +22,27 @@ struct Strings {
     static let shelfGameExplanation = "Fotzen Katz! Nacheinander schmeisst eine böse Katze Gegenstände vom Regal. Halte 3 Gegenstände mit 3 Fingern gleichzeitig gedrückt, um sie zu eleminieren. Sobald ein Gegenstand den Boden berührt hast du verloren."
     static let seitenschneiderExplanation = "Schneid die blauen Kabel durch damit der Alarm nicht losgeht, du Sepp!"
     
-    static let gratulation = "Gratulation!"
-    static let fail = "Leider verkackt!"
-    static let successfullDefense = "Du hast dein Item erfolgreich verteidigt."
-    static let successfullAttack = "Du hast das Item erfolgreich gestohlen."
-    static let failedDefense = "Dir wurde dein Item gestohlen."
-    static let failedAttack = "Du warst zu wack um das Item zu klauen"
-    static let happyConfirmation = "Nice"
-    static let sadConfirmation = "Bam Bam Bam"
-    static let attention = "Obacht"
-    static let attackOnYou = "Jemand versucht ein Item von dir zu klauen."
-    static let startDefense = "Verteidigen"
+    // Result strings
+    static var axeGameResult = "Holla die Waldfee! Dein Schwengelfaktor beträgt: "
+    static var simonSaysResultPt1 = "Unfassbar oder? Du konntest dir "
+    static var simonSaysResultPt2 = " Zahlen merken, bevor dein Kopf versagt hat. Läuft bei dir!"
+    static var shelfGameResultPt1 = "Da geht was! Du konntest unfassbare "
+    static var shelfGameResultPt2 = " Gegenstände auffangen. Jetzt grill die Katze!"
+    static var seitenschneiderResultPt1 = "In anbetracht der geltenden Regeln für dieses Spiel konntest du "
+    static var seitenschneiderResultPt2 = " Drähte durschneiden. Du bist crazy drauf!"
+    
+    // Attack texts
+    static var gratulation = "Gratulation!"
+    static var fail = "Leider verkackt!"
+    static var successfullDefense = "Du hast dein Item erfolgreich verteidigt."
+    static var successfullAttack = "Du hast das Item erfolgreich gestohlen."
+    static var failedDefense = "Dir wurde dein Item gestohlen."
+    static var failedAttack = "Du warst zu wack um das Item zu klauen"
+    static var happyConfirmation = "Nice"
+    static var sadConfirmation = "Bam Bam Bam"
+    static var attention = "Obacht"
+    static var attackOnYou = "Jemand versucht ein Item von dir zu klauen."
+    static var startDefense = "Verteidigen"
     
     // Simon Says texts
     static let simonSaysComputersTurnText = "Gib den richtigen Code ein!"
