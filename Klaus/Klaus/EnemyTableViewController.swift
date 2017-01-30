@@ -42,7 +42,7 @@ class EnemyTableViewController: UITableViewController {
     }
     
     func handleRefresh() {
-        //TODO
+        BluetoothController.sharedInstance.refreshEnemyList()
         refreshControl?.endRefreshing()
     }
 
