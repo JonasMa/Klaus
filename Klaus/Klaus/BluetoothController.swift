@@ -74,7 +74,12 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func sendScoreToEnemy (score: Double) {
-        central.sendScore(score: score)
+        if state == BluetoothState.central {
+            central.sendScore(score: score)
+        }
+        else {
+            peripheral.setOwnScore(score: score)
+        }
     }
     
     func onEnemyDisappear (uuid: String) {
