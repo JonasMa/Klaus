@@ -16,12 +16,12 @@ class DropItemModel: UIImageView {
     var gameNotOverYet: Bool = true
     
     var xPosition: Int = 120
-    let yPosition: Int = 30
+    let yPosition: Int = 60
     let frameWidth: Int = 60
     let frameHeight: Int = 60
     let framesPerSecond: Int = 30
     var speed: CGFloat = 5
-    let groundCollision: CGFloat = 500
+    var groundCollision: CGFloat!
     
     var gameLogic: ShelfGameLogic
     var displayLink = CADisplayLink()
@@ -35,6 +35,8 @@ class DropItemModel: UIImageView {
         self.speed = CGFloat(Int(arc4random_uniform(4) + 3))
         
         super.init(frame: CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: CGSize(width: frameWidth, height: frameHeight)))
+        
+        groundCollision = UIScreen.main.bounds.height * 0.9
         
         //Defining as UIImageView and assigning graphic
         self.image = UIImage(named: "porzelan")
@@ -70,6 +72,10 @@ class DropItemModel: UIImageView {
     
     func isPaused() -> Bool {
         return paused
+    }
+    
+    func getXLocation() -> Int {
+        return xPosition
     }
     
     func handleDisplayLink() {

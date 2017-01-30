@@ -8,6 +8,7 @@
 
 import Foundation
 import AudioToolbox
+import UIKit
 
 class ShelfGameLogic {
     
@@ -23,7 +24,7 @@ class ShelfGameLogic {
     
     init(vc: ShelfGameViewController) {
         initGameVariables()
-        self.shelfGameVC = vc
+        self.shelfGameVC = vc        
         timer = Timer.scheduledTimer(timeInterval: speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
     }
     
