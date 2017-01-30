@@ -37,10 +37,6 @@ class ExplanationViewController: UIViewController {
         delegateGameController()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = true
-    }
-    
     //TODO: attach appropriate GameControllers and Explanation Strings
     func delegateGameController() -> Void {
         explanationLabel.text = item.getGameExplanation();

@@ -35,6 +35,10 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.hidesBottomBarWhenPushed = true
+    }
+    
     func buttonAction(sender: UIButton!) {
         let vc = ExplanationViewController(item: item);
         navigationController?.pushViewController(vc, animated: true)

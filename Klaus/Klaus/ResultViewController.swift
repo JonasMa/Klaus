@@ -36,11 +36,6 @@ class ResultViewController: UIViewController {
         resultLabel.text = String(result)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
-        NSLog("ViewDiappeared")
-    }
-    
     func handleScore() {
         AppModel.sharedInstance.sendOwnScoreToEnemy(score: result)
         AppModel.sharedInstance.pushScore(score: result)
