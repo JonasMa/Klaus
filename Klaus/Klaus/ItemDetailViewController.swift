@@ -38,7 +38,7 @@ class ItemDetailViewController: UIViewController {
         
         //BACKGROUND
         grad = CAGradientLayer();
-        grad.colors = Style.gradientColors;
+        grad.colors = Style.gradientColorsWithTopColor(color: item.itemColor);
         grad.locations = Style.gradientLocations();
         grad.frame = self.view.bounds;
         self.view.layer.addSublayer(grad);
@@ -83,7 +83,7 @@ class ItemDetailViewController: UIViewController {
         
         //POINTS PER SECOND
         self.itemPointsLabel = UILabel();
-        self.itemPointsLabel.text = String("Punkte/s");
+        self.itemPointsLabel.text = Strings.itemPointsPerSecond;
         self.itemPointsLabel.font = UIFont.systemFont(ofSize: 17)
         self.itemPointsLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemPointsLabel.textAlignment = .left;
@@ -100,7 +100,7 @@ class ItemDetailViewController: UIViewController {
         
         //DATE
         self.itemDateLabel = UILabel();
-        self.itemDateLabel.text = String("Hab ich seit");
+        self.itemDateLabel.text = Strings.itemAcquisitionDate;
         self.itemDateLabel.font = UIFont.systemFont(ofSize: 17)
         self.itemDateLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemDateLabel.textColor = Style.primaryTextColor;
@@ -108,7 +108,7 @@ class ItemDetailViewController: UIViewController {
         self.view.addSubview(itemDateLabel);
         
         self.itemDateValue = UILabel();
-        self.itemDateValue.text = DateFormatter.localizedString(from: item.dateOfAcquisition, dateStyle: .short, timeStyle: .short);
+        self.itemDateValue.text = DateFormatter.localizedString(from: item.dateOfAcquisition, dateStyle: .medium, timeStyle: .short);
         self.itemDateValue.lineBreakMode = .byClipping
         self.itemDateValue.font = UIFont.systemFont(ofSize: 17);
         self.itemDateValue.textAlignment = .right;
@@ -121,7 +121,7 @@ class ItemDetailViewController: UIViewController {
         self.itemText.translatesAutoresizingMaskIntoConstraints = false;
         self.itemText.backgroundColor = UIColor.init(hue: 0, saturation: 0, brightness: 0, alpha: 0);
         self.itemText.text = item.getInfoString();
-        self.itemText.textAlignment = .center;
+        self.itemText.textAlignment = .left;
         self.itemText.isEditable = false;
         self.itemText.textColor = Style.primaryTextColor;
         self.view.addSubview(itemText);
@@ -172,6 +172,7 @@ class ItemDetailViewController: UIViewController {
         itemText.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
         itemText.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
         itemText.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true;
+        
     }
     
 

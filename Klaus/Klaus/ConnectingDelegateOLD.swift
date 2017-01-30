@@ -10,7 +10,7 @@ import Foundation
 import CoreBluetooth
 
 
-protocol CentralDelegate {
+private protocol CentralDelegate {
     
     func didRetrievePlayerInfo(name: String, score: Int, uuid: String)
     
@@ -27,7 +27,7 @@ protocol CentralDelegate {
     func onConnectionAborted (uuid: String)
 }
 
-protocol PeripheralDelegate {
+private protocol PeripheralDelegate {
     
     func receiveScoreFromEnemy(score: Double)
     

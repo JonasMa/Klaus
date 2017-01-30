@@ -19,7 +19,7 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     var avatarImages = ["axe", "zange", "alarm", "zange", "zange", "alarm","zange", "alarm","zange", "alarm","zange", "alarm", "zange", "alarm", "zange", "zange", "alarm"]
     
     let avatarsPerRow: CGFloat = 3
-    let sectionInsets = UIEdgeInsets(top: 110, left: 15.0, bottom: 0.0, right: 15.0)
+    let sectionInsets = UIEdgeInsets(top: 130, left: 15.0, bottom: 0.0, right: 15.0)
     
     var indexPathsOfSelectedItems = [IndexPath]()
     
@@ -140,7 +140,10 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         chooseAvatarLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         
         chooseAvatarDescriptionLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
-        chooseAvatarDescriptionLabel.centerYAnchor.constraint(equalTo: chooseAvatarLabel.bottomAnchor, constant: 20).isActive = true;
+        chooseAvatarDescriptionLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10).isActive = true;
+        chooseAvatarDescriptionLabel.topAnchor.constraint(equalTo: self.chooseAvatarLabel.bottomAnchor, constant: 20).isActive = true
+        chooseAvatarDescriptionLabel.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -10).isActive = true;
+        chooseAvatarDescriptionLabel.textAlignment = .center
         
         swipeButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         swipeButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor, constant: -35).isActive = true;

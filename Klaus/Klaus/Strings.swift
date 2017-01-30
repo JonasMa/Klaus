@@ -41,6 +41,9 @@ struct Strings {
     static var seitenschneiderInfo = "Der Seitenschneider ist ein nicht verzehrbares Eisending. Die Verwendung ist jedoch von Art zu Art unterschiedlich. Der Seitenschneider ist eine typisch deutsche Erfindung: Ein Allzweckwerkzeug, dass immer griffbereit und sehr handlich ist. ";
     static var alarmInfo = "Alarm ist das, was ausgelöst wird, wenn die Unfähigkeit eines oder mehrerer Menschen die Grenzen des guten Geschmacks übersteigt und so zur Gefahr der Allgemeinheit wird.";
     
+    static var itemPointsPerSecond = "Punkte pro Sekunde"
+    static var itemAcquisitionDate = "Eigentum seit"
+    
     // Tutorial texts
     static var chooseAvatarText = "Tarnung Wählen"
     static var chooseAvatarDescriptionText = "Suche dir einen Avatar aus, dem deine Visage am meisten ähnelt."

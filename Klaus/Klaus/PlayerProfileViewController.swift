@@ -25,7 +25,7 @@ class PlayerProfileViewController: ProfileViewController {
         profileNameLabel.textColor = profile!.profileColor
         profileLevelLabel.text = String(profile!.profileLevel)
         profileImageView.image = UIImage(named: profile!.profileAvatar)
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

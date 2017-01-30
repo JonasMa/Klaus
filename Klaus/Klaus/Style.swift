@@ -98,6 +98,10 @@ struct Style{
                 1.0];
     }
     
+    static func gradientColorsWithTopColor(color: UIColor) -> [CGColor]{
+        return [color.lighter(by: 30)!.cgColor, color.lighter(by: 50)!.cgColor, Style.lines.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor]
+    }
+    
 
     
     

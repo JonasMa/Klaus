@@ -63,6 +63,8 @@ class ProfileViewController: UIViewController {
         profileLevelLabel.font = UIFont.systemFont(ofSize: 12);
         profileLevelLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileLevelLabel);
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

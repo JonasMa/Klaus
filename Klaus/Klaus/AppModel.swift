@@ -68,23 +68,12 @@ class AppModel {
         updateEnemyListInView();
     }
     
-    func updateEnemyItemsInList(items: [Item], uuid: String){
-
-        getEnemyByUuid(uuid: uuid)?.setItems(items: items)
+    func updateEnemyItemsInList(items: [Item], avatar: String, uuid: String){
+        let enemy = getEnemyByUuid(uuid: uuid)
+        enemy?.setItems(items: items)
+        enemy?.setAvatar(avatar: avatar)
         print("update enemy items")
         updateEnemyListInView()
-    }
-    
-    func updateEnemyInfo(name: String, score: Int, uuid: String) {
-        let enemy: EnemyProfile? = getEnemyByUuid(uuid: uuid)
-        guard let enemyUnwrapped = enemy else {
-            print("unwrapping enemy unsuccessful")
-            return
-        }
-        enemyUnwrapped.name = name
-        enemyUnwrapped.score = score
-        print("enemy info updated for \(name)")
-        updateEnemyListInView();
     }
     
     private func getEnemyByUuid(uuid: String) -> EnemyProfile? {
@@ -150,7 +139,7 @@ class AppModel {
     }
     
     func sendOwnScoreToEnemy(score: Double) {
-        BluetoothController.sharedInstance.sendScoreToEnemy(ownScore: score)
+        BluetoothController.sharedInstance.sendScoreToEnemy(score: score)
     }
     
     func displayAlert(title: String, message: String, buttonTitle: String) {
