@@ -24,7 +24,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4H7-Qp-2lu">
-                    <frame key="frameInset" minX="113" minY="422" width="149" height="30"/>
+                    <frame key="frameInset" minX="113" minY="577" width="149" height="30"/>
                     <state key="normal" title="Auf zum Spiel!"/>
                     <connections>
                         <action selector="startButton:" destination="-1" eventType="touchUpInside" id="zzd-aI-4Mv"/>
@@ -35,9 +35,10 @@
             <constraints>
                 <constraint firstItem="4H7-Qp-2lu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="8r8-Mt-jWQ"/>
                 <constraint firstAttribute="trailing" secondItem="Qdn-Jg-8DV" secondAttribute="trailing" constant="30" id="Ive-aN-8lR"/>
+                <constraint firstAttribute="bottom" secondItem="4H7-Qp-2lu" secondAttribute="bottom" constant="30" id="KGX-5t-IiV"/>
                 <constraint firstItem="Qdn-Jg-8DV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="LhR-1j-CT0"/>
                 <constraint firstAttribute="trailing" secondItem="4H7-Qp-2lu" secondAttribute="trailing" constant="20" id="ajj-40-vV7"/>
-                <constraint firstItem="4H7-Qp-2lu" firstAttribute="top" secondItem="Qdn-Jg-8DV" secondAttribute="bottom" constant="100" id="pfm-OL-0LL"/>
+                <constraint firstItem="4H7-Qp-2lu" firstAttribute="top" secondItem="Qdn-Jg-8DV" secondAttribute="bottom" constant="50" id="pfm-OL-0LL"/>
                 <constraint firstItem="Qdn-Jg-8DV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="150" id="qSf-BP-KC8"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="53.5"/>

@@ -10,6 +10,12 @@ import Foundation
 
 struct Strings {
     
+    // Game titles
+    static var axeGameTitle = "Axt Schwengel!"
+    static var simonSaysTitle = "Pin Code MC!"
+    static var shelfGameTitle = "Böse Katze!"
+    static var seitenschneiderTitle = "Seiddeschneider Müsli!"
+    
     // Game explanations
     static let axeGameExplanation = "Schwing die Axt! Schüttel dein Handy so schnell du kannst innerhalb von 10 Sekunden. Alles klar?"
     static let simonSaysExplanation = "Simon Says. Merke dir die Reihenfolge der leuchtenden Tasten und gib sie korrekt wieder! Alles klar?"
