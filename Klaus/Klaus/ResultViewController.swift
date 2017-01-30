@@ -34,7 +34,6 @@ class ResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         resultLabel.text = String(result)
-        
     }
     
     func handleScore() {

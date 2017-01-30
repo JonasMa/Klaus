@@ -185,7 +185,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private func onEomReceived(fromPeripheralUUIDString puuid: String, fromCharacteristicUUID uuid: CBUUID, dataString data: String) {
         switch uuid {
         case playerCharacteristicUUID:
-            print("EOM from player characteristic received")
             let dataString: String = String(data: dataPlayer as Data, encoding: String.Encoding.utf8)!
             onPlayerInfoReceived(receivedDataString: dataString, uuid: puuid)
             break
@@ -278,14 +277,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     /** This callback comes whenever a peripheral that is advertising the PLAYER_SERVICE_UUID is discovered.
      */
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        
-        // Reject any where the value is above reasonable range
-        // Reject if the signal strength is too low to be close enough (Close is around -22dB)
-        
-        //        if  RSSI.integerValue < -15 && RSSI.integerValue > -35 {
-        //            println("Device not at correct range")
-        //            return
-        //        }
         
         // Ok, it's in range - have we already seen it?
         if !knownPeripherals.contains(peripheral){
@@ -454,7 +445,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 print("received data doesn't stringify")
                 return
             }
-            
+            print("Received: EOM")
             onEomReceived(fromPeripheralUUIDString:peripheral.identifier.uuidString, fromCharacteristicUUID: characteristic.uuid, dataString: dataString)
             
             peripheral.setNotifyValue(false, for: characteristic)
@@ -504,6 +495,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
         if !peripheralsWaitingList.isEmpty {
             central.connect(peripheralsWaitingList[0], options: nil)
+            peripheralsWaitingList.remove(at: 0)
         }
     }
    
