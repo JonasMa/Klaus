@@ -64,6 +64,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func onReceiveScoreFromEnemy (score: Double) {
+        NSLog("Score received bitcheez!")
         AppModel.sharedInstance.pushScore(score: score)
     }
     
