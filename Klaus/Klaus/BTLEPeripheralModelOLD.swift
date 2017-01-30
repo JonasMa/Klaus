@@ -27,7 +27,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
+private class BTLEPeripheralModelOLD : NSObject, CBPeripheralManagerDelegate {
     
     fileprivate var peripheralManager: CBPeripheralManager?
     fileprivate var playerCharacteristic: CBMutableCharacteristic?
@@ -44,59 +44,27 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     fileprivate var sendDataIndexScore: Int?
     fileprivate var sendDataIndexItems: Int?
     
-    var delegate: BluetoothPeripheralDelegate?
-    
     private var isAtvertising: Bool
     private var sendingCharacteristic: CBMutableCharacteristic?
-    
+
     override init (){
         isAtvertising = false
         sendDataIndex = 0
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
-   
-    
     
     func setActive (){
-        startStopAdvertising(doAdvertise: true)
+        startStopAdvertising(true)
     }
     
     func setInactive (){
-        startStopAdvertising(doAdvertise: false)
+        startStopAdvertising(false)
     }
     
     func setOwnScore (score: Double){
         sendingData = String(score).data(using: String.Encoding.utf8)
         sendData(forCharacteristic: readScoreCharacteristic)
-    }
-    
-    func onReceiveWriteFromCentral (dataString: String, uuid: CBUUID) {
-        switch uuid {
-            
-        case attackCharacteristicUUID:
-            guard let item = Item.decode(toDecode: dataString) else {
-                print("item not decodable in attack request. \(dataString)")
-                return
-            }
-            print("write on attackCharacteristic: item name: \(item.displayName)")
-            delegate?.receiveGameRequestFromAttacker(itemToBeStolen: item)
-            break
-            
-        case scoreWriteCharacteristicUUID:
-            guard let score = Double(dataString) else {
-                print("double not decodable in attack request. \(dataString)")
-                return
-            }
-            print("write on scoreCharacteristic: \(score)")
-            delegate?.onReceiveScoreFromEnemy(score: score)
-            break
-            
-        default:
-            print("write request on unknown characterisitc. value: \(dataString)")
-            break
-        }
-
     }
     
     
@@ -155,7 +123,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             value: nil,
             permissions: CBAttributePermissions.readable
         )
-        
+
         
         // Then the service
         let playerService = CBMutableService(
@@ -170,7 +138,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         peripheralManager!.add(playerService)
         
         if isAtvertising {
-            startStopAdvertising(doAdvertise: true)
+            startStopAdvertising(true)
         }
     }
     
@@ -180,22 +148,25 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         print("Central subscribed to characteristic")
         
         var sendString: String?
+        //var data: Data?
         
         switch characteristic.uuid {
         case (playerCharacteristic?.uuid)!:
-            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileColor.toHexString()
+            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) // + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.getItemsString()
             sendingCharacteristic = playerCharacteristic
             break
         case (readScoreCharacteristic?.uuid)!:
             break
         case (writeScoreCharacteristic?.uuid)!:
-            // WRITE ONLY, see peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest])
+            // WRITE ONLY
+            //sendingCharacteristic = writeScoreCharacteristic
             break
         case (attackCharacteristic?.uuid)!:
-            // WRITE ONLY see peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest])
+            // WRITE ONLY
+            //sendingCharacteristic = attackCharacteristic
             break
         case (itemsCharacteristic?.uuid)!:
-            sendString = AppModel.sharedInstance.player.getItemsString() + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileAvatar
+            sendString = AppModel.sharedInstance.player.getItemsString()
             sendingCharacteristic = itemsCharacteristic
             print("send own Items")
             break
@@ -206,7 +177,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         if sendString != nil {
             sendingData = sendString!.data(using: String.Encoding.utf8)
             
-            
+
             
             // Start sending
             sendData(forCharacteristic: sendingCharacteristic)
@@ -353,17 +324,17 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     /** This is called when a change happens, so we know to stop advertising
      *
-     func textViewDidChange(_ textView: UITextView) {
-     // If we're already advertising, stop
-     if (advertisingSwitch.isOn) {
-     advertisingSwitch.setOn(false, animated: true)
-     peripheralManager?.stopAdvertising()
-     }
-     }*/
+    func textViewDidChange(_ textView: UITextView) {
+        // If we're already advertising, stop
+        if (advertisingSwitch.isOn) {
+            advertisingSwitch.setOn(false, animated: true)
+            peripheralManager?.stopAdvertising()
+        }
+    }*/
     
     /** Start/stop advertising
      */
-    func startStopAdvertising (doAdvertise: Bool) {
+    func startStopAdvertising (_ doAdvertise: Bool) {
         
         isAtvertising = doAdvertise
         if peripheralManager?.state == .poweredOn {
@@ -371,7 +342,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 // All we advertise is our service's UUID
                 peripheralManager?.startAdvertising([
                     CBAdvertisementDataServiceUUIDsKey : [playerServiceUUID]
-                    ])
+                ])
             } else {
                 peripheralManager?.stopAdvertising()
                 
@@ -386,13 +357,6 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
         print("write request received: " + requests.description)
-        
-        guard let dataString = String(data: requests[0].value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) else {
-            print("data empty or not stringable. \(requests.description)")
-            return
-        }
-        
-        onReceiveWriteFromCentral(dataString: dataString, uuid: requests[0].characteristic.uuid)
     }
     
 }

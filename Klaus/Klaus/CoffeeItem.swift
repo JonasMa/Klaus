@@ -13,16 +13,16 @@ class CoffeeItem: Item {
     
     private static let IMAGE_NAME = "Coffee";
 
-    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
-        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor, itemType: Item.TYPE_COFFEE);
+    override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
+        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor);
         self.imageName = CoffeeItem.IMAGE_NAME;
-        //self.itemType = Item.TYPE_COFFEE
+        self.itemType = Item.TYPE_COFFEE;
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
         self.imageName = CoffeeItem.IMAGE_NAME;
-        //self.itemType = Item.TYPE_COFFEE
+        self.itemType = Item.TYPE_COFFEE;
     }
     
     override func getGameExplanation() -> String{

@@ -6,16 +6,16 @@ class SeitenschneiderItem: Item {
     
     private static let IMAGE_NAME = "Zange";
 
-    init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
-        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor, itemType: Item.TYPE_SEITENSCHNEIDER);
+    override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
+        super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor);
         self.imageName = SeitenschneiderItem.IMAGE_NAME;
-        //itemType = Item.TYPE_SEITENSCHNEIDER
+        self.itemType = Item.TYPE_SEITENSCHNEIDER
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
         self.imageName = SeitenschneiderItem.IMAGE_NAME;
-        //itemType = Item.TYPE_SEITENSCHNEIDER
+        self.itemType = Item.TYPE_SEITENSCHNEIDER
     }
     
     override func getGameExplanation() -> String{
