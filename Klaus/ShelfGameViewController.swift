@@ -10,6 +10,8 @@ import UIKit
 
 class ShelfGameViewController: UIViewController {
     
+    let gameID = 2
+    
     var logic: ShelfGameLogic!
     var gameScore: Double = 0
     
@@ -25,7 +27,7 @@ class ShelfGameViewController: UIViewController {
     }
     
     func onItemTouchedFloor(score: Double) {
-        let vc = ResultViewController(result: score)
+        let vc = ResultViewController(result: score, gameID: gameID)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

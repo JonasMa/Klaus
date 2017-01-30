@@ -14,6 +14,8 @@ class AxeGameViewController: UIViewController {
     @IBOutlet weak var countdownValueLabel: UILabel!
     @IBOutlet weak var gametitleLabel: UILabel!
     
+    let gameID = 0
+    
     var accelerometerModel: AccelerometerModel!
     var countdown: CountdownModel!
     
@@ -34,7 +36,7 @@ class AxeGameViewController: UIViewController {
     }
     
     func startResultViewController() -> Void {
-        let vc = ResultViewController(result: accelerometerModel.endRecording())
+        let vc = ResultViewController(result: accelerometerModel.endRecording(), gameID: gameID)
         navigationController?.pushViewController(vc, animated: true)
     }
     

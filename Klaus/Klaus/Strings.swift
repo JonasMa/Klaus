@@ -10,12 +10,28 @@ import Foundation
 
 struct Strings {
     
+    // Game titles
+    static var axeGameTitle = "Axt Schwengel!"
+    static var simonSaysTitle = "Pin Code MC!"
+    static var shelfGameTitle = "Böse Katze!"
+    static var seitenschneiderTitle = "Seiddeschneider Müsli!"
+    
     // Game explanations
     static var axeGameExplanation = "Schwing die Axt! Schüttel dein Handy so schnell du kannst innerhalb von 10 Sekunden. Alles klar?"
     static var simonSaysExplanation = "Simon Says. Merke dir die Reihenfolge der leuchtenden Tasten und gib sie korrekt wieder! Alles klar?"
     static var shelfGameExplanation = "Fotzen Katz! Nacheinander schmeisst eine böse Katze Gegenstände vom Regal. Halte 3 Gegenstände mit 3 Fingern gleichzeitig gedrückt, um sie zu eleminieren. Sobald ein Gegenstand den Boden berührt hast du verloren."
     static var seitenschneiderExplanation = "Schneid die blauen Kabel durch damit der Alarm nicht losgeht, du Sepp!"
     
+    // Result strings
+    static var axeGameResult = "Holla die Waldfee! Dein Schwengelfaktor beträgt: "
+    static var simonSaysResultPt1 = "Unfassbar oder? Du konntest dir "
+    static var simonSaysResultPt2 = " Zahlen merken, bevor dein Kopf versagt hat. Läuft bei dir!"
+    static var shelfGameResultPt1 = "Da geht was! Du konntest unfassbare "
+    static var shelfGameResultPt2 = " Gegenstände auffangen. Jetzt grill die Katze!"
+    static var seitenschneiderResultPt1 = "In anbetracht der geltenden Regeln für dieses Spiel konntest du "
+    static var seitenschneiderResultPt2 = " Drähte durschneiden. Du bist crazy drauf!"
+    
+    // Attack texts
     static var gratulation = "Gratulation!"
     static var fail = "Leider verkackt!"
     static var successfullDefense = "Du hast dein Item erfolgreich verteidigt."

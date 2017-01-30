@@ -16,11 +16,13 @@ class SimonSaysViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var commentator: UILabel!
     
+    let gameID = 1
     let simonSaysModel: SimonSaysModel = SimonSaysModel()
     let stopWatchTimer: StopwatchTimer = StopwatchTimer()
     
     override func viewDidLoad() {
         allowUserInteraction(possible: false)
+        self.navigationItem.setHidesBackButton(true, animated: false)
         super.viewDidLoad()
         self.animateCurrentCode() // Starts game
     }
@@ -83,7 +85,7 @@ class SimonSaysViewController: UIViewController {
     }
     
     func startResultViewController() {
-        let vc = ResultViewController(result: Double(simonSaysModel.score))
+        let vc = ResultViewController(result: Double(simonSaysModel.score), gameID: gameID)
         navigationController?.pushViewController(vc, animated: true)
     }
     
