@@ -172,6 +172,7 @@ class ItemDetailViewController: UIViewController {
         itemText.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
         itemText.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
         itemText.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true;
+        
     }
     
 

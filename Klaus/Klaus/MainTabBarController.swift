@@ -31,6 +31,8 @@ class MainTabBarController: UITabBarController {
         tabOne.tabBarItem = tabOneBarItem;
         tabTwo.tabBarItem = tabTwoBarItem;
         
+        
+        
         self.viewControllers = [tabOne,tabTwo];
         let playerProfileViewController = PlayerProfileViewController();
         tabOne.pushViewController(playerProfileViewController, animated: true)
@@ -47,6 +49,7 @@ class MainTabBarController: UITabBarController {
     }
     
     func triggerExplanationView(notification:Notification) {
+        self.selectedIndex = 1
         let alert = UIAlertController(title: Strings.attention, message: Strings.attackOnYou, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: Strings.startDefense, style: UIAlertActionStyle.default, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
