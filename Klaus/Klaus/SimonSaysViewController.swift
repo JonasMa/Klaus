@@ -22,6 +22,7 @@ class SimonSaysViewController: UIViewController {
     
     override func viewDidLoad() {
         allowUserInteraction(possible: false)
+        self.navigationItem.setHidesBackButton(true, animated: false)
         super.viewDidLoad()
         self.animateCurrentCode() // Starts game
     }

@@ -19,7 +19,7 @@ class ResultViewController: UIViewController {
     let seitenschneider = 3
     
     var result: Double = 0.0
-    var resultAsString = " "
+    var resultAsString: String!
     var gameID: Int!
     
     @IBAction func backButton(_ sender: UIButton) {
@@ -31,9 +31,9 @@ class ResultViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.result = round(10000 * result) / 10000
         AppModel.sharedInstance.personalScore = self.result
-        //self.resultAsString = String(format: "%g", self.result)
-        self.gameID = gameID
         handleScore()
+        self.resultAsString = String(format: "%g", self.result)
+        self.gameID = gameID
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,7 +46,6 @@ class ResultViewController: UIViewController {
     }
     
     func handleScore() {
-        NSLog("Score ResultView: \(result))")
         AppModel.sharedInstance.sendOwnScoreToEnemy(score: result)
         AppModel.sharedInstance.pushScore(score: result)
     }

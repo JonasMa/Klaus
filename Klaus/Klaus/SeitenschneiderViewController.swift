@@ -20,6 +20,7 @@ class SeitenschneiderViewController: UIViewController {
         
     super.viewDidLoad()
         seitenSchneiderModel = SeitenschneiderModel(viewController: self)
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
