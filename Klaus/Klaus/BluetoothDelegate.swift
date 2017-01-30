@@ -11,13 +11,15 @@ import UIKit
 
 protocol BluetoothCentralDelegate {
     
-    func onPlayerDiscovered (name: String, score: Int, color: UIColor, uuid: String)
+    func onPlayerDiscovered (name: String, score: Int, color: UIColor, avatar: String, uuid: String)
     
-    func onItemsAndAvatarReceived (items: [Item], avatar: String, uuid: String)
+    func onItemsReceived (items: [Item], uuid: String)
     
     func onReceiveScoreFromEnemy (score: Double)
     
     func onEnemyDisappear (uuid: String)
+    
+    func onEnemyIsStillThere (uuid: String)
 
 }
 

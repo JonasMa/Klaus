@@ -68,10 +68,9 @@ class AppModel {
         updateEnemyListInView();
     }
     
-    func updateEnemyItemsInList(items: [Item], avatar: String, uuid: String){
+    func updateEnemyItemsInList(items: [Item], uuid: String){
         let enemy = getEnemyByUuid(uuid: uuid)
         enemy?.setItems(items: items)
-        enemy?.setAvatar(avatar: avatar)
         print("update enemy items")
         updateEnemyListInView()
     }

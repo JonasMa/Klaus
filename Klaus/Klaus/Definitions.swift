@@ -30,9 +30,9 @@ let SEPARATOR_NAME_SCORE_ITEMS = "$%$"
 let DATA_INDEX_NAME: Int = 0
 let DATA_INDEX_SCORE: Int = 1
 let DATA_INDEX_COLOR: Int = 2
+let DATA_INDEX_AVATAR: Int = 3
 
 let DATA_INDEX_ITEMS: Int = 0
-let DATA_INDEX_AVATAR: Int = 1
 
 
 let KEY_NAME = "name"
