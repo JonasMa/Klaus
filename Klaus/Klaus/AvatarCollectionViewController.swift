@@ -13,17 +13,19 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     
     var avatarCollectionView: UICollectionView!
     
+    var gradient: CAGradientLayer!;
+    
     var avatarImages = ["axe", "zange", "alarm", "zange", "zange", "alarm","zange", "alarm","zange", "alarm","zange", "alarm", "zange", "alarm", "zange", "zange", "alarm"]
     
     let avatarsPerRow: CGFloat = 3
     let sectionInsets = UIEdgeInsets(top: 110, left: 15.0, bottom: 0.0, right: 15.0)
     
+    var indexPathsOfSelectedItems = [IndexPath]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = Style.bg;
-        
         
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = sectionInsets
@@ -37,8 +39,15 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         avatarCollectionView.dataSource = self
         avatarCollectionView.register(AvatarCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         avatarCollectionView.backgroundColor = Style.bg
-        avatarCollectionView.translatesAutoresizingMaskIntoConstraints = false;
+        avatarCollectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(avatarCollectionView)
+        
+        gradient = CAGradientLayer();
+        gradient.colors = Style.gradientColorsAvatarView
+        gradient.locations = Style.gradientLocationAvatarView()
+        gradient.frame = self.view.bounds;
+        self.view.backgroundColor = Style.bg;
+        self.view.layer.addSublayer(gradient)
         
         chooseAvatarLabel = UILabel();
         chooseAvatarLabel.text = Strings.chooseAvatarText
@@ -87,15 +96,25 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+         //Deselect selected item
+        for indexPathOfSelectedItem in indexPathsOfSelectedItems {
+            let deselectCell = collectionView.cellForItem(at: indexPathOfSelectedItem)!
+            deselectCell.layer.borderWidth = 0.0
+            deselectCell.layer.borderColor = UIColor.white.cgColor
+        }
+        indexPathsOfSelectedItems.removeAll()
+        indexPathsOfSelectedItems.append(indexPath)
+        
+        // Select item
+        let cell = collectionView.cellForItem(at: indexPath)!
+        cell.layer.borderWidth = 2.0
+        cell.layer.borderColor = UIColor.blue.cgColor
+        
+        // Add avatar imaga to player
         chosenAvatar = avatarImages[indexPath.row]
-        print(chosenAvatar)
         AppModel.sharedInstance.player.setAvatar(avatar: chosenAvatar)
-        
-        
-//        var cell = collectionView.cellForItemAtIndexPath(indexPath)
-//        cell.layer.borderWidth = 2.0
-//        cell.layer.borderColor = UIColor.grayColor().CGColor
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
@@ -107,6 +126,10 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     
     
     func addConstraints(){
+        self.view.bringSubview(toFront: chooseAvatarLabel)
+        self.view.bringSubview(toFront: chooseAvatarDescriptionLabel)
+        self.view.bringSubview(toFront: swipeLabel)
+        
         chooseAvatarLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60).isActive = true;
         chooseAvatarLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         

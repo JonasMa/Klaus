@@ -36,7 +36,7 @@ class PlayerProfileViewController: ProfileViewController {
     override func viewDidAppear(_ animated: Bool) {
         if firstLaunch {
             let vc = TutorialPageViewController(nibName: "TutorialPageViewController", bundle: nil);
-            vc.modalTransitionStyle = .flipHorizontal;
+            vc.modalTransitionStyle = .partialCurl
             self.present(vc, animated: false, completion: nil);
             firstLaunch = false;
         }

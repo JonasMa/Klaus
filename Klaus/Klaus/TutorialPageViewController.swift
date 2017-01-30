@@ -73,18 +73,6 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         return 0;
     }
     
-    func viewControllerAtIndex(index : Int) -> UIViewController? {
-        if(index == 0){
-            return LoginViewController();
-        }else if(index == 1){
-            return AvatarViewController();
-        }else if (index == 2) {
-            return SelectColorViewController();
-        } else {
-            return nil;
-        }
-    }
-    
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         isAnimating = true;
     }

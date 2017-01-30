@@ -29,11 +29,52 @@ struct Style{
     static var colorGreen = UIColor(red:0.22, green:0.98, blue:0.53, alpha:1.0)
 
     //GRADIENT
-    static var gradientColors = [Style.bg.cgColor, Style.bg.cgColor, Style.lines.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor];
+    static var gradientColors = [Style.bg.cgColor,
+                                 Style.bg.cgColor,
+                                 Style.lines.cgColor,
+                                 Style.bgTransparent.cgColor,
+                                 Style.bgTransparent.cgColor];
     
     static func gradientLocations() -> [NSNumber]{
         let loc = 0.37;
-        return [0.0,NSNumber(floatLiteral: loc), NSNumber(floatLiteral: loc + 0.000000001), NSNumber(floatLiteral: loc + 0.05), NSNumber(floatLiteral: loc + 0.0500000001),1.0];
+        return [0.0,
+                NSNumber(floatLiteral: loc),
+                NSNumber(floatLiteral: loc + 0.000000001),
+                NSNumber(floatLiteral: loc + 0.05),
+                NSNumber(floatLiteral: loc + 0.0500000001),
+                1.0];
+    }
+    
+    static var gradientColorsAvatarView = [Style.bg.cgColor,
+                                           Style.bg.cgColor,
+                                           Style.lines.cgColor,
+                                           Style.bgTransparent.cgColor,
+                                           Style.bgTransparent.cgColor,
+                                           
+                                           Style.bgTransparent.cgColor,
+                                           Style.lines.cgColor,
+                                           Style.bg.cgColor,
+                                           
+                                           
+                                           Style.bg.cgColor,
+                                           Style.bg.cgColor]
+    
+    static func gradientLocationAvatarView() ->[NSNumber]{
+        let locationOfGradient = 0.25
+        return [0.0,
+                NSNumber(floatLiteral: locationOfGradient),
+                NSNumber(floatLiteral: locationOfGradient + 0.000000001),
+                NSNumber(floatLiteral: locationOfGradient + 0.05),
+                NSNumber(floatLiteral: locationOfGradient + 0.0500000001),
+                
+                NSNumber(floatLiteral: locationOfGradient + 0.4999999998),
+                NSNumber(floatLiteral: locationOfGradient + 0.5499999998),
+                NSNumber(floatLiteral: locationOfGradient + 0.5499999999),
+
+                
+                NSNumber(floatLiteral: locationOfGradient + 0.6),
+                NSNumber(floatLiteral: locationOfGradient + 0.6000000001),
+                1.0];
     }
     
 
