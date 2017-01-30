@@ -25,7 +25,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27I-yo-edG">
-                    <frame key="frameInset" minX="117" minY="417" width="141" height="30"/>
+                    <frame key="frameInset" minX="78" minY="417" width="218" height="30"/>
                     <state key="normal" title="Zurück zum Profil"/>
                     <connections>
                         <action selector="backButton:" destination="-1" eventType="touchUpInside" id="5Vx-ef-PMJ"/>
@@ -45,9 +45,9 @@
                 <constraint firstItem="VmR-xz-7qL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="250" id="aNT-pS-ZcC"/>
                 <constraint firstItem="iuP-3I-w3w" firstAttribute="top" secondItem="VmR-xz-7qL" secondAttribute="bottom" constant="20" id="bcl-Bt-oXT"/>
                 <constraint firstAttribute="trailing" secondItem="VmR-xz-7qL" secondAttribute="trailing" constant="30" id="dB5-Tr-Ywx"/>
-                <constraint firstItem="27I-yo-edG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="120" id="deh-0r-3c7"/>
+                <constraint firstItem="27I-yo-edG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="deh-0r-3c7"/>
                 <constraint firstAttribute="trailing" secondItem="iuP-3I-w3w" secondAttribute="trailing" constant="50" id="lXo-fn-OGh"/>
-                <constraint firstAttribute="trailing" secondItem="27I-yo-edG" secondAttribute="trailing" constant="120" id="ou1-1e-Zm7"/>
+                <constraint firstAttribute="trailing" secondItem="27I-yo-edG" secondAttribute="trailing" constant="30" id="ou1-1e-Zm7"/>
                 <constraint firstAttribute="bottom" secondItem="27I-yo-edG" secondAttribute="bottom" constant="30" id="u3b-YS-wdk"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="53.5"/>

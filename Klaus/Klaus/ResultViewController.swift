@@ -42,6 +42,8 @@ class ResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleLabel.font = Style.bodyTextFont
+        descriptionLabel.font = Style.bodyTextFont
         setLabels()
     }
     

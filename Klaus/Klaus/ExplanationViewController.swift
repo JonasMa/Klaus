@@ -35,6 +35,7 @@ class ExplanationViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
 
         delegateGameController()
+        explanationLabel.font = Style.bodyTextFont
     }
     
     //TODO: attach appropriate GameControllers and Explanation Strings

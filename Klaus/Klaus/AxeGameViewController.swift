@@ -21,6 +21,8 @@ class AxeGameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        gametitleLabel.font = Style.bodyTextFont
+        countdownValueLabel.font = Style.bodyTextFont
         self.navigationItem.setHidesBackButton(true, animated: false)
         accelerometerModel = AccelerometerModel()
         countdown = CountdownModel(vc: self)
