@@ -50,6 +50,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     }
     
     func setOwnScore (score: Double){
+        print("PM set own score on readScoreCharacteristic")
         sendingData = String(score).data(using: String.Encoding.utf8)
         sendData(forCharacteristic: readScoreCharacteristic)
     }

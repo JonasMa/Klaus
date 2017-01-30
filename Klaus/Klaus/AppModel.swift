@@ -131,6 +131,7 @@ class AppModel {
     }
     
     func pushPersonalScore(score: Double){
+        print("AM push personal score \(score)")
         self.personalScore = score;
         BluetoothController.sharedInstance.sendScoreToEnemy(score: score);
         if(enemyScore != nil){
@@ -140,7 +141,7 @@ class AppModel {
     
     func pushScore(score: Double){
         self.enemyScore = score;
-        if(enemyScore != nil){
+        if(personalScore != nil){
             Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(sendGameResultMessages), userInfo: nil, repeats: false);
         }
     }
