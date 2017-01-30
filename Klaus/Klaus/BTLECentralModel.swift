@@ -4,11 +4,11 @@
 //
 //  Created by Jonas Programmierer on 15.01.17.
 //  Copyright © 2017 Nimm Swag. All rights reserved.
-//
-// In structure it is based on
+// Some parts are based on
 // https://github.com/0x7fffffff/Core-Bluetooth-Transfer-Demo
 // which itself is a translation from
 // https://developer.apple.com/library/ios/samplecode/BTLE_Transfer/Introduction/Intro.html
+// like sending chunks
 
 import CoreBluetooth
 import UIKit
@@ -20,6 +20,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private var getPlayerInfo = false
     private var connectedPeripheral: CBPeripheral?
     private var discoveredPeripheral: CBPeripheral?
+    private var peripheralsWaitingList: [CBPeripheral] = []
     
     private var writeScore: CBCharacteristic?
     private var writeAttack: CBCharacteristic?
@@ -37,8 +38,14 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
+    /*
+        PUBLIC FUNCTIONS
+    */
+ 
     func setActive (){
-        scan()
+        if !(centralManager?.isScanning)! {
+            scan()
+        }
     }
     
     func setInactive (){
@@ -49,9 +56,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     func discoverOtherPlayers () {
         getPlayerInfo = true
-        if !(centralManager?.isScanning)! {
-            scan()
-        }
     }
     
     func stopDiscoveringOtherPlayers (){
@@ -59,6 +63,47 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         stopScan()
         cancelPeripheralConnection(peripheral: connectedPeripheral)
     }
+    
+    func sendScore (score value: Double) {
+        let string: String = String(value)
+        if writeScore != nil {
+            
+            connectedPeripheral?.setNotifyValue(true, for: writeScore!) // TOCO check if necessary
+            writeToPeripheral(onCharacteristic: writeScore!, toWrite: string)
+        } else {
+            print("characteristic writeScore or peripheral not known :(")
+        }
+        
+    }
+    
+    func sendAttack (itemToBeStolen: Item){
+        let itemString: String = itemToBeStolen.toString()
+        if writeAttack != nil {
+            connectedPeripheral?.setNotifyValue(true, for: writeAttack!) // TOCO check if necessary
+            writeToPeripheral(onCharacteristic: writeAttack!, toWrite: itemString)
+        }
+        else {
+            print("characteristic writeAttack peripheral not known :(")
+        }
+    }
+    
+    
+    func connectToPeripheral (uuid: String){
+        getPlayerInfo = false
+        for peripheral: CBPeripheral in knownPeripherals {
+            if peripheral.identifier.uuidString == uuid {
+                
+                centralManager?.connect(peripheral, options: nil)
+                print("connect to " + uuid)
+                return
+            }
+        }
+        print("no matching peripheral found for uuid " + uuid)
+    }
+    
+    /*
+      PRIVATE FUNCTIONS
+    */
     
     private func onPlayerInfoReceived(receivedDataString data: String, uuid: String){
         
@@ -95,10 +140,9 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             centralManager?.stopScan()
         }
     }
-
     
-    func onItemsAndAvatarReceived(uuid: String) {
-        let data: [String] = String(data: dataPlayer.copy() as! Data, encoding: String.Encoding.utf8)!.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
+    private func onItemsAndAvatarReceived(dataString: String, uuid: String) {
+        let data: [String] = dataString.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
         
         let itemStrings: [String] = data[DATA_INDEX_ITEMS].components(separatedBy: Item.ITEM_SEPARATOR)
         
@@ -116,36 +160,99 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     
-    func sendScore (score value: Double) {
-        let string: String = String(value)
-        if writeScore != nil {
-            
-            connectedPeripheral?.setNotifyValue(true, for: writeScore!) // TOCO check if necessary
-            writeToPeripheral(onCharacteristic: writeScore!, toWrite: string)
-        } else {
-            print("characteristic writeScore or peripheral not known :(")
-        }
-        
-    }
-    
-    func sendAttack (itemToBeStolen: Item){
-        let itemString: String = itemToBeStolen.toString()
-        if writeAttack != nil {
-            connectedPeripheral?.setNotifyValue(true, for: writeAttack!) // TOCO check if necessary
-            writeToPeripheral(onCharacteristic: writeAttack!, toWrite: itemString)
-        }
-        else {
-            print("characteristic writeAttack peripheral not known :(")
-        }
-    }
-    
-    
     private func writeToPeripheral (onCharacteristic char: CBCharacteristic, toWrite value: String) {
         
         let sendData: Data = value.data(using: String.Encoding.utf8)!
         connectedPeripheral?.writeValue(sendData, for: char, type: CBCharacteristicWriteType.withResponse)
     }
+    
+    /** Scan for peripherals - specifically for our service's 128bit CBUUID
+     */
+    private func scan() {
+        print("scan(). isAvailable: " + String(isAvailable))
+        guard isAvailable else { return }
+        
+        centralManager?.scanForPeripherals(
+            withServices: [playerServiceUUID], options: [
+                CBCentralManagerScanOptionAllowDuplicatesKey : NSNumber(value: true as Bool)
+            ]
+        )
+        
+        print("Scanning started")
+    }
+    
+    
+    private func onEomReceived(fromPeripheralUUIDString puuid: String, fromCharacteristicUUID uuid: CBUUID, dataString data: String) {
+        switch uuid {
+        case playerCharacteristicUUID:
+            print("EOM from player characteristic received")
+            let dataString: String = String(data: dataPlayer as Data, encoding: String.Encoding.utf8)!
+            onPlayerInfoReceived(receivedDataString: dataString, uuid: puuid)
+            break
+        case scoreReadCharacteristicUUID:
+            let dataString = String (data: dataPlayer as Data, encoding: String.Encoding.utf8)
+            let score = Double(dataString!)
+            if score != nil {
+                delegate?.onReceiveScoreFromEnemy(score: score!)
+            }
+            break
+        case itemsCharacteristicUUID:
+            onItemsAndAvatarReceived(dataString: data, uuid: puuid)
+            break
+        default:
+            break
+        }
+    }
+    
+    
+    private func cancelPeripheralConnection(peripheral: CBPeripheral?) {
+        // If we've got this far, we're connected, but we're not subscribed, so we just disconnect
+        if peripheral != nil {
+            centralManager?.cancelPeripheralConnection(peripheral!)
+        }
+        connectedPeripheral = nil
+    }
+    
+    
+    /** Call this when things either go wrong, or you're done with the connection.
+     *  This cancels any subscriptions if there are any, or straight disconnects if not.
+     *  (didUpdateNotificationStateForCharacteristic will cancel the connection if a subscription is involved)
+     */
+    private func cleanup() {
+        isConnected = false
+        // Don't do anything if we're not connected
+        // self.discoveredPeripheral.isConnected is deprecated
+        guard discoveredPeripheral?.state == .connected else {
+            return
+        }
+        
+        // See if we are subscribed to a characteristic on the peripheral
+        guard let services = discoveredPeripheral?.services else {
+            cancelPeripheralConnection(peripheral: discoveredPeripheral!)
+            return
+        }
+        
+        for service in services {
+            guard let characteristics = service.characteristics else {
+                continue
+            }
+            
+            for characteristic in characteristics {
+                //if (characteristic.uuid.isEqual(playerCharacteristicUUID)
+                if characteristic.isNotifying {
+                    discoveredPeripheral?.setNotifyValue(false, for: characteristic)
+                    // And we're done.
+                    //return
+                }
+            }
+        }
+    }
+    
 
+    
+    /*
+        DELEGATE FUNCTIONS
+     */
     
     /** centralManagerDidUpdateState is a required protocol method.
      *  Usually, you'd check for other states to make sure the current device supports LE, is powered on, etc.
@@ -167,35 +274,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         //scan()
     }
     
-    /** Scan for peripherals - specifically for our service's 128bit CBUUID
-     */
-    func scan() {
-        print("scan(). isAvailable: " + String(isAvailable))
-        guard isAvailable else { return }
-        
-        centralManager?.scanForPeripherals(
-            withServices: [playerServiceUUID], options: [
-                CBCentralManagerScanOptionAllowDuplicatesKey : NSNumber(value: true as Bool)
-            ]
-        )
-        
-        print("Scanning started")
-    }
-    
-    
-    func connectToPeripheral (uuid: String){
-        getPlayerInfo = false
-        for peripheral: CBPeripheral in knownPeripherals {
-            if peripheral.identifier.uuidString == uuid {
-                
-                centralManager?.connect(peripheral, options: nil)
-                print("connect to " + uuid)
-                return
-            }
-        }
-        print("no matching peripheral found for uuid " + uuid)
-    }
-    
+
     /** This callback comes whenever a peripheral that is advertising the PLAYER_SERVICE_UUID is discovered.
      */
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
@@ -222,7 +301,13 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             //print("Connecting to peripheral \(peripheral)")
             
             if getPlayerInfo {
-                centralManager?.connect(peripheral, options: nil)
+                if isConnected {
+                    // already connected to another peripheral, so wait for disconnect
+                    peripheralsWaitingList.append(peripheral)
+                }
+                else {
+                    centralManager?.connect(peripheral, options: nil)
+                }
             }
         }
     }
@@ -232,13 +317,14 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("Failed to connect to \(peripheral). (\(error!.localizedDescription))")
         discoveredPeripheral = nil
+        isConnected = false
         cleanup()
     }
     
     /** We've connected to the peripheral, now we need to discover the services and characteristics to find the different characteristics
      */
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Peripheral Connected")
+        print("Peripheral Connected (\(peripheral.identifier.uuidString))")
         connectedPeripheral = peripheral
         
         isConnected = true
@@ -348,23 +434,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     
-    /*
-     func handleAndDecodePlayerData (dataString: String) -> EnemyProfile {
-     let dataString = String(data: dataPlayer.copy() as! Data, encoding: String.Encoding.utf8)!
-     let splittedDataString = dataString.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
-     
-     let name: String = splittedDataString[DATA_INDEX_NAME]
-     
-     
-     let score: Int = Int(splittedDataString[DATA_INDEX_SCORE])!
-     
-     //delegate?.didRetrievePlayerInfo(name: name)
-     delegate?.didRetrievePlayerInfo(score: score)
-     //delegate?.didRetrievePlayerInfo(items: array)
-     
-     }
-     */
-    
     /** This callback lets us know more data has arrived via notification on the characteristic
      */
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -372,8 +441,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             print("Error discovering services: \(error!.localizedDescription)")
             return
         }
-        
-        
         
         guard let stringFromData = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) else {
             print("Invalid data")
@@ -383,29 +450,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         // Have we got everything we need?
         if stringFromData.isEqual("EOM") {
             // We have, so show the data
-            
-            
-            switch characteristic.uuid {
-            case playerCharacteristicUUID:
-                print("EOM from player characteristic received")
-                let dataString: String = String(data: dataPlayer as Data, encoding: String.Encoding.utf8)!
-                onPlayerInfoReceived(receivedDataString: dataString, uuid: peripheral.identifier.uuidString)
-                break
-            case scoreReadCharacteristicUUID:
-                let dataString = String (data: dataPlayer as Data, encoding: String.Encoding.utf8)
-                let score = Double(dataString!)
-                if score != nil {
-                    delegate?.onReceiveScoreFromEnemy(score: score!)
-                }
-                break
-            case itemsCharacteristicUUID:
-                onItemsAndAvatarReceived(uuid: peripheral.identifier.uuidString)
-                break
-            default:
-                break
+            guard let dataString: String = String(data: dataPlayer as Data, encoding: String.Encoding.utf8) else {
+                print("received data doesn't stringify")
+                return
             }
             
-            
+            onEomReceived(fromPeripheralUUIDString:peripheral.identifier.uuidString, fromCharacteristicUUID: characteristic.uuid, dataString: dataString)
             
             peripheral.setNotifyValue(false, for: characteristic)
             dataPlayer.length = 0
@@ -449,53 +499,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Peripheral Disconnected")
         discoveredPeripheral = nil
-        isConnected = false
-        
-        // We're disconnected, so start scanning again
-        // scan()
-    }
-    
-    
-    /** Call this when things either go wrong, or you're done with the connection.
-     *  This cancels any subscriptions if there are any, or straight disconnects if not.
-     *  (didUpdateNotificationStateForCharacteristic will cancel the connection if a subscription is involved)
-     */
-    fileprivate func cleanup() {
-        isConnected = false
-        // Don't do anything if we're not connected
-        // self.discoveredPeripheral.isConnected is deprecated
-        guard discoveredPeripheral?.state == .connected else {
-            return
-        }
-        
-        // See if we are subscribed to a characteristic on the peripheral
-        guard let services = discoveredPeripheral?.services else {
-            cancelPeripheralConnection(peripheral: discoveredPeripheral!)
-            return
-        }
-        
-        for service in services {
-            guard let characteristics = service.characteristics else {
-                continue
-            }
-            
-            for characteristic in characteristics {
-                //if (characteristic.uuid.isEqual(playerCharacteristicUUID)
-                if characteristic.isNotifying {
-                    discoveredPeripheral?.setNotifyValue(false, for: characteristic)
-                    // And we're done.
-                    //return
-                }
-            }
-        }
-    }
-    
-    fileprivate func cancelPeripheralConnection(peripheral: CBPeripheral?) {
-        // If we've got this far, we're connected, but we're not subscribed, so we just disconnect
-        if peripheral != nil {
-            centralManager?.cancelPeripheralConnection(peripheral!)
-        }
         connectedPeripheral = nil
+        isConnected = false
+        
+        if !peripheralsWaitingList.isEmpty {
+            central.connect(peripheralsWaitingList[0], options: nil)
+        }
     }
-    
+   
 }

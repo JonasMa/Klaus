@@ -5,44 +5,25 @@
 //  Created by Jonas Programmierer on 15.01.17.
 //  Copyright © 2017 Nimm Swag. All rights reserved.
 //
-// In structure it is based on
-// https://github.com/0x7fffffff/Core-Bluetooth-Transfer-Demo
-// which itself is a translation from
-// https://developer.apple.com/library/ios/samplecode/BTLE_Transfer/Introduction/Intro.html
 
 import UIKit
 import CoreBluetooth
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l < r
-    case (nil, _?):
-        return true
-    default:
-        return false
-    }
-}
-
 
 class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
-    fileprivate var peripheralManager: CBPeripheralManager?
-    fileprivate var playerCharacteristic: CBMutableCharacteristic?
-    fileprivate var itemsCharacteristic: CBMutableCharacteristic?
-    fileprivate var attackCharacteristic: CBMutableCharacteristic?
-    fileprivate var readScoreCharacteristic: CBMutableCharacteristic?
-    fileprivate var writeScoreCharacteristic: CBMutableCharacteristic?
+    // characteristics of peripheral
+    private var peripheralManager: CBPeripheralManager?
+    private var playerCharacteristic: CBMutableCharacteristic?
+    private var itemsCharacteristic: CBMutableCharacteristic?
+    private var attackCharacteristic: CBMutableCharacteristic?
+    private var readScoreCharacteristic: CBMutableCharacteristic?
+    private var writeScoreCharacteristic: CBMutableCharacteristic?
     
-    //fileprivate var dataPlayer: Data?
-    //fileprivate var dataScore: Data?
-    //fileprivate var dataItems: Data?
-    fileprivate var sendingData: Data?
-    fileprivate var sendDataIndex: Int?
-    fileprivate var sendDataIndexScore: Int?
-    fileprivate var sendDataIndexItems: Int?
+    // fata vars
+    private var sendingData: Data?
+    private var sendDataIndex: Int?
+    private var sendingEOM = false;
     
     var delegate: BluetoothPeripheralDelegate?
     
@@ -56,7 +37,9 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
    
-    
+    /**
+        PUBLIC FUNCTIONS
+     */
     
     func setActive (){
         startStopAdvertising(doAdvertise: true)
@@ -71,7 +54,11 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         sendData(forCharacteristic: readScoreCharacteristic)
     }
     
-    func onReceiveWriteFromCentral (dataString: String, uuid: CBUUID) {
+    /*
+        PRIVATE FUNCTIONS
+    */
+    
+    private func onReceiveWriteFromCentral (dataString: String, uuid: CBUUID) {
         switch uuid {
             
         case attackCharacteristicUUID:
@@ -96,35 +83,69 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             print("write request on unknown characterisitc. value: \(dataString)")
             break
         }
-
     }
     
-    
-    /** Required protocol method.  A full app should take care of all the possible states,
-     *  but we're just waiting for  to know when the CBPeripheralManager is ready
-     */
-    func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
-        // Opt out from any other state
-        if #available(iOS 10.0, *) {
-            if (peripheral.state != CBManagerState.poweredOn) {
-                print("CBManagerState != poweredOn")
-                return
+    private func startStopAdvertising (doAdvertise: Bool) {
+        
+        isAtvertising = doAdvertise
+        if peripheralManager?.state == .poweredOn {
+            if doAdvertise && !peripheralManager!.isAdvertising {
+                // All we advertise is our service's UUID
+                peripheralManager?.startAdvertising([
+                    CBAdvertisementDataServiceUUIDsKey : [playerServiceUUID]
+                    ])
+            } else {
+                peripheralManager?.stopAdvertising()
+                
             }
-        } else {
-            print("TOO OLD IOS! ALARM!")
-            // Fallback on earlier versions
+        }
+    }
+    
+    private func sendNextDataChunk (){
+        if sendingCharacteristic != nil {
+            sendData(forCharacteristic: sendingCharacteristic!)
+        }
+    }
+    
+    private func sendDataToCharacteristic(characteristicUUID: CBUUID) {
+        var sendString: String?
+        
+        switch characteristicUUID {
+        case (playerCharacteristic?.uuid)!:
+            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileColor.toHexString()
+            sendingCharacteristic = playerCharacteristic
+            break
+        case (readScoreCharacteristic?.uuid)!:
+            break
+        case (writeScoreCharacteristic?.uuid)!:
+            // WRITE ONLY, see peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest])
+            break
+        case (attackCharacteristic?.uuid)!:
+            // WRITE ONLY see peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest])
+            break
+        case (itemsCharacteristic?.uuid)!:
+            sendString = AppModel.sharedInstance.player.getItemsString() + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileAvatar
+            sendingCharacteristic = itemsCharacteristic
+            print("send own Items")
+            break
+        default:
+            print("no uuid matching characteristic.uuid (\(characteristicUUID.uuidString))")
         }
         
-        // We're in CBPeripheralManagerStatePoweredOn state...
-        print("self.peripheralManager powered on.")
+        if sendString != nil {
+            sendingData = sendString!.data(using: String.Encoding.utf8)
+            
+            // Start sending
+            sendData(forCharacteristic: sendingCharacteristic)
+        }
         
-        // ... so build our service.
-        
-        // Start with the CBMutableCharacteristic
+    }
+    
+    private func createCharacteristics() -> [CBMutableCharacteristic] {
         playerCharacteristic = CBMutableCharacteristic(
             type: playerCharacteristicUUID,
             properties: CBCharacteristicProperties.notify,
-            value: nil, // TODO handle player data
+            value: nil,
             permissions: CBAttributePermissions.readable
         )
         
@@ -156,83 +177,13 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             permissions: CBAttributePermissions.readable
         )
         
-        
-        // Then the service
-        let playerService = CBMutableService(
-            type: playerServiceUUID,
-            primary: true
-        )
-        
-        // Add the characteristic to the service
-        playerService.characteristics = [playerCharacteristic!, attackCharacteristic!, readScoreCharacteristic!, writeScoreCharacteristic!, itemsCharacteristic!]
-        
-        // And add it to the peripheral manager
-        peripheralManager!.add(playerService)
-        
-        if isAtvertising {
-            startStopAdvertising(doAdvertise: true)
-        }
+        return [playerCharacteristic!, attackCharacteristic!, readScoreCharacteristic!, writeScoreCharacteristic!, itemsCharacteristic!]
+
     }
-    
-    /** Catch when someone subscribes to our characteristic, then start sending them data
-     */
-    func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
-        print("Central subscribed to characteristic")
-        
-        var sendString: String?
-        
-        switch characteristic.uuid {
-        case (playerCharacteristic?.uuid)!:
-            sendString = AppModel.sharedInstance.player.name + SEPARATOR_NAME_SCORE_ITEMS + String(AppModel.sharedInstance.player.getAcquiredScore()) + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileColor.toHexString()
-            sendingCharacteristic = playerCharacteristic
-            break
-        case (readScoreCharacteristic?.uuid)!:
-            break
-        case (writeScoreCharacteristic?.uuid)!:
-            // WRITE ONLY, see peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest])
-            break
-        case (attackCharacteristic?.uuid)!:
-            // WRITE ONLY see peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest])
-            break
-        case (itemsCharacteristic?.uuid)!:
-            sendString = AppModel.sharedInstance.player.getItemsString() + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.profileAvatar
-            sendingCharacteristic = itemsCharacteristic
-            print("send own Items")
-            break
-        default:
-            print("no uuid matching characteristic.uuid (\(characteristic.uuid))")
-        }
-        
-        if sendString != nil {
-            sendingData = sendString!.data(using: String.Encoding.utf8)
-            
-            
-            
-            // Start sending
-            sendData(forCharacteristic: sendingCharacteristic)
-        }
-    }
-    
-    
-    
-    /** Recognise when the central unsubscribes
-     */
-    func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
-        print("Central unsubscribed from characteristic")
-    }
-    
-    private func sendNextDataChunk (){
-        if sendingCharacteristic != nil {
-            sendData(forCharacteristic: sendingCharacteristic!)
-        }
-    }
-    
-    // First up, check if we're meant to be sending an EOM
-    fileprivate var sendingEOM = false;
     
     /** Sends the next amount of data to the connected central
      */
-    fileprivate func sendData(forCharacteristic: CBMutableCharacteristic?) {
+    private func sendData(forCharacteristic: CBMutableCharacteristic?) {
         guard let characteristic = forCharacteristic else {
             print("Error unwrapping characteristic")
             return
@@ -240,26 +191,10 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         if sendingCharacteristic == nil {
             sendingCharacteristic = characteristic
         }
+        
         if sendingEOM {
-            // send it
-            let didSend = peripheralManager?.updateValue(
-                "EOM".data(using: String.Encoding.utf8)!,
-                for: characteristic,
-                onSubscribedCentrals: nil
-            )
             
-            // Did it send?
-            if (didSend == true) {
-                
-                // It did, so mark it as sent
-                sendingEOM = false
-                sendingCharacteristic = nil
-                sendDataIndex = 0
-                sendingData?.count = 0
-                print("Sent: EOM")
-            }
-            
-            // It didn't send, so we'll exit and wait for peripheralManagerIsReadyToUpdateSubscribers to call sendData again
+            sendEom(forCharacteristic: characteristic)
             return
         }
         
@@ -275,22 +210,13 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         var didSend = true
         
         while didSend {
-            // Make the next chunk
-            
             // Work out how big it should be
             var amountToSend = sendingData!.count - sendDataIndex!;
-            
             // Can't be longer than 20 bytes
             if (amountToSend > NOTIFY_MTU) {
                 amountToSend = NOTIFY_MTU;
             }
-            
-            let ptr = ((sendingData! as NSData).bytes + sendDataIndex!).assumingMemoryBound(to: UInt8.self)
-            // Copy out the data we want
-            let chunk = Data(
-                bytes: ptr, //UnsafePointer<UInt8>((dataToSend! as NSData).bytes + sendDataIndex!),
-                count: amountToSend
-            )
+            let chunk = getNextChunk(amountToSend: amountToSend)
             
             // Send it
             didSend = peripheralManager!.updateValue(
@@ -318,30 +244,103 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             if (sendDataIndex! >= sendingData!.count) {
                 
                 // It was - send an EOM
+                sendEom(forCharacteristic: characteristic)
                 
                 // Set this so if the send fails, we'll send it next time
-                sendingEOM = true
-                
-                // Send it
-                let eomSent = peripheralManager!.updateValue(
-                    "EOM".data(using: String.Encoding.utf8)!,
-                    for: characteristic,
-                    onSubscribedCentrals: nil
-                )
-                
-                if (eomSent) {
-                    // It sent, we're all done
-                    sendingEOM = false
-                    sendingCharacteristic = nil
-                    sendDataIndex = 0
-                    sendingData?.count = 0
-                    print("Sent: EOM")
-                }
-                
                 return
             }
         }
     }
+    
+    private func sendEom (forCharacteristic: CBMutableCharacteristic) {
+        sendingEOM = true
+        
+        // Send it
+        let eomSent = peripheralManager!.updateValue(
+            "EOM".data(using: String.Encoding.utf8)!,
+            for: forCharacteristic,
+            onSubscribedCentrals: nil
+        )
+        
+        if (eomSent) {
+            // It sent, we're all done
+            sendingEOM = false
+            sendingCharacteristic = nil
+            sendDataIndex = 0
+            sendingData?.count = 0
+            print("Sent: EOM")
+        }
+        
+
+    }
+    
+    
+    private func getNextChunk (amountToSend: Int) -> Data{
+        
+        let ptr = ((sendingData! as NSData).bytes + sendDataIndex!).assumingMemoryBound(to: UInt8.self)
+        // Copy out the data we want
+        return Data(
+            bytes: ptr, //UnsafePointer<UInt8>((dataToSend! as NSData).bytes + sendDataIndex!),
+            count: amountToSend
+        )
+    }
+
+    
+    /*
+        DELEGATE METHODS
+     */
+    
+    /** Required protocol method.  A full app should take care of all the possible states,
+     *  but we're just waiting for  to know when the CBPeripheralManager is ready
+     */
+    func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
+        // Opt out from any other state
+        if #available(iOS 10.0, *) {
+            if (peripheral.state != CBManagerState.poweredOn) {
+                print("CBManagerState != poweredOn")
+                return
+            }
+        } else {
+            print("TOO OLD IOS! ALARM!")
+            // Fallback on earlier versions
+        }
+        
+        // We're in CBPeripheralManagerStatePoweredOn state...
+        print("self.peripheralManager powered on.")
+        
+        // Then the service
+        let playerService = CBMutableService(
+            type: playerServiceUUID,
+            primary: true
+        )
+        
+        // Add the characteristic to the service
+        playerService.characteristics = createCharacteristics()
+        
+        // And add it to the peripheral manager
+        peripheralManager!.add(playerService)
+        
+        if isAtvertising {
+            startStopAdvertising(doAdvertise: true)
+        }
+    }
+    
+    
+    /** Catch when someone subscribes to our characteristic, then start sending them data
+     */
+    func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
+        print("Central subscribed to characteristic")
+        sendDataToCharacteristic(characteristicUUID: characteristic.uuid)
+    }
+    
+    
+    
+    /** Recognise when the central unsubscribes
+     */
+    func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
+        print("Central unsubscribed from characteristic")
+    }
+
     
     /** This callback comes in when the PeripheralManager is ready to send the next chunk of data.
      *  This is to ensure that packets will arrive in the order they are sent
@@ -349,34 +348,6 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
         // Start sending again
         sendNextDataChunk()
-    }
-    
-    /** This is called when a change happens, so we know to stop advertising
-     *
-     func textViewDidChange(_ textView: UITextView) {
-     // If we're already advertising, stop
-     if (advertisingSwitch.isOn) {
-     advertisingSwitch.setOn(false, animated: true)
-     peripheralManager?.stopAdvertising()
-     }
-     }*/
-    
-    /** Start/stop advertising
-     */
-    func startStopAdvertising (doAdvertise: Bool) {
-        
-        isAtvertising = doAdvertise
-        if peripheralManager?.state == .poweredOn {
-            if doAdvertise && !peripheralManager!.isAdvertising {
-                // All we advertise is our service's UUID
-                peripheralManager?.startAdvertising([
-                    CBAdvertisementDataServiceUUIDsKey : [playerServiceUUID]
-                    ])
-            } else {
-                peripheralManager?.stopAdvertising()
-                
-            }
-        }
     }
     
     

@@ -57,12 +57,10 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     func connectToPlayer (playerUuid uuid: String) {
         central.stopDiscoveringOtherPlayers()
         central.connectToPeripheral(uuid: uuid)
-        // establish connection
-        // retrieve items and icon
     }
     
     func onItemsAndAvatarReceived (items: [Item], avatar: String, uuid: String) {
-        AppModel.sharedInstance.updateEnemyItemsInList(items: items, uuid: uuid)
+        AppModel.sharedInstance.updateEnemyItemsInList(items: items, avatar:avatar, uuid: uuid)
     }
     
     func onReceiveScoreFromEnemy (score: Double) {
