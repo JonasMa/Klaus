@@ -33,6 +33,7 @@ class ExplanationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
+
         delegateGameController()
     }
     

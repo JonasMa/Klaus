@@ -28,10 +28,15 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         //CONSTRAINTS
         stealButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         stealButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.hidesBottomBarWhenPushed = true
     }
     
     func buttonAction(sender: UIButton!) {

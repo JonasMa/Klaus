@@ -27,6 +27,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+
         
         //BACKGROUND
         grad = CAGradientLayer();

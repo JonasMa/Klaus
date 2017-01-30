@@ -17,8 +17,7 @@ class SeitenschneiderViewController: UIViewController {
         screenHeight = screenSize.height
         screenWidth = screenSize.width
         
-        super.viewDidLoad()
-
+    super.viewDidLoad()
         seitenSchneiderModel = SeitenschneiderModel(viewController: self)
     }
     

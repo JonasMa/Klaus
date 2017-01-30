@@ -35,6 +35,7 @@ class ItemDetailViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = Style.bg;
+
         
         //BACKGROUND
         grad = CAGradientLayer();
