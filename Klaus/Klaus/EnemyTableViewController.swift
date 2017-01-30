@@ -54,6 +54,8 @@ class EnemyTableViewController: UITableViewController {
         let profile = self.enemiesList[indexPath.row];
         cell.textLabel!.text = profile.name;
         cell.detailTextLabel?.text = String(profile.score);
+        cell.setAvatar(avatar: profile.profileAvatar);
+        cell.setColor(color: profile.profileColor);
         return cell
     }
     
@@ -64,6 +66,10 @@ class EnemyTableViewController: UITableViewController {
         BluetoothController.sharedInstance.connectToPlayer(player: profileViewController.profile)
         self.navigationController?.pushViewController(profileViewController, animated: true);
         
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIScreen.main.bounds.height * 0.1
     }
     
     func updateList(notification: Notification){

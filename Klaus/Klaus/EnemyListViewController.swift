@@ -29,7 +29,10 @@ class EnemyListViewController: UIViewController {
         
         //for testing
         if(gerlinde){
-            AppModel.sharedInstance.addEnemyToList(enemy: EnemyProfile(name: "Gerlinde"));
+            let e = EnemyProfile(name: "Gerlinde")
+            e.setColor(color: UIColor.red);
+            e.setAvatar(avatar: "coffee");
+            AppModel.sharedInstance.addEnemyToList(enemy: e);
             gerlinde = false;
         }
 
