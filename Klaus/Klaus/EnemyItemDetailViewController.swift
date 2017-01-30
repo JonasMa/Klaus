@@ -22,11 +22,10 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         stealButton.setTitle(Strings.stealButtonText, for: .normal);
         stealButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         stealButton.titleLabel?.font = Style.titleTextFont
-        stealButton.tintColor = Style.accentColor
+        stealButton.tintColor = Style.primaryButtonTextColor
 
         g = Style.primaryButtonBackgroundGradient();
-        //stealButton.layer.insertSublayer(g, at: 0);TODO
-
+        stealButton.layer.insertSublayer(g, at: 0);
         self.view.addSubview(stealButton);
     
         self.title = "Details";
