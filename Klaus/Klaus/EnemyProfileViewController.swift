@@ -36,6 +36,8 @@ class EnemyProfileViewController: ProfileViewController {
         
         profileNameLabel.text = profile.name;
         profileScoreLabel.text = String(profile.score);
+        profileImageView.image = UIImage(named: profile.profileAvatar)
+
     }
 
     override func didReceiveMemoryWarning() {

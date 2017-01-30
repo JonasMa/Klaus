@@ -21,7 +21,6 @@ struct Style{
     static var bodyTextFont = UIFont.systemFont(ofSize: 17, weight: UIFontWeightThin)
     static var titleTextFont = UIFont.systemFont(ofSize: 24, weight: UIFontWeightThin)
     
-    
     static var bg = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1);
     static var lines = UIColor(red: 206.0/255.0, green: 206.0/255.0, blue: 210.0/255.0, alpha: 1);
     static var bgTransparent = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 0.0);
@@ -33,12 +32,12 @@ struct Style{
     static var colorGreen = UIColor(red:0.22, green:0.98, blue:0.53, alpha:1.0)
 
     // Primary Button Gradient
-    static func primaryButtonGradient(button: UIButton) -> CAGradientLayer {
+    static func primaryButtonBackgroundGradient() -> CAGradientLayer {
         let buttonGradient = CAGradientLayer()
-        buttonGradient.frame = button.bounds
+        buttonGradient.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         buttonGradient.colors = [UIColor(red:0.11, green:0.38, blue:0.94, alpha:1.0).cgColor, UIColor(red: 86.0/255.0, green: 197.0/255.0, blue: 238.0/255.0, alpha: 1.0).cgColor]
         buttonGradient.locations = [0.0, 1.0]
-        buttonGradient.cornerRadius = button.layer.cornerRadius
+        buttonGradient.cornerRadius = 10;
         return buttonGradient
     }
     
