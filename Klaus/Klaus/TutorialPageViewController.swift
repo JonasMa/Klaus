@@ -15,7 +15,6 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
     let colorCtrl = SelectColorViewController();
     var index = 0;
     var lastIndex = 0;
-//    var pageCount = 2;
     var pageCount = 3;
     
     var isAnimating = false;
@@ -34,9 +33,7 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         self.delegate = self;
         self.dataSource = self;
         
-        
         self.preferredContentSize = CGSize(width: 200, height: 200);
-//        controllers = [loginCtrl,avatarCtrl];
         controllers = [loginCtrl,avatarCtrl,colorCtrl];
     }
     

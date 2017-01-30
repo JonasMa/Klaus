@@ -8,8 +8,9 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     var chosenAvatar = ""
     var chooseAvatarLabel: UILabel!;
     var chooseAvatarDescriptionLabel: UILabel!;
-    var swipeLabel: UILabel!;
+    var swipeButton: UIButton!
     var pageIndex = 2;
+    
     
     var avatarCollectionView: UICollectionView!
     
@@ -65,12 +66,17 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         chooseAvatarLabel.sizeToFit()
         self.view.addSubview(chooseAvatarDescriptionLabel);
         
-        swipeLabel = UILabel()
-        swipeLabel.text = Strings.tutorialSwipeText
-        swipeLabel.textAlignment = .center
-        swipeLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(swipeLabel)
-        
+        swipeButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width * 0.9, height: self.view.bounds.size.width * 0.2))
+        swipeButton.setTitle(Strings.tutorialButtonText, for: .normal)
+
+        swipeButton.layer.cornerRadius = 10
+        swipeButton.translatesAutoresizingMaskIntoConstraints = false
+        swipeButton.layer.addSublayer(Style.primaryButtonGradient(button: swipeButton))
+        swipeButton.titleLabel?.font = UIFont.systemFont(ofSize: Style.buttonFontSize, weight: UIFontWeightThin)
+        swipeButton.titleLabel?.textColor = Style.primaryTextColor
+
+        self.view.addSubview(swipeButton)
+
         addConstraints()
     }
     
@@ -128,7 +134,7 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     func addConstraints(){
         self.view.bringSubview(toFront: chooseAvatarLabel)
         self.view.bringSubview(toFront: chooseAvatarDescriptionLabel)
-        self.view.bringSubview(toFront: swipeLabel)
+        self.view.bringSubview(toFront: swipeButton)
         
         chooseAvatarLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60).isActive = true;
         chooseAvatarLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
@@ -136,8 +142,9 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         chooseAvatarDescriptionLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         chooseAvatarDescriptionLabel.centerYAnchor.constraint(equalTo: chooseAvatarLabel.bottomAnchor, constant: 20).isActive = true;
         
-        swipeLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
-        swipeLabel.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
+        swipeButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
+        swipeButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor, constant: -35).isActive = true;
+        swipeButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.9).isActive = true;
         
         avatarCollectionView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         avatarCollectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;

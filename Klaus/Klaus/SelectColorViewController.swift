@@ -49,7 +49,6 @@ class SelectColorViewController: UIViewController {
         self.view.addSubview(endTutorialButton);
         endTutorialButton.addTarget(self, action: #selector(dismissTutorial), for: .touchDown)
         
-        
         buttonRed = UIButton()
         buttonRed.setTitle(Strings.colorRedText, for: .normal)
         buttonRed.backgroundColor = Style.colorRed
@@ -91,6 +90,7 @@ class SelectColorViewController: UIViewController {
         let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0.1, constant: 0)
         view.addConstraints([leftConstraint, rightConstraint, topConstraint, heightConstraint])
         button.addTarget(self, action: #selector(selectPlayerColor(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(selectPlayerColor(sender:)), for: .touchDown)
     }
     
     func addConstraints(){

@@ -54,5 +54,6 @@ struct Strings {
     
     static var tutorialEndText = "Sicher? Drücke um zu klauen!"
     static var tutorialSwipeText = "Swipe nach rechts wenn du dir sicher bist"
+    static var tutorialButtonText = "Weiter"
     
 }
