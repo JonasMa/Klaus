@@ -18,3 +18,10 @@ protocol BluetoothCentralDelegate {
     func onReceiveScoreFromEnemy (score: Double)
 
 }
+
+protocol BluetoothPeripheralDelegate {
+    
+    func receiveGameRequestFromAttacker(itemToBeStolen: Item)
+    
+    func onReceiveScoreFromEnemy (score: Double)
+}

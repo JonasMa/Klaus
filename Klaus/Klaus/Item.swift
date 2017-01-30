@@ -97,7 +97,7 @@ class Item: NSObject, NSCoding {
         
         // check if splitting was successful in terms of length
         if splitted.count < NUMBER_OF_PROPERTIES {
-            print("decoding Item from String was not possible: Splitted array too short (\(splitted.count))")
+            print("decoding Item from String was not possible: Splitted array too short (\(splitted.count))\n [String] is \(splitted)")
             return nil
         }
         

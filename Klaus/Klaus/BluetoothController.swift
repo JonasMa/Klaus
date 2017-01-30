@@ -10,7 +10,7 @@ import Foundation
 import CoreBluetooth
 import UIKit
 
-class BluetoothController: BluetoothCentralDelegate {
+class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate {
     
     enum BluetoothState {
         case central
@@ -34,6 +34,7 @@ class BluetoothController: BluetoothCentralDelegate {
 
     init () {
         central.delegate = self
+        peripheral.delegate = self
         setPassive()
     }
     // gets triggered by system
@@ -74,6 +75,10 @@ class BluetoothController: BluetoothCentralDelegate {
     
     func sendScoreToEnemy (score: Double) {
         central.sendScore(score: score)
+    }
+    
+    func receiveGameRequestFromAttacker(itemToBeStolen: Item) {
+        AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: itemToBeStolen)
     }
 
     private func changeBluetoothState (toNewState state: BluetoothState){

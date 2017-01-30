@@ -98,9 +98,9 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
 
     
     func onItemsAndAvatarReceived(uuid: String) {
-        let data: [String] = [String(data: dataPlayer.copy() as! Data, encoding: String.Encoding.utf8)!]
+        let data: [String] = String(data: dataPlayer.copy() as! Data, encoding: String.Encoding.utf8)!.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
         
-        let itemStrings: [String] = data[DATA_INDEX_ITEMS].components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
+        let itemStrings: [String] = data[DATA_INDEX_ITEMS].components(separatedBy: Item.ITEM_SEPARATOR)
         
         var items: [Item] = []
         
@@ -327,10 +327,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 break
             case scoreWriteCharacteristicUUID:
                 print("CM found scoreWriteCharacteristic")
+                writeScore = characteristic
                 //delegate?.didDiscoverWriteScroreCharacteristic(characteristic: characteristic)
                 break
             case attackCharacteristicUUID:
                 print("CM found writeAttackCharacteristic")
+                writeAttack = characteristic
                 //delegate?.didDiscoverWriteAttackCharacteristic(characteristic: characteristic)
                 break
             default:
