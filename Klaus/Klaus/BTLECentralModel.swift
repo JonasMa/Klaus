@@ -278,14 +278,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
      */
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        // Reject any where the value is above reasonable range
-        // Reject if the signal strength is too low to be close enough (Close is around -22dB)
-        
-        //        if  RSSI.integerValue < -15 && RSSI.integerValue > -35 {
-        //            println("Device not at correct range")
-        //            return
-        //        }
-        
         // Ok, it's in range - have we already seen it?
         if !knownPeripherals.contains(peripheral){
             //if discoveredPeripheral != peripheral {
@@ -503,6 +495,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
         if !peripheralsWaitingList.isEmpty {
             central.connect(peripheralsWaitingList[0], options: nil)
+            peripheralsWaitingList.remove(at: 0)
         }
     }
    
