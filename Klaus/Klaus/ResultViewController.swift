@@ -30,7 +30,6 @@ class ResultViewController: UIViewController {
         super.init(nibName: "ResultViewController", bundle: nil)
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.result = round(10000 * result) / 10000
-        AppModel.sharedInstance.personalScore = self.result
         handleScore()
         self.resultAsString = String(format: "%g", self.result)
         self.gameID = gameID
@@ -48,8 +47,7 @@ class ResultViewController: UIViewController {
     }
     
     func handleScore() {
-        AppModel.sharedInstance.sendOwnScoreToEnemy(score: result)
-        AppModel.sharedInstance.pushScore(score: result)
+        AppModel.sharedInstance.pushPersonalScore(score: self.result)
     }
 
     override func didReceiveMemoryWarning() {
