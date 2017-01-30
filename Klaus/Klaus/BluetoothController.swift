@@ -64,6 +64,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func onReceiveScoreFromEnemy (score: Double) {
+        print("received enemy score: \(score)")
         AppModel.sharedInstance.pushScore(score: score)
     }
     
@@ -72,7 +73,11 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func sendScoreToEnemy (score: Double) {
-        central.sendScore(score: score)
+        if state == BluetoothState.central {
+            central.sendScore(score: score)
+        } else {
+            peripheral.setOwnScore(score: score)
+        }
     }
     
     func receiveGameRequestFromAttacker(itemToBeStolen: Item) {

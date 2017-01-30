@@ -185,7 +185,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private func onEomReceived(fromPeripheralUUIDString puuid: String, fromCharacteristicUUID uuid: CBUUID, dataString data: String) {
         switch uuid {
         case playerCharacteristicUUID:
-            print("EOM from player characteristic received")
             let dataString: String = String(data: dataPlayer as Data, encoding: String.Encoding.utf8)!
             onPlayerInfoReceived(receivedDataString: dataString, uuid: puuid)
             break
@@ -454,7 +453,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 print("received data doesn't stringify")
                 return
             }
-            
+            print("Received: EOM")
             onEomReceived(fromPeripheralUUIDString:peripheral.identifier.uuidString, fromCharacteristicUUID: characteristic.uuid, dataString: dataString)
             
             peripheral.setNotifyValue(false, for: characteristic)
