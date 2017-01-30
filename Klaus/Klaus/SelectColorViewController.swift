@@ -109,14 +109,14 @@ class SelectColorViewController: UIViewController {
     func selectPlayerColor(sender: UIButton) {
         colorSelected = true
         AppModel.sharedInstance.player.setColor(color: sender.backgroundColor!)
-        sender.backgroundColor = sender.backgroundColor?.darker(by: 30)
         switch sender {
-        case buttonRed: buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
-            case buttonBlue: buttonRed.backgroundColor = Style.colorRed; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
-        case buttonYellow: buttonBlue.backgroundColor = Style.colorBlue; buttonRed.backgroundColor = Style.colorRed; buttonGreen.backgroundColor = Style.colorGreen
-        case buttonGreen: buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonRed.backgroundColor = Style.colorRed
-            default: break
+        case buttonRed: buttonRed.backgroundColor = Style.colorRed; buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
+        case buttonBlue: buttonBlue.backgroundColor = Style.colorBlue; buttonRed.backgroundColor = Style.colorRed; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
+        case buttonYellow: buttonYellow.backgroundColor = Style.colorYellow; buttonBlue.backgroundColor = Style.colorBlue; buttonRed.backgroundColor = Style.colorRed; buttonGreen.backgroundColor = Style.colorGreen
+        case buttonGreen: buttonGreen.backgroundColor = Style.colorGreen; buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonRed.backgroundColor = Style.colorRed
+        default: break
         }
+        sender.backgroundColor = sender.backgroundColor?.darker(by: 30)
     }
     
     func dismissTutorial(){
