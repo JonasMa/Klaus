@@ -85,7 +85,8 @@ class AppModel {
         return nil
     }
     
-    func removeEnemyFromList(enemy: EnemyProfile){
+    func removeEnemyFromList(enemyUuid: String){
+        let enemy = EnemyProfile(name: "", score: 0, uuid: enemyUuid)
         if(enemiesList.contains(enemy)){
             enemiesList.remove(at: enemiesList.index(of: enemy)!);
             print("Enemy " + enemy.name + " with id " + enemy.uuid + " removed from list");

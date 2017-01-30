@@ -76,6 +76,14 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         central.sendScore(score: score)
     }
     
+    func onEnemyDisappear (uuid: String) {
+        AppModel.sharedInstance.removeEnemyFromList(enemyUuid: uuid)
+    }
+    
+    func refreshEnemyList () {
+        central.refreshEnemyList()
+    }
+    
     func receiveGameRequestFromAttacker(itemToBeStolen: Item) {
         AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: itemToBeStolen)
     }
