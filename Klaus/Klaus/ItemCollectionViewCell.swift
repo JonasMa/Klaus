@@ -25,7 +25,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         label = UILabel(frame: CGRect(x:0,y: imageView.frame.size.height*5/3, width: frame.size.width, height: frame.size.width/5));
         label.textAlignment = .center
         label.textColor = Style.primaryTextColor;
-        label.font = UIFont.systemFont(ofSize: 16);
+        label.font = Style.bodyTextFont;
 
         contentView.addSubview(label);
         

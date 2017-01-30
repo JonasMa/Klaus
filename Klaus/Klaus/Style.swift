@@ -9,20 +9,21 @@
 import UIKit
 
 struct Style{
-
-    static var buttonFontSize:CGFloat = 44
-    static var primaryButtonTextColor = UIColor.white
-    
     
     static var primaryTextColor = UIColor(red: 33.0/255.0, green: 33.0/255.0, blue: 33.0/255.0, alpha: 1);
     static var secondaryTextColor = UIColor(red: 158.0/255.0, green: 158.0/255.0, blue: 158.0/255.0, alpha: 1);
+    static var primaryButtonTextColor = UIColor.white
+
+    static var buttonFontSize:CGFloat = 44
     
-    //static var gradientTop = UIColor(red: 82.0/255.0, green: 237.0/255.0, blue: 199.0/255.0, alpha: 1);
-    //static var gradientBottom = UIColor(red: 90.0/255.0, green: 200.0/255.0, blue: 251.0/255.0, alpha: 1);
+    static var buttonFont = UIFont.systemFont(ofSize: 44, weight: UIFontWeightThin)
+    static var smallTextFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+    static var bodyTextFont = UIFont.systemFont(ofSize: 17, weight: UIFontWeightThin)
+    static var titleTextFont = UIFont.systemFont(ofSize: 24, weight: UIFontWeightThin)
+    
     
     static var bg = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1);
     static var lines = UIColor(red: 206.0/255.0, green: 206.0/255.0, blue: 210.0/255.0, alpha: 1);
-    
     static var bgTransparent = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 0.0);
     static var accentColor = UIColor(red: 52.0/255.0, green: 170.0/255.0, blue: 220.0/255.0, alpha: 1);
     

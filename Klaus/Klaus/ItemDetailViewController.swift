@@ -67,7 +67,7 @@ class ItemDetailViewController: UIViewController {
         
         self.itemLevelLabel = UILabel();
         self.itemLevelLabel.text = String("LEVEL \(item.itemLevel)");
-        self.itemLevelLabel.font = UIFont.systemFont(ofSize: 17);
+        self.itemLevelLabel.font = Style.bodyTextFont;
         self.itemLevelLabel.textAlignment = .center;
         self.itemLevelLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemLevelLabel.textColor = Style.primaryTextColor;
@@ -77,14 +77,14 @@ class ItemDetailViewController: UIViewController {
         self.itemNameLabel.text = item.displayName.uppercased();
         self.itemNameLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemNameLabel.textAlignment = .center;
-        self.itemNameLabel.font = UIFont.boldSystemFont(ofSize: 17);
+        self.itemNameLabel.font = Style.bodyTextFont;
         self.itemNameLabel.textColor = Style.primaryTextColor;
         self.itemNameContainer.addSubview(itemNameLabel);
         
         //POINTS PER SECOND
         self.itemPointsLabel = UILabel();
         self.itemPointsLabel.text = Strings.itemPointsPerSecond;
-        self.itemPointsLabel.font = UIFont.systemFont(ofSize: 17)
+        self.itemPointsLabel.font = Style.bodyTextFont;
         self.itemPointsLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemPointsLabel.textAlignment = .left;
         self.itemPointsLabel.textColor = Style.primaryTextColor;
@@ -92,7 +92,7 @@ class ItemDetailViewController: UIViewController {
         
         self.itemPointsValue = UILabel();
         self.itemPointsValue.text = String(item.pointsPerSecond * item.itemLevel);
-        self.itemPointsValue.font = UIFont.systemFont(ofSize: 17);
+        self.itemPointsValue.font = Style.bodyTextFont;
         self.itemPointsValue.translatesAutoresizingMaskIntoConstraints = false;
         self.itemPointsValue.textAlignment = .right;
         self.itemPointsValue.textColor = Style.primaryTextColor;
@@ -101,7 +101,7 @@ class ItemDetailViewController: UIViewController {
         //DATE
         self.itemDateLabel = UILabel();
         self.itemDateLabel.text = Strings.itemAcquisitionDate;
-        self.itemDateLabel.font = UIFont.systemFont(ofSize: 17)
+        self.itemDateLabel.font = Style.bodyTextFont;
         self.itemDateLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemDateLabel.textColor = Style.primaryTextColor;
         self.itemDateLabel.textAlignment = .left;
@@ -110,7 +110,7 @@ class ItemDetailViewController: UIViewController {
         self.itemDateValue = UILabel();
         self.itemDateValue.text = DateFormatter.localizedString(from: item.dateOfAcquisition, dateStyle: .medium, timeStyle: .short);
         self.itemDateValue.lineBreakMode = .byClipping
-        self.itemDateValue.font = UIFont.systemFont(ofSize: 17);
+        self.itemDateValue.font = Style.bodyTextFont;
         self.itemDateValue.textAlignment = .right;
         self.itemDateValue.translatesAutoresizingMaskIntoConstraints = false;
         self.itemDateValue.textColor = Style.primaryTextColor;
@@ -124,6 +124,7 @@ class ItemDetailViewController: UIViewController {
         self.itemText.textAlignment = .left;
         self.itemText.isEditable = false;
         self.itemText.textColor = Style.primaryTextColor;
+        self.itemText.font = Style.smallTextFont;
         self.view.addSubview(itemText);
         
         
