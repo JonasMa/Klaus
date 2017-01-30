@@ -14,6 +14,7 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     
     var avatarCollectionView: UICollectionView!
     
+    var buttonGradient: CAGradientLayer!;
     var gradient: CAGradientLayer!;
     
     var avatarImages = ["axe", "zange", "alarm", "zange", "zange", "alarm","zange", "alarm","zange", "alarm","zange", "alarm", "zange", "alarm", "zange", "zange", "alarm"]
@@ -66,18 +67,22 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         chooseAvatarLabel.sizeToFit()
         self.view.addSubview(chooseAvatarDescriptionLabel);
         
-        swipeButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width * 0.9, height: self.view.bounds.size.width * 0.2))
+        swipeButton = UIButton()
         swipeButton.setTitle(Strings.tutorialButtonText, for: .normal)
-
-        swipeButton.layer.cornerRadius = 10
         swipeButton.translatesAutoresizingMaskIntoConstraints = false
-        swipeButton.layer.addSublayer(Style.primaryButtonGradient(button: swipeButton))
-        swipeButton.titleLabel?.font = UIFont.systemFont(ofSize: Style.buttonFontSize, weight: UIFontWeightThin)
+        swipeButton.titleLabel?.font = Style.titleTextFont;
         swipeButton.titleLabel?.textColor = Style.primaryTextColor
+        
+        buttonGradient = Style.primaryButtonBackgroundGradient()
+        swipeButton.layer.insertSublayer(buttonGradient, at: 0);
 
         self.view.addSubview(swipeButton)
 
         addConstraints()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        buttonGradient.frame = swipeButton.bounds;
     }
     
     override func didReceiveMemoryWarning() {
@@ -145,9 +150,10 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         chooseAvatarDescriptionLabel.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -10).isActive = true;
         chooseAvatarDescriptionLabel.textAlignment = .center
         
-        swipeButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
-        swipeButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor, constant: -35).isActive = true;
-        swipeButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.9).isActive = true;
+        swipeButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor,constant: -8).isActive = true;
+        swipeButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
+        swipeButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
+
         
         avatarCollectionView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         avatarCollectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;
