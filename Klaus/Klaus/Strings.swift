@@ -24,9 +24,12 @@ struct Strings {
     
     // Result strings
     static var axeGameResult = "Holla die Waldfee! Dein Schwengelfaktor beträgt: "
-    static var simonSaysResult = "Unfassbar oder? So viele Zahlen konntest du dir merken bevor dein Hirn dich im Stich gelassen hat: "
-    static var shelfGameResult = "Da geht was! So viele Gegenstände konntest du auffangen: "
-    static var seitenschneiderResult = "In anbetracht der geltenden Regeln für dieses Spiel konntest du so viele Drähte durschneiden: "
+    static var simonSaysResultPt1 = "Unfassbar oder? Du konntest dir "
+    static var simonSaysResultPt2 = " Zahlen merken, bevor dein Kopf versagt hat. Läuft bei dir!"
+    static var shelfGameResultPt1 = "Da geht was! Du konntest unfassbare "
+    static var shelfGameResultPt2 = " Gegenstände auffangen. Jetzt grill die Katze!"
+    static var seitenschneiderResultPt1 = "In anbetracht der geltenden Regeln für dieses Spiel konntest du "
+    static var seitenschneiderResultPt2 = " Drähte durschneiden. Du bist crazy drauf!"
     
     // Attack texts
     static var gratulation = "Gratulation!"

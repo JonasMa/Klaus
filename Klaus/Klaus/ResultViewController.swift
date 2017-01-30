@@ -19,7 +19,7 @@ class ResultViewController: UIViewController {
     let seitenschneider = 3
     
     var result: Double = 0.0
-    var resultAsString: String!
+    var resultAsString = " "
     var gameID: Int!
     
     @IBAction func backButton(_ sender: UIButton) {
@@ -30,9 +30,9 @@ class ResultViewController: UIViewController {
         super.init(nibName: "ResultViewController", bundle: nil)
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.result = round(10000 * result) / 10000
-        self.resultAsString = String(self.result)
-        self.gameID = gameID
         AppModel.sharedInstance.personalScore = self.result
+        //self.resultAsString = String(format: "%g", self.result)
+        self.gameID = gameID
         handleScore()
     }
     
@@ -46,6 +46,7 @@ class ResultViewController: UIViewController {
     }
     
     func handleScore() {
+        NSLog("Score ResultView: \(result))")
         AppModel.sharedInstance.sendOwnScoreToEnemy(score: result)
         AppModel.sharedInstance.pushScore(score: result)
     }
@@ -63,15 +64,15 @@ class ResultViewController: UIViewController {
             break
         case simon:
             titleLabel.text = Strings.simonSaysTitle
-            descriptionLabel.text = Strings.simonSaysResult + resultAsString
+            descriptionLabel.text = Strings.simonSaysResultPt1 + resultAsString + Strings.simonSaysResultPt2
             break
         case shelf:
             titleLabel.text = Strings.shelfGameTitle
-            descriptionLabel.text = Strings.shelfGameResult + resultAsString
+            descriptionLabel.text = Strings.shelfGameResultPt1 + resultAsString + Strings.shelfGameResultPt2
             break
         case seitenschneider:
             titleLabel.text = Strings.seitenschneiderTitle
-            descriptionLabel.text = Strings.seitenschneiderResult + resultAsString
+            descriptionLabel.text = Strings.seitenschneiderResultPt1 + resultAsString + Strings.seitenschneiderResultPt2
             break
         default:
             break
