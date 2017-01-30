@@ -8,7 +8,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResultViewController" customModule="Klaus" customModuleProvider="target">
             <connections>
+                <outlet property="descriptionLabel" destination="iuP-3I-w3w" id="3UN-WA-heK"/>
                 <outlet property="resultLabel" destination="SvJ-jb-Ydo" id="Wam-kf-zAY"/>
+                <outlet property="titleLabel" destination="VmR-xz-7qL" id="Dth-4g-nSG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,13 +20,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Dein Ergebnis:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VmR-xz-7qL">
-                    <frame key="frameInset" minX="118" minY="215" width="140" height="21"/>
+                    <frame key="frameInset" minX="118" minY="112" width="140" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SvJ-jb-Ydo">
-                    <frame key="frameInset" minX="98" minY="301" width="177" height="35"/>
+                    <frame key="frameInset" minX="98" minY="327" width="177" height="35"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -36,10 +38,18 @@
                         <action selector="backButton:" destination="-1" eventType="touchUpInside" id="5Vx-ef-PMJ"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iuP-3I-w3w">
+                    <frame key="frameInset" minX="50" minY="188" width="275" height="92"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="SvJ-jb-Ydo" firstAttribute="top" secondItem="VmR-xz-7qL" secondAttribute="bottom" constant="20" id="Ihb-Pq-d80"/>
+                <constraint firstItem="iuP-3I-w3w" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="51" id="Lq5-L3-axM"/>
+                <constraint firstItem="iuP-3I-w3w" firstAttribute="top" secondItem="VmR-xz-7qL" secondAttribute="bottom" constant="50" id="Njx-Sa-4zt"/>
                 <constraint firstItem="27I-yo-edG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="QRB-eG-5sf"/>
                 <constraint firstItem="27I-yo-edG" firstAttribute="top" secondItem="SvJ-jb-Ydo" secondAttribute="bottom" constant="70" id="VEh-zi-fVv"/>
                 <constraint firstItem="VmR-xz-7qL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="Xhe-u0-2SP"/>
@@ -47,7 +57,9 @@
                 <constraint firstItem="VmR-xz-7qL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="250" id="aNT-pS-ZcC"/>
                 <constraint firstAttribute="trailing" secondItem="VmR-xz-7qL" secondAttribute="trailing" constant="30" id="dB5-Tr-Ywx"/>
                 <constraint firstAttribute="trailing" secondItem="SvJ-jb-Ydo" secondAttribute="trailing" constant="30" id="du3-j7-Pa2"/>
+                <constraint firstItem="SvJ-jb-Ydo" firstAttribute="top" secondItem="iuP-3I-w3w" secondAttribute="bottom" constant="50" id="gji-Yz-ftJ"/>
                 <constraint firstItem="SvJ-jb-Ydo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="uXZ-L6-umC"/>
+                <constraint firstAttribute="trailing" secondItem="iuP-3I-w3w" secondAttribute="trailing" constant="51" id="wAA-3N-3lV"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>

@@ -10,11 +10,12 @@ import UIKit
 
 class ResultViewController: UIViewController {
 
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     var result: Double = 0.0
     
     @IBAction func backButton(_ sender: UIButton) {
-        NSLog("BackButton gedrückt.")
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
@@ -30,7 +31,6 @@ class ResultViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Simply displays result value as a type Double
     override func viewDidLoad() {
         super.viewDidLoad()
         resultLabel.text = String(result)
