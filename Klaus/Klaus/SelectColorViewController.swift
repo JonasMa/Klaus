@@ -117,15 +117,15 @@ class SelectColorViewController: UIViewController {
         colorSelected = true
         print("SC \(sender.backgroundColor!.toHexString())");
         switch sender {
-        case buttonRed: buttonRed.backgroundColor = Style.colorRed; buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
+        case buttonRed: buttonRed.backgroundColor = Config.possibleColors[0]; buttonBlue.backgroundColor = Config.possibleColors[1]; buttonYellow.backgroundColor = Config.possibleColors[2]; buttonGreen.backgroundColor = Config.possibleColors[3]
             playerColor = buttonRed.backgroundColor!
-        case buttonBlue: buttonBlue.backgroundColor = Style.colorBlue; buttonRed.backgroundColor = Style.colorRed; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
+        case buttonBlue: buttonBlue.backgroundColor = Config.possibleColors[1]; buttonRed.backgroundColor = Config.possibleColors[0]; buttonYellow.backgroundColor = Config.possibleColors[2]; buttonGreen.backgroundColor = Config.possibleColors[3]
         playerColor = buttonBlue.backgroundColor!
 
-        case buttonYellow: buttonYellow.backgroundColor = Style.colorYellow; buttonBlue.backgroundColor = Style.colorBlue; buttonRed.backgroundColor = Style.colorRed; buttonGreen.backgroundColor = Style.colorGreen
+        case buttonYellow: buttonYellow.backgroundColor = Config.possibleColors[2]; buttonBlue.backgroundColor = Config.possibleColors[1]; buttonRed.backgroundColor = Config.possibleColors[0]; buttonGreen.backgroundColor = Config.possibleColors[3]
         playerColor = buttonYellow.backgroundColor!
 
-        case buttonGreen: buttonGreen.backgroundColor = Style.colorGreen; buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonRed.backgroundColor = Style.colorRed
+        case buttonGreen: buttonGreen.backgroundColor = Config.possibleColors[3]; buttonBlue.backgroundColor = Config.possibleColors[1]; buttonYellow.backgroundColor = Config.possibleColors[2]; buttonRed.backgroundColor = Config.possibleColors[0]
         playerColor = buttonGreen.backgroundColor!
 
         default: break
