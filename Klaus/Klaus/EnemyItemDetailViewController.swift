@@ -49,9 +49,8 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     }
     
     func buttonAction(sender: UIButton!) {
-        // start 3s timer
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(onTriggerGameTimeout), userInfo: nil, repeats: false)
         AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item)
+        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(onTriggerGameTimeout), userInfo: nil, repeats: false)
     }
     
     func onAbortTriggerGameTimeout (){
