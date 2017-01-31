@@ -65,8 +65,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     func addConstraints(){
         nameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         nameLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true;
+        
         nameTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         nameTextField.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -170).isActive = true;
+        nameTextField.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.3).isActive = true
+
+        nameTextField.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
+        nameTextField.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
         
         nextButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor,constant: -8).isActive = true;
         nextButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
