@@ -166,12 +166,28 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             print("CM no valid color received")
             return
         }
-        
-        let colorUI = UIColor(hexString: playerInfo[DATA_INDEX_COLOR])
+        print("Color String for Player \(playerInfo[DATA_INDEX_NAME]) is \(playerInfo[DATA_INDEX_COLOR])")
+        // there were some problems with the extracted hex string
+        let colorStrings = matches(for: "#(?:[0-9a-fA-F]){6}", in: playerInfo[DATA_INDEX_COLOR])
+        let validString = colorStrings.count != 0 ? colorStrings[0] : "#000000"
+        let colorUI = UIColor(hexString: validString)
         
         print("CM player details discovered. name: \(playerInfo[DATA_INDEX_NAME]), score: \(playerInfo[DATA_INDEX_SCORE])")
         
         delegate?.onPlayerDiscovered (name: playerInfo[DATA_INDEX_NAME], score: scoreInt, color: colorUI, avatar: playerInfo[DATA_INDEX_AVATAR], uuid: uuid)
+    }
+    
+    private func matches(for regex: String, in text: String) -> [String] {
+        
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            let nsString = text as NSString
+            let results = regex.matches(in: text, range: NSRange(location: 0, length: nsString.length))
+            return results.map { nsString.substring(with: $0.range)}
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return ["#000000"]
+        }
     }
     
     @objc func stopScan() {
@@ -366,6 +382,8 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             centralManager?.stopScan()
             print("CM Scanning stopped")
         }
+        
+        delegate?.onConnected()
         
         
         // Make sure we get the discovery callbacks

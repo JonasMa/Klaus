@@ -110,15 +110,20 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         }
         NotificationCenter.default.post(name: Notification.Name(key), object: nil, userInfo: ["uuid":uuid]);
     }
+    
+    func onConnected() {
+        peripheral.setInactive()
+    }
 
     private func changeBluetoothState (toNewState state: BluetoothState){
         
         if self.state == state {return}
         print("BC state set to \(state)")
         self.state = state
+        
         if state == BluetoothState.central {
             central.setActive()
-            peripheral.setInactive()
+            //peripheral.setInactive()
         } else {
             peripheral.setActive()
             central.setInactive()
