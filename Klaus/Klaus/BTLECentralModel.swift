@@ -261,6 +261,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 print("CM feedback not decodable: \(data)")
                 break
             }
+            print("feedback received: \(data)")
             delegate?.onAttackFeedback(feedbackCode: feedbackCode)
             break
         default:

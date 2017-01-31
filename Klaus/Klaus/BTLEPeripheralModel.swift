@@ -198,7 +198,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         )
         
         feedbackCharacteristic = CBMutableCharacteristic(
-            type: itemsCharacteristicUUID,
+            type: feedbackCharacteristicUUID,
             properties: CBCharacteristicProperties.notify,
             value: nil,
             permissions: CBAttributePermissions.readable

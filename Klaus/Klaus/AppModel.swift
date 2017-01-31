@@ -194,7 +194,6 @@ class AppModel {
         underAttack = false
         isAttacking = false
         attackedItem = nil
-        NSLog("Item ID: \(attackedItem.id)")
     }
     
     func resetScores() {
