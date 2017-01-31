@@ -10,6 +10,11 @@ import Foundation
 
 struct Strings {
     
+    //Notification texts
+    static var statusNotOkTitle = "Oops!"
+    static var statusNotOkMessage = "The person you have called is currently not available. Please try again later."
+    static var statusNotOkButton = "Ich warte noch"
+    
     // Game titles
     static var axeGameTitle = "Axt Schwengel!"
     static var simonSaysTitle = "Pin Code MC!"
