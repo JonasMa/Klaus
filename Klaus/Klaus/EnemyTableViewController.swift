@@ -32,7 +32,18 @@ class EnemyTableViewController: UITableViewController {
         
         self.tableView.backgroundColor = Style.bg;
         self.tableView.register(EnemyTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        
+        self.refreshControl = UIRefreshControl();
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
 
+        self.view.addSubview(refreshControl!);
+        self.view.sendSubview(toBack: refreshControl!);
+
+    }
+    
+    func handleRefresh() {
+        BluetoothController.sharedInstance.refreshEnemyList()
+        refreshControl?.endRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +65,8 @@ class EnemyTableViewController: UITableViewController {
         let profile = self.enemiesList[indexPath.row];
         cell.textLabel!.text = profile.name;
         cell.detailTextLabel?.text = String(profile.score);
+        cell.setAvatar(avatar: profile.profileAvatar);
+        cell.setColor(color: profile.profileColor);
         return cell
     }
     
@@ -61,9 +74,13 @@ class EnemyTableViewController: UITableViewController {
         let profileViewController = EnemyProfileViewController();
         profileViewController.profile = self.enemiesList[indexPath.row];
         // trigger boadcast instead?
-        BluetoothController.sharedInstance.connectToPlayer(player: profileViewController.profile)
+        BluetoothController.sharedInstance.connectToPlayer(playerUuid: profileViewController.profile.uuid)
         self.navigationController?.pushViewController(profileViewController, animated: true);
         
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIScreen.main.bounds.height * 0.1
     }
     
     func updateList(notification: Notification){

@@ -11,13 +11,13 @@ import UIKit
 
 class AppModel {
     
-    let winningStatement: Int = 2
     static let sharedInstance: AppModel = AppModel();
     
     private(set) var enemiesList: Array<EnemyProfile>;
     private(set) var player: PlayerProfile!
-    var scores = [Double]()
-    var personalScore: Double!
+    //var scores = [Double]()
+    var personalScore: Double?
+    var enemyScore: Double?
     var underAttack: Bool = false
     var attackedItem: Item!
     
@@ -69,22 +69,10 @@ class AppModel {
     }
     
     func updateEnemyItemsInList(items: [Item], uuid: String){
-
-        getEnemyByUuid(uuid: uuid)?.setItems(items: items)
+        let enemy = getEnemyByUuid(uuid: uuid)
+        enemy?.setItems(items: items)
         print("update enemy items")
         updateEnemyListInView()
-    }
-    
-    func updateEnemyInfo(name: String, score: Int, uuid: String) {
-        let enemy: EnemyProfile? = getEnemyByUuid(uuid: uuid)
-        guard let enemyUnwrapped = enemy else {
-            print("unwrapping enemy unsuccessful")
-            return
-        }
-        enemyUnwrapped.name = name
-        enemyUnwrapped.score = score
-        print("enemy info updated for \(name)")
-        updateEnemyListInView();
     }
     
     private func getEnemyByUuid(uuid: String) -> EnemyProfile? {
@@ -96,7 +84,8 @@ class AppModel {
         return nil
     }
     
-    func removeEnemyFromList(enemy: EnemyProfile){
+    func removeEnemyFromList(enemyUuid: String){
+        let enemy = EnemyProfile(name: "", score: 0, uuid: enemyUuid)
         if(enemiesList.contains(enemy)){
             enemiesList.remove(at: enemiesList.index(of: enemy)!);
             print("Enemy " + enemy.name + " with id " + enemy.uuid + " removed from list");
@@ -141,16 +130,32 @@ class AppModel {
         //TODO: Hinweis, dass man angegriffen wurde
     }
     
-    func pushScore(score: Double) {
-        scores.append(score)
-        NSLog("Personal Score AppModel: \(personalScore)")
-        if scores.count == winningStatement {
+    func pushPersonalScore(score: Double){
+        print("AM push personal score \(score)")
+        self.personalScore = score;
+        BluetoothController.sharedInstance.sendScoreToEnemy(score: score);
+        if(enemyScore != nil){
             Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(sendGameResultMessages), userInfo: nil, repeats: false);
         }
     }
     
+    func pushScore(score: Double){
+        self.enemyScore = score;
+        if(personalScore != nil){
+            Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(sendGameResultMessages), userInfo: nil, repeats: false);
+        }
+    }
+    
+//    func pushScore(score: Double) {
+//        scores.append(score)
+//        NSLog("Personal Score AppModel: \(personalScore)")
+//        if scores.count == winningStatement {
+//            
+//        }
+//    }
+    
     func sendOwnScoreToEnemy(score: Double) {
-        BluetoothController.sharedInstance.sendScoreToEnemy(ownScore: score)
+        BluetoothController.sharedInstance.sendScoreToEnemy(score: score)
     }
     
     func displayAlert(title: String, message: String, buttonTitle: String) {
@@ -158,7 +163,11 @@ class AppModel {
     }
     
     @objc func sendGameResultMessages(){
-        if ((scores[0] > scores[1]) && (scores[0] == personalScore))||((scores[0] < scores[1]) && (scores[1] == personalScore)){
+        print("personal score: \(personalScore) ,enemyScore: \(enemyScore)");
+        if (personalScore == nil || enemyScore == nil){
+            fatalError("score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
+        }
+        if (personalScore! > enemyScore!){
             //gewonnen
             if underAttack { // Item Verteidigt
                 displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
@@ -167,7 +176,7 @@ class AppModel {
                 self.player.addItem(item: attackedItem);
                 //TODO: Erhalte/behalte Item
             }
-        }else if ((scores[0] > scores[1]) && (scores[0] != personalScore))||((scores[0] < scores[1]) && (scores[1] != personalScore)){
+        }else if (enemyScore! > personalScore!){
             //verloren
             if underAttack { // Item verloren
                 displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
@@ -176,7 +185,7 @@ class AppModel {
             }else{ //Item konnte nicht gewonnen werden
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
             }
-        }else if (scores[0] == scores[1]){
+        }else if (personalScore! == enemyScore!){
             //unentschieden
             if underAttack {
                 displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
@@ -184,10 +193,10 @@ class AppModel {
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
             }
         }
-        scores.removeAll()
+        personalScore = nil;
+        enemyScore = nil;
         underAttack = false
         NSLog("Item ID: \(attackedItem.id)")
-        NSLog("Scores: \(scores)")
     }
 }
 

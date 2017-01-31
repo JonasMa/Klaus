@@ -27,6 +27,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+
         
         //BACKGROUND
         grad = CAGradientLayer();
@@ -36,7 +37,7 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = Style.bg;
         
         //IMAGE
-        profileImageView  = UIImageView(frame: CGRect(x:0, y:0, width:80, height:80));
+        profileImageView  = UIImageView();
         profileImageView.image = UIImage(named: "axt")
         profileImageView.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(profileImageView);
@@ -48,21 +49,23 @@ class ProfileViewController: UIViewController {
 
         profileNameLabel = UILabel();
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileNameLabel.font = UIFont.boldSystemFont(ofSize: 17);
+        profileNameLabel.font = Style.bodyTextFont;
         profileNameLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileNameLabel);
         
         profileScoreLabel = UILabel();
         profileScoreLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileScoreLabel.font = UIFont.systemFont(ofSize: 12);
+        profileScoreLabel.font = Style.smallTextFont;
         profileScoreLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileScoreLabel);
         
         profileLevelLabel = UILabel();
         profileLevelLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileLevelLabel.font = UIFont.systemFont(ofSize: 12);
+        profileLevelLabel.font = Style.smallTextFont
         profileLevelLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileLevelLabel);
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

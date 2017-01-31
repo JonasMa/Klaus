@@ -19,4 +19,6 @@ struct NotificationCenterKeys{
     static var showAlertNotification = Notification.Name("alert");
     static var updatePlayerLevelNotification = Notification.Name("updatePlayerLevel");
     static var highlightItemNotification = Notification.Name("highlightItem");
+    static var setTutorialPageViewController = Notification.Name("changeTutorialPage");
+
 }

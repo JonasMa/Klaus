@@ -10,40 +10,71 @@ import UIKit
 
 class ResultViewController: UIViewController {
 
-    @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    let axe = 0
+    let simon = 1
+    let shelf = 2
+    let seitenschneider = 3
+    
     var result: Double = 0.0
+    var resultAsString: String!
+    var gameID: Int!
     
     @IBAction func backButton(_ sender: UIButton) {
-        NSLog("BackButton gedrückt.")
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
-    init(result: Double){
+    init(result: Double, gameID: Int){
         super.init(nibName: "ResultViewController", bundle: nil)
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.result = round(10000 * result) / 10000
-        AppModel.sharedInstance.personalScore = self.result
         handleScore()
+        self.resultAsString = String(format: "%g", self.result)
+        self.gameID = gameID
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Simply displays result value as a type Double
     override func viewDidLoad() {
         super.viewDidLoad()
-        resultLabel.text = String(result)
-        
+        titleLabel.font = Style.bodyTextFont
+        descriptionLabel.font = Style.bodyTextFont
+        setLabels()
     }
     
     func handleScore() {
-        AppModel.sharedInstance.sendOwnScoreToEnemy(score: result)
-        AppModel.sharedInstance.pushScore(score: result)
+        AppModel.sharedInstance.pushPersonalScore(score: self.result)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
+    }
+    
+    func setLabels() {
+        switch gameID {
+        case axe:
+            titleLabel.text = Strings.axeGameTitle
+            descriptionLabel.text = Strings.axeGameResult + resultAsString
+            break
+        case simon:
+            titleLabel.text = Strings.simonSaysTitle
+            descriptionLabel.text = Strings.simonSaysResultPt1 + resultAsString + Strings.simonSaysResultPt2
+            break
+        case shelf:
+            titleLabel.text = Strings.shelfGameTitle
+            descriptionLabel.text = Strings.shelfGameResultPt1 + resultAsString + Strings.shelfGameResultPt2
+            break
+        case seitenschneider:
+            titleLabel.text = Strings.seitenschneiderTitle
+            descriptionLabel.text = Strings.seitenschneiderResultPt1 + resultAsString + Strings.seitenschneiderResultPt2
+            break
+        default:
+            break
+        }
     }
 }

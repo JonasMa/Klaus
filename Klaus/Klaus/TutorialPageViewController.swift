@@ -15,7 +15,6 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
     let colorCtrl = SelectColorViewController();
     var index = 0;
     var lastIndex = 0;
-//    var pageCount = 2;
     var pageCount = 3;
     
     var isAnimating = false;
@@ -34,13 +33,15 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         self.delegate = self;
         self.dataSource = self;
         
-        
         self.preferredContentSize = CGSize(width: 200, height: 200);
-//        controllers = [loginCtrl,avatarCtrl];
         controllers = [loginCtrl,avatarCtrl,colorCtrl];
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.setTutorialPageViewController, object: nil, queue: nil, using: setCurrentViewController)
     }
     
-    
+    func setCurrentViewController(notification:Notification) {
+        let indexOfNexPage = notification.userInfo?["pageIndex"] as! Int
+        self.setViewControllers([controllers[indexOfNexPage]], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil);
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -48,15 +49,15 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
     
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-    
-        if(index >= (self.controllers.count)-1 || isAnimating || self.loginCtrl.nameTextField.text == ""){
-            return nil
-        } else if index == self.avatarCtrl.pageIndex-1 && self.avatarCtrl.chosenAvatar == "" {
-            return nil
-        }
-        lastIndex = index;
-        index += 1;
-        return self.controllers[index];
+//        if(index >= (self.controllers.count)-1 || isAnimating || self.loginCtrl.nameTextField.text == ""){
+//            return nil
+//        } else if index == self.avatarCtrl.pageIndex-1 && self.avatarCtrl.chosenAvatar == "" {
+//            return nil
+//        }
+//        lastIndex = index;
+//        index += 1;
+        //return self.controllers[index];
+        return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -71,18 +72,6 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return 0;
-    }
-    
-    func viewControllerAtIndex(index : Int) -> UIViewController? {
-        if(index == 0){
-            return LoginViewController();
-        }else if(index == 1){
-            return AvatarViewController();
-        }else if (index == 2) {
-            return SelectColorViewController();
-        } else {
-            return nil;
-        }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {

@@ -12,7 +12,7 @@ class PlayerItemCollectionViewCell: ItemCollectionViewCell {
     
     func highlight(){
         UIView.animate(withDuration: 1, delay: 0.0, options:[UIViewAnimationOptions.repeat, UIViewAnimationOptions.autoreverse], animations: {
-            self.backgroundColor = UIColor.green
+            self.backgroundColor = UIColor.green.withAlphaComponent(0.5)
             self.backgroundColor = nil;
         }, completion: nil)
     }
