@@ -56,6 +56,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func connectToPlayer (playerUuid uuid: String) {
+        changeBluetoothState(toNewState: BluetoothState.central)
         central.stopDiscoveringOtherPlayers()
         central.connectToPeripheral(uuid: uuid)
     }
@@ -70,6 +71,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func sendGameRequestToAtackedPerson (itemToBeStolen: Item) {
+        changeBluetoothState(toNewState: BluetoothState.central)
         central.sendAttack(itemToBeStolen: itemToBeStolen)
     }
     
@@ -110,6 +112,9 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
 
     private func changeBluetoothState (toNewState state: BluetoothState){
+        
+        if self.state == state {return}
+        print("BC state set to \(state)")
         self.state = state
         if state == BluetoothState.central {
             central.setActive()

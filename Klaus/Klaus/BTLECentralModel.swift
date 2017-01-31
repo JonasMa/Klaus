@@ -32,6 +32,9 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     private var isAvailable = false
     private var isConnected = false
+    private var isActive = false
+    
+    private var scanTimer: Timer?
     
     var delegate: BluetoothCentralDelegate?
     
@@ -49,6 +52,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     */
  
     func setActive (){
+        isActive = true
         if !(centralManager?.isScanning)! {
             scanTillTimeout()
         }
@@ -56,6 +60,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     func setInactive (){
         print("CM scanning stopped")
+        isActive = false
         stopScan()
         //cleanup() // TODO check if this is too much holzhammer
     }
@@ -111,19 +116,24 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     @objc func refreshEnemyList (){
+        // scan
+        // wait
+        // check timestamps
         
-        /*
+        discoverOtherPlayers()
+        scanTillTimeout()
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(checkKnownPeripheralsTimestamp), userInfo: nil, repeats: false)
+    }
+    
+    @objc func checkKnownPeripheralsTimestamp () {
         let epoch: Double = Date().timeIntervalSince1970
         for (index, peripheral) in knownPeripherals.enumerated() {
-            if epoch - peripheralLastSeen[peripheral.identifier.uuidString]! > REFRESH_TIMEOUT_SECONDS {
+            if epoch - peripheralLastSeen[peripheral.identifier.uuidString]! > 2.0 {
                 knownPeripherals.remove(at: index)
                 peripheralLastSeen[peripheral.identifier.uuidString] = nil
                 delegate?.onEnemyDisappear (uuid: peripheral.identifier.uuidString)
             }
         }
-        */
-        discoverOtherPlayers()
-        scanTillTimeout()
     }
     
     func checkIfEnemyIsStillThere (uuid: String) {
@@ -205,7 +215,11 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             ]
         )
         print("CM Scanning started")
-        Timer.scheduledTimer(timeInterval: SCAN_TIMEOUT_SECONDS, target: self, selector: #selector(stopScan), userInfo: nil, repeats: false)
+        
+        if scanTimer != nil {
+            scanTimer!.invalidate()
+        }
+        scanTimer = Timer.scheduledTimer(timeInterval: SCAN_TIMEOUT_SECONDS, target: self, selector: #selector(stopScan), userInfo: nil, repeats: false)
     }
 
     
@@ -237,6 +251,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             centralManager?.cancelPeripheralConnection(peripheral!)
         }
         connectedPeripheral = nil
+        scanTillTimeout()
     }
     
     
@@ -306,7 +321,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
         //print("CM advertisement received - \(peripheral.identifier.uuidString) - \(Date())")
-        //peripheralLastSeen[peripheral.identifier.uuidString] = Date().timeIntervalSince1970
+        peripheralLastSeen[peripheral.identifier.uuidString] = Date().timeIntervalSince1970
         
         // Ok, it's in range - have we already seen it?
         if !knownPeripherals.contains(peripheral){
@@ -335,7 +350,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         print("CM Failed to connect to \(peripheral). (\(error!.localizedDescription))")
         discoveredPeripheral = nil
         isConnected = false
-        cleanup()
+        //cleanup()
     }
     
     /** We've connected to the peripheral, now we need to discover the services and characteristics to find the different characteristics
@@ -394,7 +409,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             print("CM write on peripheral successful")
         }
         else {
-            print("CM write on peripheral NOT successful: \(error)")
+            print("CM write on peripheral NOT successful: \(error.debugDescription)")
         }
     }
     
@@ -522,6 +537,11 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         if !peripheralsWaitingList.isEmpty {
             central.connect(peripheralsWaitingList[0], options: nil)
             peripheralsWaitingList.remove(at: 0)
+        }
+        else {
+            // check if new peripherals appeared
+            //scanTillTimeout()
+            refreshEnemyList()
         }
     }
    
