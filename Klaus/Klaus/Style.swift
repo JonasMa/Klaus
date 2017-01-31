@@ -20,6 +20,7 @@ struct Style{
     static var smallTextFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
     static var bodyTextFont = UIFont.systemFont(ofSize: 17, weight: UIFontWeightThin)
     static var titleTextFont = UIFont.systemFont(ofSize: 24, weight: UIFontWeightThin)
+    static var titleTextFontBold = UIFont.systemFont(ofSize: 24, weight: UIFontWeightBold)
     
     static var bg = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1);
     static var lines = UIColor(red: 206.0/255.0, green: 206.0/255.0, blue: 210.0/255.0, alpha: 1);
