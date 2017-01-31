@@ -19,8 +19,11 @@ class ShelfGameLogic {
     var currentItem: DropItemModel!
     var timer = Timer.init()
     var speed: Double = 1.0
+    var catLives: Bool = false
     
     var gameOverYet: Bool = false
+    
+    var cat: CatModel!
     
     init(vc: ShelfGameViewController) {
         initGameVariables()
@@ -32,6 +35,13 @@ class ShelfGameLogic {
         currentItem = DropItemModel(logic: self)
         initializedItems.append(currentItem)
         shelfGameVC.view.addSubview(currentItem)
+        if catLives {
+            cat.animateCat(xPosition: currentItem.getXLocation())
+        }else{
+            catLives = true
+            cat = CatModel(initialXPos: currentItem.getXLocation())
+            shelfGameVC.view.addSubview(cat)
+        }
         timer = Timer.scheduledTimer(timeInterval: speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
         if gameOverYet {
             shelfGameVC.onItemTouchedFloor(score: score)
@@ -45,6 +55,7 @@ class ShelfGameLogic {
         score = 0
         speed = 1.0
         gameOverYet = false
+        catLives = false
     }
     
     func increaseSelectedItemCount() {
