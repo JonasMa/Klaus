@@ -86,6 +86,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         textField.resignFirstResponder();
         return true
     }
-    
-    
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let limitTextLength = 8
+        
+        let newLength = text.characters.count + string.characters.count - range.length
+        return newLength <= limitTextLength
+    }
 }
