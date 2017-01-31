@@ -49,16 +49,15 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
     
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-    
-        if(index >= (self.controllers.count)-1 || isAnimating || self.loginCtrl.nameTextField.text == ""){
-            return nil
-        } else if index == self.avatarCtrl.pageIndex-1 && self.avatarCtrl.chosenAvatar == "" {
-            return nil
-        }
-        lastIndex = index;
-        index += 1;
-        return self.controllers[index];
-
+//        if(index >= (self.controllers.count)-1 || isAnimating || self.loginCtrl.nameTextField.text == ""){
+//            return nil
+//        } else if index == self.avatarCtrl.pageIndex-1 && self.avatarCtrl.chosenAvatar == "" {
+//            return nil
+//        }
+//        lastIndex = index;
+//        index += 1;
+        //return self.controllers[index];
+        return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

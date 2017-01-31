@@ -15,6 +15,7 @@ class SelectColorViewController: UIViewController {
     var descriptionColor: UILabel!
     
     var endTutorialButton: UIButton!
+    var buttonGradient: CAGradientLayer!
     
     var buttonRed: UIButton!
     var buttonBlue: UIButton!
@@ -35,18 +36,15 @@ class SelectColorViewController: UIViewController {
         self.view.addSubview(headLineColor);
         
         descriptionColor = UILabel()
-//        descriptionColor.numberOfLines = 3
-//        descriptionColor.lineBreakMode = .byWordWrapping
         descriptionColor.text = Strings.descritpionColorText
         descriptionColor.textAlignment = .center;
         descriptionColor.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(descriptionColor);
         
-        endTutorialButton = UIButton(type: UIButtonType.roundedRect);
-        endTutorialButton.setTitle(Strings.tutorialEndText, for: .normal);
-        endTutorialButton.translatesAutoresizingMaskIntoConstraints = false;
-        endTutorialButton.tintColor = Style.accentColor;
-        self.view.addSubview(endTutorialButton);
+        endTutorialButton = Style.getPrimaryButton(buttonTitle: Strings.tutorialEndText)
+        buttonGradient = Style.primaryButtonBackgroundGradient()
+        endTutorialButton.layer.insertSublayer(buttonGradient, at: 0);
+        self.view.addSubview(endTutorialButton)
         endTutorialButton.addTarget(self, action: #selector(dismissTutorial), for: .touchDown)
         
         buttonRed = UIButton()
@@ -82,6 +80,10 @@ class SelectColorViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override func viewDidLayoutSubviews() {
+        buttonGradient.frame = endTutorialButton.bounds;
+    }
+    
     func addButtonConstraint(button: UIButton, influencedObject: UIView){
         button.translatesAutoresizingMaskIntoConstraints = false
         let leftConstraint = NSLayoutConstraint(item: button, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 10)
@@ -105,11 +107,9 @@ class SelectColorViewController: UIViewController {
         descriptionColor.numberOfLines = 3
         descriptionColor.textAlignment = .center
 
-//        descriptionColor.sizeToFit()
-//        descriptionColor.heightAnchor.constraint(equalToConstant: 100.0)
-        
-        endTutorialButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
-        endTutorialButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true;
+        endTutorialButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor,constant: -8).isActive = true;
+        endTutorialButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
+        endTutorialButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
     }
     
     func selectPlayerColor(sender: UIButton) {
