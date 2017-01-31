@@ -217,7 +217,7 @@ class AppModel {
         return underAttack || isAttacking
     }
     
-    func onGameStatusReserved(everythingOk: Bool) {
+    func onGameStatusReceived(everythingOk: Bool) {
         if everythingOk {
             NotificationCenter.default.post(name: NotificationCenterKeys.startGame, object: nil);
         }else{

@@ -12,6 +12,7 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
     var stealButton: UIButton!;
     private var g: CAGradientLayer!;
+    private var timer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +49,25 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     }
     
     func buttonAction(sender: UIButton!) {
+        // start 3s timer
+        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(onTriggerGameTimeout), userInfo: nil, repeats: false)
         AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item)
     }
     
+    func onAbortTriggerGameTimeout (){
+        if timer != nil {
+            timer?.invalidate()
+            timer = nil
+        }
+    }
+    
+    @objc func onTriggerGameTimeout() {
+        AppModel.sharedInstance.onGameStatusReceived(everythingOk: false)
+        timer = nil
+    }
+    
     func startExplanationView(notification: Notification) {
+        onAbortTriggerGameTimeout()
         AppModel.sharedInstance.attackedItem = item
         AppModel.sharedInstance.isAttacking = true
         let vc = ExplanationViewController(item: item);
