@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AudioToolbox
 
 class AppModel {
     
@@ -127,7 +128,7 @@ class AppModel {
         underAttack = true
         attackedItem = itemToBeStolen
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
-        //TODO: Hinweis, dass man angegriffen wurde
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
     
     func pushPersonalScore(score: Double){

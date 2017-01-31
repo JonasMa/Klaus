@@ -42,7 +42,6 @@ class ShelfGameLogic {
         }
         currentItem = DropItemModel(logic: self, viewController: shelfGameVC, xPos: cat.getXPos(), speed: speed)
         initializedItems.append(currentItem)
-        //shelfGameVC.view.addSubview(currentItem)
         timer = Timer.scheduledTimer(timeInterval: speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
         if gameOverYet {
             shelfGameVC.onItemTouchedFloor(score: score*3)
