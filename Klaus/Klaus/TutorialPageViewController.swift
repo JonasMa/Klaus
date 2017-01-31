@@ -35,9 +35,13 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         
         self.preferredContentSize = CGSize(width: 200, height: 200);
         controllers = [loginCtrl,avatarCtrl,colorCtrl];
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.setTutorialPageViewController, object: nil, queue: nil, using: setCurrentViewController)
     }
     
-    
+    func setCurrentViewController(notification:Notification) {
+        let indexOfNexPage = notification.userInfo?["pageIndex"] as! Int
+        self.setViewControllers([controllers[indexOfNexPage]], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil);
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,6 +58,7 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         lastIndex = index;
         index += 1;
         return self.controllers[index];
+
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

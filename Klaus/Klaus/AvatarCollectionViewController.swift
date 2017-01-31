@@ -77,8 +77,14 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         swipeButton.layer.insertSublayer(buttonGradient, at: 0);
 
         self.view.addSubview(swipeButton)
+        swipeButton.addTarget(self, action: #selector(nextButtonPressed), for: .touchDown)
 
         addConstraints()
+    }
+    
+    func nextButtonPressed() {
+        NotificationCenter.default.post(name: NotificationCenterKeys.setTutorialPageViewController, object: nil, userInfo: ["pageIndex":pageIndex] )
+
     }
     
     override func viewDidLayoutSubviews() {
