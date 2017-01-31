@@ -8,6 +8,7 @@
 
 import Foundation
 import AudioToolbox
+import UIKit
 
 class ShelfGameLogic {
     
@@ -18,22 +19,33 @@ class ShelfGameLogic {
     var currentItem: DropItemModel!
     var timer = Timer.init()
     var speed: Double = 1.0
+    var catLives: Bool = false
     
     var gameOverYet: Bool = false
+    
+    var cat: CatModel!
     
     init(vc: ShelfGameViewController) {
         initGameVariables()
         self.shelfGameVC = vc
+        catLives = true
+        cat = CatModel()
+        shelfGameVC.view.addSubview(cat)
         timer = Timer.scheduledTimer(timeInterval: speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
     }
     
     @objc func update() {
-        currentItem = DropItemModel(logic: self)
+        if catLives {
+            cat.animateCat(speed: speed)
+        }else{
+            //fatal cat error
+        }
+        currentItem = DropItemModel(logic: self, viewController: shelfGameVC, xPos: cat.getXPos(), speed: speed)
         initializedItems.append(currentItem)
-        shelfGameVC.view.addSubview(currentItem)
+        //shelfGameVC.view.addSubview(currentItem)
         timer = Timer.scheduledTimer(timeInterval: speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
         if gameOverYet {
-            shelfGameVC.onItemTouchedFloor(score: score)
+            shelfGameVC.onItemTouchedFloor(score: score*3)
             gameOver()
         }
     }
@@ -44,6 +56,7 @@ class ShelfGameLogic {
         score = 0
         speed = 1.0
         gameOverYet = false
+        catLives = false
     }
     
     func increaseSelectedItemCount() {
@@ -62,8 +75,6 @@ class ShelfGameLogic {
             }
             AudioServicesPlaySystemSound(1016)
         }
-        NSLog("Score: \(score)")
-        NSLog("Speed: \(speed)")
     }
     
     func gameOver(){
