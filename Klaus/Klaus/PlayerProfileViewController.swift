@@ -82,7 +82,7 @@ class PlayerProfileViewController: ProfileViewController {
     func updateScore(notification:Notification){
         let score = notification.userInfo?["score"] as? String;
         let scorePerSecond = notification.userInfo?["scorePerSecond"] as? String;
-        profileScoreLabel.text = score! + " (" +  scorePerSecond! + "/s)";
+        profileScoreLabel.text = score! + " (" +  scorePerSecond! + "/min)";
     }
     
     func updatePlayerLevel(notification:Notification){

@@ -14,10 +14,10 @@ struct Config {
     static var clearPlayerDataOnNextLaunch = false;
     
     // points per second w/ lvl 1
-    static var axeBasePointsPerSecond = 2;
-    static var coffeeBasePointsPerSecond = 2;
-    static var seitenschneidBasePointsPerSecond = 2;
-    static var alarmBasePointsPerSecond = 2;
+    static var axeBasePointsPerSecond = 20;
+    static var coffeeBasePointsPerSecond = 25;
+    static var seitenschneidBasePointsPerSecond = 35;
+    static var alarmBasePointsPerSecond = 15;
     
     static var scoreToLevelUpBase = 1000;
     

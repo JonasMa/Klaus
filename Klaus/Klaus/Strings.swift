@@ -57,7 +57,7 @@ struct Strings {
     static let seitenschneiderInfo = "Der Seitenschneider ist ein nicht verzehrbares Eisending. Die Verwendung ist jedoch von Art zu Art unterschiedlich. Der Seitenschneider ist eine typisch deutsche Erfindung: Ein Allzweckwerkzeug, dass immer griffbereit und sehr handlich ist. ";
     static let alarmInfo = "Alarm ist das, was ausgelöst wird, wenn die Unfähigkeit eines oder mehrerer Menschen die Grenzen des guten Geschmacks übersteigt und so zur Gefahr der Allgemeinheit wird.";
     
-    static let itemPointsPerSecond = "Punkte pro Sekunde"
+    static let itemPointsPerSecond = "Punkte pro Min"
     static let itemAcquisitionDate = "Eigentum seit"
     
     static let stealButtonText = "Nimm's Wag!";

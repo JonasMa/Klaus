@@ -26,7 +26,7 @@ class AppModel {
         enemiesList = Array<EnemyProfile>();
         
         //regularly update points based on items
-        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerStats), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updatePlayerStats), userInfo: nil, repeats: true);
         
         if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
             player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
@@ -178,7 +178,7 @@ class AppModel {
                 displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
                 self.player.addItem(item: attackedItem);
             }
-            let bonus = personalScore!/enemyScore!
+            let bonus = personalScore!/(enemyScore!+0.0001)
             scoreBonus(value: bonus)
         }else if (enemyScore! > personalScore!){
             if underAttack { // Item verloren
@@ -187,7 +187,7 @@ class AppModel {
             }else{ // Item nicht gewonnen
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
             }
-            let penalty = enemyScore!/personalScore!
+            let penalty = enemyScore!/(personalScore!+0.0001)
             scorePenalty(value: penalty)
         }else if (personalScore! == enemyScore!){
             if underAttack {
