@@ -128,10 +128,13 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     @objc func checkKnownPeripheralsTimestamp () {
         let epoch: Double = Date().timeIntervalSince1970
         for (index, peripheral) in knownPeripherals.enumerated() {
-            if epoch - peripheralLastSeen[peripheral.identifier.uuidString]! > 2.0 {
-                knownPeripherals.remove(at: index)
-                peripheralLastSeen[peripheral.identifier.uuidString] = nil
-                delegate?.onEnemyDisappear (uuid: peripheral.identifier.uuidString)
+            let lastSeen: Double? = peripheralLastSeen[peripheral.identifier.uuidString]
+            if lastSeen != nil {
+                if epoch - lastSeen! > 2.0 {
+                    knownPeripherals.remove(at: index)
+                    peripheralLastSeen[peripheral.identifier.uuidString] = nil
+                    delegate?.onEnemyDisappear (uuid: peripheral.identifier.uuidString)
+                }
             }
         }
     }
@@ -242,18 +245,23 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private func onEomReceived(fromPeripheralUUIDString puuid: String, fromCharacteristicUUID uuid: CBUUID, dataString data: String) {
         switch uuid {
         case playerCharacteristicUUID:
-            let dataString: String = String(data: dataPlayer as Data, encoding: String.Encoding.utf8)!
-            onPlayerInfoReceived(receivedDataString: dataString, uuid: puuid)
+            onPlayerInfoReceived(receivedDataString: data, uuid: puuid)
             break
         case scoreReadCharacteristicUUID:
-            let dataString = String (data: dataPlayer as Data, encoding: String.Encoding.utf8)
-            let score = Double(dataString!)
+            let score = Double(data)
             if score != nil {
                 delegate?.onReceiveScoreFromEnemy(score: score!)
             }
             break
         case itemsCharacteristicUUID:
             onItemsAndAvatarReceived(dataString: data, uuid: puuid)
+            break
+        case feedbackCharacteristicUUID:
+            guard let feedbackCode = Int(data) else {
+                print("CM feedback not decodable: \(data)")
+                break
+            }
+            delegate?.onAttackFeedback(feedbackCode: feedbackCode)
             break
         default:
             break
@@ -417,7 +425,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 peripheral.discoverCharacteristics([playerCharacteristicUUID], for: service)
             }
             else {
-                peripheral.discoverCharacteristics([scoreWriteCharacteristicUUID,scoreReadCharacteristicUUID, attackCharacteristicUUID, itemsCharacteristicUUID], for: service)
+                peripheral.discoverCharacteristics([scoreWriteCharacteristicUUID,scoreReadCharacteristicUUID, attackCharacteristicUUID, itemsCharacteristicUUID, feedbackCharacteristicUUID], for: service)
             }
         }
     }
@@ -470,6 +478,9 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 print("CM found writeAttackCharacteristic")
                 writeAttack = characteristic
                 //delegate?.didDiscoverWriteAttackCharacteristic(characteristic: characteristic)
+                break
+            case feedbackCharacteristicUUID:
+                print("CM found feedbackCharacteristic")
                 break
             default:
                 print("CM found unidentified Characteristic with uuid " + characteristic.uuid.uuidString)

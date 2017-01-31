@@ -114,6 +114,22 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     func onConnected() {
         peripheral.setInactive()
     }
+    
+    func onAttackFeedback (feedbackCode: Int) {
+        switch feedbackCode {
+        case FEEDBACK_AVAILABLE:
+            break
+        case FEEDBACK_BUSY:
+            break
+        default:
+            break
+        }
+    }
+    
+    func isPlaying () -> Bool {
+        return false
+        // return AppModel.sharedInstance.isGaming()
+    }
 
     private func changeBluetoothState (toNewState state: BluetoothState){
         
