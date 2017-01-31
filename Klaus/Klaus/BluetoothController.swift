@@ -118,8 +118,10 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     func onAttackFeedback (feedbackCode: Int) {
         switch feedbackCode {
         case FEEDBACK_AVAILABLE:
+            AppModel.sharedInstance.onGameStatusReceived(everythingOk: true)
             break
         case FEEDBACK_BUSY:
+            AppModel.sharedInstance.onGameStatusReceived(everythingOk: false)
             break
         default:
             break
