@@ -26,11 +26,6 @@ struct Style{
     static var bgTransparent = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 0.0);
     static var accentColor = UIColor(red: 52.0/255.0, green: 170.0/255.0, blue: 220.0/255.0, alpha: 1);
     
-    static var colorRed = UIColor(red:0.98, green:0.22, blue:0.22, alpha:1.0)
-    static var colorBlue = UIColor(red:0.22, green:0.57, blue:0.98, alpha:1.0)
-    static var colorYellow = UIColor(red:0.98, green:0.91, blue:0.22, alpha:1.0)
-    static var colorGreen = UIColor(red:0.22, green:0.98, blue:0.53, alpha:1.0)
-
     // Primary Button Gradient
     static func primaryButtonBackgroundGradient() -> CAGradientLayer {
         let buttonGradient = CAGradientLayer()
