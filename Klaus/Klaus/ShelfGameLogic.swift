@@ -27,24 +27,25 @@ class ShelfGameLogic {
     
     init(vc: ShelfGameViewController) {
         initGameVariables()
-        self.shelfGameVC = vc        
+        self.shelfGameVC = vc
+        catLives = true
+        cat = CatModel()
+        shelfGameVC.view.addSubview(cat)
         timer = Timer.scheduledTimer(timeInterval: speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
     }
     
     @objc func update() {
-        currentItem = DropItemModel(logic: self)
-        initializedItems.append(currentItem)
-        shelfGameVC.view.addSubview(currentItem)
         if catLives {
-            cat.animateCat(xPosition: currentItem.getXLocation())
+            cat.animateCat(speed: speed)
         }else{
-            catLives = true
-            cat = CatModel(initialXPos: currentItem.getXLocation())
-            shelfGameVC.view.addSubview(cat)
+            //fatal cat error
         }
+        currentItem = DropItemModel(logic: self, viewController: shelfGameVC, xPos: cat.getXPos(), speed: speed)
+        initializedItems.append(currentItem)
+        //shelfGameVC.view.addSubview(currentItem)
         timer = Timer.scheduledTimer(timeInterval: speed, target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
         if gameOverYet {
-            shelfGameVC.onItemTouchedFloor(score: score)
+            shelfGameVC.onItemTouchedFloor(score: score*3)
             gameOver()
         }
     }
@@ -74,8 +75,6 @@ class ShelfGameLogic {
             }
             AudioServicesPlaySystemSound(1016)
         }
-        NSLog("Score: \(score)")
-        NSLog("Speed: \(speed)")
     }
     
     func gameOver(){
