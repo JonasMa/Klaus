@@ -11,56 +11,62 @@ class SeitenschneiderModel {
     
     let timer: StopwatchTimer!
     
-    let maxNumberOfCables = 4
+    let targetCableColor = UIColor.blue
+    let maxNumCablesInGame = 12
     var score = 0
-    let randomColor = [UIColor.red, UIColor.brown, UIColor.cyan, UIColor.black, UIColor.magenta]
+    var strikes = 0
+    let randomColor = [UIColor.red, UIColor.green]
     
     init(viewController: SeitenschneiderViewController) {
         self.score = 0
         self.seitenSchneiderViewController = viewController
         self.allCables = [CableModel]()
         
-        self.timer = StopwatchTimer()
+        self.timer = StopwatchTimer.init(needGameUpdate: true, maxDuration: 15)
         timer.startTimer()
-        
-        for _ in 0..<maxNumberOfCables {
-            addCables(color: UIColor.blue)
-            addCables(color: randomColor[Int(arc4random_uniform(UInt32(randomColor.count)))])
-        }
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.timerMaxDurationReached, object: nil, queue: nil, using: gameEnded)
+        // Add start cables
+        addCables(isMainTargetColor: true, numOfCables: 4)
+        addCables(isMainTargetColor: false, numOfCables: 6)
     }
     
-    func addCables(color: UIColor) {
-        cableModelObject = CableModel(color: color, model: self)
-        allCables.append(cableModelObject)
-        seitenSchneiderViewController.view.addSubview(cableModelObject)
+    func getRandomCableColor() -> UIColor {
+        return randomColor[Int(arc4random_uniform(UInt32(randomColor.count)))]
+    }
+    
+    func addCables(isMainTargetColor: Bool, numOfCables: Int) {
+        for _ in 0..<numOfCables {
+            if isMainTargetColor {
+                cableModelObject = CableModel(color: targetCableColor, model: self)
+            } else {
+                cableModelObject = CableModel(color: getRandomCableColor(), model: self)
+            }
+            allCables.append(cableModelObject)
+//            seitenSchneiderViewController.view.addSubview(cableModelObject)
+            seitenSchneiderViewController.view.insertSubview(cableModelObject, at: 0)
+        }
     }
     
     func addCableHalf(cableHalf: UIView) {
-        seitenSchneiderViewController.view.addSubview(cableHalf)
+        seitenSchneiderViewController.view.insertSubview(cableHalf, at: 0)
     }
     
     func checkCableTouch(touchLoc: CGPoint) {
-
         for cable in allCables{
             if cable.checkTouch(touchLocation: touchLoc){
                 let index = allCables.index(of: cable)
+                addNewCablesInGame()
                 allCables.remove(at: index!)
-                checkAllCablesDeleted()
             }
         }
     }
     
-    func checkAllCablesDeleted() {
-        var blueCablesLeft = 0
-        for cable in allCables {
-            if cable.backgroundColor == UIColor.blue {
-                blueCablesLeft += 1
-            }
-        }
-        if allCables.count == 0 {
-            gameEnded()
-        } else if blueCablesLeft == 0 {
-            gameEnded()
+    func addNewCablesInGame() {
+        let numCablesWhichCanBeAdded = maxNumCablesInGame - allCables.count
+        if numCablesWhichCanBeAdded > 3 {
+            addCables(isMainTargetColor: true, numOfCables: Int(arc4random_uniform(UInt32(3))))
+        } else {
+            addCables(isMainTargetColor: true, numOfCables: Int(arc4random_uniform(UInt32(numCablesWhichCanBeAdded))))
         }
     }
     
@@ -69,11 +75,17 @@ class SeitenschneiderModel {
     }
     
     func decreaseScore() {
-        score -= 1
+        strikes += 1
+        if score > 0 {
+           score -= 1
+        }
+        if strikes >= 3 {
+            timer.stopTimer()
+            seitenSchneiderViewController.startResultViewController()
+        }
     }
     
-    func gameEnded(){
-        print("gameEnded")
+    func gameEnded(notification:Notification){
         timer.stopTimer()
         seitenSchneiderViewController.startResultViewController()
         // weiterverschicken: timer.duration

@@ -106,7 +106,32 @@ struct Style{
         return [color.lighter(by: 30)!.cgColor, color.lighter(by: 50)!.cgColor, Style.lines.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor]
     }
     
+    static var gradientColorsSeitenschneider = [Style.bg.cgColor,
+                                                Style.bg.cgColor,
+                                                Style.bg.cgColor,
+                                                Style.lines.cgColor,
+                                                Style.bgTransparent,
+                                                Style.bgTransparent,
+                                                Style.lines.cgColor,
+                                                Style.bg.cgColor,
+                                                Style.bg.cgColor,
+                                                Style.bg.cgColor] as [Any]
 
     
+    static let gradientLocationsSeitenschneider = [0.0,
+                                                   0.2,
+                                                   
+                                                   0.2000000001,
+                                                   0.25,
+                                                   
+                                                   0.2500000001,
+                                                   0.8,
+                                                   
+                                                   0.9000000001,
+                                                   0.95,
+                                                   
+                                                   0.95,
+                                                   1.0
+                                                   ]
     
 }

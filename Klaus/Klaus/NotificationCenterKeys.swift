@@ -20,5 +20,5 @@ struct NotificationCenterKeys{
     static var updatePlayerLevelNotification = Notification.Name("updatePlayerLevel");
     static var highlightItemNotification = Notification.Name("highlightItem");
     static var setTutorialPageViewController = Notification.Name("changeTutorialPage");
-
+    static var timerMaxDurationReached = Notification.Name("maxDurationReached");
 }

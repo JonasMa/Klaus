@@ -13,7 +13,10 @@ class CableModel: UIImageView {
     let screenHeight:CGFloat!
     
     let cableSize:CGSize!
-    var cablePosition = CGPoint(x: 0.0, y: 0.0)
+    var animationEndPoint:[CGFloat]!
+    var randomAnimationEndPosition:CGFloat!
+    var cablePosition:[CGPoint]!
+    var randomCablePosition: CGPoint!
     let cableSpeed:Double
     
     init(color: UIColor, model: SeitenschneiderModel) {
@@ -23,13 +26,23 @@ class CableModel: UIImageView {
         self.screenWidth = screenSize.width
         self.screenHeight = screenSize.height
         
+        let randomFactor = Int(arc4random_uniform(2))
+        print(randomFactor)
+        self.animationEndPoint = [self.screenWidth, 0]
+        self.randomAnimationEndPosition = animationEndPoint[randomFactor]
+        self.cablePosition = [CGPoint(x: 0.0, y: 0.0), CGPoint(x: screenWidth, y: 0.0)]
+        self.randomCablePosition = cablePosition[randomFactor]
+
         let randomSpeed = arc4random_uniform(20) + 10
         self.cableSpeed = Double(randomSpeed) * 0.1
         
         self.cableSize = CGSize(width: 20.0, height: screenHeight)
         
-        super.init(frame: CGRect(origin: cablePosition, size: cableSize))
+        super.init(frame: CGRect(origin: randomCablePosition, size: cableSize))
         self.backgroundColor = color
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderWidth = 2.0
+        
         
         animateCables()
     }
@@ -37,7 +50,7 @@ class CableModel: UIImageView {
     func animateCables(){
         let randomDelay = Double(arc4random_uniform(15)) * 0.1
         UIView.animate(withDuration: cableSpeed, delay: TimeInterval(randomDelay), options: [.autoreverse, .repeat, .curveEaseIn, .allowUserInteraction], animations: {
-            self.frame = CGRect(x: self.screenWidth, y: 0, width:self.cableSize.width, height: self.screenHeight)
+            self.frame = CGRect(x: self.randomAnimationEndPosition, y: 0, width:self.cableSize.width, height: self.screenHeight)
         }, completion: nil)
     }
     
@@ -48,7 +61,6 @@ class CableModel: UIImageView {
     }
     
     func checkTouch(touchLocation: CGPoint) -> Bool{
-//        let cableYCoordinate = self.layer.presentation()?.frame.origin.y
         let currentCableLocation = self.layer.presentation()?.frame
         let cableXCoordinate = currentCableLocation?.origin.x
         
@@ -80,7 +92,6 @@ class CableModel: UIImageView {
             
            
             delay(delay: 1.0){self.removeFromSuperview(); cableHalf.removeFromSuperview()}
-            model.checkAllCablesDeleted()
             return true
         } else {
             // nothing touched

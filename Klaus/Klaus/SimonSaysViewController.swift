@@ -18,7 +18,7 @@ class SimonSaysViewController: UIViewController {
     
     let gameID = 1
     let simonSaysModel: SimonSaysModel = SimonSaysModel()
-    let stopWatchTimer: StopwatchTimer = StopwatchTimer()
+    let stopWatchTimer: StopwatchTimer = StopwatchTimer(needGameUpdate: false, maxDuration: 0)
     
     override func viewDidLoad() {
         allowUserInteraction(possible: false)
