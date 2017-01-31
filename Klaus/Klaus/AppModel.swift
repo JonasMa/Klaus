@@ -20,7 +20,9 @@ class AppModel {
     var personalScore: Double?
     var enemyScore: Double?
     var underAttack: Bool = false
+    var isAttacking: Bool = false
     var attackedItem: Item!
+
     
     init() {
         enemiesList = Array<EnemyProfile>();
@@ -121,10 +123,12 @@ class AppModel {
     
     //(callback)functions used for delegating game impulses, determining winning statement
     func triggerEnemyGameInstance(stolenItem: Item) {
+        resetScores()
         BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
     }
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
+        resetScores()
         underAttack = true
         attackedItem = itemToBeStolen
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
@@ -147,14 +151,6 @@ class AppModel {
         }
     }
     
-//    func pushScore(score: Double) {
-//        scores.append(score)
-//        NSLog("Personal Score AppModel: \(personalScore)")
-//        if scores.count == winningStatement {
-//            
-//        }
-//    }
-    
     func sendOwnScoreToEnemy(score: Double) {
         BluetoothController.sharedInstance.sendScoreToEnemy(score: score)
     }
@@ -168,9 +164,7 @@ class AppModel {
         if (personalScore == nil || enemyScore == nil){
             fatalError("score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
         }
-        
-        
-        
+
         if (personalScore! > enemyScore!){
             if underAttack { // Item verteidigt
                 displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
@@ -196,10 +190,16 @@ class AppModel {
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
             }
         }
+        resetScores()
+        underAttack = false
+        isAttacking = false
+        attackedItem = nil
+        NSLog("Item ID: \(attackedItem.id)")
+    }
+    
+    func resetScores() {
         personalScore = nil;
         enemyScore = nil;
-        underAttack = false
-        NSLog("Item ID: \(attackedItem.id)")
     }
     
     
@@ -211,6 +211,10 @@ class AppModel {
     private func scorePenalty(value: Double){
         player.score! -= Int(value * Config.stealPenalty);
         print("AM Player lost by a factor of \(value), removing \(value * Config.stealBonus) points");
+    }
+    
+    func isGaming() -> Bool {
+        return underAttack || isAttacking
     }
 }
 
