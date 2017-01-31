@@ -21,8 +21,8 @@ struct Config {
     
     static var scoreToLevelUpBase = 1000;
     
-    static var stealBonus = 1000;
-    static var stealPenalty = 1000;
+    static var stealBonus = 1000.0;
+    static var stealPenalty = 1000.0;
     
     static var possibleColors = [UIColor.red,
                                  UIColor.blue,

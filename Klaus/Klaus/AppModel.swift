@@ -163,30 +163,32 @@ class AppModel {
     }
     
     @objc func sendGameResultMessages(){
-        print("personal score: \(personalScore) ,enemyScore: \(enemyScore)");
+        print("AM personal score: \(personalScore) ,enemyScore: \(enemyScore)");
         if (personalScore == nil || enemyScore == nil){
             fatalError("score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
         }
+        
+        
+        
         if (personalScore! > enemyScore!){
-            //gewonnen
-            if underAttack { // Item Verteidigt
+            if underAttack { // Item verteidigt
                 displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
             }else{ //Item gewonnen
                 displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
                 self.player.addItem(item: attackedItem);
-                //TODO: Erhalte/behalte Item
             }
+            let bonus = personalScore!/enemyScore!
+            scoreBonus(value: bonus)
         }else if (enemyScore! > personalScore!){
-            //verloren
             if underAttack { // Item verloren
                 displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
                 self.player.removeItem(item: attackedItem);
-                //TODO: Gib das Item ab / lösche es aus deinem Profil
-            }else{ //Item konnte nicht gewonnen werden
+            }else{ // Item nicht gewonnen
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
             }
+            let penalty = enemyScore!/personalScore!
+            scorePenalty(value: penalty)
         }else if (personalScore! == enemyScore!){
-            //unentschieden
             if underAttack {
                 displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
             }else{
@@ -197,6 +199,17 @@ class AppModel {
         enemyScore = nil;
         underAttack = false
         NSLog("Item ID: \(attackedItem.id)")
+    }
+    
+    
+    private func scoreBonus(value: Double){
+        player.score! += Int(value * Config.stealBonus);
+        print("AM Player won by a factor of \(value), granting \(value * Config.stealBonus) points");
+    }
+    
+    private func scorePenalty(value: Double){
+        player.score! -= Int(value * Config.stealPenalty);
+        print("AM Player lost by a factor of \(value), removing \(value * Config.stealBonus) points");
     }
 }
 
