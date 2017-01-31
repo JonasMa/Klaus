@@ -67,18 +67,20 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         chooseAvatarLabel.sizeToFit()
         self.view.addSubview(chooseAvatarDescriptionLabel);
         
-        swipeButton = UIButton()
-        swipeButton.setTitle(Strings.tutorialButtonText, for: .normal)
-        swipeButton.translatesAutoresizingMaskIntoConstraints = false
-        swipeButton.titleLabel?.font = Style.titleTextFont;
-        swipeButton.titleLabel?.textColor = Style.primaryTextColor
-        
+        swipeButton = Style.getPrimaryButton(buttonTitle: Strings.tutorialButtonText)
         buttonGradient = Style.primaryButtonBackgroundGradient()
         swipeButton.layer.insertSublayer(buttonGradient, at: 0);
 
         self.view.addSubview(swipeButton)
+        swipeButton.addTarget(self, action: #selector(nextButtonPressed), for: .touchDown)
 
         addConstraints()
+    }
+    
+    func nextButtonPressed() {
+        if chosenAvatar != "" {
+            NotificationCenter.default.post(name: NotificationCenterKeys.setTutorialPageViewController, object: nil, userInfo: ["pageIndex":pageIndex] )
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -153,7 +155,6 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         swipeButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor,constant: -8).isActive = true;
         swipeButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
         swipeButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
-
         
         avatarCollectionView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         avatarCollectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true;

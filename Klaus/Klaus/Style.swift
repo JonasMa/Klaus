@@ -42,8 +42,12 @@ struct Style{
     }
     
     // Primary Button 
-    static func getPrimaryButton() -> UIButton {
+    static func getPrimaryButton(buttonTitle: String) -> UIButton {
         let primaryButton = UIButton()
+        primaryButton.setTitle(buttonTitle, for: .normal)
+        primaryButton.translatesAutoresizingMaskIntoConstraints = false
+        primaryButton.titleLabel?.font = Style.titleTextFont;
+        primaryButton.titleLabel?.textColor = Style.primaryTextColor
         return primaryButton
     }
     

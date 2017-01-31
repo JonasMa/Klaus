@@ -10,7 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate{
     
-    var swipeLabel: UILabel!;
+    var nextButton: UIButton!
+    var buttonGradient: CAGradientLayer!
     var nameLabel: UILabel!;
     var nameTextField: UITextField!;
     var pageIndex = 1;
@@ -37,12 +38,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         self.view.addSubview(nameTextField);
         nameTextField.becomeFirstResponder()
         
-        swipeLabel = UILabel()
-        swipeLabel.text = Strings.tutorialSwipeText
-        swipeLabel.textAlignment = .center
-        swipeLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(swipeLabel)
+        nextButton = Style.getPrimaryButton(buttonTitle: Strings.tutorialButtonText)
+        buttonGradient = Style.primaryButtonBackgroundGradient()
+        nextButton.layer.insertSublayer(buttonGradient, at: 0);
         
+        self.view.addSubview(nextButton)
+        nextButton.addTarget(self, action: #selector(nextButtonPressed), for: .touchDown)
+
         addConstraints()
     }
 
@@ -50,14 +52,30 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         super.didReceiveMemoryWarning()
     }
     
+    override func viewDidLayoutSubviews() {
+        buttonGradient.frame = nextButton.bounds;
+    }
+    
+    func nextButtonPressed() {
+        if nameTextField.text != "" {
+            NotificationCenter.default.post(name: NotificationCenterKeys.setTutorialPageViewController, object: nil, userInfo: ["pageIndex":pageIndex] )
+        }
+    }
+    
     func addConstraints(){
         nameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         nameLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true;
+        
         nameTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         nameTextField.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -170).isActive = true;
-        swipeLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        swipeLabel.centerYAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true;
-        swipeLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: 20).isActive = true;
+        nameTextField.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.3).isActive = true
+
+        nameTextField.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
+        nameTextField.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
+        
+        nextButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor,constant: -8).isActive = true;
+        nextButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
+        nextButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -68,6 +86,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         textField.resignFirstResponder();
         return true
     }
-    
-    
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let limitTextLength = 8
+        
+        let newLength = text.characters.count + string.characters.count - range.length
+        return newLength <= limitTextLength
+    }
 }

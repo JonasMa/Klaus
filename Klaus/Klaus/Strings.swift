@@ -73,7 +73,7 @@ struct Strings {
     static let colorGreenText = "Grün wie Gras"
     static let colorYellowText = "Gelb wie Senf"
     
-    static let tutorialEndText = "Sicher? Drücke um zu klauen!"
+    static let tutorialEndText = "Bereit?!"
     static let tutorialSwipeText = "Swipe nach rechts wenn du dir sicher bist"
     static let tutorialButtonText = "Weiter"
     
