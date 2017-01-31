@@ -35,10 +35,6 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         
         stealButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
         stealButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
-        
-        
-        
-        
     }
 
     override func viewDidLayoutSubviews() {
@@ -47,10 +43,6 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.hidesBottomBarWhenPushed = true
     }
     
     func buttonAction(sender: UIButton!) {

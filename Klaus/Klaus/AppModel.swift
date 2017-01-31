@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AudioToolbox
 
 class AppModel {
     
@@ -25,7 +26,7 @@ class AppModel {
         enemiesList = Array<EnemyProfile>();
         
         //regularly update points based on items
-        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerStats), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updatePlayerStats), userInfo: nil, repeats: true);
         
         if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
             player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
@@ -127,7 +128,7 @@ class AppModel {
         underAttack = true
         attackedItem = itemToBeStolen
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
-        //TODO: Hinweis, dass man angegriffen wurde
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
     
     func pushPersonalScore(score: Double){
@@ -163,30 +164,32 @@ class AppModel {
     }
     
     @objc func sendGameResultMessages(){
-        print("personal score: \(personalScore) ,enemyScore: \(enemyScore)");
+        print("AM personal score: \(personalScore) ,enemyScore: \(enemyScore)");
         if (personalScore == nil || enemyScore == nil){
             fatalError("score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
         }
+        
+        
+        
         if (personalScore! > enemyScore!){
-            //gewonnen
-            if underAttack { // Item Verteidigt
+            if underAttack { // Item verteidigt
                 displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
             }else{ //Item gewonnen
                 displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
                 self.player.addItem(item: attackedItem);
-                //TODO: Erhalte/behalte Item
             }
+            let bonus = personalScore!/(enemyScore!+0.0001)
+            scoreBonus(value: bonus)
         }else if (enemyScore! > personalScore!){
-            //verloren
             if underAttack { // Item verloren
                 displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
                 self.player.removeItem(item: attackedItem);
-                //TODO: Gib das Item ab / lösche es aus deinem Profil
-            }else{ //Item konnte nicht gewonnen werden
+            }else{ // Item nicht gewonnen
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
             }
+            let penalty = enemyScore!/(personalScore!+0.0001)
+            scorePenalty(value: penalty)
         }else if (personalScore! == enemyScore!){
-            //unentschieden
             if underAttack {
                 displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
             }else{
@@ -197,6 +200,17 @@ class AppModel {
         enemyScore = nil;
         underAttack = false
         NSLog("Item ID: \(attackedItem.id)")
+    }
+    
+    
+    private func scoreBonus(value: Double){
+        player.score! += Int(value * Config.stealBonus);
+        print("AM Player won by a factor of \(value), granting \(value * Config.stealBonus) points");
+    }
+    
+    private func scorePenalty(value: Double){
+        player.score! -= Int(value * Config.stealPenalty);
+        print("AM Player lost by a factor of \(value), removing \(value * Config.stealBonus) points");
     }
 }
 
