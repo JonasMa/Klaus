@@ -127,8 +127,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func isPlaying () -> Bool {
-        return false
-        // return AppModel.sharedInstance.isGaming()
+        return AppModel.sharedInstance.isGaming()
     }
 
     private func changeBluetoothState (toNewState state: BluetoothState){
