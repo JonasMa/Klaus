@@ -30,6 +30,8 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
         self.title = "Details";
         
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.startGame, object: nil, queue: nil, using: startExplanationView)
+        
         //CONSTRAINTS
         stealButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor,constant: -8).isActive = true;
         
@@ -47,6 +49,9 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
     func buttonAction(sender: UIButton!) {
         AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item)
+    }
+    
+    func startExplanationView(notification: Notification) {
         AppModel.sharedInstance.attackedItem = item
         AppModel.sharedInstance.isAttacking = true
         let vc = ExplanationViewController(item: item);

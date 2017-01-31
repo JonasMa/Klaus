@@ -216,5 +216,13 @@ class AppModel {
     func isGaming() -> Bool {
         return underAttack || isAttacking
     }
+    
+    func onGameStatusReserved(everythingOk: Bool) {
+        if everythingOk {
+            NotificationCenter.default.post(name: NotificationCenterKeys.startGame, object: nil);
+        }else{
+            displayAlert(title: Strings.statusNotOkTitle, message: Strings.statusNotOkMessage, buttonTitle: Strings.statusNotOkButton)
+        }
+    }
 }
 
