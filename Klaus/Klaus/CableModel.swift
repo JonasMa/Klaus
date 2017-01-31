@@ -27,7 +27,6 @@ class CableModel: UIImageView {
         self.screenHeight = screenSize.height
         
         let randomFactor = Int(arc4random_uniform(2))
-        print(randomFactor)
         self.animationEndPoint = [self.screenWidth, 0]
         self.randomAnimationEndPosition = animationEndPoint[randomFactor]
         self.cablePosition = [CGPoint(x: 0.0, y: 0.0), CGPoint(x: screenWidth, y: 0.0)]

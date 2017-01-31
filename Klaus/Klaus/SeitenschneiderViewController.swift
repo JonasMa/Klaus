@@ -1,17 +1,26 @@
 
 
+// 
+
 import UIKit
 
 class SeitenschneiderViewController: UIViewController {
     
     let gameID = 3
     var seitenSchneiderModel: SeitenschneiderModel!
+    var timer: StopwatchTimer!
     
     let screenSize: CGRect = UIScreen.main.bounds
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
     
     var seitenschneiderGradient: CAGradientLayer!
+    
+    var timeDisplay: UIImageView!
+    
+    var zangeOne: UIImageView!
+    var zangeTwo: UIImageView!
+    var zangeThree: UIImageView!
     
     override func viewDidLoad() {
         screenHeight = screenSize.height
@@ -20,6 +29,10 @@ class SeitenschneiderViewController: UIViewController {
     super.viewDidLoad()
         seitenSchneiderModel = SeitenschneiderModel(viewController: self)
         self.navigationItem.setHidesBackButton(true, animated: false)
+        
+        self.timer = StopwatchTimer.init(needGameUpdate: true, maxDuration: 30)
+        timer.startTimer()
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.timerMaxDurationReached, object: nil, queue: nil, using: timeLine)
         
         initializeUI()
     }
@@ -31,7 +44,6 @@ class SeitenschneiderViewController: UIViewController {
     func initializeUI() {
         //self.view.backGroundColor = Style.bg
         
-        // Initialize Gradient
         seitenschneiderGradient = CAGradientLayer()
         seitenschneiderGradient.colors = Style.gradientColorsSeitenschneider
         seitenschneiderGradient.locations = Style.gradientLocationsSeitenschneider as [NSNumber]?
@@ -39,10 +51,22 @@ class SeitenschneiderViewController: UIViewController {
         
         self.view.layer.addSublayer(seitenschneiderGradient)
         
-        // 3 Bilder von ner Zange reinmachen
-//        for _ in 0 ..<3 {
-//            
-//        }
+        zangeOne = getSeitenschneiderImage()
+        setSeitenschneiderImage(seitenschneiderImage: zangeOne, position: CGFloat(-screenWidth / 5))
+        
+        zangeTwo = getSeitenschneiderImage()
+        setSeitenschneiderImage(seitenschneiderImage: zangeTwo, position: 0)
+        
+        zangeThree = getSeitenschneiderImage()
+        setSeitenschneiderImage(seitenschneiderImage: zangeThree, position: CGFloat(screenWidth / 5))
+    }
+    
+    func destroyZange() {
+        let images = [zangeOne, zangeTwo, zangeThree]
+        images[(seitenSchneiderModel.strikes)]?.image = UIImage(named: "axe")
+    }
+    
+    func timeLine(notification: Notification){
         
     }
     
@@ -53,9 +77,31 @@ class SeitenschneiderViewController: UIViewController {
     }
 
     func startResultViewController() {
-        let score = seitenSchneiderModel.score
-        let vc = ResultViewController(result: Double(score), gameID: gameID)
-        navigationController?.pushViewController(vc, animated: true)
+        timer.stopTimer()
+        self.view.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let score = self.seitenSchneiderModel.score
+            let vc = ResultViewController(result: Double(score), gameID: self.gameID)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
+}
 
+extension UIViewController {
+    
+    func getSeitenschneiderImage() ->UIImageView{
+        let seitenschneiderImage = UIImageView()
+        seitenschneiderImage.image = UIImage(named: "zange")
+        seitenschneiderImage.translatesAutoresizingMaskIntoConstraints = false
+        return seitenschneiderImage
+    }
+    
+    func setSeitenschneiderImage(seitenschneiderImage: UIImageView, position: CGFloat){
+        self.view.addSubview(seitenschneiderImage)
+        self.view.bringSubview(toFront: seitenschneiderImage)
+        seitenschneiderImage.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
+        seitenschneiderImage.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
+        seitenschneiderImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: position).isActive = true
+        seitenschneiderImage.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -225).isActive = true
+    }
 }

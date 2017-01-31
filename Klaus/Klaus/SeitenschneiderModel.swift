@@ -8,9 +8,7 @@ class SeitenschneiderModel {
     var seitenSchneiderViewController: SeitenschneiderViewController!
     var cableModelObject: CableModel!
     var allCables: [CableModel]!
-    
-    let timer: StopwatchTimer!
-    
+        
     let targetCableColor = UIColor.blue
     let maxNumCablesInGame = 12
     var score = 0
@@ -22,9 +20,8 @@ class SeitenschneiderModel {
         self.seitenSchneiderViewController = viewController
         self.allCables = [CableModel]()
         
-        self.timer = StopwatchTimer.init(needGameUpdate: true, maxDuration: 15)
-        timer.startTimer()
-        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.timerMaxDurationReached, object: nil, queue: nil, using: gameEnded)
+
+        
         // Add start cables
         addCables(isMainTargetColor: true, numOfCables: 4)
         addCables(isMainTargetColor: false, numOfCables: 6)
@@ -42,7 +39,6 @@ class SeitenschneiderModel {
                 cableModelObject = CableModel(color: getRandomCableColor(), model: self)
             }
             allCables.append(cableModelObject)
-//            seitenSchneiderViewController.view.addSubview(cableModelObject)
             seitenSchneiderViewController.view.insertSubview(cableModelObject, at: 0)
         }
     }
@@ -55,40 +51,40 @@ class SeitenschneiderModel {
         for cable in allCables{
             if cable.checkTouch(touchLocation: touchLoc){
                 let index = allCables.index(of: cable)
-                addNewCablesInGame()
+                if cable.backgroundColor == targetCableColor {
+                    addCables(isMainTargetColor: true, numOfCables: 1)
+                } else {
+                    addCables(isMainTargetColor: false, numOfCables: 1)
+                }
                 allCables.remove(at: index!)
             }
         }
     }
     
-    func addNewCablesInGame() {
-        let numCablesWhichCanBeAdded = maxNumCablesInGame - allCables.count
-        if numCablesWhichCanBeAdded > 3 {
-            addCables(isMainTargetColor: true, numOfCables: Int(arc4random_uniform(UInt32(3))))
-        } else {
-            addCables(isMainTargetColor: true, numOfCables: Int(arc4random_uniform(UInt32(numCablesWhichCanBeAdded))))
-        }
-    }
-    
+//    func addNewCablesInGame() {
+////        let numCablesWhichCanBeAdded = maxNumCablesInGame - allCables.count
+////        if numCablesWhichCanBeAdded > 3 {
+////            addCables(isMainTargetColor: true, numOfCables: 1)
+////            addCables(isMainTargetColor: false, numOfCables: Int(arc4random_uniform(UInt32(2))))
+////        } else {
+////            addCables(isMainTargetColor: true, numOfCables: Int(arc4random_uniform(UInt32(numCablesWhichCanBeAdded))))
+////        }
+//    }
+//    
     func increaseScore() {
         score += 1
     }
     
     func decreaseScore() {
+        seitenSchneiderViewController.destroyZange()
         strikes += 1
-        if score > 0 {
-           score -= 1
-        }
         if strikes >= 3 {
-            timer.stopTimer()
-            seitenSchneiderViewController.startResultViewController()
+            gameEnded()
         }
     }
     
-    func gameEnded(notification:Notification){
-        timer.stopTimer()
+    func gameEnded(){
         seitenSchneiderViewController.startResultViewController()
-        // weiterverschicken: timer.duration
     }
     
 }
