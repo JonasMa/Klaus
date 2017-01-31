@@ -38,6 +38,10 @@ class ExplanationViewController: UIViewController {
         explanationLabel.font = Style.bodyTextFont
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.hidesBottomBarWhenPushed = true
+    }
+    
     //TODO: attach appropriate GameControllers and Explanation Strings
     func delegateGameController() -> Void {
         explanationLabel.text = item.getGameExplanation();
