@@ -26,15 +26,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         nameLabel = UILabel();
         nameLabel.text = "Bitte trage hier deinen Namen ein";
         nameLabel.translatesAutoresizingMaskIntoConstraints = false;
-        nameLabel.font = UIFont.systemFont(ofSize: 16)
+        nameLabel.font = Style.titleTextFont
+        nameLabel.textColor = Style.primaryTextColor
         self.view.addSubview(nameLabel);
         
         nameTextField = UITextField();
         nameTextField.placeholder = "Dein Name";
         nameTextField.delegate = self;
         nameTextField.translatesAutoresizingMaskIntoConstraints = false;
-        nameTextField.font = UIFont.systemFont(ofSize: 16);
+        nameTextField.font = Style.bodyTextFont
         nameTextField.textAlignment = .center;
+        nameTextField.textColor = Style.primaryTextColor
         self.view.addSubview(nameTextField);
         nameTextField.becomeFirstResponder()
         

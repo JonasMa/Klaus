@@ -71,7 +71,7 @@ struct Strings {
     
     // Tutorial texts
     static let chooseAvatarText = "Tarnung Wählen"
-    static let chooseAvatarDescriptionText = "Suche dir einen Avatar aus, dem deine Visage am meisten ähnelt."
+    static let chooseAvatarDescriptionText = "Such dir eine Visage aus!"
     
     static let headLineColorText = "Farbe Bekennen"
     static let descritpionColorText = "Wähle eine Farbe aus, die zu deiner diebischen Seele passt."
