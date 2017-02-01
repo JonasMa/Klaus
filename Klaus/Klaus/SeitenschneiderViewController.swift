@@ -31,8 +31,16 @@ class SeitenschneiderViewController: UIViewController {
         screenWidth = screenSize.width
         
     super.viewDidLoad()
-        seitenSchneiderModel = SeitenschneiderModel(viewController: self)
         self.navigationItem.setHidesBackButton(true, animated: false)
+
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        seitenSchneiderModel = SeitenschneiderModel(viewController: self)
         
         self.timer = StopwatchTimer.init(needGameUpdate: true, maxDuration: maxGameDuration)
         timer.startTimer()
@@ -40,10 +48,6 @@ class SeitenschneiderViewController: UIViewController {
         
         initializeImages()
         initializeTimeline()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
     func initializeImages() {
@@ -89,7 +93,7 @@ class SeitenschneiderViewController: UIViewController {
     func destroyZange() {
         let images = [zangeOne, zangeTwo, zangeThree]
         if seitenSchneiderModel.strikes < 3 {
-            images[(seitenSchneiderModel.strikes)]?.image = UIImage(named: "axe")
+            images[(seitenSchneiderModel.strikes)]?.image = UIImage(named: "zange_kaputt")
         }
     }
     
@@ -111,18 +115,16 @@ class SeitenschneiderViewController: UIViewController {
     func startResultViewController() {
         timer.resetTimer()
         self.view.isUserInteractionEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let score = self.seitenSchneiderModel.score
-            let vc = ResultViewController(result: Double(score), gameID: self.gameID)
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        let score = self.seitenSchneiderModel.score
+        let vc = ResultViewController(result: Double(score), gameID: self.gameID)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension UIViewController {
     func getSeitenschneiderImage() ->UIImageView{
         let seitenschneiderImage = UIImageView()
-        seitenschneiderImage.image = UIImage(named: "zange")
+        seitenschneiderImage.image = UIImage(named: "zange_bunt")
         seitenschneiderImage.translatesAutoresizingMaskIntoConstraints = false
         return seitenschneiderImage
     }

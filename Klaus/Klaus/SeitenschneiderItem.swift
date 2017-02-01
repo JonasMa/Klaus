@@ -27,7 +27,7 @@ class SeitenschneiderItem: Item {
     }
     
     static func initNewItem() -> Item{
-        return SeitenschneiderItem(id: Item.newId(), displayName: "Seitenschneider", pointsPerSecond: Config.seitenschneidBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
+        return SeitenschneiderItem(id: Item.newId(), displayName: "Seitenschneiderin", pointsPerSecond: Config.seitenschneidBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
     }
     
     override func getInfoString() -> String{

@@ -25,7 +25,7 @@ class MainTabBarController: UITabBarController {
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, queue: nil, using: triggerExplanationView)
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.showAlertNotification, object: nil, queue: nil, using: displayAlert)
         
-        let tabOneBarItem = UITabBarItem(title: "Profil", image: UIImage(named: "profileTab"), tag: 0);
+        let tabOneBarItem = UITabBarItem(title: "Profil", image: UIImage(named: "klausi"), tag: 0);
         let tabTwoBarItem = UITabBarItem(title: "Gegner", image: UIImage(named: "enemyTab"), tag: 1);
         
         tabOne.tabBarItem = tabOneBarItem;

@@ -31,7 +31,7 @@ struct Style{
     static func primaryButtonBackgroundGradient() -> CAGradientLayer {
         let buttonGradient = CAGradientLayer()
         buttonGradient.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        buttonGradient.colors = [UIColor(red:0.11, green:0.38, blue:0.94, alpha:1.0).cgColor, UIColor(red: 86.0/255.0, green: 197.0/255.0, blue: 238.0/255.0, alpha: 1.0).cgColor]
+        buttonGradient.colors = [Style.accentColor.cgColor, Style.accentColor.cgColor]
         buttonGradient.locations = [0.0, 1.0]
         buttonGradient.cornerRadius = 10;
         return buttonGradient
@@ -82,19 +82,20 @@ struct Style{
     
     static func gradientLocationAvatarView() ->[NSNumber]{
         let locationOfGradient = 0.25
+        let locationOfBotomGradient = 0.36
         return [0.0,
                 NSNumber(floatLiteral: locationOfGradient),
                 NSNumber(floatLiteral: locationOfGradient + 0.000000001),
                 NSNumber(floatLiteral: locationOfGradient + 0.05),
                 NSNumber(floatLiteral: locationOfGradient + 0.0500000001),
                 
-                NSNumber(floatLiteral: locationOfGradient + 0.4999999998),
-                NSNumber(floatLiteral: locationOfGradient + 0.5499999998),
-                NSNumber(floatLiteral: locationOfGradient + 0.5499999999),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.4999999998),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.5499999998),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.5499999999),
 
                 
-                NSNumber(floatLiteral: locationOfGradient + 0.6),
-                NSNumber(floatLiteral: locationOfGradient + 0.6000000001),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.6),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.6000000001),
                 1.0];
     }
     
