@@ -35,7 +35,6 @@ class EnemyListViewController: UIViewController {
             AppModel.sharedInstance.addEnemyToList(enemy: e);
             gerlinde = false;
         }
-        
     }
     
     override func viewDidLoad() {

@@ -20,17 +20,13 @@ struct Style{
     static var smallTextFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
     static var bodyTextFont = UIFont.systemFont(ofSize: 17, weight: UIFontWeightThin)
     static var titleTextFont = UIFont.systemFont(ofSize: 24, weight: UIFontWeightThin)
+    static var titleTextFontBold = UIFont.systemFont(ofSize: 24, weight: UIFontWeightBold)
     
     static var bg = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1);
     static var lines = UIColor(red: 206.0/255.0, green: 206.0/255.0, blue: 210.0/255.0, alpha: 1);
     static var bgTransparent = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 0.0);
     static var accentColor = UIColor(red: 52.0/255.0, green: 170.0/255.0, blue: 220.0/255.0, alpha: 1);
     
-    static var colorRed = UIColor(red:0.98, green:0.22, blue:0.22, alpha:1.0)
-    static var colorBlue = UIColor(red:0.22, green:0.57, blue:0.98, alpha:1.0)
-    static var colorYellow = UIColor(red:0.98, green:0.91, blue:0.22, alpha:1.0)
-    static var colorGreen = UIColor(red:0.22, green:0.98, blue:0.53, alpha:1.0)
-
     // Primary Button Gradient
     static func primaryButtonBackgroundGradient() -> CAGradientLayer {
         let buttonGradient = CAGradientLayer()

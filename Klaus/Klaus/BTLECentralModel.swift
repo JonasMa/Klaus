@@ -128,10 +128,13 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     @objc func checkKnownPeripheralsTimestamp () {
         let epoch: Double = Date().timeIntervalSince1970
         for (index, peripheral) in knownPeripherals.enumerated() {
-            if epoch - peripheralLastSeen[peripheral.identifier.uuidString]! > 2.0 {
-                knownPeripherals.remove(at: index)
-                peripheralLastSeen[peripheral.identifier.uuidString] = nil
-                delegate?.onEnemyDisappear (uuid: peripheral.identifier.uuidString)
+            let lastSeen: Double? = peripheralLastSeen[peripheral.identifier.uuidString]
+            if lastSeen != nil {
+                if epoch - lastSeen! > 2.0 {
+                    knownPeripherals.remove(at: index)
+                    peripheralLastSeen[peripheral.identifier.uuidString] = nil
+                    delegate?.onEnemyDisappear (uuid: peripheral.identifier.uuidString)
+                }
             }
         }
     }
@@ -166,12 +169,28 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             print("CM no valid color received")
             return
         }
-        
-        let colorUI = UIColor(hexString: playerInfo[DATA_INDEX_COLOR])
+        print("Color String for Player \(playerInfo[DATA_INDEX_NAME]) is \(playerInfo[DATA_INDEX_COLOR])")
+        // there were some problems with the extracted hex string
+        let colorStrings = matches(for: "#(?:[0-9a-fA-F]){6}", in: playerInfo[DATA_INDEX_COLOR])
+        let validString = colorStrings.count != 0 ? colorStrings[0] : "#000000"
+        let colorUI = UIColor(hexString: validString)
         
         print("CM player details discovered. name: \(playerInfo[DATA_INDEX_NAME]), score: \(playerInfo[DATA_INDEX_SCORE])")
         
         delegate?.onPlayerDiscovered (name: playerInfo[DATA_INDEX_NAME], score: scoreInt, color: colorUI, avatar: playerInfo[DATA_INDEX_AVATAR], uuid: uuid)
+    }
+    
+    private func matches(for regex: String, in text: String) -> [String] {
+        
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            let nsString = text as NSString
+            let results = regex.matches(in: text, range: NSRange(location: 0, length: nsString.length))
+            return results.map { nsString.substring(with: $0.range)}
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return ["#000000"]
+        }
     }
     
     @objc func stopScan() {
@@ -226,18 +245,24 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private func onEomReceived(fromPeripheralUUIDString puuid: String, fromCharacteristicUUID uuid: CBUUID, dataString data: String) {
         switch uuid {
         case playerCharacteristicUUID:
-            let dataString: String = String(data: dataPlayer as Data, encoding: String.Encoding.utf8)!
-            onPlayerInfoReceived(receivedDataString: dataString, uuid: puuid)
+            onPlayerInfoReceived(receivedDataString: data, uuid: puuid)
             break
         case scoreReadCharacteristicUUID:
-            let dataString = String (data: dataPlayer as Data, encoding: String.Encoding.utf8)
-            let score = Double(dataString!)
+            let score = Double(data)
             if score != nil {
                 delegate?.onReceiveScoreFromEnemy(score: score!)
             }
             break
         case itemsCharacteristicUUID:
             onItemsAndAvatarReceived(dataString: data, uuid: puuid)
+            break
+        case feedbackCharacteristicUUID:
+            guard let feedbackCode = Int(data) else {
+                print("CM feedback not decodable: \(data)")
+                break
+            }
+            print("feedback received: \(data)")
+            delegate?.onAttackFeedback(feedbackCode: feedbackCode)
             break
         default:
             break
@@ -367,6 +392,8 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             print("CM Scanning stopped")
         }
         
+        delegate?.onConnected()
+        
         
         // Make sure we get the discovery callbacks
         peripheral.delegate = self
@@ -399,7 +426,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 peripheral.discoverCharacteristics([playerCharacteristicUUID], for: service)
             }
             else {
-                peripheral.discoverCharacteristics([scoreWriteCharacteristicUUID,scoreReadCharacteristicUUID, attackCharacteristicUUID, itemsCharacteristicUUID], for: service)
+                peripheral.discoverCharacteristics([scoreWriteCharacteristicUUID,scoreReadCharacteristicUUID, attackCharacteristicUUID, itemsCharacteristicUUID, feedbackCharacteristicUUID], for: service)
             }
         }
     }
@@ -452,6 +479,9 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 print("CM found writeAttackCharacteristic")
                 writeAttack = characteristic
                 //delegate?.didDiscoverWriteAttackCharacteristic(characteristic: characteristic)
+                break
+            case feedbackCharacteristicUUID:
+                print("CM found feedbackCharacteristic")
                 break
             default:
                 print("CM found unidentified Characteristic with uuid " + characteristic.uuid.uuidString)

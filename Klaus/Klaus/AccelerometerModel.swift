@@ -13,15 +13,20 @@ class AccelerometerModel {
     
     var motionManager: CMMotionManager!
     
+    let threshold: Double = 0.7
+    
     var currentX: Double = 0.0
     var currentY: Double = 0.0
     var currentZ: Double = 0.0
     var maxX: Double = 0.0
     var maxY: Double = 0.0
     var maxZ: Double = 0.0
+    var axe: AxeModel!
+    var axeStarted: Bool = false
     
     //Implements MotionManager, needed for calling accelerometer data and starts recording
-    init() {
+    init(axeModel: AxeModel) {
+        self.axe = axeModel
         motionManager = CMMotionManager()
         motionManager.accelerometerUpdateInterval = 0.2
         motionManager.startAccelerometerUpdates(to: OperationQueue.main) { [weak self] (data: CMAccelerometerData?, error: Error?) in
@@ -34,6 +39,13 @@ class AccelerometerModel {
         currentX = acceleration.x
         currentY = acceleration.y
         currentZ = acceleration.z
+        
+        if !axeStarted {
+            if ((maxX + maxY + maxZ)/3) > threshold {
+                axe.animateAxe()
+                axeStarted = true
+            }
+        }
         
         if (currentX > maxX) {
             maxX = currentX

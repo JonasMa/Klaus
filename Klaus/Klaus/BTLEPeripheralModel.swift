@@ -19,6 +19,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     private var attackCharacteristic: CBMutableCharacteristic?
     private var readScoreCharacteristic: CBMutableCharacteristic?
     private var writeScoreCharacteristic: CBMutableCharacteristic?
+    private var feedbackCharacteristic: CBMutableCharacteristic?
     
     // fata vars
     private var sendingData: Data?
@@ -49,6 +50,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         startStopAdvertising(doAdvertise: false)
     }
     
+    
     func setOwnScore (score: Double){
         print("PM set own score on readScoreCharacteristic")
         sendingData = String(score).data(using: String.Encoding.utf8)
@@ -68,7 +70,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 return
             }
             print("PM received on attackCharacteristic: item name: \(item.displayName)")
-            delegate?.receiveGameRequestFromAttacker(itemToBeStolen: item)
+            onGameRequest(onItem: item)
             break
             
         case scoreWriteCharacteristicUUID:
@@ -86,6 +88,18 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         }
     }
     
+    private func onGameRequest (onItem: Item) {
+        if (delegate?.isPlaying())! {
+            // no game
+            sendDataToCharacteristic(isOnSubscribe: false, info: FEEDBACK_BUSY, characteristicUUID: (feedbackCharacteristic?.uuid)!)
+        } else {
+            // game!
+            sendDataToCharacteristic(isOnSubscribe: false, info: FEEDBACK_AVAILABLE, characteristicUUID: (feedbackCharacteristic?.uuid)!)
+            delegate?.receiveGameRequestFromAttacker(itemToBeStolen: onItem)
+        }
+        
+    }
+    
     private func startStopAdvertising (doAdvertise: Bool) {
         
         isAtvertising = doAdvertise
@@ -95,9 +109,8 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
                 peripheralManager?.startAdvertising([
                     CBAdvertisementDataServiceUUIDsKey : [playerServiceUUID]
                     ])
-            } else {
+            } else if !doAdvertise {
                 peripheralManager?.stopAdvertising()
-                
             }
         }
     }
@@ -108,7 +121,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         }
     }
     
-    private func sendDataToCharacteristic(characteristicUUID: CBUUID) {
+    private func sendDataToCharacteristic(isOnSubscribe: Bool, info: Int?, characteristicUUID: CBUUID) {
         var sendString: String?
         
         switch characteristicUUID {
@@ -128,6 +141,12 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             sendString = AppModel.sharedInstance.player.getItemsString()
             sendingCharacteristic = itemsCharacteristic
             print("PM send own Items")
+            break
+        case (feedbackCharacteristic?.uuid)!:
+            if !isOnSubscribe {
+                sendString = String(info!)
+                sendingCharacteristic = feedbackCharacteristic
+            }
             break
         default:
             print("PM no uuid matching characteristic.uuid (\(characteristicUUID.uuidString))")
@@ -166,19 +185,26 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         
         writeScoreCharacteristic = CBMutableCharacteristic(
             type: scoreWriteCharacteristicUUID,
-            properties: CBCharacteristicProperties.write, // TODO: check if .write is necessary
+            properties: CBCharacteristicProperties.write,
             value: nil,
             permissions: CBAttributePermissions.writeable
         )
         
         itemsCharacteristic = CBMutableCharacteristic(
             type: itemsCharacteristicUUID,
-            properties: CBCharacteristicProperties.notify, // TODO: check if .write is necessary
+            properties: CBCharacteristicProperties.notify,
             value: nil,
             permissions: CBAttributePermissions.readable
         )
         
-        return [playerCharacteristic!, attackCharacteristic!, readScoreCharacteristic!, writeScoreCharacteristic!, itemsCharacteristic!]
+        feedbackCharacteristic = CBMutableCharacteristic(
+            type: feedbackCharacteristicUUID,
+            properties: CBCharacteristicProperties.notify,
+            value: nil,
+            permissions: CBAttributePermissions.readable
+        )
+        
+        return [playerCharacteristic!, attackCharacteristic!, readScoreCharacteristic!, writeScoreCharacteristic!, itemsCharacteristic!, feedbackCharacteristic!]
 
     }
     
@@ -321,7 +347,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         // And add it to the peripheral manager
         peripheralManager!.add(playerService)
         
-        if isAtvertising {
+        if !isAtvertising {
             startStopAdvertising(doAdvertise: true)
         }
     }
@@ -331,7 +357,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
      */
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         print("PM Central subscribed to characteristic")
-        sendDataToCharacteristic(characteristicUUID: characteristic.uuid)
+        sendDataToCharacteristic(isOnSubscribe: true, info: nil, characteristicUUID: characteristic.uuid)
     }
     
     

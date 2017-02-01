@@ -12,6 +12,7 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
     var stealButton: UIButton!;
     private var g: CAGradientLayer!;
+    private var timer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +31,13 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
         self.title = "Details";
         
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.startGame, object: nil, queue: nil, using: startExplanationView)
+        
         //CONSTRAINTS
         stealButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor,constant: -8).isActive = true;
         
         stealButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
         stealButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
-        
-        
-        
-        
     }
 
     override func viewDidLayoutSubviews() {
@@ -49,14 +48,28 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.hidesBottomBarWhenPushed = true
+    func buttonAction(sender: UIButton!) {
+        AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item)
+        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(onTriggerGameTimeout), userInfo: nil, repeats: false)
     }
     
-    func buttonAction(sender: UIButton!) {
+    func onAbortTriggerGameTimeout (){
+        if timer != nil {
+            timer?.invalidate()
+            timer = nil
+        }
+    }
+    
+    @objc func onTriggerGameTimeout() {
+        AppModel.sharedInstance.onGameStatusReceived(everythingOk: false)
+        timer = nil
+    }
+    
+    func startExplanationView(notification: Notification) {
+        onAbortTriggerGameTimeout()
+        AppModel.sharedInstance.attackedItem = item
+        AppModel.sharedInstance.isAttacking = true
         let vc = ExplanationViewController(item: item);
         navigationController?.pushViewController(vc, animated: true)
-        AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item)
-        AppModel.sharedInstance.attackedItem = item
     }
 }

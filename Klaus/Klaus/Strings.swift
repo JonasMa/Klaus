@@ -10,6 +10,11 @@ import Foundation
 
 struct Strings {
     
+    //Notification texts
+    static var statusNotOkTitle = "Oops!"
+    static var statusNotOkMessage = "The person you have called is currently not available. Please try again later."
+    static var statusNotOkButton = "Ich warte noch"
+    
     // Game titles
     static var axeGameTitle = "Axt Schwengel!"
     static var simonSaysTitle = "Pin Code MC!"
@@ -34,12 +39,12 @@ struct Strings {
     // Attack texts
     static var gratulation = "Gratulation!"
     static var fail = "Leider verkackt!"
-    static var successfullDefense = "Du hast dein Item erfolgreich verteidigt."
-    static var successfullAttack = "Du hast das Item erfolgreich gestohlen."
-    static var failedDefense = "Dir wurde dein Item gestohlen."
-    static var failedAttack = "Du warst zu wack um das Item zu klauen"
+    static var successfullDefense = "Du hast dein Item erfolgreich verteidigt!"
+    static var successfullAttack = "Du hast das Item erfolgreich gestohlen!"
+    static var failedDefense = "Dir wurde dein Item gestohlen!"
+    static var failedAttack = "Du warst zu wack um das Item zu klauen!"
     static var happyConfirmation = "Nice"
-    static var sadConfirmation = "Bam Bam Bam"
+    static var sadConfirmation = "Schade eigentlich"
     static var attention = "Obacht"
     static var attackOnYou = "Jemand versucht ein Item von dir zu klauen."
     static var startDefense = "Verteidigen"
@@ -57,7 +62,7 @@ struct Strings {
     static let seitenschneiderInfo = "Der Seitenschneider ist ein nicht verzehrbares Eisending. Die Verwendung ist jedoch von Art zu Art unterschiedlich. Der Seitenschneider ist eine typisch deutsche Erfindung: Ein Allzweckwerkzeug, dass immer griffbereit und sehr handlich ist. ";
     static let alarmInfo = "Alarm ist das, was ausgelöst wird, wenn die Unfähigkeit eines oder mehrerer Menschen die Grenzen des guten Geschmacks übersteigt und so zur Gefahr der Allgemeinheit wird.";
     
-    static let itemPointsPerSecond = "Punkte pro Sekunde"
+    static let itemPointsPerSecond = "Punkte pro Min"
     static let itemAcquisitionDate = "Eigentum seit"
     
     static let stealButtonText = "Nimm's Wag!";
