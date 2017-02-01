@@ -27,13 +27,10 @@ class StopwatchTimer:NSObject {
     
     func updateTime() {
         duration += 1
-        if needGameUpdate! {
-            if duration >= maxDuration {
-                NotificationCenter.default.post(name: NotificationCenterKeys.timerMaxDurationReached, object: nil, userInfo: nil)
-            } else {
-                NotificationCenter.default.post(name: NotificationCenterKeys.timerAfterOneSecond, object: nil, userInfo: nil)
-            }
+        if needGameUpdate! && duration >= maxDuration {
+            NotificationCenter.default.post(name: NotificationCenterKeys.timerMaxDurationReached, object: nil, userInfo: nil)
         }
+        NotificationCenter.default.post(name: NotificationCenterKeys.timerAfterOneSecond, object: nil, userInfo: nil)
     }
     
     func stopTimer() {

@@ -36,7 +36,6 @@ class SeitenschneiderModel {
                 cableModelObject = CableModel(color: getRandomCableColor(), model: self)
             }
             allCables.append(cableModelObject)
-            print("speed: \(cableModelObject.cableSpeed)")
             seitenSchneiderViewController.view.insertSubview(cableModelObject, at: 0)
         }
     }
@@ -51,10 +50,10 @@ class SeitenschneiderModel {
                 let index = allCables.index(of: cable)
                 cableModelObject.cableSpeed = cableModelObject.cableSpeedFast
                 if cable.backgroundColor == targetCableColor {
-                    seitenSchneiderViewController.startAnimatingTimeLine(addedDuration: 1)
+                    seitenSchneiderViewController.timerTimeChanged(addedDuration: 1)
                     addCables(isMainTargetColor: true, numOfCables: 1)
                 } else {
-                    seitenSchneiderViewController.startAnimatingTimeLine(addedDuration: -5)
+                    seitenSchneiderViewController.timerTimeChanged(addedDuration: -5)
                     addCables(isMainTargetColor: false, numOfCables: 1)
                 }
                 allCables.remove(at: index!)

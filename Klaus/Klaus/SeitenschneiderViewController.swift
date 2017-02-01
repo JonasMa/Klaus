@@ -16,7 +16,7 @@ class SeitenschneiderViewController: UIViewController {
     
     var seitenschneiderGradient: CAGradientLayer!
     
-    var maxGameDuration = 10
+    var maxGameDuration = 20
     var timeDisplay: UIImageView!
     var timeDisplaySize: CGSize!
     var timeDisplayPosition: CGPoint!
@@ -65,43 +65,30 @@ class SeitenschneiderViewController: UIViewController {
         timeDisplayPosition = CGPoint(x: 0, y: screenHeight - timeDisplaySize.height)
         timeDisplay = UIImageView(frame: CGRect(origin: timeDisplayPosition, size: timeDisplaySize))
         timeDisplay.backgroundColor = UIColor.cyan
+        lastDisplayFrame = timeDisplay.frame
         self.view.addSubview(timeDisplay)
         self.view.bringSubview(toFront: timeDisplay)
-        startAnimatingTimeLine(addedDuration: 0)
+        startAnimatingTimeLine()
     }
     
-    func startAnimatingTimeLine(addedDuration: Int) {
+    func timerTimeChanged(addedDuration: Int) {
         timer.maxDuration = timer.maxDuration+addedDuration
-//        lastDisplayFrame = timeDisplay.frame
-////        print("frame: \(timeDisplay.frame)")
-////        maxGameDuration = maxGameDuration + addedDuration
-////        timer.maxDuration = maxGameDuration
-//
-//
-//        timeDisplay.layer.presentation()?.removeAllAnimations()
-//        timeDisplay.frame = lastDisplayFrame
-//        UIView.animate(withDuration: TimeInterval(self.maxGameDuration), delay: 0.0, options: .curveEaseOut, animations: {
-//            self.timeDisplay.frame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: CGFloat(0), height: self.timeDisplaySize.height)
-//        }, completion: nil)
-        
-        // start animating: 
-        // länge = voll 
-        
-        // wenn was dazu kommt: animation stop.
-        // länge setzten 
-        // animation start
-        
-        // wenn was abgezogen wird: 
-        // animation stop
-        // länge setzten 
-        // animation start
-        
-        
+        print("time added / subtracted")
+        startAnimatingTimeLine()
+    }
+    
+    func startAnimatingTimeLine() {
+        timeDisplay.layer.presentation()?.removeAllAnimations()
+        timeDisplay.frame = CGRect(x: timeDisplayPosition.x, y: timeDisplayPosition.y, width: (timeDisplaySize.width-CGFloat(timer.maxDuration!*10)), height: timeDisplaySize.height)
+
+        UIView.animate(withDuration: TimeInterval(self.timer.maxDuration), delay: 0.0, options: .curveEaseOut, animations: {
+            self.timeDisplay.frame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: CGFloat(0), height: self.timeDisplaySize.height)
+        }, completion: nil)
     }
     
     func destroyZange() {
         let images = [zangeOne, zangeTwo, zangeThree]
-        if seitenSchneiderModel.strikes <= 3 {
+        if seitenSchneiderModel.strikes < 3 {
             images[(seitenSchneiderModel.strikes)]?.image = UIImage(named: "axe")
         }
     }
@@ -122,7 +109,7 @@ class SeitenschneiderViewController: UIViewController {
     }
 
     func startResultViewController() {
-        timer.stopTimer()
+        timer.resetTimer()
         self.view.isUserInteractionEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             let score = self.seitenSchneiderModel.score
