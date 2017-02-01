@@ -4,7 +4,11 @@
 //
 //  Created by Jonas Programmierer on 15.01.17.
 //  Copyright © 2017 Nimm Swag. All rights reserved.
-//
+// Some basic parts are based on
+// https://github.com/0x7fffffff/Core-Bluetooth-Transfer-Demo
+// which itself is a translation from
+// https://developer.apple.com/library/ios/samplecode/BTLE_Transfer/Introduction/Intro.html
+// like sending chunks
 
 import UIKit
 import CoreBluetooth
@@ -65,12 +69,20 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         switch uuid {
             
         case attackCharacteristicUUID:
-            guard let item = Item.decode(toDecode: dataString) else {
+            let data: [String] = dataString.components(separatedBy: SEPARATOR_NAME_SCORE_ITEMS)
+            guard let item = Item.decode(toDecode: data[DATA_INDEX_ATTACKED_ITEM]) else {
                 print("PM item not decodable in attack request. \(dataString)")
                 return
             }
+            if data.count > 1 {
+                onGameRequest(onItem: item, attackerName: data[DATA_INDEX_ATTACKER_NAME])
+            }
+            else {
+                print("ERROR: no name received or string not splittable: \(dataString)")
+                onGameRequest(onItem: item, attackerName: "Unknown Player")
+            }
+            
             print("PM received on attackCharacteristic: item name: \(item.displayName)")
-            onGameRequest(onItem: item)
             break
             
         case scoreWriteCharacteristicUUID:
@@ -88,14 +100,14 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         }
     }
     
-    private func onGameRequest (onItem: Item) {
+    private func onGameRequest (onItem: Item, attackerName name: String) {
         if (delegate?.isPlaying())! {
             // no game
             sendDataToCharacteristic(isOnSubscribe: false, info: FEEDBACK_BUSY, characteristicUUID: (feedbackCharacteristic?.uuid)!)
         } else {
             // game!
             sendDataToCharacteristic(isOnSubscribe: false, info: FEEDBACK_AVAILABLE, characteristicUUID: (feedbackCharacteristic?.uuid)!)
-            delegate?.receiveGameRequestFromAttacker(itemToBeStolen: onItem)
+            delegate?.receiveGameRequestFromAttacker(itemToBeStolen: onItem, attackerName: name)
         }
         
     }

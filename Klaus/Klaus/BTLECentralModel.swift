@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Programmierer on 15.01.17.
 //  Copyright © 2017 Nimm Swag. All rights reserved.
-// Some parts are based on
+// Some basic parts are based on
 // https://github.com/0x7fffffff/Core-Bluetooth-Transfer-Demo
 // which itself is a translation from
 // https://developer.apple.com/library/ios/samplecode/BTLE_Transfer/Introduction/Intro.html
@@ -163,6 +163,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             }
         }
         print("CM no matching peripheral found for uuid " + uuid)
+        delegate?.onEnemyDisappear(uuid: uuid)
     }
     
     private func sendPendingAttack () {
@@ -171,10 +172,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             print("CM no item cached to be stolen")
             return
         }
-        let itemString: String = item.toString()
+        let attackString: String = item.toString() + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.name
         if writeAttack != nil {
             //connectedPeripheral?.setNotifyValue(true, for: writeAttack!) // TOCO check if necessary
-            writeToPeripheral(onCharacteristic: writeAttack!, toWrite: itemString)
+            writeToPeripheral(onCharacteristic: writeAttack!, toWrite: attackString)
         }
         else {
             print("CM characteristic writeAttack peripheral not known :(")
@@ -293,7 +294,9 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     private func cancelPeripheralConnection() {
         // If we've got this far, we're connected, but we're not subscribed, so we just disconnect
+        
         if connectedPeripheral != nil {
+            print("CM cancelPeripheralConnection")
             centralManager?.cancelPeripheralConnection(connectedPeripheral!)
             connectedPeripheral = nil
         }

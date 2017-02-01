@@ -13,7 +13,7 @@ class EnemyListViewController: UIViewController {
     var enemyTableViewController: EnemyTableViewController!;
     
     //test
-    let gerlinde = true; // gerlinde causes EXC_BAD_ACCESS on iPhone 6S
+    var gerlinde = true; // gerlinde causes EXC_BAD_ACCESS on iPhone 6S
     
     override func loadView() {
         self.view = EnemyListView(frame: UIScreen.main.bounds);
@@ -34,7 +34,7 @@ class EnemyListViewController: UIViewController {
             e.setAvatar(avatar: "coffee");
             e.uuid = ""
             AppModel.sharedInstance.addEnemyToList(enemy: e);
-//            gerlinde = false;
+            gerlinde = false;
         }
 
         

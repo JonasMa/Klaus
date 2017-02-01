@@ -129,8 +129,8 @@ class AppModel {
         BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem, onPlayerUuuidString: uuid)
     }
     
-    func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
-        resetScores()
+    func triggerIncomingGameFromEnemy(itemToBeStolen: Item, attackerName: String) {
+        resetScores() // TODO: name in alert anzeigen
         underAttack = true
         attackedItem = itemToBeStolen
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);

@@ -103,8 +103,8 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         central.refreshEnemyList()
     }
     
-    func receiveGameRequestFromAttacker(itemToBeStolen: Item) {
-        AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: itemToBeStolen)
+    func receiveGameRequestFromAttacker(itemToBeStolen: Item, attackerName name: String) {
+        AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: itemToBeStolen, attackerName: name)
     }
     
     /*!
