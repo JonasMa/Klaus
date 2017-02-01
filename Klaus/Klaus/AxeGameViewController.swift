@@ -23,9 +23,9 @@ class AxeGameViewController: UIViewController {
         super.viewDidLoad()
         countdownValueLabel.font = Style.titleTextFontBold
         self.navigationItem.setHidesBackButton(true, animated: false)
-        accelerometerModel = AccelerometerModel()
-        countdown = CountdownModel(vc: self)
         axe = AxeModel()
+        accelerometerModel = AccelerometerModel(axeModel: axe)
+        countdown = CountdownModel(vc: self)
         self.view.addSubview(axe)
     }
     
