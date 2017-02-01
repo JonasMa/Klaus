@@ -11,7 +11,7 @@ import UIKit
 
 class AlarmItem: Item {
     
-    private static let IMAGE_NAME = "Alarm";
+    private static let IMAGE_NAME = "alarmi";
 
     override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
         super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor);
@@ -34,7 +34,7 @@ class AlarmItem: Item {
     }
     
     static func initNewItem() -> Item{
-        return AlarmItem(id: Item.newId(), displayName: "Alarm", pointsPerSecond: Config.alarmBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
+        return AlarmItem(id: Item.newId(), displayName: "Alarmi", pointsPerSecond: Config.alarmBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
     }
     
     override func getInfoString() -> String{
