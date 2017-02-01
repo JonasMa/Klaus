@@ -15,6 +15,7 @@ class SimonSaysViewController: UIViewController {
     
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var commentator: UILabel!
+    @IBOutlet weak var alarmi: UIImageView!
     
     let gameID = 1
     let simonSaysModel: SimonSaysModel = SimonSaysModel()
@@ -36,6 +37,7 @@ class SimonSaysViewController: UIViewController {
         changeLabel(label: commentator, newText: Strings.simonSaysComputersTurnText)
         //changeColor(uiElement: display, color: "black")
         display.textColor = UIColor.black
+        alarmi.image = UIImage(named: "alarmi_normal")
         
         if simonSaysModel.computersTurn() {
             let digit = simonSaysModel.code.last
@@ -66,9 +68,11 @@ class SimonSaysViewController: UIViewController {
         changeLabel(label: display, newText: digitsCurrentlyDisplayed + button)
         
         switch simonSaysModel.playersTurn(playerInput: button) {
-        case "wrong": display.textColor = UIColor.red
+        case "wrong": alarmi.image = UIImage(named: "alarmi_traurig")
+            display.textColor = UIColor.red
             allowUserInteraction(possible: false); gameFinished(gameWon: false);
-        case "right": display.textColor = UIColor(red: 0.1725, green: 0.4784, blue: 0, alpha: 1.0)
+        case "right": alarmi.image = UIImage(named: "alarmi_bunt")
+            display.textColor = UIColor(red: 0.1725, green: 0.4784, blue: 0, alpha: 1.0)
             allowUserInteraction(possible: false); delay(delay: 1.5) {self.animateCurrentCode()};
         case "not finished": break
         default: break

@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SimonSaysViewController" customModule="Klaus" customModuleProvider="target">
             <connections>
+                <outlet property="alarmi" destination="JuC-bZ-ftS" id="w6X-Yj-xvh"/>
                 <outlet property="commentator" destination="aMA-oF-L1F" id="z1w-mG-rMt"/>
                 <outlet property="display" destination="TC1-Dg-xya" id="pNN-B0-avh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -20,13 +21,13 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stahal" translatesAutoresizingMaskIntoConstraints="NO" id="OO0-HN-6aW"/>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="display" translatesAutoresizingMaskIntoConstraints="NO" id="V3C-8w-NI5">
-                    <frame key="frameInset" minX="12.80%" minY="31.93%" width="74.40%" height="17.69%"/>
+                    <frame key="frameInset" minX="12.80%" minY="31.78%" width="74.40%" height="17.69%"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gib den richtigen Text ein!" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="aMA-oF-L1F">
-                    <frame key="frameInset" minX="19.47%" minY="32.23%" width="60.80%" height="11.39%"/>
+                    <frame key="frameInset" minX="19.47%" minY="32.08%" width="60.80%" height="11.39%"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -44,7 +45,7 @@
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TC1-Dg-xya">
                     <frame key="frameInset" minX="19.47%" minY="39.13%" width="60.53%" height="7.95%"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -140,7 +141,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.90000000000000002" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2q-3l-jfw">
-                    <frame key="frameInset" minX="19.47%" minY="73.61%" width="18.93%" height="10.64%"/>
+                    <frame key="frameInset" minX="19.47%" minY="73.46%" width="18.93%" height="10.64%"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="7" backgroundImage="notPressed">
                         <color key="titleColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -156,7 +157,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.90000000000000002" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JHz-TM-14F">
-                    <frame key="frameInset" minX="40.27%" minY="73.61%" width="18.93%" height="10.64%"/>
+                    <frame key="frameInset" minX="40.27%" minY="73.46%" width="18.93%" height="10.64%"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="8" backgroundImage="notPressed">
                         <color key="titleColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -172,7 +173,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.90000000000000002" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eB-Q5-iYw">
-                    <frame key="frameInset" minX="61.60%" minY="73.61%" width="18.67%" height="10.64%"/>
+                    <frame key="frameInset" minX="61.60%" minY="73.46%" width="18.67%" height="10.64%"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="9" backgroundImage="notPressed">
                         <color key="titleColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -251,6 +252,10 @@
                         <action selector="touchDigit:" destination="-1" eventType="touchUpInside" id="KVs-Qx-dTq"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alarmi_normal" translatesAutoresizingMaskIntoConstraints="NO" id="JuC-bZ-ftS">
+                    <frame key="frameInset" minX="31.73%" minY="11.69%" width="36.53%" height="19.19%"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -263,6 +268,7 @@
         </view>
     </objects>
     <resources>
+        <image name="alarmi_normal" width="500" height="500"/>
         <image name="display" width="550" height="214"/>
         <image name="notPressed" width="170" height="170"/>
         <image name="pressed" width="170" height="170"/>
