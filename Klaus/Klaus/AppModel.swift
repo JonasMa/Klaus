@@ -172,7 +172,7 @@ class AppModel {
                 displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
                 self.player.addItem(item: attackedItem);
             }
-            let bonus = personalScore!/(enemyScore!+0.0001)
+            let bonus = 1 - enemyScore!/personalScore!
             scoreBonus(value: bonus)
         }else if (enemyScore! > personalScore!){
             if underAttack { // Item verloren
@@ -181,7 +181,7 @@ class AppModel {
             }else{ // Item nicht gewonnen
                 displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
             }
-            let penalty = enemyScore!/(personalScore!+0.0001)
+            let penalty = 1 - personalScore!/enemyScore!
             scorePenalty(value: penalty)
         }else if (personalScore! == enemyScore!){
             if underAttack {

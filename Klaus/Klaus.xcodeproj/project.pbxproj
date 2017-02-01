@@ -527,7 +527,7 @@
 				TargetAttributes = {
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 87X3F5FDGG;
+						DevelopmentTeam = L7VW28QFMH;
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -807,11 +807,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 87X3F5FDGG;
+				DEVELOPMENT_TEAM = L7VW28QFMH;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagolli;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -822,11 +822,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 87X3F5FDGG;
+				DEVELOPMENT_TEAM = L7VW28QFMH;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagolli;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
