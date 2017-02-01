@@ -42,6 +42,21 @@ class EnemyProfile: Profile{
         NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyLevelNotification, object: nil, userInfo: ["level": score]);
     }
     
+    func setItems(items: Array<Item>){
+        self.items = items;
+        self.updateItemsInView();
+    }
+    
+    func updateItemsInView(){
+        var itemDict = Dictionary<Int,Item>();
+        if !items.isEmpty{
+            for i in 0...(items.count-1){
+                itemDict[i] = items[i];
+            }
+        }
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyItemsNotification, object: nil, userInfo: itemDict)
+    }
+    
     /*!
      * Compares if the uuid is the same
      *

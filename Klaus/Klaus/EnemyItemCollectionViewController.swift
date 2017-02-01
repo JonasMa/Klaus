@@ -27,6 +27,8 @@ class EnemyItemCollectionViewController: ItemCollectionViewController {
 
         setLoadingView();
         
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updateEnemyItemsNotification, object: nil, queue: nil, using: updateItems);
+        
     }
 
     override func didReceiveMemoryWarning() {

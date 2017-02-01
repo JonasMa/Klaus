@@ -18,7 +18,6 @@ class PlayerProfileViewController: ProfileViewController {
         super.viewWillAppear(animated);
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerScoreNotification, object: nil, queue: nil, using: updateScore)
         
-        // Muss noch geändert werden
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerLevelNotification, object: nil, queue: nil, using: updatePlayerLevel)
         
         profileNameLabel.text = profile!.name;
@@ -30,11 +29,11 @@ class PlayerProfileViewController: ProfileViewController {
         profileImageView.image = UIImage(named: profile!.profileAvatar)?.withRenderingMode(.alwaysTemplate)
         profileImageView.tintColor = profile!.profileColor;
         //profileImageView.layer.shadowColor = profile.profileColor.cgColor;
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
-        NotificationCenter.default.removeObserver(self, name: NotificationCenterKeys.updatePlayerScoreNotification, object: nil);
     }
     
     override func viewDidAppear(_ animated: Bool) {
