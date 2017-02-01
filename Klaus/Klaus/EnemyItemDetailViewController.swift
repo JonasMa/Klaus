@@ -56,14 +56,13 @@ class EnemyItemDetailViewController: ItemDetailViewController {
             print("ERROR: enemyUuid is nil in EnemyItemDetailViewController.buttonAction()")
             return
         }
-        
         AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item, onPlayerUuuidString: enemyUuid!)
         timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(onTriggerGameTimeout), userInfo: nil, repeats: false)
     }
     
     func onAbortTriggerGameTimeout (){
         if timer != nil {
-            timer?.invalidate()
+            timer!.invalidate()
             timer = nil
         }
     }
