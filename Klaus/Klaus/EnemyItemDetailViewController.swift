@@ -63,7 +63,7 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
     func onAbortTriggerGameTimeout (){
         if timer != nil {
-            timer?.invalidate()
+            timer!.invalidate()
             timer = nil
         }
     }
