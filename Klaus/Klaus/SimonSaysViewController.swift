@@ -34,7 +34,8 @@ class SimonSaysViewController: UIViewController {
         
         changeLabel(label: display, newText: "")
         changeLabel(label: commentator, newText: Strings.simonSaysComputersTurnText)
-        changeColor(uiElement: display, color: "black")
+        //changeColor(uiElement: display, color: "black")
+        display.textColor = UIColor.black
         
         if simonSaysModel.computersTurn() {
             let digit = simonSaysModel.code.last
@@ -45,10 +46,10 @@ class SimonSaysViewController: UIViewController {
             
             print("\nYour turn \(simonSaysModel.code)")
             
-            delay(delay: 2.0){
+            delay(delay: 1.5){
                 self.changeLabel(label: self.display, newText: "")
                 self.allowUserInteraction(possible: true);
-                self.changeColor(uiElement: self.display, color: "blue");
+                //self.changeColor(uiElement: self.display, color: "blue");
                 self.stopWatchTimer.startTimer()
             }
             
@@ -65,8 +66,10 @@ class SimonSaysViewController: UIViewController {
         changeLabel(label: display, newText: digitsCurrentlyDisplayed + button)
         
         switch simonSaysModel.playersTurn(playerInput: button) {
-        case "wrong": changeColor(uiElement: display, color:"red"); allowUserInteraction(possible: false); gameFinished(gameWon: false);
-        case "right": changeColor(uiElement: display, color:"green"); allowUserInteraction(possible: false); delay(delay: 1.0) {self.animateCurrentCode()};
+        case "wrong": display.textColor = UIColor.red
+            allowUserInteraction(possible: false); gameFinished(gameWon: false);
+        case "right": display.textColor = UIColor(red: 0.1725, green: 0.4784, blue: 0, alpha: 1.0)
+            allowUserInteraction(possible: false); delay(delay: 1.5) {self.animateCurrentCode()};
         case "not finished": break
         default: break
         }
@@ -81,7 +84,7 @@ class SimonSaysViewController: UIViewController {
         } else {
             changeLabel(label: self.commentator, newText: Strings.simonSaysLostText)
         }
-        delay (delay: 1.0) { self.startResultViewController()}
+        delay (delay: 1.5) { self.startResultViewController()}
     }
     
     func startResultViewController() {
@@ -101,8 +104,8 @@ class SimonSaysViewController: UIViewController {
             tag = Int(digit)!
         }
         let button = self.view.viewWithTag(tag) as? UIButton
-        changeColor(uiElement: button!, color: "pink")
-        delay(delay: 1.5) {self.changeColor(uiElement: button!, color: "grey")}
+        button?.isHighlighted = true
+        delay(delay: 1.0) {button?.isHighlighted = false}
     }
     
     func changeLabel(label: UILabel, newText: String) {
@@ -121,7 +124,6 @@ class SimonSaysViewController: UIViewController {
         case "green": uiElement.backgroundColor = UIColor.green
         case "black": uiElement.backgroundColor = UIColor.black
         case "grey": uiElement.backgroundColor = UIColor.lightGray
-        case "pink": uiElement.backgroundColor = UIColor(red: 0.93, green: 0.44, blue: 0.86, alpha: 1.0)
         default: break
         }
     }
