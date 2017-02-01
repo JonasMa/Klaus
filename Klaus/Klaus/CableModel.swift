@@ -28,9 +28,9 @@ class CableModel: UIImageView {
         self.screenHeight = screenSize.height
         
         let randomFactor = Int(arc4random_uniform(2))
-        self.animationEndPoint = [self.screenWidth, 0]
+        self.animationEndPoint = [self.screenWidth+20.0, -20.0]
         self.randomAnimationEndPosition = animationEndPoint[randomFactor]
-        self.cablePosition = [CGPoint(x: 0.0, y: 0.0), CGPoint(x: screenWidth, y: 0.0)]
+        self.cablePosition = [CGPoint(x: -20.0, y: 0.0), CGPoint(x: screenWidth+20.0, y: 0.0)]
         self.randomCablePosition = cablePosition[randomFactor]
 
         let randomSpeed = arc4random_uniform(20) + 10
@@ -71,8 +71,9 @@ class CableModel: UIImageView {
         if Double(touchXCoordinate + 15.0) > Double(cableXCoordinate!) && Double(touchXCoordinate - 15.0) < Double(cableXCoordinate!) {
             if self.backgroundColor != UIColor.blue{
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                model.decreaseScore()
+                model.addStrike()
             } else {
+                AudioServicesPlaySystemSound(1016)
                 model.increaseScore()
             }
             

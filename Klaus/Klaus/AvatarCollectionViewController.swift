@@ -17,9 +17,9 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     var buttonGradient: CAGradientLayer!;
     var gradient: CAGradientLayer!;
     
-    var avatarImages = ["mrknacki", "paranoido", "alarm", "zange", "zange", "alarm","zange", "alarm","zange", "alarm","zange", "alarm", "zange", "paranoido", "zange", "zange", "alarm"]
+    var avatarImages = ["arschkinn", "harry", "kevin", "kiki","kitkat","knacki", "patanoido","rotemarie"]
     
-    let avatarsPerRow: CGFloat = 3
+    let avatarsPerRow: CGFloat = 2
     let sectionInsets = UIEdgeInsets(top: 130, left: 15.0, bottom: 0.0, right: 15.0)
     
     var indexPathsOfSelectedItems = [IndexPath]()
@@ -104,25 +104,23 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AvatarCollectionViewCell
         
         let avatar = avatarImages[indexPath.row]
-        cell.imageView.image = UIImage(named: avatar)
+        cell.imageView.image = UIImage(named: avatar)?.withRenderingMode(.alwaysTemplate)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
          //Deselect selected item
         for indexPathOfSelectedItem in indexPathsOfSelectedItems {
-            let deselectCell = collectionView.cellForItem(at: indexPathOfSelectedItem)!
-            deselectCell.layer.borderWidth = 0.0
-            deselectCell.layer.borderColor = UIColor.white.cgColor
+            let deselectCell = collectionView.cellForItem(at: indexPathOfSelectedItem)! as! AvatarCollectionViewCell
+            deselectCell.imageView.tintColor = UIColor.black
         }
         indexPathsOfSelectedItems.removeAll()
         indexPathsOfSelectedItems.append(indexPath)
         
         // Select item
-        let cell = collectionView.cellForItem(at: indexPath)!
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.blue.cgColor
-        
+        let cell = collectionView.cellForItem(at: indexPath)! as! AvatarCollectionViewCell
+        cell.imageView.tintColor = Style.accentColor
+
         // Add avatar imaga to player
         chosenAvatar = avatarImages[indexPath.row]
         AppModel.sharedInstance.player.setAvatar(avatar: chosenAvatar)

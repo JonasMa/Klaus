@@ -65,16 +65,11 @@ class SeitenschneiderModel {
         score += 1
     }
     
-    func decreaseScore() {
+    func addStrike() {
         seitenSchneiderViewController.destroyZange()
         strikes += 1
         if strikes >= 3 {
-            gameEnded()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {self.seitenSchneiderViewController.startResultViewController()}
         }
     }
-    
-    func gameEnded(){
-        seitenSchneiderViewController.startResultViewController()
-    }
-    
 }

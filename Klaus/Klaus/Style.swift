@@ -82,19 +82,20 @@ struct Style{
     
     static func gradientLocationAvatarView() ->[NSNumber]{
         let locationOfGradient = 0.25
+        let locationOfBotomGradient = 0.36
         return [0.0,
                 NSNumber(floatLiteral: locationOfGradient),
                 NSNumber(floatLiteral: locationOfGradient + 0.000000001),
                 NSNumber(floatLiteral: locationOfGradient + 0.05),
                 NSNumber(floatLiteral: locationOfGradient + 0.0500000001),
                 
-                NSNumber(floatLiteral: locationOfGradient + 0.4999999998),
-                NSNumber(floatLiteral: locationOfGradient + 0.5499999998),
-                NSNumber(floatLiteral: locationOfGradient + 0.5499999999),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.4999999998),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.5499999998),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.5499999999),
 
                 
-                NSNumber(floatLiteral: locationOfGradient + 0.6),
-                NSNumber(floatLiteral: locationOfGradient + 0.6000000001),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.6),
+                NSNumber(floatLiteral: locationOfBotomGradient + 0.6000000001),
                 1.0];
     }
     

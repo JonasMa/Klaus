@@ -67,7 +67,7 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     }
     
     @objc func onTriggerGameTimeout() {
-        AppModel.sharedInstance.onGameStatusReceived(everythingOk: false)
+        AppModel.sharedInstance.onGameStatusReceived(everythingOk: true)
         timer = nil
     }
     
