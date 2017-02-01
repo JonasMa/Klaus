@@ -242,7 +242,7 @@ class AppModel {
         if everythingOk {
             NotificationCenter.default.post(name: NotificationCenterKeys.startGame, object: nil);
         }else{
-            displayAlert(title: Strings.statusNotOkTitle, message: Strings.statusNotOkMessage, buttonTitle: Strings.statusNotOkButton)
+            displayAlert(title: Strings.statusNotOkTitle, message: Strings.statusEnemyBusy, buttonTitle: Strings.statusEnemyBusyButton)
         }
     }
     
