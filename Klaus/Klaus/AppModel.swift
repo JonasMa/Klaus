@@ -124,9 +124,9 @@ class AppModel {
 
     
     //(callback)functions used for delegating game impulses, determining winning statement
-    func triggerEnemyGameInstance(stolenItem: Item) {
+    func triggerEnemyGameInstance(stolenItem: Item, onPlayerUuuidString uuid: String) {
         resetScores()
-        BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
+        BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem, onPlayerUuuidString: uuid)
     }
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
@@ -164,7 +164,7 @@ class AppModel {
     @objc func sendGameResultMessages(){
         print("AM personal score: \(personalScore) ,enemyScore: \(enemyScore)");
         if (personalScore == nil || enemyScore == nil){
-            fatalError("score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
+            print("ERROR (was fatal): score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
         }
 
         if (personalScore! > enemyScore!){
@@ -197,6 +197,7 @@ class AppModel {
         underAttack = false
         isAttacking = false
         attackedItem = nil
+        BluetoothController.sharedInstance.onGameFinish()
     }
     
     func resetScores() {
@@ -233,6 +234,7 @@ class AppModel {
     }
     
     func isGaming() -> Bool {
+        print("AM underAttack: \(underAttack), isAttacking\(isAttacking)")
         return underAttack || isAttacking
     }
     

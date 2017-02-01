@@ -25,7 +25,7 @@ struct Strings {
     static let axeGameExplanation = "Schwing die Axt! Schüttel dein Handy so schnell du kannst innerhalb von 10 Sekunden. Alles klar?"
     static let simonSaysExplanation = "Simon Says. Merke dir die Reihenfolge der leuchtenden Tasten und gib sie korrekt wieder! Alles klar?"
     static let shelfGameExplanation = "Fotzen Katz! Nacheinander schmeisst eine böse Katze Gegenstände vom Regal. Halte 3 Gegenstände mit 3 Fingern gleichzeitig gedrückt, um sie zu eleminieren. Sobald ein Gegenstand den Boden berührt hast du verloren."
-    static let seitenschneiderExplanation = "Tippe auf die BLAUEN Kabel um sie zu kappen... erwisch aber keine anderen, du Sepp!"
+    static let seitenschneiderExplanation = "Schneide so viele BLAUE Kabel durch indem du sie antippst... aber nicht die Bunten, du Sepp!"
     
     // Result strings
     static var axeGameResult = "Holla die Waldfee! Dein Schwengelfaktor beträgt: "

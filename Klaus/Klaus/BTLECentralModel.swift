@@ -15,13 +15,19 @@ import UIKit
 
 class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
+    private enum RequestType {
+        case Name
+        case Items
+        case Attack
+        case Unknown
+    }
+    
     // peripherals which were seen later than TIMEOUT_SECONDS ago will be deleted
     private let REFRESH_TIMEOUT_SECONDS: Double = 3.0
     private let SCAN_TIMEOUT_SECONDS: Double = 5.0
     
     private var centralManager: CBCentralManager?
     private var knownPeripherals: [CBPeripheral] = []
-    private var getPlayerInfo = false
     private var connectedPeripheral: CBPeripheral?
     private var discoveredPeripheral: CBPeripheral?
     private var peripheralsWaitingList: [CBPeripheral] = []
@@ -33,6 +39,8 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private var isAvailable = false
     private var isConnected = false
     private var isActive = false
+    private var itemToBeStolen: Item?
+    private var requestType: RequestType = RequestType.Unknown
     
     private var scanTimer: Timer?
     
@@ -67,11 +75,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
 
     
     func discoverOtherPlayers () {
-        getPlayerInfo = true
+        requestType = RequestType.Name
     }
     
     func stopDiscoveringOtherPlayers (){
-        getPlayerInfo = false
+        // should not be needed anymore
+        //requestType = RequestType.Unknown
         stopScan()
         cancelPeripheralConnection(peripheral: connectedPeripheral)
     }
@@ -90,20 +99,54 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
     }
     
-    func sendAttack (itemToBeStolen: Item){
-        let itemString: String = itemToBeStolen.toString()
-        if writeAttack != nil {
-            connectedPeripheral?.setNotifyValue(true, for: writeAttack!) // TOCO check if necessary
-            writeToPeripheral(onCharacteristic: writeAttack!, toWrite: itemString)
-        }
-        else {
-            print("CM characteristic writeAttack peripheral not known :(")
-        }
+    func sendAttack (itemToBeStolen: Item, fromPlayer uuid: String){
+        requestType = RequestType.Attack
+        self.itemToBeStolen = itemToBeStolen
+        connectToPeripheral(uuid: uuid, withIntention: RequestType.Attack)
+    }
+    
+    func getItemsFromPlayer (uuid: String) {
+        connectToPeripheral (uuid: uuid, withIntention: RequestType.Items)
     }
     
     
-    func connectToPeripheral (uuid: String){
-        getPlayerInfo = false
+    @objc func refreshEnemyList (){
+        // scan
+        // wait
+        // check timestamps
+        requestType = RequestType.Name
+        discoverOtherPlayers()
+        scanTillTimeout()
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(checkKnownPeripheralsTimestamp), userInfo: nil, repeats: false)
+    }
+    
+    @objc func checkKnownPeripheralsTimestamp () {
+        let epoch: Double = Date().timeIntervalSince1970
+        for (index, peripheral) in knownPeripherals.enumerated() {
+            let uuid = peripheral.identifier.uuidString
+            let lastSeen: Double? = peripheralLastSeen[uuid]
+            if lastSeen != nil {
+                if epoch - lastSeen! > 2.0 {
+                    knownPeripherals.remove(at: index)
+                    peripheralLastSeen[uuid] = nil
+                    delegate?.onEnemyDisappear (uuid: uuid)
+                }
+            }
+        }
+    }
+    
+    func onGameFinish () {
+        if connectedPeripheral != nil {
+            cancelPeripheralConnection(peripheral: connectedPeripheral!)
+        }
+    }
+    
+    /*
+      PRIVATE FUNCTIONS
+    */
+    
+    private func connectToPeripheral (uuid: String, withIntention: RequestType){
+        requestType = withIntention
         for peripheral: CBPeripheral in knownPeripherals {
             if peripheral.identifier.uuidString == uuid {
                 
@@ -115,37 +158,21 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         print("CM no matching peripheral found for uuid " + uuid)
     }
     
-    @objc func refreshEnemyList (){
-        // scan
-        // wait
-        // check timestamps
+    private func sendPendingAttack () {
         
-        discoverOtherPlayers()
-        scanTillTimeout()
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(checkKnownPeripheralsTimestamp), userInfo: nil, repeats: false)
-    }
-    
-    @objc func checkKnownPeripheralsTimestamp () {
-        let epoch: Double = Date().timeIntervalSince1970
-        for (index, peripheral) in knownPeripherals.enumerated() {
-            let lastSeen: Double? = peripheralLastSeen[peripheral.identifier.uuidString]
-            if lastSeen != nil {
-                if epoch - lastSeen! > 2.0 {
-                    knownPeripherals.remove(at: index)
-                    peripheralLastSeen[peripheral.identifier.uuidString] = nil
-                    delegate?.onEnemyDisappear (uuid: peripheral.identifier.uuidString)
-                }
-            }
+        guard let item = itemToBeStolen else {
+            print("CM no item cached to be stolen")
+            return
+        }
+        let itemString: String = item.toString()
+        if writeAttack != nil {
+            //connectedPeripheral?.setNotifyValue(true, for: writeAttack!) // TOCO check if necessary
+            writeToPeripheral(onCharacteristic: writeAttack!, toWrite: itemString)
+        }
+        else {
+            print("CM characteristic writeAttack peripheral not known :(")
         }
     }
-    
-    func checkIfEnemyIsStillThere (uuid: String) {
-        
-    }
-    
-    /*
-      PRIVATE FUNCTIONS
-    */
     
     private func onPlayerInfoReceived(receivedDataString data: String, uuid: String){
         
@@ -171,26 +198,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         }
         print("Color String for Player \(playerInfo[DATA_INDEX_NAME]) is \(playerInfo[DATA_INDEX_COLOR])")
         // there were some problems with the extracted hex string
-        let colorStrings = matches(for: "#(?:[0-9a-fA-F]){6}", in: playerInfo[DATA_INDEX_COLOR])
-        let validString = colorStrings.count != 0 ? colorStrings[0] : "#000000"
-        let colorUI = UIColor(hexString: validString)
+        
+        let colorUI = UIColor(hexString: playerInfo[DATA_INDEX_COLOR])
         
         print("CM player details discovered. name: \(playerInfo[DATA_INDEX_NAME]), score: \(playerInfo[DATA_INDEX_SCORE])")
         
         delegate?.onPlayerDiscovered (name: playerInfo[DATA_INDEX_NAME], score: scoreInt, color: colorUI, avatar: playerInfo[DATA_INDEX_AVATAR], uuid: uuid)
-    }
-    
-    private func matches(for regex: String, in text: String) -> [String] {
-        
-        do {
-            let regex = try NSRegularExpression(pattern: regex)
-            let nsString = text as NSString
-            let results = regex.matches(in: text, range: NSRange(location: 0, length: nsString.length))
-            return results.map { nsString.substring(with: $0.range)}
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return ["#000000"]
-        }
     }
     
     @objc func stopScan() {
@@ -199,7 +212,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         }
     }
     
-    private func onItemsAndAvatarReceived(dataString: String, uuid: String) {
+    private func onItemsReceived(dataString: String, uuid: String) {
         let itemStrings: [String] = dataString.components(separatedBy: Item.ITEM_SEPARATOR)
         
         var items: [Item] = []
@@ -211,8 +224,9 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             }
             else {print("CM item decoding not successful")}
         }
-        // Indexoutofrange
         delegate?.onItemsReceived(items: items, uuid: uuid)
+        cancelPeripheralConnection(peripheral: discoveredPeripheral!)
+        //cleanup()
     }
     
     
@@ -254,7 +268,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             }
             break
         case itemsCharacteristicUUID:
-            onItemsAndAvatarReceived(dataString: data, uuid: puuid)
+            onItemsReceived(dataString: data, uuid: puuid)
             break
         case feedbackCharacteristicUUID:
             guard let feedbackCode = Int(data) else {
@@ -320,6 +334,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         DELEGATE FUNCTIONS
      */
     
+    func peripheralDidUpdateName(_ peripheral: CBPeripheral) {
+        print("CM peripheralDidUpdateName. Name: \(peripheral.name), uuid: \(peripheral.identifier.uuidString)")
+    }
+    
     /** centralManagerDidUpdateState is a required protocol method.
      *  Usually, you'd check for other states to make sure the current device supports LE, is powered on, etc.
      *  In this instance, we're just using it to wait for CBCentralManagerStatePoweredOn, which indicates
@@ -349,15 +367,13 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         peripheralLastSeen[peripheral.identifier.uuidString] = Date().timeIntervalSince1970
         
         // Ok, it's in range - have we already seen it?
-        if !knownPeripherals.contains(peripheral){
+        if !containsAndUpdate(peripheral: peripheral){
             
             print("CM Discovered new \(peripheral.name)")
-            
-            knownPeripherals.append(peripheral)
             // Save a local copy of the peripheral, so CoreBluetooth doesn't get rid of it
             discoveredPeripheral = peripheral
             
-            if getPlayerInfo {
+            if requestType == RequestType.Name {
                 if isConnected {
                     // already connected to another peripheral, so wait for disconnect
                     peripheralsWaitingList.append(peripheral)
@@ -367,6 +383,19 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 }
             }
         }
+    }
+    
+    // check only for uuid to prevent same devices with different name
+    private func containsAndUpdate (peripheral: CBPeripheral) ->Bool {
+        let uuidString = peripheral.identifier.uuidString
+        for (index, per) in knownPeripherals.enumerated() {
+            if per.identifier.uuidString == uuidString{
+                knownPeripherals[index] = peripheral
+                return true
+            }
+        }
+        knownPeripherals.append(peripheral)
+        return false
     }
     
     /** If the connection fails for whatever reason, we need to deal with it.
@@ -421,22 +450,22 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         discoveredPeripheral = peripheral
         
         for service in services {
-            if getPlayerInfo {
-                dataPlayer.length = 0
+            
+            dataPlayer.length = 0
+            switch requestType {
+            case RequestType.Name:
                 peripheral.discoverCharacteristics([playerCharacteristicUUID], for: service)
+                break
+            case RequestType.Attack:
+                peripheral.discoverCharacteristics([feedbackCharacteristicUUID, scoreWriteCharacteristicUUID, scoreReadCharacteristicUUID, attackCharacteristicUUID], for: service)
+                break
+            case RequestType.Items:
+                peripheral.discoverCharacteristics([itemsCharacteristicUUID], for: service)
+                break
+            default:
+                print("ERROR unknown request type on peripheral")
+                break
             }
-            else {
-                peripheral.discoverCharacteristics([scoreWriteCharacteristicUUID,scoreReadCharacteristicUUID, attackCharacteristicUUID, itemsCharacteristicUUID, feedbackCharacteristicUUID], for: service)
-            }
-        }
-    }
-    
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        if error == nil {
-            print("CM write on peripheral successful")
-        }
-        else {
-            print("CM write on peripheral NOT successful: \(error.debugDescription)")
         }
     }
     
@@ -473,12 +502,13 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             case scoreWriteCharacteristicUUID:
                 print("CM found scoreWriteCharacteristic")
                 writeScore = characteristic
-                //delegate?.didDiscoverWriteScroreCharacteristic(characteristic: characteristic)
                 break
             case attackCharacteristicUUID:
                 print("CM found writeAttackCharacteristic")
                 writeAttack = characteristic
-                //delegate?.didDiscoverWriteAttackCharacteristic(characteristic: characteristic)
+                if requestType == RequestType.Attack {
+                    sendPendingAttack()
+                }
                 break
             case feedbackCharacteristicUUID:
                 print("CM found feedbackCharacteristic")
