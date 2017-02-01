@@ -39,6 +39,7 @@ class PlayerProfileViewController: ProfileViewController {
             vc.modalTransitionStyle = .partialCurl
             self.present(vc, animated: false, completion: nil);
             firstLaunch = false;
+            BluetoothController.sharedInstance.stop()
         }
     }
     

@@ -23,15 +23,27 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     private let central: BTLECentralModel = BTLECentralModel()
     private var state: BluetoothState = BluetoothState.peripheral
     private var checkingForAvailablePlayers: [String : String] = [:]
+    private var isActive = false
 
     init () {
         central.delegate = self
         peripheral.delegate = self
-        setPassive()
+        start()
     }
+    
+    func start () {
+        peripheral.setActive()
+        central.setActive()
+    }
+    
+    func stop () {
+        peripheral.setInactive()
+        central.setInactive()
+    }
+    
     // gets triggered by system
     func setPassive(){
-        changeBluetoothState(toNewState: BluetoothState.peripheral)
+        //changeBluetoothState(toNewState: BluetoothState.peripheral)
     }
     
     func discoverEnemies () {

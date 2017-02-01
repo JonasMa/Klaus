@@ -137,6 +137,7 @@ class SelectColorViewController: UIViewController {
     func dismissTutorial(){
         if colorSelected {
             self.presentingViewController?.dismiss(animated: true, completion: nil);
+            BluetoothController.sharedInstance.start()
         }
     }
     

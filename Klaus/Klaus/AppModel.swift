@@ -162,7 +162,7 @@ class AppModel {
     @objc func sendGameResultMessages(){
         print("AM personal score: \(personalScore) ,enemyScore: \(enemyScore)");
         if (personalScore == nil || enemyScore == nil){
-            print("ERROR (was fatal): score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
+            fatalError("ERROR: score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
         }
 
         if (personalScore! > enemyScore!){

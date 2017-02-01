@@ -28,11 +28,11 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     var delegate: BluetoothPeripheralDelegate?
     
-    private var isAtvertising: Bool
+    private var isAdvertising: Bool
     private var sendingCharacteristic: CBMutableCharacteristic?
     
     override init (){
-        isAtvertising = false
+        isAdvertising = false
         sendDataIndex = 0
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
@@ -47,7 +47,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     }
     
     func setInactive (){
-        //startStopAdvertising(doAdvertise: false)
+        startStopAdvertising(doAdvertise: false)
     }
     
     
@@ -101,9 +101,9 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     }
     
     private func startStopAdvertising (doAdvertise: Bool) {
-        
-        isAtvertising = doAdvertise
         if peripheralManager?.state == .poweredOn {
+            isAdvertising = doAdvertise
+            print("PM startStopAdvertising: \(doAdvertise)")
             if doAdvertise && !peripheralManager!.isAdvertising {
                 // All we advertise is our service's UUID
                 peripheralManager?.startAdvertising([
@@ -347,7 +347,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
         // And add it to the peripheral manager
         peripheralManager!.add(playerService)
         
-        if !isAtvertising {
+        if !isAdvertising {
             startStopAdvertising(doAdvertise: true)
         }
     }
@@ -379,7 +379,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     
     
     func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
-        print(error ?? "start advertising")
+        print(error ?? "PM start advertising (callback)")
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {

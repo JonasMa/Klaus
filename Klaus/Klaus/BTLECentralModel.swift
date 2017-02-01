@@ -127,9 +127,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             let lastSeen: Double? = peripheralLastSeen[uuid]
             if lastSeen != nil {
                 if epoch - lastSeen! > 2.0 {
-                    knownPeripherals.remove(at: index)
-                    peripheralLastSeen[uuid] = nil
-                    delegate?.onEnemyDisappear (uuid: uuid)
+                    // somehow i get indexOutOfBounds here
+                    if knownPeripherals.count > index {
+                        knownPeripherals.remove(at: index)
+                        peripheralLastSeen[uuid] = nil
+                        delegate?.onEnemyDisappear (uuid: uuid)
+                    }
                 }
             }
         }
@@ -146,6 +149,9 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     */
     
     private func connectToPeripheral (uuid: String, withIntention: RequestType){
+        if isConnected {
+            cancelPeripheralConnection(peripheral: connectedPeripheral!)
+        }
         requestType = withIntention
         for peripheral: CBPeripheral in knownPeripherals {
             if peripheral.identifier.uuidString == uuid {
@@ -348,6 +354,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
         if central.state == .poweredOn {
             isAvailable = true
+            if isActive
+                && !(centralManager?.isScanning)!{
+                scanTillTimeout()
+            }
         }
         else {
             isAvailable = false
@@ -369,7 +379,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         // Ok, it's in range - have we already seen it?
         if !containsAndUpdate(peripheral: peripheral){
             
-            print("CM Discovered new \(peripheral.name)")
+            print("CM Discovered new \(peripheral.name). RequestType is \(requestType)")
             // Save a local copy of the peripheral, so CoreBluetooth doesn't get rid of it
             discoveredPeripheral = peripheral
             
@@ -377,8 +387,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                 if isConnected {
                     // already connected to another peripheral, so wait for disconnect
                     peripheralsWaitingList.append(peripheral)
+                    print("CM set peripheral on waiting list")
                 }
                 else {
+                    print("CM connecting to \(peripheral.name) ...")
                     centralManager?.connect(peripheral, options: nil)
                 }
             }
