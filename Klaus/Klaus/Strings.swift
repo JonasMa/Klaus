@@ -16,6 +16,8 @@ struct Strings {
     static var statusConnectionFailButton = "Schämt euch!"
     static var statusEnemyBusy = "Ruhig brauner. Dein Opfer ist so ein krasses Opfer, dass es im Moment selber noch kämpft."
     static var statusEnemyBusyButton = "Ich warte noch"
+    static var gameConnectionLost = "Während des Spiels ist die Bluetoothverbindung abgebrochen. Du kannst jetzt nochmal probieren Angriffe zu starten."
+    static var gameConnetionLostButton = "Passiert den besten!"
     
     // Game titles
     static var axeGameTitle = "Axt Schwengel!"

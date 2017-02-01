@@ -24,6 +24,7 @@ class MainTabBarController: UITabBarController {
         
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, queue: nil, using: triggerExplanationView)
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.showAlertNotification, object: nil, queue: nil, using: displayAlert)
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.abortGame, object: nil, queue: nil, using: popViewController)
         
         let tabOneBarItem = UITabBarItem(title: "Profil", image: UIImage(named: "klausi"), tag: 0);
         let tabTwoBarItem = UITabBarItem(title: "Gegner", image: UIImage(named: "enemyTab"), tag: 1);
@@ -46,6 +47,10 @@ class MainTabBarController: UITabBarController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func popViewController(notification:Notification) {
+        tabTwo.popToRootViewController(animated: true)
     }
     
     func triggerExplanationView(notification:Notification) {
