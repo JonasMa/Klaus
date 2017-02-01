@@ -171,7 +171,7 @@ class AppModel {
             let bonus = Int((1 - enemyScore!/personalScore!) * Config.stealBonus);
             player.score! += bonus
             if underAttack { // Item verteidigt
-                
+                displayAlertFor(resultType: .successfulDefense, score1: personalScore!, score2: enemyScore!, scoreChange: bonus, item: attackedItem)
             }else{ //Item gewonnen
                 displayAlertFor(resultType: .successfulAttack, score1: personalScore!, score2: enemyScore!, scoreChange: bonus, item: attackedItem)
                 self.player.addItem(item: attackedItem);
