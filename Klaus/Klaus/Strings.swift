@@ -12,8 +12,10 @@ struct Strings {
     
     //Notification texts
     static var statusNotOkTitle = "Oops!"
-    static var statusNotOkMessage = "The person you have called is currently not available. Please try again later."
-    static var statusNotOkButton = "Ich warte noch"
+    static var statusConnectionFail = "Leider gibt es Probleme mit der Bluetoothverbindung. Hätten wir doch lieber mal ne Serveranwendung geschrieben."
+    static var statusConnectionFailButton = "Schämt euch!"
+    static var statusEnemyBusy = "Ruhig brauner. Dein Opfer ist so ein krasses Opfer, dass es im Moment selber noch kämpft."
+    static var statusEnemyBusyButton = "Ich warte noch"
     
     // Game titles
     static var axeGameTitle = "Axt Schwengel!"
@@ -69,7 +71,7 @@ struct Strings {
     
     // Tutorial texts
     static let chooseAvatarText = "Tarnung Wählen"
-    static let chooseAvatarDescriptionText = "Suche dir einen Avatar aus, dem deine Visage am meisten ähnelt."
+    static let chooseAvatarDescriptionText = "Such dir eine Visage aus!"
     
     static let headLineColorText = "Farbe Bekennen"
     static let descritpionColorText = "Wähle eine Farbe aus, die zu deiner diebischen Seele passt."
