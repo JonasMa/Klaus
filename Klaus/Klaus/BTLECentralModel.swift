@@ -109,9 +109,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     
     @objc func refreshEnemyList (){
-        // scan
-        // wait
-        // check timestamps
         requestType = RequestType.Name
         cancelPeripheralConnection()
         discoverOtherPlayers()
@@ -121,19 +118,23 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     @objc func checkKnownPeripheralsTimestamp () {
         let epoch: Double = Date().timeIntervalSince1970
-        for (index, peripheral) in knownPeripherals.enumerated() {
-            let uuid = peripheral.identifier.uuidString
-            let lastSeen: Double? = peripheralLastSeen[uuid]
+        var toDelete: [CBPeripheral] = []
+        for peripheral in knownPeripherals {
+            let lastSeen: Double? = peripheralLastSeen[peripheral.identifier.uuidString]
             if lastSeen != nil {
                 if epoch - lastSeen! > 2.0 {
-                    // somehow i get indexOutOfBounds here
-                    if knownPeripherals.count > index {
-                        knownPeripherals.remove(at: index)
-                        peripheralLastSeen[uuid] = nil
-                        delegate?.onEnemyDisappear (uuid: uuid)
-                    }
+                    toDelete.append(peripheral)
                 }
             }
+        }
+        
+        for peripheral in toDelete {
+            if let index: Int = knownPeripherals.index(of: peripheral) {
+                knownPeripherals.remove(at: index)
+            }
+            let uuid = peripheral.identifier.uuidString
+            peripheralLastSeen[uuid] = nil
+            delegate?.onEnemyDisappear (uuid: uuid)
         }
     }
     
