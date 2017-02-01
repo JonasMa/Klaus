@@ -43,8 +43,8 @@ struct Style{
         let primaryButton = UIButton()
         primaryButton.setTitle(buttonTitle, for: .normal)
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
-        primaryButton.titleLabel?.font = Style.titleTextFont;
-        primaryButton.titleLabel?.textColor = Style.primaryTextColor
+        primaryButton.titleLabel?.font = Style.titleTextFont
+        primaryButton.tintColor = Style.primaryButtonTextColor
         return primaryButton
     }
     
@@ -104,16 +104,27 @@ struct Style{
         return [color.lighter(by: 30)!.cgColor, color.lighter(by: 50)!.cgColor, Style.lines.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor]
     }
     
-    static var gradientColorsSeitenschneider = [Style.bg.cgColor,
-                                                Style.bg.cgColor,
-                                                Style.bg.cgColor,
-                                                Style.lines.cgColor,
-                                                Style.bgTransparent,
-                                                Style.bgTransparent,
-                                                Style.lines.cgColor,
-                                                Style.bg.cgColor,
-                                                Style.bg.cgColor,
-                                                Style.bg.cgColor] as [Any]
+//    static var gradientColorsSeitenschneider = [Style.bg.cgColor,
+//                                                Style.bg.cgColor,
+//                                                Style.bg.cgColor,
+//                                                Style.lines.cgColor,
+//                                                Style.bgTransparent,
+//                                                Style.bgTransparent,
+//                                                Style.lines.cgColor,
+//                                                Style.bg.cgColor,
+//                                                Style.bg.cgColor,
+//                                                Style.bg.cgColor] as [Any]
+    
+        static var gradientColorsSeitenschneider = [UIColor.darkGray,
+                                                    UIColor.darkGray,
+                                                    UIColor.darkGray,
+                                                    UIColor.black,
+                                                    Style.bgTransparent,
+                                                    Style.bgTransparent,
+                                                    UIColor.black,
+                                                    UIColor.darkGray,
+                                                    UIColor.darkGray,
+                                                    UIColor.darkGray] as [Any]
 
     
     static let gradientLocationsSeitenschneider = [0.0,
