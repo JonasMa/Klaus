@@ -20,11 +20,6 @@ class AxeModel: UIImageView {
     init() {
         super.init(frame: CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: CGSize(width: frameWidth, height: frameHeight)))
         self.image = UIImage(named: "Axt")
-        animateAxe()
-        /*self.alpha = 0.1
-        UIView.animate(withDuration: 0.1, delay: 0.5, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.alpha = 1.0
-            }, completion: nil)*/
     }
     
     func animateAxe() {
