@@ -22,6 +22,7 @@ class AppModel {
     var underAttack: Bool = false
     var isAttacking: Bool = false
     var attackedItem: Item!
+    var timeOutTimer: Timer?;
 
     
     init() {
@@ -135,6 +136,7 @@ class AppModel {
         attackedItem = itemToBeStolen
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        
     }
     
     func pushPersonalScore(score: Double){
@@ -243,6 +245,10 @@ class AppModel {
             displayAlert(title: Strings.statusNotOkTitle, message: Strings.statusEnemyBusy, buttonTitle: Strings.statusEnemyBusyButton)
         }
     }
+    
+    
+    
+    
     
     func onGameConnectionLost() {
         if isGaming() {

@@ -10,13 +10,16 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    let tabOne = UINavigationController()
+    let tabOne = UINavigationController();
     let tabTwo = UINavigationController();
+    
+    var gameTriggerAlert: UIAlertController?;
+    var timer: Timer?;
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         
-            }
+        }
     
     override func viewDidLoad() {
         
@@ -55,13 +58,17 @@ class MainTabBarController: UITabBarController {
     
     func triggerExplanationView(notification:Notification) {
         self.selectedIndex = 1
-        let alert = UIAlertController(title: Strings.attention, message: Strings.attackOnYou, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: Strings.startDefense, style: UIAlertActionStyle.default, handler: {(action) in
-            alert.dismiss(animated: true, completion: nil)
+        gameTriggerAlert = UIAlertController(title: Strings.attention, message: Strings.attackOnYou, preferredStyle: UIAlertControllerStyle.alert)
+        gameTriggerAlert!.addAction(UIAlertAction(title: Strings.startDefense, style: UIAlertActionStyle.default, handler: {(action) in
+            self.gameTriggerAlert!.dismiss(animated: true, completion: nil)
             let vc = ExplanationViewController(item: notification.userInfo?["item"] as! Item)
             self.tabTwo.pushViewController(vc, animated: true)
+            self.stopTimeOutTimer();
         }))
-        self.present(alert, animated: true, completion: nil)
+        self.present(gameTriggerAlert!, animated: true, completion: nil)
+        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(gameTriggerMissed), userInfo: nil, repeats: false)
+        print("AM timer started");
+
     }
     
     func displayAlert(notification: Notification) {
@@ -71,5 +78,19 @@ class MainTabBarController: UITabBarController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
-
+    
+    func stopTimeOutTimer(){
+        if timer != nil{
+            timer!.invalidate();
+            timer = nil
+        }
+    }
+    
+    @objc func gameTriggerMissed(){
+        print("AM game missed")
+        gameTriggerAlert!.dismiss(animated: true, completion: nil);
+        AppModel.sharedInstance.pushPersonalScore(score: 0);
+        self.stopTimeOutTimer();
+        
+    }
 }
