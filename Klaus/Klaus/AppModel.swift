@@ -138,7 +138,6 @@ class AppModel {
     func pushPersonalScore(score: Double){
         print("AM push personal score \(score)")
         self.personalScore = score;
-        self.enemyScore = 2.0; //KRASSER HACK
         BluetoothController.sharedInstance.sendScoreToEnemy(score: score);
         if(enemyScore != nil){
             Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(sendGameResultMessages), userInfo: nil, repeats: false);
