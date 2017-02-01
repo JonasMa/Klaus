@@ -56,7 +56,7 @@ class EnemyItemDetailViewController: ItemDetailViewController {
             print("ERROR: enemyUuid is nil in EnemyItemDetailViewController.buttonAction()")
             return
         }
-        
+        disableStealButton()
         AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item, onPlayerUuuidString: enemyUuid!)
         timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(onTriggerGameTimeout), userInfo: nil, repeats: false)
     }
@@ -70,7 +70,8 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
     @objc func onTriggerGameTimeout() {
         AppModel.sharedInstance.displayAlert(title: Strings.statusNotOkTitle, message: Strings.statusConnectionFail, buttonTitle: Strings.statusConnectionFailButton)
-        timer = nil
+        onAbortTriggerGameTimeout()
+        enableStealButton()
     }
     
     func startExplanationView(notification: Notification) {
@@ -79,5 +80,15 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         AppModel.sharedInstance.isAttacking = true
         let vc = ExplanationViewController(item: item);
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func disableStealButton(){
+        stealButton.isEnabled = false;
+        stealButton.backgroundColor = Style.lines;
+    }
+    
+    func enableStealButton(){
+        stealButton.isEnabled = true;
+        stealButton.backgroundColor = item.itemColor;
     }
 }
