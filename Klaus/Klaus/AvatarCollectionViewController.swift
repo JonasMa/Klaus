@@ -17,7 +17,7 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     var buttonGradient: CAGradientLayer!;
     var gradient: CAGradientLayer!;
     
-    var avatarImages = ["axe", "zange", "alarm", "zange", "zange", "alarm","zange", "alarm","zange", "alarm","zange", "alarm", "zange", "alarm", "zange", "zange", "alarm"]
+    var avatarImages = ["mrknacki", "paranoido", "alarm", "zange", "zange", "alarm","zange", "alarm","zange", "alarm","zange", "alarm", "zange", "paranoido", "zange", "zange", "alarm"]
     
     let avatarsPerRow: CGFloat = 3
     let sectionInsets = UIEdgeInsets(top: 130, left: 15.0, bottom: 0.0, right: 15.0)
