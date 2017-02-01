@@ -26,7 +26,7 @@ class PlayerProfile: Profile, NSCoding{
         aCoder.encode(self.items, forKey: "items");
         aCoder.encode(self.profileColor.toHexString(), forKey: "playerColor");
         aCoder.encode(self.profileAvatar, forKey: "avatar");
-        aCoder.encode(self.score, forKey: "score");
+        aCoder.encode(self.score!, forKey: "score");
     }
 
     override func removeItem(item: Item) {
