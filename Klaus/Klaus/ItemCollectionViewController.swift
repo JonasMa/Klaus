@@ -29,7 +29,7 @@ class ItemCollectionViewController: UICollectionViewController {
         super.viewDidLoad();
 
         
-        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updateItemsNotification, object: nil, queue: nil, using: updateItems);
+
         
         self.collectionView!.translatesAutoresizingMaskIntoConstraints = false;
         self.collectionView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);

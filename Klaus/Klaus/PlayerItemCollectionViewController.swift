@@ -18,10 +18,16 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
         super.loadView();
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        self.collectionView!.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(PlayerItemCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         NotificationCenter.default.addObserver(self, selector: #selector(highlightItem), name: NotificationCenterKeys.highlightItemNotification, object: nil);
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerItemsNotification, object: nil, queue: nil, using: updateItems);
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,7 +55,6 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
         cell.imageView.image = UIImage(named: item.imageName.lowercased())?.withRenderingMode(.alwaysTemplate);
         cell.setItemShadow(color: item.itemColor);
         if(item == highlightedItem){
-            print("cell highlight")
             cell.highlight();
             highlightedItem = nil;
         }
