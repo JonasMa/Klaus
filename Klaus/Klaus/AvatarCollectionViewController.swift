@@ -20,7 +20,7 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     var avatarImages = ["arschkinn", "harry", "kevin", "kiki","kitkat","knacki", "patanoido","rotemarie"]
     
     let avatarsPerRow: CGFloat = 2
-    let sectionInsets = UIEdgeInsets(top: 130, left: 15.0, bottom: 0.0, right: 15.0)
+    let sectionInsets = UIEdgeInsets(top: UIScreen.main.bounds.height*0.25, left: 15.0, bottom: UIScreen.main.bounds.height*0.1, right: 15.0)
     
     var indexPathsOfSelectedItems = [IndexPath]()
     
@@ -54,17 +54,18 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
         chooseAvatarLabel = UILabel();
         chooseAvatarLabel.text = Strings.chooseAvatarText
         chooseAvatarLabel.textAlignment = .center;
+        chooseAvatarLabel.font = Style.titleTextFont
+        chooseAvatarLabel.textColor = Style.primaryTextColor
         chooseAvatarLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(chooseAvatarLabel);
         
         chooseAvatarDescriptionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50));
         chooseAvatarDescriptionLabel.text = Strings.chooseAvatarDescriptionText
         chooseAvatarDescriptionLabel.textAlignment = .center;
+        chooseAvatarDescriptionLabel.font = Style.bodyTextFont
+        chooseAvatarDescriptionLabel.textColor = Style.primaryTextColor
         chooseAvatarDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false;
         
-        chooseAvatarDescriptionLabel.numberOfLines = 4
-        chooseAvatarDescriptionLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        chooseAvatarLabel.sizeToFit()
         self.view.addSubview(chooseAvatarDescriptionLabel);
         
         swipeButton = Style.getPrimaryButton(buttonTitle: Strings.tutorialButtonText)

@@ -8,7 +8,10 @@ class SeitenschneiderModel {
     var seitenSchneiderViewController: SeitenschneiderViewController!
     var cableModelObject: CableModel!
     var allCables: [CableModel]!
-        
+    
+    var timer: Timer!
+    var maxGameDuration = 20
+    
     let targetCableColor = UIColor.blue
     let maxNumCablesInGame = 12
     var score = 0
@@ -19,6 +22,9 @@ class SeitenschneiderModel {
         self.score = 0
         self.seitenSchneiderViewController = viewController
         self.allCables = [CableModel]()
+//        self.timer = StopwatchTimer.init(needGameUpdate: true, maxDuration: maxGameDuration)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector:#selector(timeLine), userInfo: nil, repeats: true)
+//        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.timerAfterOneSecond, object: nil, queue: nil, using: timeLine)
         
         addCables(isMainTargetColor: true, numOfCables: 4)
         addCables(isMainTargetColor: false, numOfCables: 6)
@@ -50,10 +56,10 @@ class SeitenschneiderModel {
                 let index = allCables.index(of: cable)
                 cableModelObject.cableSpeed = cableModelObject.cableSpeedFast
                 if cable.backgroundColor == targetCableColor {
-                    seitenSchneiderViewController.timerTimeChanged(addedDuration: 1)
+                    timerTimeChanged(addedDuration: 1)
                     addCables(isMainTargetColor: true, numOfCables: 1)
                 } else {
-                    seitenSchneiderViewController.timerTimeChanged(addedDuration: -5)
+                    timerTimeChanged(addedDuration: -5)
                     addCables(isMainTargetColor: false, numOfCables: 1)
                 }
                 allCables.remove(at: index!)
@@ -61,15 +67,37 @@ class SeitenschneiderModel {
         }
     }
     
+    func timerTimeChanged(addedDuration: Int) {
+//        timer.maxDuration = timer.maxDuration+addedDuration
+        maxGameDuration = maxGameDuration+addedDuration
+        print("time added / subtracted")
+    }
+    
     func increaseScore() {
         score += 1
+    }
+    
+    @objc func timeLine(){
+        print("Zeit: \(maxGameDuration)")
+//        timer.maxDuration = timer.maxDuration-1
+        maxGameDuration = maxGameDuration-1
+        if maxGameDuration <= 0 {
+            endGame()
+        }
     }
     
     func addStrike() {
         seitenSchneiderViewController.destroyZange()
         strikes += 1
         if strikes >= 3 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {self.seitenSchneiderViewController.startResultViewController()}
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.seitenSchneiderViewController.view.isUserInteractionEnabled = false
+                self.endGame()}
         }
+    }
+    
+    func endGame() {
+        timer.invalidate()
+        self.seitenSchneiderViewController.startResultViewController()
     }
 }

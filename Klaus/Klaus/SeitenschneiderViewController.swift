@@ -8,7 +8,6 @@ class SeitenschneiderViewController: UIViewController {
     
     let gameID = 3
     var seitenSchneiderModel: SeitenschneiderModel!
-    var timer: StopwatchTimer!
     
     let screenSize: CGRect = UIScreen.main.bounds
     var screenWidth: CGFloat!
@@ -16,7 +15,6 @@ class SeitenschneiderViewController: UIViewController {
     
     var seitenschneiderGradient: CAGradientLayer!
     
-    var maxGameDuration = 20
     var timeDisplay: UIImageView!
     var timeDisplaySize: CGSize!
     var timeDisplayPosition: CGPoint!
@@ -32,7 +30,6 @@ class SeitenschneiderViewController: UIViewController {
         
     super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,10 +38,6 @@ class SeitenschneiderViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         seitenSchneiderModel = SeitenschneiderModel(viewController: self)
-        
-        self.timer = StopwatchTimer.init(needGameUpdate: true, maxDuration: maxGameDuration)
-        timer.startTimer()
-        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.timerAfterOneSecond, object: nil, queue: nil, using: timeLine)
         
         initializeImages()
         initializeTimeline()
@@ -57,11 +50,11 @@ class SeitenschneiderViewController: UIViewController {
         seitenschneiderGradient.frame = screenSize
         self.view.layer.addSublayer(seitenschneiderGradient)
         zangeOne = getSeitenschneiderImage()
-        setSeitenschneiderImage(seitenschneiderImage: zangeOne, position: CGFloat(-screenWidth / 5))
+        setSeitenschneiderImage(seitenschneiderImage: zangeOne, position: CGFloat(-screenWidth / 4))
         zangeTwo = getSeitenschneiderImage()
         setSeitenschneiderImage(seitenschneiderImage: zangeTwo, position: 0)
         zangeThree = getSeitenschneiderImage()
-        setSeitenschneiderImage(seitenschneiderImage: zangeThree, position: CGFloat(screenWidth / 5))
+        setSeitenschneiderImage(seitenschneiderImage: zangeThree, position: CGFloat(screenWidth / 4))
     }
     
     func initializeTimeline() {
@@ -72,23 +65,18 @@ class SeitenschneiderViewController: UIViewController {
         lastDisplayFrame = timeDisplay.frame
         self.view.addSubview(timeDisplay)
         self.view.bringSubview(toFront: timeDisplay)
-        startAnimatingTimeLine()
+//        startAnimatingTimeLine()
     }
-    
-    func timerTimeChanged(addedDuration: Int) {
-        timer.maxDuration = timer.maxDuration+addedDuration
-        print("time added / subtracted")
-        startAnimatingTimeLine()
-    }
-    
-    func startAnimatingTimeLine() {
-        timeDisplay.layer.presentation()?.removeAllAnimations()
-        timeDisplay.frame = CGRect(x: timeDisplayPosition.x, y: timeDisplayPosition.y, width: (timeDisplaySize.width-CGFloat(timer.maxDuration!*10)), height: timeDisplaySize.height)
 
-        UIView.animate(withDuration: TimeInterval(self.timer.maxDuration), delay: 0.0, options: .curveEaseOut, animations: {
-            self.timeDisplay.frame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: CGFloat(0), height: self.timeDisplaySize.height)
-        }, completion: nil)
-    }
+    
+//    func startAnimatingTimeLine() {
+//        timeDisplay.layer.presentation()?.removeAllAnimations()
+//        timeDisplay.frame = CGRect(x: timeDisplayPosition.x, y: timeDisplayPosition.y, width: (timeDisplaySize.width-CGFloat(timer.maxDuration!*10)), height: timeDisplaySize.height)
+//
+//        UIView.animate(withDuration: TimeInterval(self.timer.maxDuration), delay: 0.0, options: .curveEaseOut, animations: {
+//            self.timeDisplay.frame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: CGFloat(0), height: self.timeDisplaySize.height)
+//        }, completion: nil)
+//    }
     
     func destroyZange() {
         let images = [zangeOne, zangeTwo, zangeThree]
@@ -96,24 +84,15 @@ class SeitenschneiderViewController: UIViewController {
             images[(seitenSchneiderModel.strikes)]?.image = UIImage(named: "zange_kaputt")
         }
     }
-    
-    func timeLine(notification: Notification){
-        print("Zeit: \(timer.maxDuration)")
-        timer.maxDuration = timer.maxDuration-1
-        if timer.maxDuration <= 0 {
-            startResultViewController()
-        }
-    }
 
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first! as UITouch
         let touchLocation = touch.location(in: self.view)
         seitenSchneiderModel.checkCableTouch(touchLoc:touchLocation)
     }
+    
 
     func startResultViewController() {
-        timer.resetTimer()
         self.view.isUserInteractionEnabled = false
         let score = self.seitenSchneiderModel.score
         let vc = ResultViewController(result: Double(score), gameID: self.gameID)
