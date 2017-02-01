@@ -133,7 +133,7 @@ class AppModel {
         resetScores() // TODO: name in alert anzeigen
         underAttack = true
         attackedItem = itemToBeStolen
-        NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
+        NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen, "attackerName":attackerName]);
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
     

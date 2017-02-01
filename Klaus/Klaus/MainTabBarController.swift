@@ -55,7 +55,7 @@ class MainTabBarController: UITabBarController {
     
     func triggerExplanationView(notification:Notification) {
         self.selectedIndex = 1
-        let alert = UIAlertController(title: Strings.attention, message: Strings.attackOnYou, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: Strings.attention, message: (notification.userInfo?["attackerName"] as? String)! + Strings.attackOnYou, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: Strings.startDefense, style: UIAlertActionStyle.default, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
             let vc = ExplanationViewController(item: notification.userInfo?["item"] as! Item)
