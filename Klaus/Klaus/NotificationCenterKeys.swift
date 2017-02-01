@@ -21,5 +21,7 @@ struct NotificationCenterKeys{
     static var highlightItemNotification = Notification.Name("highlightItem");
     static var setTutorialPageViewController = Notification.Name("changeTutorialPage");
     static var timerMaxDurationReached = Notification.Name("maxDurationReached");
+    static var timerAfterOneSecond = Notification.Name("oneSecLater");
     static var startGame = Notification.Name("startAttackerGame");
+
 }

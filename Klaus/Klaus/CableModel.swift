@@ -17,7 +17,8 @@ class CableModel: UIImageView {
     var randomAnimationEndPosition:CGFloat!
     var cablePosition:[CGPoint]!
     var randomCablePosition: CGPoint!
-    let cableSpeed:Double
+    var cableSpeed:Double!
+    let cableSpeedFast:Double!
     
     init(color: UIColor, model: SeitenschneiderModel) {
         self.model = model
@@ -27,7 +28,6 @@ class CableModel: UIImageView {
         self.screenHeight = screenSize.height
         
         let randomFactor = Int(arc4random_uniform(2))
-        print(randomFactor)
         self.animationEndPoint = [self.screenWidth, 0]
         self.randomAnimationEndPosition = animationEndPoint[randomFactor]
         self.cablePosition = [CGPoint(x: 0.0, y: 0.0), CGPoint(x: screenWidth, y: 0.0)]
@@ -35,6 +35,7 @@ class CableModel: UIImageView {
 
         let randomSpeed = arc4random_uniform(20) + 10
         self.cableSpeed = Double(randomSpeed) * 0.1
+        self.cableSpeedFast = 2.0
         
         self.cableSize = CGSize(width: 20.0, height: screenHeight)
         

@@ -18,13 +18,15 @@ class PlayerProfile: Profile, NSCoding{
             items: aDecoder.decodeObject(forKey: "items") as! [Item]);
         self.profileColor = UIColor(hexString: aDecoder.decodeObject(forKey: "playerColor") as! String);
         self.profileAvatar = aDecoder.decodeObject(forKey: "avatar") as! String;
+        self.score = aDecoder.decodeInteger(forKey: "score");
         }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.name, forKey: "name");
         aCoder.encode(self.items, forKey: "items");
         aCoder.encode(self.profileColor.toHexString(), forKey: "playerColor");
-        aCoder.encode(self.profileAvatar, forKey: "avatar")
+        aCoder.encode(self.profileAvatar, forKey: "avatar");
+        aCoder.encode(self.score!, forKey: "score");
     }
 
     override func removeItem(item: Item) {

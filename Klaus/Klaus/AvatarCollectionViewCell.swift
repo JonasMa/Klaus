@@ -6,7 +6,7 @@ class AvatarCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageView = UIImageView(frame: CGRect(x: 0, y: frame.size.height/5, width: frame.size.width , height: frame.size.width*2/5));
+        imageView = UIImageView(frame: CGRect(x: frame.size.width*0.05, y: frame.size.height*0.05, width: frame.size.width * 0.9 , height: frame.size.width * 0.9));
         imageView.contentMode = UIViewContentMode.scaleAspectFit;
         imageView.tintColor = Style.primaryTextColor;
         contentView.addSubview(imageView);

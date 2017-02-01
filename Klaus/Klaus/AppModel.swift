@@ -166,28 +166,29 @@ class AppModel {
         }
 
         if (personalScore! > enemyScore!){
+            let bonus = Int((1 - enemyScore!/personalScore!) * Config.stealBonus);
+            player.score! += bonus
             if underAttack { // Item verteidigt
-                displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
+                
             }else{ //Item gewonnen
-                displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
+                displayAlertFor(resultType: .successfulAttack, score1: personalScore!, score2: enemyScore!, scoreChange: bonus, item: attackedItem)
                 self.player.addItem(item: attackedItem);
             }
-            let bonus = personalScore!/(enemyScore!+0.0001)
-            scoreBonus(value: bonus)
+            
         }else if (enemyScore! > personalScore!){
+            let penalty = Int((1 - personalScore!/enemyScore!) * Config.stealBonus);
+            player.score! -= penalty
             if underAttack { // Item verloren
-                displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
+                displayAlertFor(resultType: .failedDefense, score1: personalScore!, score2: enemyScore!, scoreChange: penalty, item: attackedItem)
                 self.player.removeItem(item: attackedItem);
             }else{ // Item nicht gewonnen
-                displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
+                displayAlertFor(resultType: .failedAttack, score1: personalScore!, score2: enemyScore!, scoreChange: penalty, item: attackedItem)
             }
-            let penalty = enemyScore!/(personalScore!+0.0001)
-            scorePenalty(value: penalty)
         }else if (personalScore! == enemyScore!){
             if underAttack {
-                displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
+                displayAlertFor(resultType: .successfulDefense, score1: personalScore!, score2: enemyScore!, scoreChange: 0, item: attackedItem)
             }else{
-                displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
+                displayAlertFor(resultType: .failedAttack, score1: personalScore!, score2: enemyScore!, scoreChange: 0, item: attackedItem)
             }
         }
         resetScores()
@@ -213,6 +214,23 @@ class AppModel {
         print("AM Player lost by a factor of \(value), removing \(value * Config.stealBonus) points");
     }
     
+    private func displayAlertFor(resultType: ResultType, score1: Double, score2: Double, scoreChange: Int, item: Item){
+        switch resultType {
+        case .successfulAttack:
+            let resultString = "\n\(Strings.successfullAttack)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Bonuspunkte\n\n Die \(item.displayName) gehört jetzt dir!";
+            displayAlert(title: Strings.gratulation, message: resultString, buttonTitle: Strings.happyConfirmation)
+        case .successfulDefense:
+            let resultString = "\n\(Strings.successfullDefense)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Bonuspunkte\n\n Die \(item.displayName) behältst du!";
+            displayAlert(title: Strings.gratulation, message: resultString, buttonTitle: Strings.happyConfirmation)
+        case .failedAttack:
+            let resultString = "\n\(Strings.failedAttack)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Minuspunkte\n\n Die \(item.displayName) bekommst du nicht!";
+            displayAlert(title: Strings.fail, message: resultString, buttonTitle: Strings.sadConfirmation)
+        case .failedDefense:
+            let resultString = "\n\(Strings.successfullAttack)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Minuspunkte\n\n Die \(item.displayName) ist halt jetzt weg...";
+            displayAlert(title: Strings.fail, message: resultString, buttonTitle: Strings.sadConfirmation)
+        }
+    }
+    
     func isGaming() -> Bool {
         print("AM underAttack: \(underAttack), isAttacking\(isAttacking)")
         return underAttack || isAttacking
@@ -225,5 +243,14 @@ class AppModel {
             displayAlert(title: Strings.statusNotOkTitle, message: Strings.statusNotOkMessage, buttonTitle: Strings.statusNotOkButton)
         }
     }
+    
+    enum ResultType{
+        case successfulDefense
+        case successfulAttack
+        case failedDefense
+        case failedAttack
+    }
 }
+
+
 

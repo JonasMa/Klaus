@@ -12,7 +12,7 @@ import UIKit
 class CountdownModel {
     
     var gameTimer: Timer!
-    var count = 3
+    var count = 5
     var viewController: AxeGameViewController
     
     //Requires appropriate GameController
