@@ -20,9 +20,6 @@ class SeitenschneiderModel {
         self.seitenSchneiderViewController = viewController
         self.allCables = [CableModel]()
         
-
-        
-        // Add start cables
         addCables(isMainTargetColor: true, numOfCables: 4)
         addCables(isMainTargetColor: false, numOfCables: 6)
     }
@@ -39,6 +36,7 @@ class SeitenschneiderModel {
                 cableModelObject = CableModel(color: getRandomCableColor(), model: self)
             }
             allCables.append(cableModelObject)
+            print("speed: \(cableModelObject.cableSpeed)")
             seitenSchneiderViewController.view.insertSubview(cableModelObject, at: 0)
         }
     }
@@ -51,9 +49,12 @@ class SeitenschneiderModel {
         for cable in allCables{
             if cable.checkTouch(touchLocation: touchLoc){
                 let index = allCables.index(of: cable)
+                cableModelObject.cableSpeed = cableModelObject.cableSpeedFast
                 if cable.backgroundColor == targetCableColor {
+                    seitenSchneiderViewController.startAnimatingTimeLine(addedDuration: 1)
                     addCables(isMainTargetColor: true, numOfCables: 1)
                 } else {
+                    seitenSchneiderViewController.startAnimatingTimeLine(addedDuration: -5)
                     addCables(isMainTargetColor: false, numOfCables: 1)
                 }
                 allCables.remove(at: index!)
@@ -61,16 +62,6 @@ class SeitenschneiderModel {
         }
     }
     
-//    func addNewCablesInGame() {
-////        let numCablesWhichCanBeAdded = maxNumCablesInGame - allCables.count
-////        if numCablesWhichCanBeAdded > 3 {
-////            addCables(isMainTargetColor: true, numOfCables: 1)
-////            addCables(isMainTargetColor: false, numOfCables: Int(arc4random_uniform(UInt32(2))))
-////        } else {
-////            addCables(isMainTargetColor: true, numOfCables: Int(arc4random_uniform(UInt32(numCablesWhichCanBeAdded))))
-////        }
-//    }
-//    
     func increaseScore() {
         score += 1
     }

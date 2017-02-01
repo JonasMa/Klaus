@@ -31,7 +31,7 @@ class StopwatchTimer:NSObject {
             if duration >= maxDuration {
                 NotificationCenter.default.post(name: NotificationCenterKeys.timerMaxDurationReached, object: nil, userInfo: nil)
             } else {
-                // z.B. 1 Sekunde vergangen Notification
+                NotificationCenter.default.post(name: NotificationCenterKeys.timerAfterOneSecond, object: nil, userInfo: nil)
             }
         }
     }
