@@ -22,10 +22,14 @@ class PlayerProfileViewController: ProfileViewController {
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updatePlayerLevelNotification, object: nil, queue: nil, using: updatePlayerLevel)
         
         profileNameLabel.text = profile!.name;
-        profileNameLabel.textColor = profile!.profileColor
-        profileLevelLabel.text = String(profile!.profileLevel)
-        profileImageView.image = UIImage(named: profile!.profileAvatar)
+        profileNameLabel.textColor = Style.primaryTextColor
+        let text = NSMutableAttributedString(string: "Level ", attributes: [NSFontAttributeName: Style.smallTextFont]);
+        text.append(NSMutableAttributedString(string: String(profile!.profileLevel), attributes: [NSFontAttributeName: Style.bodyTextFont]));
+        profileLevelLabel.attributedText = text
         
+        profileImageView.image = UIImage(named: profile!.profileAvatar)?.withRenderingMode(.alwaysTemplate)
+        profileImageView.tintColor = profile!.profileColor;
+        //profileImageView.layer.shadowColor = profile.profileColor.cgColor;
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -83,12 +87,19 @@ class PlayerProfileViewController: ProfileViewController {
     func updateScore(notification:Notification){
         let score = notification.userInfo?["score"] as? String;
         let scorePerSecond = notification.userInfo?["scorePerSecond"] as? String;
-        profileScoreLabel.text = score! + " (" +  scorePerSecond! + "/min)";
+        let text = NSMutableAttributedString(string: score!, attributes: [NSFontAttributeName: Style.bodyTextFont]);
+        text.append(NSMutableAttributedString(string: " (\(scorePerSecond!)/min)", attributes: [NSFontAttributeName: Style.smallTextFont]));
+        
+        profileScoreLabel.attributedText = text;
+            
     }
     
     func updatePlayerLevel(notification:Notification){
         let level = notification.userInfo?["level"] as? String;
-        profileLevelLabel.text = level!
+        let text = NSMutableAttributedString(string: "Level ", attributes: [NSFontAttributeName: Style.smallTextFont]);
+        text.append(NSMutableAttributedString(string: level!, attributes: [NSFontAttributeName: Style.bodyTextFont]));
+
+        profileLevelLabel.attributedText = text;
         profile.profileLevel = Int(level!)
     }
     

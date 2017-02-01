@@ -46,9 +46,7 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PlayerItemCollectionViewCell
         
         let item = items[indexPath.row];
-        let name = item.displayName;
         cell.imageView.image = UIImage(named: item.imageName.lowercased())?.withRenderingMode(.alwaysTemplate);
-        cell.label.text = name;
         cell.setItemShadow(color: item.itemColor);
         if(item == highlightedItem){
             print("cell highlight")

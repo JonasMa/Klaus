@@ -40,6 +40,11 @@ class ProfileViewController: UIViewController {
         profileImageView  = UIImageView();
         profileImageView.image = UIImage(named: "axt")
         profileImageView.translatesAutoresizingMaskIntoConstraints = false;
+        profileImageView.layer.cornerRadius = 20;
+        //profileImageView.tintColor = Style.primaryTextColor
+//        profileImageView.layer.shadowOffset = CGSize(width: 0,height: 0);
+//        profileImageView.layer.shadowOpacity = 1;
+//        profileImageView.layer.shadowRadius = 2;
         self.view.addSubview(profileImageView);
         
         //STATS - name - score - level
@@ -49,19 +54,19 @@ class ProfileViewController: UIViewController {
 
         profileNameLabel = UILabel();
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileNameLabel.font = Style.bodyTextFont;
+        profileNameLabel.font = Style.titleTextFont;
         profileNameLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileNameLabel);
         
         profileScoreLabel = UILabel();
         profileScoreLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileScoreLabel.font = Style.smallTextFont;
+        profileScoreLabel.font = Style.bodyTextFont;
         profileScoreLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileScoreLabel);
         
         profileLevelLabel = UILabel();
         profileLevelLabel.translatesAutoresizingMaskIntoConstraints = false;
-        profileLevelLabel.font = Style.smallTextFont
+        profileLevelLabel.font = Style.bodyTextFont
         profileLevelLabel.textColor = Style.primaryTextColor;
         profileStatsView.addSubview(profileLevelLabel);
         
@@ -87,7 +92,7 @@ class ProfileViewController: UIViewController {
         profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor).isActive = true;
         
         profileImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -(UIScreen.main.bounds.width * 0.25)).isActive = true;
-        profileImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3).isActive = true;
+        profileImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4).isActive = true;
         profileImageView.centerYAnchor.constraint(equalTo: profileStatsView.centerYAnchor).isActive = true;
         
         

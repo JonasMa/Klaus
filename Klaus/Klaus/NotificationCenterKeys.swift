@@ -15,7 +15,7 @@ struct NotificationCenterKeys{
     static var presentTutorialNotification = Notification.Name("presentTutorial");
     static var startGameFromEnemyTrigger = Notification.Name("startEnemyGame");
     static var updateItemsNotification = Notification.Name("updateItems");
-    static var updateEnemyScoreNotification = Notification.Name("updateEnemyScore");
+    static var updateEnemyLevelNotification = Notification.Name("updateEnemyLevel");
     static var showAlertNotification = Notification.Name("alert");
     static var updatePlayerLevelNotification = Notification.Name("updatePlayerLevel");
     static var highlightItemNotification = Notification.Name("highlightItem");

@@ -39,7 +39,7 @@ class ItemDetailViewController: UIViewController {
         
         //BACKGROUND
         grad = CAGradientLayer();
-        grad.colors = Style.gradientColorsWithTopColor(color: item.itemColor);
+        grad.colors = Style.gradientColors;
         grad.locations = Style.gradientLocations();
         grad.frame = self.view.bounds;
         self.view.layer.addSublayer(grad);
@@ -67,7 +67,7 @@ class ItemDetailViewController: UIViewController {
         self.view.addSubview(itemNameContainer);
         
         self.itemLevelLabel = UILabel();
-        self.itemLevelLabel.text = String("LEVEL \(item.itemLevel)");
+        self.itemLevelLabel.text = String("Level \(item.itemLevel)");
         self.itemLevelLabel.font = Style.bodyTextFont;
         self.itemLevelLabel.textAlignment = .center;
         self.itemLevelLabel.translatesAutoresizingMaskIntoConstraints = false;
@@ -75,10 +75,10 @@ class ItemDetailViewController: UIViewController {
         self.itemNameContainer.addSubview(itemLevelLabel);
 
         self.itemNameLabel = UILabel();
-        self.itemNameLabel.text = item.displayName.uppercased();
+        self.itemNameLabel.text = item.displayName;
         self.itemNameLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.itemNameLabel.textAlignment = .center;
-        self.itemNameLabel.font = Style.bodyTextFont;
+        self.itemNameLabel.font = Style.titleTextFont;
         self.itemNameLabel.textColor = Style.primaryTextColor;
         self.itemNameContainer.addSubview(itemNameLabel);
         
@@ -133,10 +133,10 @@ class ItemDetailViewController: UIViewController {
         
         
         //CONSTRAINTS
-        itemImageView.topAnchor.constraint(equalTo: itemImageContainer.topAnchor, constant: 50).isActive = true;
-        itemImageView.leftAnchor.constraint(equalTo: itemImageContainer.leftAnchor, constant: 50).isActive = true;
-        itemImageView.bottomAnchor.constraint(equalTo: itemImageContainer.bottomAnchor, constant: -50).isActive = true;
-        itemImageView.rightAnchor.constraint(equalTo: itemImageContainer.rightAnchor, constant: -50).isActive = true;
+        itemImageView.topAnchor.constraint(equalTo: itemImageContainer.topAnchor, constant: 15).isActive = true;
+        itemImageView.leftAnchor.constraint(equalTo: itemImageContainer.leftAnchor, constant: 15).isActive = true;
+        itemImageView.bottomAnchor.constraint(equalTo: itemImageContainer.bottomAnchor, constant: -15).isActive = true;
+        itemImageView.rightAnchor.constraint(equalTo: itemImageContainer.rightAnchor, constant: -15).isActive = true;
         
         itemImageContainer.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true;
         itemImageContainer.heightAnchor.constraint(equalTo: itemImageContainer.widthAnchor).isActive = true;

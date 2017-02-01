@@ -228,7 +228,7 @@ class AppModel {
             let resultString = "\n\(Strings.failedAttack)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Minuspunkte\n\n Die \(item.displayName) bekommst du nicht!";
             displayAlert(title: Strings.fail, message: resultString, buttonTitle: Strings.sadConfirmation)
         case .failedDefense:
-            let resultString = "\n\(Strings.successfullAttack)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Minuspunkte\n\n Die \(item.displayName) ist halt jetzt weg...";
+            let resultString = "\n\(Strings.failedDefense)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Minuspunkte\n\n Die \(item.displayName) ist halt jetzt weg...";
             displayAlert(title: Strings.fail, message: resultString, buttonTitle: Strings.sadConfirmation)
         }
     }

@@ -39,7 +39,7 @@ class EnemyProfile: Profile{
     
     func setScore (score: Int){
         self.score = score;
-        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyScoreNotification, object: nil, userInfo: ["score": score]);
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyLevelNotification, object: nil, userInfo: ["level": score]);
     }
     
     /*!
