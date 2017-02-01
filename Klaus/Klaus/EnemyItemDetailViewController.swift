@@ -11,6 +11,7 @@ import UIKit
 class EnemyItemDetailViewController: ItemDetailViewController {
     
     var stealButton: UIButton!;
+    var enemyUuid: String?
     private var g: CAGradientLayer!;
     private var timer: Timer?
 
@@ -49,7 +50,12 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     }
     
     func buttonAction(sender: UIButton!) {
-        AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item)
+        if enemyUuid == nil {
+            print("ERROR: enemyUuid is nil in EnemyItemDetailViewController.buttonAction()")
+            return
+        }
+        
+        AppModel.sharedInstance.triggerEnemyGameInstance(stolenItem: item, onPlayerUuuidString: enemyUuid!)
         timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(onTriggerGameTimeout), userInfo: nil, repeats: false)
     }
     

@@ -28,6 +28,7 @@ class EnemyProfileViewController: ProfileViewController {
         //ITEM COLLECTION
         itemCollectionViewController = EnemyItemCollectionViewController();
         itemCollectionViewController.items = profile.items;
+        itemCollectionViewController.enemyUuid = profile.uuid;
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         

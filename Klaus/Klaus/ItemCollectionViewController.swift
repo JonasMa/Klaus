@@ -13,6 +13,7 @@ class ItemCollectionViewController: UICollectionViewController {
     
     var flowLayout:UICollectionViewFlowLayout!;
     var items: Array<Item>!;
+    var enemyUuid: String?
 
     fileprivate let itemsPerRow: CGFloat = 3;
     fileprivate let sectionInsets = UIEdgeInsets(top: UIScreen.main.bounds.height/5, left: 15.0, bottom: 0.0, right: 15.0)

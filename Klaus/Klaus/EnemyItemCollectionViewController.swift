@@ -11,7 +11,6 @@ import UIKit
 private let reuseIdentifier = "EnemyItemCell";
 
 class EnemyItemCollectionViewController: ItemCollectionViewController {
-
     
     override func loadView() {
         super.loadView();
@@ -48,6 +47,7 @@ class EnemyItemCollectionViewController: ItemCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = EnemyItemDetailViewController();
         detailViewController.item = items[indexPath.row];
+        detailViewController.enemyUuid = enemyUuid;
         self.navigationController?.pushViewController(detailViewController, animated: true);
     }
 

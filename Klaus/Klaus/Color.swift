@@ -14,11 +14,13 @@ import UIKit
 
 extension UIColor {
     convenience init(hexString:String) {
-        let scanner  = Scanner(string: hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
+
+        // check for hexCode pattern. if wrong use black
+        let colorStrings = UIColor.matches(for: "#(?:[0-9a-fA-F]){6}", in: hexString)
+        let validString = colorStrings.count != 0 ? colorStrings[0] : "#000000"
         
-        if (hexString.hasPrefix("#")) {
-            scanner.scanLocation = 1
-        }
+        let scanner  = Scanner(string: validString)
+        scanner.scanLocation = 1 // skip #
         
         var color:UInt32 = 0
         scanner.scanHexInt32(&color)
@@ -47,7 +49,20 @@ extension UIColor {
         
         return NSString(format:"#%06x", rgb) as String
     }
-
+    
+    // static because of use in init
+    private static func matches(for regex: String, in text: String) -> [String] {
+        
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            let nsString = text as NSString
+            let results = regex.matches(in: text, range: NSRange(location: 0, length: nsString.length))
+            return results.map { nsString.substring(with: $0.range)}
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return ["#000000"]
+        }
+    }
     
     func lighter(by percentage:CGFloat=30.0) -> UIColor? {
         return self.adjust(by: abs(percentage) )

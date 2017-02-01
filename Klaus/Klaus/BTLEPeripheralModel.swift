@@ -47,7 +47,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     }
     
     func setInactive (){
-        startStopAdvertising(doAdvertise: false)
+        //startStopAdvertising(doAdvertise: false)
     }
     
     
@@ -144,6 +144,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             break
         case (feedbackCharacteristic?.uuid)!:
             if !isOnSubscribe {
+                print("PM send feedback: \(info!)")
                 sendString = String(info!)
                 sendingCharacteristic = feedbackCharacteristic
             }
@@ -204,7 +205,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             permissions: CBAttributePermissions.readable
         )
         
-        return [playerCharacteristic!, attackCharacteristic!, readScoreCharacteristic!, writeScoreCharacteristic!, itemsCharacteristic!, feedbackCharacteristic!]
+        return [playerCharacteristic!, feedbackCharacteristic!, readScoreCharacteristic!, writeScoreCharacteristic!, itemsCharacteristic!, attackCharacteristic!]
 
     }
     
@@ -297,7 +298,6 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
             sendingData?.count = 0
             print("PM Sent: EOM")
         }
-        
 
     }
     
@@ -356,7 +356,7 @@ class BTLEPeripheralModel : NSObject, CBPeripheralManagerDelegate {
     /** Catch when someone subscribes to our characteristic, then start sending them data
      */
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
-        print("PM Central subscribed to characteristic")
+        print("PM Central subscribed to characteristic \(characteristic.debugDescription)")
         sendDataToCharacteristic(isOnSubscribe: true, info: nil, characteristicUUID: characteristic.uuid)
     }
     

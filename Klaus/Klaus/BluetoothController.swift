@@ -17,12 +17,6 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         case peripheral
     }
     
-    enum ConnectionState {
-        case connected
-        case connecting
-        case disconnected
-    }
-    
     static let sharedInstance: BluetoothController = BluetoothController()
 
     private let peripheral: BTLEPeripheralModel = BTLEPeripheralModel()
@@ -58,7 +52,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     func connectToPlayer (playerUuid uuid: String) {
         changeBluetoothState(toNewState: BluetoothState.central)
         central.stopDiscoveringOtherPlayers()
-        central.connectToPeripheral(uuid: uuid)
+        central.getItemsFromPlayer (uuid: uuid)
     }
     
     func onItemsReceived (items: [Item], uuid: String) {
@@ -70,9 +64,9 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         AppModel.sharedInstance.pushScore(score: score)
     }
     
-    func sendGameRequestToAtackedPerson (itemToBeStolen: Item) {
+    func sendGameRequestToAtackedPerson (itemToBeStolen: Item, onPlayerUuuidString uuid: String) {
         changeBluetoothState(toNewState: BluetoothState.central)
-        central.sendAttack(itemToBeStolen: itemToBeStolen)
+        central.sendAttack(itemToBeStolen: itemToBeStolen, fromPlayer: uuid)
     }
     
     func sendScoreToEnemy (score: Double) {
@@ -82,6 +76,10 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         else {
             peripheral.setOwnScore(score: score)
         }
+    }
+    
+    func onGameFinish () {
+        central.onGameFinish()
     }
     
     func onEnemyDisappear (uuid: String) {
@@ -135,14 +133,13 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     private func changeBluetoothState (toNewState state: BluetoothState){
         
         if self.state == state {return}
-        print("BC state set to \(state)")
         self.state = state
         
         if state == BluetoothState.central {
             central.setActive()
             //peripheral.setInactive()
         } else {
-            peripheral.setActive()
+            //peripheral.setActive()
             central.setInactive()
         }
     }
