@@ -123,7 +123,11 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     */
     func onConnected() {
-        peripheral.setInactive()
+        //peripheral.setInactive()
+    }
+    
+    func onDisconnected() {
+        //peripheral.setActive()
     }
     
     func onAttackFeedback (feedbackCode: Int) {

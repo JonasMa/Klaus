@@ -23,6 +23,8 @@ protocol BluetoothCentralDelegate {
     
     func onConnected ()
     
+    func onDisconnected()
+    
     func onAttackFeedback (feedbackCode: Int)
 
 }

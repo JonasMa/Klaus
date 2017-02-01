@@ -29,7 +29,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private var centralManager: CBCentralManager?
     private var knownPeripherals: [CBPeripheral] = []
     private var connectedPeripheral: CBPeripheral?
-    private var discoveredPeripheral: CBPeripheral?
     private var peripheralsWaitingList: [CBPeripheral] = []
     private var peripheralLastSeen: [String:Double] = [:]
     
@@ -37,7 +36,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     private var writeAttack: CBCharacteristic?
     
     private var isAvailable = false
-    private var isConnected = false
     private var isActive = false
     private var itemToBeStolen: Item?
     private var requestType: RequestType = RequestType.Unknown
@@ -82,7 +80,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         // should not be needed anymore
         //requestType = RequestType.Unknown
         stopScan()
-        cancelPeripheralConnection(peripheral: connectedPeripheral)
+        cancelPeripheralConnection()
     }
     
     func sendScore (score value: Double) {
@@ -115,6 +113,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         // wait
         // check timestamps
         requestType = RequestType.Name
+        cancelPeripheralConnection()
         discoverOtherPlayers()
         scanTillTimeout()
         Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(checkKnownPeripheralsTimestamp), userInfo: nil, repeats: false)
@@ -140,7 +139,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     func onGameFinish () {
         if connectedPeripheral != nil {
-            cancelPeripheralConnection(peripheral: connectedPeripheral!)
+            cancelPeripheralConnection()
         }
     }
     
@@ -149,9 +148,9 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     */
     
     private func connectToPeripheral (uuid: String, withIntention: RequestType){
-        if isConnected {
+        if connectedPeripheral != nil {
             print("CM cancel connecton before (re)connecting")
-            cancelPeripheralConnection(peripheral: connectedPeripheral!)
+            cancelPeripheralConnection()
         }
         requestType = withIntention
         for peripheral: CBPeripheral in knownPeripherals {
@@ -185,7 +184,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
         sendPlayerDataToView(receivedDataString: data, uuid: uuid)
         
-        cancelPeripheralConnection(peripheral: connectedPeripheral)
+        cancelPeripheralConnection()
         
         discoverOtherPlayers()
     }
@@ -233,7 +232,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             else {print("CM item decoding not successful")}
         }
         delegate?.onItemsReceived(items: items, uuid: uuid)
-        cancelPeripheralConnection(peripheral: discoveredPeripheral!)
+        cancelPeripheralConnection()
         //cleanup()
     }
     
@@ -291,12 +290,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     
-    private func cancelPeripheralConnection(peripheral: CBPeripheral?) {
+    private func cancelPeripheralConnection() {
         // If we've got this far, we're connected, but we're not subscribed, so we just disconnect
-        if peripheral != nil {
-            centralManager?.cancelPeripheralConnection(peripheral!)
+        if connectedPeripheral != nil {
+            centralManager?.cancelPeripheralConnection(connectedPeripheral!)
+            connectedPeripheral = nil
         }
-        connectedPeripheral = nil
         scanTillTimeout()
     }
     
@@ -306,16 +305,15 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
      *  (didUpdateNotificationStateForCharacteristic will cancel the connection if a subscription is involved)
      */
     private func cleanup() {
-        isConnected = false
         // Don't do anything if we're not connected
         // self.discoveredPeripheral.isConnected is deprecated
-        guard discoveredPeripheral?.state == .connected else {
+        guard connectedPeripheral?.state == .connected else {
             return
         }
         
         // See if we are subscribed to a characteristic on the peripheral
-        guard let services = discoveredPeripheral?.services else {
-            cancelPeripheralConnection(peripheral: discoveredPeripheral!)
+        guard let services = connectedPeripheral?.services else {
+            cancelPeripheralConnection()
             return
         }
         
@@ -327,7 +325,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             for characteristic in characteristics {
                 //if (characteristic.uuid.isEqual(playerCharacteristicUUID)
                 if characteristic.isNotifying {
-                    discoveredPeripheral?.setNotifyValue(false, for: characteristic)
+                    connectedPeripheral?.setNotifyValue(false, for: characteristic)
                     // And we're done.
                     //return
                 }
@@ -384,10 +382,10 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             
             print("CM Discovered new \(peripheral.name). RequestType is \(requestType)")
             // Save a local copy of the peripheral, so CoreBluetooth doesn't get rid of it
-            discoveredPeripheral = peripheral
+            
             if true {
             //if requestType == RequestType.Name {
-                if isConnected {
+                if connectedPeripheral != nil {
                     // already connected to another peripheral, so wait for disconnect
                     peripheralsWaitingList.append(peripheral)
                     print("CM set peripheral on waiting list")
@@ -397,6 +395,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
                     centralManager?.connect(peripheral, options: nil)
                 }
             }
+            connectedPeripheral = peripheral
         }
     }
     
@@ -417,8 +416,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
      */
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("CM Failed to connect to \(peripheral). (\(error!.localizedDescription))")
-        discoveredPeripheral = nil
-        isConnected = false
+        connectedPeripheral = nil
         //cleanup()
     }
     
@@ -428,7 +426,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         print("CM Peripheral Connected (\(peripheral.identifier.uuidString))")
         connectedPeripheral = peripheral
         
-        isConnected = true
         //delegate?.onConnectionEstablished(uuid: peripheral.identifier.uuidString)
         // Stop scanning
         if centralManager!.isScanning {
@@ -462,7 +459,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         // Discover the characteristic we want...
         
         // Loop through the newly filled peripheral.services array, just in case there's more than one.
-        discoveredPeripheral = peripheral
+        connectedPeripheral = peripheral
         
         for service in services {
             
@@ -605,9 +602,8 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
      */
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("CM Peripheral Disconnected")
-        discoveredPeripheral = nil
         connectedPeripheral = nil
-        isConnected = false
+        delegate?.onDisconnected()
         
         if !peripheralsWaitingList.isEmpty {
             central.connect(peripheralsWaitingList[0], options: nil)
