@@ -22,8 +22,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     private let peripheral: BTLEPeripheralModel = BTLEPeripheralModel()
     private let central: BTLECentralModel = BTLECentralModel()
     private var state: BluetoothState = BluetoothState.peripheral
-    private var checkingForAvailablePlayers: [String : String] = [:]
-    private var isActive = false
+    //private var checkingForAvailablePlayers: [String : Double] = [:]
 
     init () {
         central.delegate = self
@@ -32,18 +31,20 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func start () {
+        print("BC start")
         peripheral.setActive()
-        central.setActive()
+        // central.setActive()
     }
     
     func stop () {
+        print("BC stop")
         peripheral.setInactive()
         central.setInactive()
     }
     
     // gets triggered by system
     func setPassive(){
-        //changeBluetoothState(toNewState: BluetoothState.peripheral)
+        changeBluetoothState(toNewState: BluetoothState.peripheral)
     }
     
     func discoverEnemies () {
@@ -108,7 +109,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     
     /*!
      Pings the player with corresponding uuid and triggers the notificationMethodName via NotificationCenter when found
-     */
+     *
     func checkIfEnemyIsStillThere (uuid: String, notificationMethodName name: String) {
         checkingForAvailablePlayers[uuid] = name
     }
@@ -120,7 +121,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         }
         NotificationCenter.default.post(name: Notification.Name(key), object: nil, userInfo: ["uuid":uuid]);
     }
-    
+    */
     func onConnected() {
         peripheral.setInactive()
     }

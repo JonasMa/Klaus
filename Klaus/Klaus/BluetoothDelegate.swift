@@ -19,7 +19,7 @@ protocol BluetoothCentralDelegate {
     
     func onEnemyDisappear (uuid: String)
     
-    func onEnemyIsStillThere (uuid: String)
+    //func onEnemyIsStillThere (uuid: String)
     
     func onConnected ()
     

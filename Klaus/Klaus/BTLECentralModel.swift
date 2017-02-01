@@ -150,6 +150,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     
     private func connectToPeripheral (uuid: String, withIntention: RequestType){
         if isConnected {
+            print("CM cancel connecton before (re)connecting")
             cancelPeripheralConnection(peripheral: connectedPeripheral!)
         }
         requestType = withIntention
@@ -213,6 +214,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     @objc func stopScan() {
+        print("CM scanning stopped")
         if (centralManager?.isScanning)! {
             centralManager?.stopScan()
         }
@@ -245,7 +247,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     /** Scan for peripherals - specifically for our service's 128bit CBUUID
      */
     private func scanTillTimeout() {
-        print("CM scan(). isAvailable: " + String(isAvailable))
         guard isAvailable else { return }
         
         centralManager?.scanForPeripherals(
@@ -354,10 +355,12 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         
         if central.state == .poweredOn {
             isAvailable = true
+            /* probably not necessary
             if isActive
                 && !(centralManager?.isScanning)!{
                 scanTillTimeout()
             }
+            */
         }
         else {
             isAvailable = false
@@ -382,15 +385,15 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             print("CM Discovered new \(peripheral.name). RequestType is \(requestType)")
             // Save a local copy of the peripheral, so CoreBluetooth doesn't get rid of it
             discoveredPeripheral = peripheral
-            
-            if requestType == RequestType.Name {
+            if true {
+            //if requestType == RequestType.Name {
                 if isConnected {
                     // already connected to another peripheral, so wait for disconnect
                     peripheralsWaitingList.append(peripheral)
                     print("CM set peripheral on waiting list")
                 }
                 else {
-                    print("CM connecting to \(peripheral.name) ...")
+                    print("CM connecting to \(peripheral.name) ... (\(peripheral.identifier.uuidString))")
                     centralManager?.connect(peripheral, options: nil)
                 }
             }
