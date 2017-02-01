@@ -19,13 +19,11 @@ class SeitenschneiderModel {
     let randomColor = [UIColor.red, UIColor.green]
     
     init(viewController: SeitenschneiderViewController) {
+        print("seitenschneider gestartet")
         self.score = 0
         self.seitenSchneiderViewController = viewController
         self.allCables = [CableModel]()
-//        self.timer = StopwatchTimer.init(needGameUpdate: true, maxDuration: maxGameDuration)
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector:#selector(timeLine), userInfo: nil, repeats: true)
-//        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.timerAfterOneSecond, object: nil, queue: nil, using: timeLine)
-        
         addCables(isMainTargetColor: true, numOfCables: 4)
         addCables(isMainTargetColor: false, numOfCables: 6)
     }
@@ -62,13 +60,14 @@ class SeitenschneiderModel {
                     timerTimeChanged(addedDuration: -5)
                     addCables(isMainTargetColor: false, numOfCables: 1)
                 }
+                seitenSchneiderViewController.setNewFrame()
+                seitenSchneiderViewController.setNewAnimation()
                 allCables.remove(at: index!)
             }
         }
     }
     
     func timerTimeChanged(addedDuration: Int) {
-//        timer.maxDuration = timer.maxDuration+addedDuration
         maxGameDuration = maxGameDuration+addedDuration
         print("time added / subtracted")
     }
@@ -79,9 +78,10 @@ class SeitenschneiderModel {
     
     @objc func timeLine(){
         print("Zeit: \(maxGameDuration)")
-//        timer.maxDuration = timer.maxDuration-1
         maxGameDuration = maxGameDuration-1
-        if maxGameDuration <= 0 {
+        if maxGameDuration <= 0 && strikes < 3{
+            print("sm zeitende")
+            seitenSchneiderViewController.view.isUserInteractionEnabled = false
             endGame()
         }
     }
@@ -90,8 +90,9 @@ class SeitenschneiderModel {
         seitenSchneiderViewController.destroyZange()
         strikes += 1
         if strikes >= 3 {
+            print ("sm strikeende")
+            seitenSchneiderViewController.view.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.seitenSchneiderViewController.view.isUserInteractionEnabled = false
                 self.endGame()}
         }
     }

@@ -91,7 +91,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return true }
-        let limitTextLength = 8
+        let limitTextLength = 12
         
         let newLength = text.characters.count + string.characters.count - range.length
         return newLength <= limitTextLength
