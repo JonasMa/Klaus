@@ -51,8 +51,10 @@ class AppModel {
     
     func updateEnemyListInView(){
         var enemyDict = Dictionary<Int,EnemyProfile>();
-        for i in 0...(enemiesList.count-1){
-            enemyDict[i] = enemiesList[i];
+        if enemiesList.count > 0 {
+            for i in 0...(enemiesList.count-1){
+                enemyDict[i] = enemiesList[i];
+            }
         }
         NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyListNotification, object: nil, userInfo: enemyDict)
     }
