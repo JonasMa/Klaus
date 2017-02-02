@@ -70,7 +70,7 @@ struct Strings {
     static let itemPointsPerSecond = "Punkte pro Min"
     static let itemAcquisitionDate = "Eigentum seit"
     
-    static let stealButtonText = "Nimm's Wag!";
+    static let stealButtonText = "Nimm Swag!";
     
     // Tutorial texts
     static let welcomeTitleText = "WELCOME TO KLAU'S"
