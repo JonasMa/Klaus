@@ -10,6 +10,7 @@ import UIKit
 
 class ItemCollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView!;
+    var levelLabel: UILabel!;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -20,7 +21,16 @@ class ItemCollectionViewCell: UICollectionViewCell {
         imageView.tintColor = Style.primaryTextColor;
         contentView.addSubview(imageView);
         
+        levelLabel = UILabel()
+        levelLabel.font = Style.smallTextFont;
+        levelLabel.textColor = Style.primaryTextColor;
+        levelLabel.translatesAutoresizingMaskIntoConstraints = false;
+        contentView.addSubview(levelLabel)
+        
         self.layer.cornerRadius = 15;
+        
+        levelLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true;
+        levelLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
         
     }
     
@@ -33,6 +43,10 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     func setItemBackground(color: UIColor){
         self.backgroundColor = color;
+    }
+    
+    func setItemLevelLabel(level: Int){
+        levelLabel.text = String(level);
     }
     
     required init?(coder aDecoder: NSCoder) {
