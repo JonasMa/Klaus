@@ -179,4 +179,8 @@ class Item: NSObject, NSCoding {
         return Config.possibleColors[rnd];
     }
     
+    func resetDate(){
+        self.dateOfAcquisition = Date();
+    }
+    
 }

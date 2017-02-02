@@ -49,7 +49,7 @@ class SeitenschneiderViewController: UIViewController {
         self.view.layer.addSublayer(seitenschneiderGradient)
         
         zangeOne = getSeitenschneiderImage()
-        setSeitenschneiderImage(seitenschneiderImage: zangeOne, position: CGFloat(-(screenWidth/4*3)))
+        setSeitenschneiderImage(seitenschneiderImage: zangeOne, position: CGFloat(-screenWidth/4))
         zangeTwo = getSeitenschneiderImage()
         setSeitenschneiderImage(seitenschneiderImage: zangeTwo, position: 0)
         zangeThree = getSeitenschneiderImage()
@@ -59,15 +59,15 @@ class SeitenschneiderViewController: UIViewController {
     func initializeScoreLabel(){
         cableCuttedDisplay = UILabel(frame: CGRect(x: 100, y: 100, width: screenHeight*0.1, height: screenHeight*0.1))
         cableCuttedDisplay.text = "0"
-        cableCuttedDisplay.font = Style.titleTextFont
-        cableCuttedDisplay.textColor = Style.primaryButtonTextColor
+        cableCuttedDisplay.font = Style.titleTextFontBold
+        cableCuttedDisplay.textColor = UIColor.red
         cableCuttedDisplay.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(cableCuttedDisplay)
         self.view.bringSubview(toFront: cableCuttedDisplay)
         cableCuttedDisplay.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
         cableCuttedDisplay.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
         cableCuttedDisplay.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: CGFloat(screenWidth / 4*2)).isActive = true
-        cableCuttedDisplay.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -225).isActive = true
+        cableCuttedDisplay.centerYAnchor.constraint(equalTo: self.view.topAnchor, constant: CGFloat(screenHeight*0.18)).isActive = true
     }
     
     func initializeTimeline() {
@@ -147,6 +147,6 @@ extension UIViewController {
         seitenschneiderImage.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
         seitenschneiderImage.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
         seitenschneiderImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: position).isActive = true
-        seitenschneiderImage.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -225).isActive = true
+        seitenschneiderImage.centerYAnchor.constraint(equalTo: self.view.topAnchor, constant: CGFloat(UIScreen.main.bounds.height*0.18)).isActive = true
     }
 }

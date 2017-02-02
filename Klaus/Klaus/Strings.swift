@@ -14,7 +14,7 @@ struct Strings {
     static var statusNotOkTitle = "Oops!"
     static var statusConnectionFail = "Leider gibt es Probleme mit der Bluetoothverbindung. Hätten wir doch lieber mal ne Serveranwendung geschrieben."
     static var statusConnectionFailButton = "Schämt euch!"
-    static var statusEnemyBusy = "Ruhig brauner. Dein Opfer ist so ein krasses Opfer, dass es im Moment selber noch kämpft."
+    static var statusEnemyBusy = "Ruhig Brauner. Dein Opfer ist so ein krasses Opfer, dass es im Moment selber noch kämpft."
     static var statusEnemyBusyButton = "Ich warte noch"
     static var gameConnectionLost = "Während des Spiels ist die Bluetoothverbindung abgebrochen. Du kannst jetzt nochmal probieren Angriffe zu starten."
     static var gameConnetionLostButton = "Passiert den besten!"
@@ -37,7 +37,7 @@ struct Strings {
     static var simonSaysResultPt2 = " Zahlen merken, bevor dein Kopf versagt hat. Läuft bei dir!"
     static var shelfGameResultPt1 = "Da geht was! Du konntest unfassbare "
     static var shelfGameResultPt2 = " Gegenstände auffangen. Jetzt grill die Katze!"
-    static var seitenschneiderResultPt1 = "In anbetracht der geltenden Regeln für dieses Spiel konntest du "
+    static var seitenschneiderResultPt1 = "In Anbetracht der geltenden Regeln für dieses Spiel konntest du "
     static var seitenschneiderResultPt2 = " Drähte durschneiden. Du bist crazy drauf!"
     
     // Attack texts
@@ -63,7 +63,7 @@ struct Strings {
     
     // Item infos
     static let axeInfo = "Die Axt ist eine heimtückische, als einfaches Holzbearbeitungswerkzeug getarnte Waffe! Die Meinung zur Verwendungsfähigkeit von Äxten als Liebesspielzeug ist ebenso gespalten wie manche Verfechter dieser These.";
-    static let coffeeInfo = "Die Fotzenkatz. Sie schmeißt Tassen runter, miaut und hinterlässt nur Dreck. Angestachelt zerkratzt sie auch fremde Visagen... eine schwierige Zeitgenossin.";
+    static let coffeeInfo = "Eine Fotzenkatz (chin.: Mao Mushi) ist die Krone in der Evolution sämtlicher auf Kohlenstoff basierender Lebensformen. Sie ist eine kleine bunte Mischung zwischen Angst und Neugierde. Biologisch betrachtet gehört sie zur Überklasse der Mehrfüßer und der Gattung der Schuppentiere. Als Maßeinheit gilt der sogenannte Katzenwurf. Sie schmeißt Tassen runter, miaut und hinterlässt nur Dreck. Angestachelt zerkratzt sie auch fremde Visagen... eine schwierige Zeitgenossin.";
     static let seitenschneiderInfo = "Der Seitenschneider ist ein nicht verzehrbares Eisending. Die Verwendung ist jedoch von Art zu Art unterschiedlich. Der Seitenschneider ist eine typisch deutsche Erfindung: Ein Allzweckwerkzeug, dass immer griffbereit und sehr handlich ist. ";
     static let alarmInfo = "Alarm ist das, was ausgelöst wird, wenn die Unfähigkeit eines oder mehrerer Menschen die Grenzen des guten Geschmacks übersteigt und so zur Gefahr der Allgemeinheit wird.";
     
