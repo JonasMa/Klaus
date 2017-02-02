@@ -22,6 +22,7 @@ class AppModel {
     var underAttack: Bool = false
     var isAttacking: Bool = false
     var attackedItem: Item!
+    var timeOutTimer: Timer?;
 
     
     init() {
@@ -129,12 +130,13 @@ class AppModel {
         BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem, onPlayerUuuidString: uuid)
     }
     
-    func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
-        resetScores()
+    func triggerIncomingGameFromEnemy(itemToBeStolen: Item, attackerName: String) {
+        resetScores() // TODO: name in alert anzeigen
         underAttack = true
         attackedItem = itemToBeStolen
-        NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
+        NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen, "attackerName":attackerName]);
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        
     }
     
     func pushPersonalScore(score: Double){
@@ -194,9 +196,7 @@ class AppModel {
             }
         }
         resetScores()
-        underAttack = false
-        isAttacking = false
-        attackedItem = nil
+        resetGameStatus()
         BluetoothController.sharedInstance.onGameFinish()
     }
     
@@ -244,6 +244,26 @@ class AppModel {
         }else{
             displayAlert(title: Strings.statusNotOkTitle, message: Strings.statusEnemyBusy, buttonTitle: Strings.statusEnemyBusyButton)
         }
+    }
+    
+    
+    
+    
+    
+    func onGameConnectionLost() {
+        if isGaming() {
+            NotificationCenter.default.post(name: NotificationCenterKeys.abortGame, object: nil);
+            displayAlert(title: Strings.statusNotOkTitle, message: Strings.gameConnectionLost, buttonTitle: Strings.gameConnetionLostButton)
+            resetScores()
+            resetGameStatus()
+            NSLog("Enemyscore: \(enemyScore), Personalscore: \(personalScore), underAttack: \(underAttack), isAttacking: \(isAttacking)")
+        }
+    }
+    
+    func resetGameStatus(){
+        underAttack = false
+        isAttacking = false
+        attackedItem = nil
     }
     
     enum ResultType{

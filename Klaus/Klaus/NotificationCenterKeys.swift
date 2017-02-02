@@ -24,5 +24,5 @@ struct NotificationCenterKeys{
     static var timerMaxDurationReached = Notification.Name("maxDurationReached");
     static var timerAfterOneSecond = Notification.Name("oneSecLater");
     static var startGame = Notification.Name("startAttackerGame");
-
+    static var abortGame = Notification.Name("abortAllGames");
 }

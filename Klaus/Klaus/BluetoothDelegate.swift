@@ -31,7 +31,7 @@ protocol BluetoothCentralDelegate {
 
 protocol BluetoothPeripheralDelegate {
     
-    func receiveGameRequestFromAttacker(itemToBeStolen: Item)
+    func receiveGameRequestFromAttacker(itemToBeStolen: Item, attackerName name: String)
     
     func onReceiveScoreFromEnemy (score: Double)
     

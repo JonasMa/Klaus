@@ -10,13 +10,16 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    let tabOne = UINavigationController()
+    let tabOne = UINavigationController();
     let tabTwo = UINavigationController();
+    
+    var gameTriggerAlert: UIAlertController?;
+    var timer: Timer?;
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         
-            }
+        }
     
     override func viewDidLoad() {
         
@@ -24,6 +27,7 @@ class MainTabBarController: UITabBarController {
         
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, queue: nil, using: triggerExplanationView)
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.showAlertNotification, object: nil, queue: nil, using: displayAlert)
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.abortGame, object: nil, queue: nil, using: popViewController)
         
         let tabOneBarItem = UITabBarItem(title: "Profil", image: UIImage(named: "klausi"), tag: 0);
         let tabTwoBarItem = UITabBarItem(title: "Gegner", image: UIImage(named: "enemyTab"), tag: 1);
@@ -48,15 +52,24 @@ class MainTabBarController: UITabBarController {
         super.didReceiveMemoryWarning()
     }
     
+    func popViewController(notification:Notification) {
+        tabTwo.popToRootViewController(animated: true)
+    }
+    
     func triggerExplanationView(notification:Notification) {
         self.selectedIndex = 1
-        let alert = UIAlertController(title: Strings.attention, message: Strings.attackOnYou, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: Strings.startDefense, style: UIAlertActionStyle.default, handler: {(action) in
-            alert.dismiss(animated: true, completion: nil)
-            let vc = ExplanationViewController(item: notification.userInfo?["item"] as! Item)
+        let item = notification.userInfo?["item"] as! Item
+        gameTriggerAlert = UIAlertController(title: Strings.attention, message: (notification.userInfo?["attackerName"] as? String)! + Strings.attackOnYouPt1 + item.displayName + Strings.attackOnYouPt2, preferredStyle: UIAlertControllerStyle.alert)
+        gameTriggerAlert!.addAction(UIAlertAction(title: Strings.startDefense, style: UIAlertActionStyle.default, handler: {(action) in
+            self.gameTriggerAlert!.dismiss(animated: true, completion: nil)
+            let vc = ExplanationViewController(item: item)
             self.tabTwo.pushViewController(vc, animated: true)
+            self.stopTimeOutTimer();
         }))
-        self.present(alert, animated: true, completion: nil)
+        self.present(gameTriggerAlert!, animated: true, completion: nil)
+        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(gameTriggerMissed), userInfo: nil, repeats: false)
+        print("AM timer started");
+
     }
     
     func displayAlert(notification: Notification) {
@@ -66,5 +79,19 @@ class MainTabBarController: UITabBarController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
-
+    
+    func stopTimeOutTimer(){
+        if timer != nil{
+            timer!.invalidate();
+            timer = nil
+        }
+    }
+    
+    @objc func gameTriggerMissed(){
+        print("AM game missed")
+        gameTriggerAlert!.dismiss(animated: true, completion: nil);
+        AppModel.sharedInstance.pushPersonalScore(score: 0);
+        self.stopTimeOutTimer();
+        
+    }
 }
