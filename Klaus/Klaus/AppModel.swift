@@ -118,6 +118,7 @@ class AppModel {
                 AlarmItem.initNewItem(),
                 SeitenschneiderItem.initNewItem(),
                 AxeItem.initNewItem(),
+                SeitenschneiderItem.initNewItem(),
                 CoffeeItem.initNewItem(),
                 CoffeeItem.initNewItem(),
                 SeitenschneiderItem.initNewItem()];

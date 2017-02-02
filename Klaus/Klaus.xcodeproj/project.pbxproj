@@ -21,7 +21,6 @@
 		47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C0622F1E152B0800C25292 /* AccelerometerModel.swift */; };
 		47C062331E152B8100C25292 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C062311E152B8100C25292 /* ResultViewController.swift */; };
 		47C062341E152B8100C25292 /* ResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C062321E152B8100C25292 /* ResultViewController.xib */; };
-		47C0623D1E1542EC00C25292 /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C0623C1E1542EC00C25292 /* Games.swift */; };
 		6A2ACBD71E32035D00118070 /* NotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2ACBD61E32035D00118070 /* NotificationCenterKeys.swift */; };
 		6A4AA0641E2B063D00834712 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0631E2B063D00834712 /* Definitions.swift */; };
 		6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */; };
@@ -115,7 +114,6 @@
 		47C0622F1E152B0800C25292 /* AccelerometerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerModel.swift; sourceTree = "<group>"; };
 		47C062311E152B8100C25292 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		47C062321E152B8100C25292 /* ResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultViewController.xib; sourceTree = "<group>"; };
-		47C0623C1E1542EC00C25292 /* Games.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
 		6A2ACBD61E32035D00118070 /* NotificationCenterKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenterKeys.swift; sourceTree = "<group>"; };
 		6A4AA0631E2B063D00834712 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralModel.swift; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 				6AB8F7251E40EB30002250B9 /* CatModel.swift */,
 				4790C5AC1E4134E00099CFF4 /* AxeModel.swift */,
 				47C0622F1E152B0800C25292 /* AccelerometerModel.swift */,
-				47C0623C1E1542EC00C25292 /* Games.swift */,
 				479CB0121E168FE000176D02 /* CountdownModel.swift */,
 				4772ABF71E265B7400AA9E57 /* DropItemModel.swift */,
 				841ED76B1E3906F300210F31 /* SimonSaysModel.swift */,
@@ -530,7 +527,7 @@
 				TargetAttributes = {
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = M97UUX8YVB;
+						DevelopmentTeam = 87X3F5FDGG;
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -635,7 +632,6 @@
 				4790C5AD1E4134E00099CFF4 /* AxeModel.swift in Sources */,
 				4744C6061E293B1F00CF739C /* ShelfGameLogic.swift in Sources */,
 				FA8D534A1E34139600C96370 /* LoginViewController.swift in Sources */,
-				47C0623D1E1542EC00C25292 /* Games.swift in Sources */,
 				4772ABF81E265B7400AA9E57 /* DropItemModel.swift in Sources */,
 				FAB1C46C1E11AB9600981731 /* Style.swift in Sources */,
 				FAB1C4681E117DFF00981731 /* ItemDetailViewController.swift in Sources */,
@@ -811,11 +807,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = M97UUX8YVB;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagsf;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswagolli;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -825,11 +821,12 @@
 		8497B5C71DE6FFC60039E35C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = M97UUX8YVB;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagsf;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswagolli;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

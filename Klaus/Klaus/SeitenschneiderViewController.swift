@@ -51,7 +51,7 @@ class SeitenschneiderViewController: UIViewController {
         zangeOne = getSeitenschneiderImage()
         setSeitenschneiderImage(seitenschneiderImage: zangeOne, position: CGFloat(-(screenWidth/4*3)))
         zangeTwo = getSeitenschneiderImage()
-        setSeitenschneiderImage(seitenschneiderImage: zangeTwo, position: CGFloat(-screenWidth/4))
+        setSeitenschneiderImage(seitenschneiderImage: zangeTwo, position: 0)
         zangeThree = getSeitenschneiderImage()
         setSeitenschneiderImage(seitenschneiderImage: zangeThree, position: CGFloat(screenWidth/4))
     }

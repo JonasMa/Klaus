@@ -22,8 +22,8 @@ struct Config {
     static var stealPenalty = 1000.0;
     
     static var possibleColors = [UIColor(red:0.78, green:0.00, blue:0.49, alpha:1.0),
-                                 UIColor(red:0.08, green:0.90, blue:0.80, alpha:1.0),
-                                 UIColor(red:1.00, green:0.96, blue:0.03, alpha:1.0),
-                                 UIColor(red:0.03, green:1.00, blue:0.09, alpha:1.0)]
+                                 UIColor(red:0.05, green:0.29, blue:0.73, alpha:1.0),
+                                 UIColor(red:0.12, green:0.61, blue:0.00, alpha:1.0),
+                                 UIColor(red:0.90, green:0.38, blue:0.08, alpha:1.0)]
     
 }
