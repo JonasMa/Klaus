@@ -62,7 +62,7 @@ class AccelerometerModel {
     
     //Gets called by axe minigame controller, stops recording
     func endRecording () -> Double{
-        return (maxX + maxY + maxZ)/3
+        return round(((maxX + maxY + maxZ)/3) * 100)
     }
     
 }
