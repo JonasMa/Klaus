@@ -58,10 +58,11 @@ class MainTabBarController: UITabBarController {
     
     func triggerExplanationView(notification:Notification) {
         self.selectedIndex = 1
-        gameTriggerAlert = UIAlertController(title: Strings.attention, message: Strings.attackOnYou, preferredStyle: UIAlertControllerStyle.alert)
+        let item = notification.userInfo?["item"] as! Item
+        gameTriggerAlert = UIAlertController(title: Strings.attention, message: (notification.userInfo?["attackerName"] as? String)! + Strings.attackOnYouPt1 + item.displayName + Strings.attackOnYouPt2, preferredStyle: UIAlertControllerStyle.alert)
         gameTriggerAlert!.addAction(UIAlertAction(title: Strings.startDefense, style: UIAlertActionStyle.default, handler: {(action) in
             self.gameTriggerAlert!.dismiss(animated: true, completion: nil)
-            let vc = ExplanationViewController(item: notification.userInfo?["item"] as! Item)
+            let vc = ExplanationViewController(item: item)
             self.tabTwo.pushViewController(vc, animated: true)
             self.stopTimeOutTimer();
         }))
