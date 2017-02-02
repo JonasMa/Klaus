@@ -72,6 +72,10 @@ class Item: NSObject, NSCoding {
         self.itemColor = itemColor;
     }
     
+    func resetDate () {
+        dateOfAcquisition = Date()
+    }
+    
     func toString() -> String {
         var stringy: String
         let formatter = DateFormatter()
