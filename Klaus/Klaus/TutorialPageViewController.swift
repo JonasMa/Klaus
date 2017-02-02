@@ -10,12 +10,13 @@ import UIKit
 
 class TutorialPageViewController: UIPageViewController , UIPageViewControllerDelegate, UIPageViewControllerDataSource{
 
+    let welcomeCtrl = WelcomeViewController();
     let loginCtrl = LoginViewController();
     let avatarCtrl = AvatarCollectionViewController();
     let colorCtrl = SelectColorViewController();
     var index = 0;
     var lastIndex = 0;
-    var pageCount = 3;
+    var pageCount = 4;
     
     var isAnimating = false;
     
@@ -34,7 +35,7 @@ class TutorialPageViewController: UIPageViewController , UIPageViewControllerDel
         self.dataSource = self;
         
         self.preferredContentSize = CGSize(width: 200, height: 200);
-        controllers = [loginCtrl,avatarCtrl,colorCtrl];
+        controllers = [welcomeCtrl,loginCtrl,avatarCtrl,colorCtrl];
         NotificationCenter.default.addObserver(forName: NotificationCenterKeys.setTutorialPageViewController, object: nil, queue: nil, using: setCurrentViewController)
     }
     

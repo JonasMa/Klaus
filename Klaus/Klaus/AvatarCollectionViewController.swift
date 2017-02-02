@@ -9,7 +9,7 @@ class AvatarCollectionViewController: UIViewController, UICollectionViewDataSour
     var chooseAvatarLabel: UILabel!;
     var chooseAvatarDescriptionLabel: UILabel!;
     var swipeButton: UIButton!
-    var pageIndex = 2;
+    var pageIndex = 3;
     
     
     var avatarCollectionView: UICollectionView!

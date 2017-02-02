@@ -22,7 +22,7 @@ class SelectColorViewController: UIViewController {
     var buttonGreen: UIButton!
     var buttonYellow: UIButton!
     
-    var pageIndex = 3
+    var pageIndex = 4
     
     var playerColor = UIColor.black;
     

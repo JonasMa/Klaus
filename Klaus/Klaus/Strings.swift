@@ -70,6 +70,9 @@ struct Strings {
     static let stealButtonText = "Nimm's Wag!";
     
     // Tutorial texts
+    static let welcomeTitleText = "WELCOME TO KLAU'S"
+    static let welcomeExplanationText = "Bist du der nächste Meisterdieb? Klaue Items von Gegnern, sammle Items, be Germany's NEXT Meisterdieb. Suche nach anderen Dieben in der Nähe und beraube sie ihrer Items. Je mehr Items du besitzt, desto schneller steigt dein Level."
+    
     static let chooseAvatarText = "Tarnung Wählen"
     static let chooseAvatarDescriptionText = "Such dir eine Visage aus!"
     

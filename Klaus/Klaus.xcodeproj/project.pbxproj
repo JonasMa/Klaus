@@ -39,6 +39,7 @@
 		841ED7741E391EE300210F31 /* SeitenschneiderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841ED7721E391EE200210F31 /* SeitenschneiderViewController.xib */; };
 		841ED7761E392E1800210F31 /* CableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7751E392E1800210F31 /* CableModel.swift */; };
 		841ED7781E39312700210F31 /* SeitenschneiderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7771E39312700210F31 /* SeitenschneiderModel.swift */; };
+		848CDF4D1E429DA300C8C436 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CDF4C1E429DA300C8C436 /* WelcomeViewController.swift */; };
 		8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B59E1DE6FFC60039E35C /* AppDelegate.swift */; };
 		8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */; };
 		8497B5B61DE6FFC60039E35C /* KlausTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B5B51DE6FFC60039E35C /* KlausTests.swift */; };
@@ -132,6 +133,7 @@
 		841ED7721E391EE200210F31 /* SeitenschneiderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeitenschneiderViewController.xib; sourceTree = "<group>"; };
 		841ED7751E392E1800210F31 /* CableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CableModel.swift; sourceTree = "<group>"; };
 		841ED7771E39312700210F31 /* SeitenschneiderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeitenschneiderModel.swift; sourceTree = "<group>"; };
+		848CDF4C1E429DA300C8C436 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		8497B59B1DE6FFC60039E35C /* Klaus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8497B59E1DE6FFC60039E35C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8497B5AA1DE6FFC60039E35C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				84B499381E3DEEE800C0C514 /* AvatarCollectionViewController.swift */,
 				84B4993A1E3DF0B800C0C514 /* AvatarCollectionViewCell.swift */,
 				84B4990C1E3BB44500C0C514 /* SelectColorViewController.swift */,
+				848CDF4C1E429DA300C8C436 /* WelcomeViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -528,7 +531,6 @@
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = M97UUX8YVB;
-
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -603,6 +605,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FABB862E1E3E4398003657CC /* AvatarCollectionViewController.swift in Sources */,
+				848CDF4D1E429DA300C8C436 /* WelcomeViewController.swift in Sources */,
 				47C062291E15274200C25292 /* ExplanationViewController.swift in Sources */,
 				841ED76E1E39072700210F31 /* StopwatchTimer.swift in Sources */,
 				FAB1C4761E13EDFB00981731 /* EnemyTableView.swift in Sources */,
