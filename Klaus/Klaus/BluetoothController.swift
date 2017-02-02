@@ -127,7 +127,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func onDisconnected() {
-        //peripheral.setActive()
+        AppModel.sharedInstance.onGameConnectionLost()
     }
     
     func onAttackFeedback (feedbackCode: Int) {
