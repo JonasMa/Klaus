@@ -20,7 +20,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         imageView.tintColor = Style.primaryTextColor;
         contentView.addSubview(imageView);
         
-        self.layer.cornerRadius = 20;
+        self.layer.cornerRadius = 15;
         
     }
     
