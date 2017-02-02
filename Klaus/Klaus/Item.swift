@@ -72,10 +72,6 @@ class Item: NSObject, NSCoding {
         self.itemColor = itemColor;
     }
     
-    func resetDate () {
-        dateOfAcquisition = Date()
-    }
-    
     func toString() -> String {
         var stringy: String
         let formatter = DateFormatter()
@@ -181,6 +177,10 @@ class Item: NSObject, NSCoding {
     static func getRandomItemColor() -> UIColor{
         let rnd = Int(arc4random_uniform(UInt32(Config.possibleColors.count)));
         return Config.possibleColors[rnd];
+    }
+    
+    func resetDate(){
+        self.dateOfAcquisition = Date();
     }
     
 }

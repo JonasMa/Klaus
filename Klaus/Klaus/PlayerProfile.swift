@@ -33,6 +33,7 @@ class PlayerProfile: Profile, NSCoding{
 
     func addItem(item: Item){
         item.incItemLevel();
+        item.resetDate();
         items.append(item);
         self.updateItemsInView()
         NotificationCenter.default.post(name: NotificationCenterKeys.highlightItemNotification, object: nil, userInfo: ["item": item]);
