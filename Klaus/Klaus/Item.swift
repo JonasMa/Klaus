@@ -83,11 +83,10 @@ class Item: NSObject, NSCoding {
     }
     
     static func decode (toDecode: String) -> Item? {
-        var id: String // wie schaut das denn jetzt aus? datenstruktur? was braucht man jetzt?
+        var id: String
         var name: String
         var timeStamp: Date?
         var pointsPerSecond: Int?
-        //var imageName: String
         var itemLevel: Int?
         var itemColor: UIColor?
         var itemType: Int?
@@ -107,7 +106,6 @@ class Item: NSObject, NSCoding {
         name = splitted[INDEX_NAME]
         timeStamp = formatter.date(from: splitted[INDEX_DATE])
         pointsPerSecond = Int(splitted[INDEX_POINTS])
-        //imageName = splitted[INDEX_NAME]
         itemLevel = Int(splitted[INDEX_LEVEL])
         itemColor = UIColor(hexString: splitted[INDEX_COLOR])
         itemType = Int(splitted[INDEX_TYPE])
@@ -116,7 +114,7 @@ class Item: NSObject, NSCoding {
         if timeStamp == nil
             || pointsPerSecond == nil
             || itemLevel == nil {
-            print("unwrapping Item.decode was unsuccesful")
+            print("unwrapping Item.decode was unsuccessful")
         }
         
         guard let itemTypeDec = itemType else {
@@ -139,7 +137,6 @@ class Item: NSObject, NSCoding {
             print("unknown displayname");
             return nil;
         }
-//        return Item(id: id, displayName: name, pointsPerSecond: pointsPerSecond!, dateOfAcquisition: timeStamp!, level: itemLevel!)
     }
 
     func getGameExplanation() -> String{
