@@ -14,12 +14,12 @@ class EnemyProfileViewController: ProfileViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
-        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updateEnemyScoreNotification, object: nil, queue: nil, using: updateScore)
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updateEnemyLevelNotification, object: nil, queue: nil, using: updateScore)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
-        NotificationCenter.default.removeObserver(self, name: NotificationCenterKeys.updateEnemyScoreNotification, object: nil);
+        NotificationCenter.default.removeObserver(self, name: NotificationCenterKeys.updateEnemyLevelNotification, object: nil);
     }
     
     override func viewDidLoad() {
@@ -28,6 +28,7 @@ class EnemyProfileViewController: ProfileViewController {
         //ITEM COLLECTION
         itemCollectionViewController = EnemyItemCollectionViewController();
         itemCollectionViewController.items = profile.items;
+        itemCollectionViewController.enemyUuid = profile.uuid;
         self.addChildViewController(itemCollectionViewController);
         self.view.addSubview(itemCollectionViewController.view);
         
@@ -36,7 +37,8 @@ class EnemyProfileViewController: ProfileViewController {
         
         profileNameLabel.text = profile.name;
         profileScoreLabel.text = String(profile.score);
-        profileImageView.image = UIImage(named: profile.profileAvatar)
+        profileImageView.image = UIImage(named: profile.profileAvatar)?.withRenderingMode(.alwaysTemplate);
+        profileImageView.tintColor = profile.profileColor
 
     }
 
@@ -45,8 +47,11 @@ class EnemyProfileViewController: ProfileViewController {
     }
     
     func updateScore(notification:Notification){
-        let score = notification.userInfo?["score"] as? String;
-        profileScoreLabel.text = score!;
+        let level = notification.userInfo?["level"] as? String;
+        
+        let text = NSMutableAttributedString(string: "Level ", attributes: [NSFontAttributeName: Style.smallTextFont]);
+        text.append(NSMutableAttributedString(string: level!, attributes: [NSFontAttributeName: Style.bodyTextFont]));
+        profileScoreLabel.attributedText = text;
     }
 
 

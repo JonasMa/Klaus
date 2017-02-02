@@ -14,7 +14,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     var buttonGradient: CAGradientLayer!
     var nameLabel: UILabel!;
     var nameTextField: UITextField!;
-    var pageIndex = 1;
+    var pageIndex = 2;
 
 
     override func viewDidLoad() {
@@ -26,22 +26,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         nameLabel = UILabel();
         nameLabel.text = "Bitte trage hier deinen Namen ein";
         nameLabel.translatesAutoresizingMaskIntoConstraints = false;
-        nameLabel.font = UIFont.systemFont(ofSize: 16)
+        nameLabel.font = Style.titleTextFont
+        nameLabel.textColor = Style.primaryTextColor
         self.view.addSubview(nameLabel);
         
         nameTextField = UITextField();
         nameTextField.placeholder = "Dein Name";
         nameTextField.delegate = self;
         nameTextField.translatesAutoresizingMaskIntoConstraints = false;
-        nameTextField.font = UIFont.systemFont(ofSize: 16);
+        nameTextField.font = Style.bodyTextFont
         nameTextField.textAlignment = .center;
+        nameTextField.textColor = Style.primaryTextColor
         self.view.addSubview(nameTextField);
         nameTextField.becomeFirstResponder()
         
         nextButton = Style.getPrimaryButton(buttonTitle: Strings.tutorialButtonText)
         buttonGradient = Style.primaryButtonBackgroundGradient()
         nextButton.layer.insertSublayer(buttonGradient, at: 0);
-        
         self.view.addSubview(nextButton)
         nextButton.addTarget(self, action: #selector(nextButtonPressed), for: .touchDown)
 
@@ -65,6 +66,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     func addConstraints(){
         nameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         nameLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true;
+        nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        nameLabel.numberOfLines = 3
+        nameLabel.textAlignment = .center
         
         nameTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         nameTextField.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -170).isActive = true;
@@ -89,7 +93,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return true }
-        let limitTextLength = 8
+        let limitTextLength = 12
         
         let newLength = text.characters.count + string.characters.count - range.length
         return newLength <= limitTextLength

@@ -19,13 +19,19 @@ protocol BluetoothCentralDelegate {
     
     func onEnemyDisappear (uuid: String)
     
-    func onEnemyIsStillThere (uuid: String)
+    func onConnected ()
+    
+    func onDisconnected()
+    
+    func onAttackFeedback (feedbackCode: Int)
 
 }
 
 protocol BluetoothPeripheralDelegate {
     
-    func receiveGameRequestFromAttacker(itemToBeStolen: Item)
+    func receiveGameRequestFromAttacker(itemToBeStolen: Item, attackerName name: String)
     
     func onReceiveScoreFromEnemy (score: Double)
+    
+    func isPlaying () -> Bool
 }

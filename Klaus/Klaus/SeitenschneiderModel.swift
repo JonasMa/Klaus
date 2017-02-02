@@ -9,74 +9,97 @@ class SeitenschneiderModel {
     var cableModelObject: CableModel!
     var allCables: [CableModel]!
     
-    let timer: StopwatchTimer!
+    var timer: Timer!
+    let maxGameDuration = 20
+    var newDuration = 20
     
-    let maxNumberOfCables = 4
+    let targetCableColor = UIColor.blue
+    let maxNumCablesInGame = 12
     var score = 0
-    let randomColor = [UIColor.red, UIColor.brown, UIColor.cyan, UIColor.black, UIColor.magenta]
+    var strikes = 0
+    let randomColor = [UIColor.red, UIColor.green]
     
     init(viewController: SeitenschneiderViewController) {
         self.score = 0
         self.seitenSchneiderViewController = viewController
         self.allCables = [CableModel]()
-        
-        self.timer = StopwatchTimer()
-        timer.startTimer()
-        
-        for _ in 0..<maxNumberOfCables {
-            addCables(color: UIColor.blue)
-            addCables(color: randomColor[Int(arc4random_uniform(UInt32(randomColor.count)))])
-        }
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector:#selector(timeLine), userInfo: nil, repeats: true)
+        addCables(isMainTargetColor: true, numOfCables: 4)
+        addCables(isMainTargetColor: false, numOfCables: 6)
     }
     
-    func addCables(color: UIColor) {
-        cableModelObject = CableModel(color: color, model: self)
-        allCables.append(cableModelObject)
-        seitenSchneiderViewController.view.addSubview(cableModelObject)
+    func getRandomCableColor() -> UIColor {
+        return randomColor[Int(arc4random_uniform(UInt32(randomColor.count)))]
+    }
+    
+    func addCables(isMainTargetColor: Bool, numOfCables: Int) {
+        for _ in 0..<numOfCables {
+            if isMainTargetColor {
+                cableModelObject = CableModel(color: targetCableColor, model: self)
+            } else {
+                cableModelObject = CableModel(color: getRandomCableColor(), model: self)
+            }
+            allCables.append(cableModelObject)
+            seitenSchneiderViewController.view.insertSubview(cableModelObject, at: 0)
+        }
     }
     
     func addCableHalf(cableHalf: UIView) {
-        seitenSchneiderViewController.view.addSubview(cableHalf)
+        seitenSchneiderViewController.view.insertSubview(cableHalf, at: 0)
     }
     
     func checkCableTouch(touchLoc: CGPoint) {
-
         for cable in allCables{
             if cable.checkTouch(touchLocation: touchLoc){
                 let index = allCables.index(of: cable)
+                cableModelObject.cableSpeed = cableModelObject.cableSpeedFast
+                if cable.backgroundColor == targetCableColor {
+                    timerTimeChanged(addedDuration: 1)
+                    addCables(isMainTargetColor: true, numOfCables: 1)
+                } else {
+                    addCables(isMainTargetColor: false, numOfCables: 1)
+                }
+                seitenSchneiderViewController.setNewAnimation()
                 allCables.remove(at: index!)
-                checkAllCablesDeleted()
             }
         }
     }
     
-    func checkAllCablesDeleted() {
-        var blueCablesLeft = 0
-        for cable in allCables {
-            if cable.backgroundColor == UIColor.blue {
-                blueCablesLeft += 1
-            }
+    func timerTimeChanged(addedDuration: Int) {
+        if newDuration < maxGameDuration {
+            newDuration = newDuration+addedDuration
         }
-        if allCables.count == 0 {
-            gameEnded()
-        } else if blueCablesLeft == 0 {
-            gameEnded()
-        }
+        print("time added / subtracted")
     }
     
     func increaseScore() {
         score += 1
+        seitenSchneiderViewController.cableCuttedDisplay.text = String(score)
     }
     
-    func decreaseScore() {
-        score -= 1
+    @objc func timeLine(){
+        print("Zeit: \(newDuration)")
+        newDuration = newDuration-1
+        if newDuration <= 0 && strikes < 3{
+            print("sm zeitende")
+            seitenSchneiderViewController.view.isUserInteractionEnabled = false
+            endGame()
+        }
     }
     
-    func gameEnded(){
-        print("gameEnded")
-        timer.stopTimer()
-        seitenSchneiderViewController.startResultViewController()
-        // weiterverschicken: timer.duration
+    func addStrike() {
+        seitenSchneiderViewController.destroyZange()
+        strikes += 1
+        if strikes == 3 {
+            print ("sm strikeende")
+            seitenSchneiderViewController.view.isUserInteractionEnabled = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.endGame()}
+        }
     }
     
+    func endGame() {
+        timer.invalidate()
+        self.seitenSchneiderViewController.startResultViewController()
+    }
 }

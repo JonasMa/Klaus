@@ -11,7 +11,7 @@ import UIKit
 
 class AxeItem: Item {
     
-    private static let IMAGE_NAME = "Axe";
+    private static let IMAGE_NAME = "axti";
     
     override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
         super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor);

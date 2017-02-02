@@ -10,25 +10,17 @@ import UIKit
 
 class ItemCollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView!;
-    var label: UILabel!;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
         
-        self.layer.cornerRadius = 10.0;
         
-        imageView = UIImageView(frame: CGRect(x: 0, y: frame.size.height/5, width: frame.size.width , height: frame.size.width*2/5));
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
         imageView.contentMode = UIViewContentMode.scaleAspectFit;
         imageView.tintColor = Style.primaryTextColor;
         contentView.addSubview(imageView);
         
-        label = UILabel(frame: CGRect(x:0,y: imageView.frame.size.height*5/3, width: frame.size.width, height: frame.size.width/5));
-        label.textAlignment = .center
-        label.textColor = Style.primaryTextColor;
-        label.font = Style.bodyTextFont;
-
-        contentView.addSubview(label);
-        
+        self.layer.cornerRadius = 15;
         
     }
     
@@ -37,6 +29,10 @@ class ItemCollectionViewCell: UICollectionViewCell {
         self.layer.shadowOffset = CGSize(width: 0,height: 0);
         self.layer.shadowOpacity = 0.5;
         self.layer.shadowRadius = 1;
+    }
+    
+    func setItemBackground(color: UIColor){
+        self.backgroundColor = color;
     }
     
     required init?(coder aDecoder: NSCoder) {

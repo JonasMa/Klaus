@@ -23,11 +23,8 @@ class EnemyProfile: Profile{
     override init(name: String){
         self.uuid = ""
         super.init(name: name)
-        
-        //for testing
-        self.setItems(items: AppModel.sharedInstance.initialItems());
-
     }
+    
     
     override func isEqual(_ object: Any?) -> Bool {
         if let object = object as? EnemyProfile {
@@ -39,7 +36,22 @@ class EnemyProfile: Profile{
     
     func setScore (score: Int){
         self.score = score;
-        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyScoreNotification, object: nil, userInfo: ["score": score]);
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyLevelNotification, object: nil, userInfo: ["level": score]);
+    }
+    
+    func setItems(items: Array<Item>){
+        self.items = items;
+        self.updateItemsInView();
+    }
+    
+    func updateItemsInView(){
+        var itemDict = Dictionary<Int,Item>();
+        if !items.isEmpty{
+            for i in 0...(items.count-1){
+                itemDict[i] = items[i];
+            }
+        }
+        NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyItemsNotification, object: nil, userInfo: itemDict)
     }
     
     /*!

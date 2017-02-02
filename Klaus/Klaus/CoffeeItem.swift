@@ -11,7 +11,7 @@ import UIKit
 
 class CoffeeItem: Item {
     
-    private static let IMAGE_NAME = "Coffee";
+    private static let IMAGE_NAME = "katzi";
 
     override init(id: String, displayName: String, pointsPerSecond: Int, dateOfAcquisition: Date, level: Int, itemColor: UIColor){
         super.init(id: id, displayName: displayName, pointsPerSecond: pointsPerSecond, dateOfAcquisition: dateOfAcquisition, level: level, itemColor: itemColor);
@@ -34,7 +34,7 @@ class CoffeeItem: Item {
     }
     
     static func initNewItem() -> Item{
-        return CoffeeItem(id: Item.newId(), displayName: "Kaffee", pointsPerSecond: Config.coffeeBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
+        return CoffeeItem(id: Item.newId(), displayName: "Katze", pointsPerSecond: Config.coffeeBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
     }
     
     override func getInfoString() -> String{

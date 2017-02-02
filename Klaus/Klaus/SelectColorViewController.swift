@@ -22,7 +22,9 @@ class SelectColorViewController: UIViewController {
     var buttonGreen: UIButton!
     var buttonYellow: UIButton!
     
-    var pageIndex = 3
+    var pageIndex = 4
+    
+    var playerColor = UIColor.black;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +34,16 @@ class SelectColorViewController: UIViewController {
         headLineColor = UILabel()
         headLineColor.text = Strings.headLineColorText
         headLineColor.textAlignment = .center;
+        headLineColor.font = Style.titleTextFont;
+        headLineColor.textColor = Style.primaryTextColor
         headLineColor.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(headLineColor);
         
         descriptionColor = UILabel()
         descriptionColor.text = Strings.descritpionColorText
         descriptionColor.textAlignment = .center;
+        descriptionColor.font = Style.bodyTextFont
+        descriptionColor.textColor = Style.primaryTextColor
         descriptionColor.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(descriptionColor);
         
@@ -47,31 +53,10 @@ class SelectColorViewController: UIViewController {
         self.view.addSubview(endTutorialButton)
         endTutorialButton.addTarget(self, action: #selector(dismissTutorial), for: .touchDown)
         
-        buttonRed = UIButton()
-        buttonRed.setTitle(Strings.colorRedText, for: .normal)
-        buttonRed.backgroundColor = Style.colorRed
-        self.view.addSubview(buttonRed)
-        addButtonConstraint(button: buttonRed, influencedObject: descriptionColor)
-
-        buttonBlue = UIButton()
-        buttonBlue.setTitle(Strings.colorBlueText, for: .normal);
-        buttonBlue.backgroundColor = Style.colorBlue;
-        self.view.addSubview(buttonBlue);
-        addButtonConstraint(button: buttonBlue, influencedObject: buttonRed)
-        
-        buttonYellow = UIButton()
-        buttonYellow.setTitle(Strings.colorYellowText, for: .normal);
-        buttonYellow.translatesAutoresizingMaskIntoConstraints = false;
-        buttonYellow.backgroundColor = Style.colorYellow;
-        self.view.addSubview(buttonYellow);
-        addButtonConstraint(button: buttonYellow, influencedObject: buttonBlue)
-        
-        buttonGreen = UIButton()
-        buttonGreen.setTitle(Strings.colorGreenText, for: .normal);
-        buttonGreen.translatesAutoresizingMaskIntoConstraints = false;
-        buttonGreen.backgroundColor = Style.colorGreen;
-        self.view.addSubview(buttonGreen);
-        addButtonConstraint(button: buttonGreen, influencedObject: buttonYellow)
+        buttonRed = getColorButton(buttonText: Strings.colorRedText, buttonColor: Config.possibleColors[0], influencedObject: descriptionColor)
+        buttonBlue = getColorButton(buttonText: Strings.colorBlueText, buttonColor: Config.possibleColors[1], influencedObject: buttonRed)
+        buttonYellow = getColorButton(buttonText: Strings.colorYellowText, buttonColor: Config.possibleColors[2], influencedObject: buttonBlue)
+        buttonGreen = getColorButton(buttonText: Strings.colorGreenText, buttonColor: Config.possibleColors[3], influencedObject: buttonYellow)
         
         addConstraints()
     }
@@ -84,6 +69,19 @@ class SelectColorViewController: UIViewController {
         buttonGradient.frame = endTutorialButton.bounds;
     }
     
+    func getColorButton(buttonText: String, buttonColor: UIColor, influencedObject: UIView) -> UIButton{
+        let colorButton = UIButton()
+        colorButton.setTitle(buttonText, for: .normal)
+        colorButton.backgroundColor = buttonColor
+        colorButton.translatesAutoresizingMaskIntoConstraints = false
+        colorButton.titleLabel?.font = Style.titleTextFont;
+        colorButton.titleLabel?.textColor = Style.primaryTextColor
+        colorButton.layer.cornerRadius = 10
+        self.view.addSubview(colorButton)
+        addButtonConstraint(button: colorButton, influencedObject: influencedObject)
+        return colorButton
+    }
+    
     func addButtonConstraint(button: UIButton, influencedObject: UIView){
         button.translatesAutoresizingMaskIntoConstraints = false
         let leftConstraint = NSLayoutConstraint(item: button, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 10)
@@ -92,7 +90,6 @@ class SelectColorViewController: UIViewController {
         let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0.1, constant: 0)
         view.addConstraints([leftConstraint, rightConstraint, topConstraint, heightConstraint])
         button.addTarget(self, action: #selector(selectPlayerColor(sender:)), for: .touchUpInside)
-        button.addTarget(self, action: #selector(selectPlayerColor(sender:)), for: .touchDown)
     }
     
     func addConstraints(){
@@ -102,7 +99,6 @@ class SelectColorViewController: UIViewController {
         descriptionColor.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         descriptionColor.centerYAnchor.constraint(equalTo: headLineColor.bottomAnchor, constant: 20).isActive = true;
         descriptionColor.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10).isActive = true;
-        //descriptionColor.topAnchor.constraint(equalTo: self.headLineColor.bottomAnchor, constant: 20).isActive = true;
         descriptionColor.lineBreakMode = NSLineBreakMode.byWordWrapping
         descriptionColor.numberOfLines = 3
         descriptionColor.textAlignment = .center
@@ -114,23 +110,26 @@ class SelectColorViewController: UIViewController {
     
     func selectPlayerColor(sender: UIButton) {
         colorSelected = true
-        AppModel.sharedInstance.player.setColor(color: sender.backgroundColor!)
-        switch sender {
-        case buttonRed: buttonRed.backgroundColor = Style.colorRed; buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
-        case buttonBlue: buttonBlue.backgroundColor = Style.colorBlue; buttonRed.backgroundColor = Style.colorRed; buttonYellow.backgroundColor = Style.colorYellow; buttonGreen.backgroundColor = Style.colorGreen
-        case buttonYellow: buttonYellow.backgroundColor = Style.colorYellow; buttonBlue.backgroundColor = Style.colorBlue; buttonRed.backgroundColor = Style.colorRed; buttonGreen.backgroundColor = Style.colorGreen
-        case buttonGreen: buttonGreen.backgroundColor = Style.colorGreen; buttonBlue.backgroundColor = Style.colorBlue; buttonYellow.backgroundColor = Style.colorYellow; buttonRed.backgroundColor = Style.colorRed
-        default: break
+        if Config.possibleColors.contains(sender.backgroundColor!) {
+            self.playerColor = sender.backgroundColor!
+            self.resetButtonColors()
+            sender.backgroundColor = sender.backgroundColor?.darker(by: 30)
+            AppModel.sharedInstance.player.setColor(color: self.playerColor)
         }
-        sender.backgroundColor = sender.backgroundColor?.darker(by: 30)
+    }
+
+    func resetButtonColors() {
+        buttonRed.backgroundColor = Config.possibleColors[0]
+        buttonBlue.backgroundColor = Config.possibleColors[1]
+        buttonYellow.backgroundColor = Config.possibleColors[2]
+        buttonGreen.backgroundColor = Config.possibleColors[3]
     }
     
     func dismissTutorial(){
         if colorSelected {
             self.presentingViewController?.dismiss(animated: true, completion: nil);
+            BluetoothController.sharedInstance.start()
         }
     }
-    
-    
 }
 

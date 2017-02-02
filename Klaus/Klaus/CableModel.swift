@@ -13,8 +13,12 @@ class CableModel: UIImageView {
     let screenHeight:CGFloat!
     
     let cableSize:CGSize!
-    var cablePosition = CGPoint(x: 0.0, y: 0.0)
-    let cableSpeed:Double
+    var animationEndPoint:[CGFloat]!
+    var randomAnimationEndPosition:CGFloat!
+    var cablePosition:[CGPoint]!
+    var randomCablePosition: CGPoint!
+    var cableSpeed:Double!
+    let cableSpeedFast:Double!
     
     init(color: UIColor, model: SeitenschneiderModel) {
         self.model = model
@@ -23,13 +27,23 @@ class CableModel: UIImageView {
         self.screenWidth = screenSize.width
         self.screenHeight = screenSize.height
         
+        let randomFactor = Int(arc4random_uniform(2))
+        self.animationEndPoint = [self.screenWidth+20.0, -20.0]
+        self.randomAnimationEndPosition = animationEndPoint[randomFactor]
+        self.cablePosition = [CGPoint(x: -20.0, y: 0.0), CGPoint(x: screenWidth+20.0, y: 0.0)]
+        self.randomCablePosition = cablePosition[randomFactor]
+
         let randomSpeed = arc4random_uniform(20) + 10
         self.cableSpeed = Double(randomSpeed) * 0.1
+        self.cableSpeedFast = 2.0
         
         self.cableSize = CGSize(width: 20.0, height: screenHeight)
         
-        super.init(frame: CGRect(origin: cablePosition, size: cableSize))
+        super.init(frame: CGRect(origin: randomCablePosition, size: cableSize))
         self.backgroundColor = color
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderWidth = 2.0
+        
         
         animateCables()
     }
@@ -37,7 +51,7 @@ class CableModel: UIImageView {
     func animateCables(){
         let randomDelay = Double(arc4random_uniform(15)) * 0.1
         UIView.animate(withDuration: cableSpeed, delay: TimeInterval(randomDelay), options: [.autoreverse, .repeat, .curveEaseIn, .allowUserInteraction], animations: {
-            self.frame = CGRect(x: self.screenWidth, y: 0, width:self.cableSize.width, height: self.screenHeight)
+            self.frame = CGRect(x: self.randomAnimationEndPosition, y: 0, width:self.cableSize.width, height: self.screenHeight)
         }, completion: nil)
     }
     
@@ -48,7 +62,6 @@ class CableModel: UIImageView {
     }
     
     func checkTouch(touchLocation: CGPoint) -> Bool{
-//        let cableYCoordinate = self.layer.presentation()?.frame.origin.y
         let currentCableLocation = self.layer.presentation()?.frame
         let cableXCoordinate = currentCableLocation?.origin.x
         
@@ -58,8 +71,9 @@ class CableModel: UIImageView {
         if Double(touchXCoordinate + 15.0) > Double(cableXCoordinate!) && Double(touchXCoordinate - 15.0) < Double(cableXCoordinate!) {
             if self.backgroundColor != UIColor.blue{
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                model.decreaseScore()
+                model.addStrike()
             } else {
+                AudioServicesPlaySystemSound(1016)
                 model.increaseScore()
             }
             
@@ -80,7 +94,6 @@ class CableModel: UIImageView {
             
            
             delay(delay: 1.0){self.removeFromSuperview(); cableHalf.removeFromSuperview()}
-            model.checkAllCablesDeleted()
             return true
         } else {
             // nothing touched

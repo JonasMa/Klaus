@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResultViewController" customModule="Klaus" customModuleProvider="target">
             <connections>
-                <outlet property="descriptionLabel" destination="iuP-3I-w3w" id="3UN-WA-heK"/>
-                <outlet property="titleLabel" destination="VmR-xz-7qL" id="Dth-4g-nSG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,39 +18,7 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Dein Ergebnis:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VmR-xz-7qL">
-                    <frame key="frameInset" minX="50" minY="112" width="225" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27I-yo-edG">
-                    <frame key="frameInset" minX="78" minY="417" width="218" height="30"/>
-                    <state key="normal" title="Zurück zum Profil"/>
-                    <connections>
-                        <action selector="backButton:" destination="-1" eventType="touchUpInside" id="5Vx-ef-PMJ"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iuP-3I-w3w">
-                    <frame key="frameInset" minX="50" minY="166" width="275" height="127"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="iuP-3I-w3w" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="4M3-GC-rfs"/>
-                <constraint firstItem="VmR-xz-7qL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="Tx9-Nl-TII"/>
-                <constraint firstItem="VmR-xz-7qL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="250" id="aNT-pS-ZcC"/>
-                <constraint firstItem="iuP-3I-w3w" firstAttribute="top" secondItem="VmR-xz-7qL" secondAttribute="bottom" constant="20" id="bcl-Bt-oXT"/>
-                <constraint firstAttribute="trailing" secondItem="VmR-xz-7qL" secondAttribute="trailing" constant="30" id="dB5-Tr-Ywx"/>
-                <constraint firstItem="27I-yo-edG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="deh-0r-3c7"/>
-                <constraint firstAttribute="trailing" secondItem="iuP-3I-w3w" secondAttribute="trailing" constant="50" id="lXo-fn-OGh"/>
-                <constraint firstAttribute="trailing" secondItem="27I-yo-edG" secondAttribute="trailing" constant="30" id="ou1-1e-Zm7"/>
-                <constraint firstAttribute="bottom" secondItem="27I-yo-edG" secondAttribute="bottom" constant="30" id="u3b-YS-wdk"/>
-            </constraints>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>

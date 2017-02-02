@@ -11,7 +11,7 @@ import AudioToolbox
 
 class SimonSaysModel {
     
-    let maxNumberOfRounds = 14
+    let maxNumberOfRounds = 20
     let digitsForCode = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#"]
     
     var round = 0

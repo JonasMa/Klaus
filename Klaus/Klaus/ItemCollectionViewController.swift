@@ -13,8 +13,9 @@ class ItemCollectionViewController: UICollectionViewController {
     
     var flowLayout:UICollectionViewFlowLayout!;
     var items: Array<Item>!;
+    var enemyUuid: String?
 
-    fileprivate let itemsPerRow: CGFloat = 3;
+    fileprivate let itemsPerRow: CGFloat = 4;
     fileprivate let sectionInsets = UIEdgeInsets(top: UIScreen.main.bounds.height/5, left: 15.0, bottom: 0.0, right: 15.0)
 
     
@@ -27,9 +28,6 @@ class ItemCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
 
-        
-        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updateItemsNotification, object: nil, queue: nil, using: updateItems);
-        
         self.collectionView!.translatesAutoresizingMaskIntoConstraints = false;
         self.collectionView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
     }

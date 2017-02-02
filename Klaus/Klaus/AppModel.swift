@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AudioToolbox
 
 class AppModel {
     
@@ -15,17 +16,19 @@ class AppModel {
     
     private(set) var enemiesList: Array<EnemyProfile>;
     private(set) var player: PlayerProfile!
-    //var scores = [Double]()
     var personalScore: Double?
     var enemyScore: Double?
     var underAttack: Bool = false
+    var isAttacking: Bool = false
     var attackedItem: Item!
+    var timeOutTimer: Timer?;
+
     
     init() {
         enemiesList = Array<EnemyProfile>();
         
         //regularly update points based on items
-        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updatePlayerStats), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updatePlayerStats), userInfo: nil, repeats: true);
         
         if let savedPlayer = UserDefaults.standard.object(forKey: "Player") as? Data {
             player = NSKeyedUnarchiver.unarchiveObject(with: savedPlayer) as! PlayerProfile;
@@ -48,8 +51,10 @@ class AppModel {
     
     func updateEnemyListInView(){
         var enemyDict = Dictionary<Int,EnemyProfile>();
-        for i in 0...(enemiesList.count-1){
-            enemyDict[i] = enemiesList[i];
+        if enemiesList.count > 0 {
+            for i in 0...(enemiesList.count-1){
+                enemyDict[i] = enemiesList[i];
+            }
         }
         NotificationCenter.default.post(name: NotificationCenterKeys.updateEnemyListNotification, object: nil, userInfo: enemyDict)
     }
@@ -71,7 +76,6 @@ class AppModel {
     func updateEnemyItemsInList(items: [Item], uuid: String){
         let enemy = getEnemyByUuid(uuid: uuid)
         enemy?.setItems(items: items)
-        print("update enemy items")
         updateEnemyListInView()
     }
     
@@ -114,20 +118,26 @@ class AppModel {
                 AlarmItem.initNewItem(),
                 SeitenschneiderItem.initNewItem(),
                 AxeItem.initNewItem(),
-                CoffeeItem.initNewItem()];
+                SeitenschneiderItem.initNewItem(),
+                CoffeeItem.initNewItem(),
+                CoffeeItem.initNewItem(),
+                SeitenschneiderItem.initNewItem()];
     }
 
     
     //(callback)functions used for delegating game impulses, determining winning statement
-    func triggerEnemyGameInstance(stolenItem: Item) {
-        BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem)
+    func triggerEnemyGameInstance(stolenItem: Item, onPlayerUuuidString uuid: String) {
+        resetScores()
+        BluetoothController.sharedInstance.sendGameRequestToAtackedPerson(itemToBeStolen: stolenItem, onPlayerUuuidString: uuid)
     }
     
-    func triggerIncomingGameFromEnemy(itemToBeStolen: Item) {
+    func triggerIncomingGameFromEnemy(itemToBeStolen: Item, attackerName: String) {
+        resetScores()
         underAttack = true
         attackedItem = itemToBeStolen
-        NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen]);
-        //TODO: Hinweis, dass man angegriffen wurde
+        NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen, "attackerName":attackerName]);
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        
     }
     
     func pushPersonalScore(score: Double){
@@ -146,14 +156,6 @@ class AppModel {
         }
     }
     
-//    func pushScore(score: Double) {
-//        scores.append(score)
-//        NSLog("Personal Score AppModel: \(personalScore)")
-//        if scores.count == winningStatement {
-//            
-//        }
-//    }
-    
     func sendOwnScoreToEnemy(score: Double) {
         BluetoothController.sharedInstance.sendScoreToEnemy(score: score)
     }
@@ -163,40 +165,111 @@ class AppModel {
     }
     
     @objc func sendGameResultMessages(){
-        print("personal score: \(personalScore) ,enemyScore: \(enemyScore)");
+        print("AM personal score: \(personalScore) ,enemyScore: \(enemyScore)");
         if (personalScore == nil || enemyScore == nil){
-            fatalError("score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
+            fatalError("ERROR: score is nil in sendGameresultMessages \(personalScore) \(enemyScore)");
         }
+
         if (personalScore! > enemyScore!){
-            //gewonnen
-            if underAttack { // Item Verteidigt
-                displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
+            let bonus = Int((1 - enemyScore!/personalScore!) * Config.stealBonus);
+            player.score! += bonus
+            if underAttack { // Item verteidigt
+                displayAlertFor(resultType: .successfulDefense, score1: personalScore!, score2: enemyScore!, scoreChange: bonus, item: attackedItem)
             }else{ //Item gewonnen
-                displayAlert(title: Strings.gratulation, message: Strings.successfullAttack, buttonTitle: Strings.happyConfirmation)
+                displayAlertFor(resultType: .successfulAttack, score1: personalScore!, score2: enemyScore!, scoreChange: bonus, item: attackedItem)
                 self.player.addItem(item: attackedItem);
-                //TODO: Erhalte/behalte Item
             }
+            
         }else if (enemyScore! > personalScore!){
-            //verloren
+            let penalty = Int((1 - personalScore!/enemyScore!) * Config.stealBonus);
+            player.score! -= penalty
             if underAttack { // Item verloren
-                displayAlert(title: Strings.fail, message: Strings.failedDefense, buttonTitle: Strings.sadConfirmation)
+                displayAlertFor(resultType: .failedDefense, score1: personalScore!, score2: enemyScore!, scoreChange: penalty, item: attackedItem)
                 self.player.removeItem(item: attackedItem);
-                //TODO: Gib das Item ab / lösche es aus deinem Profil
-            }else{ //Item konnte nicht gewonnen werden
-                displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
+            }else{ // Item nicht gewonnen
+                displayAlertFor(resultType: .failedAttack, score1: personalScore!, score2: enemyScore!, scoreChange: penalty, item: attackedItem)
             }
         }else if (personalScore! == enemyScore!){
-            //unentschieden
             if underAttack {
-                displayAlert(title: Strings.gratulation, message: Strings.successfullDefense, buttonTitle: Strings.happyConfirmation)
+                displayAlertFor(resultType: .successfulDefense, score1: personalScore!, score2: enemyScore!, scoreChange: 0, item: attackedItem)
             }else{
-                displayAlert(title: Strings.fail, message: Strings.failedAttack, buttonTitle: Strings.sadConfirmation)
+                displayAlertFor(resultType: .failedAttack, score1: personalScore!, score2: enemyScore!, scoreChange: 0, item: attackedItem)
             }
         }
+        resetScores()
+        resetGameStatus()
+        BluetoothController.sharedInstance.onGameFinish()
+    }
+    
+    func resetScores() {
         personalScore = nil;
         enemyScore = nil;
+    }
+    
+    
+    private func scoreBonus(value: Double){
+        player.score! += Int(value * Config.stealBonus);
+        print("AM Player won by a factor of \(value), granting \(value * Config.stealBonus) points");
+    }
+    
+    private func scorePenalty(value: Double){
+        player.score! -= Int(value * Config.stealPenalty);
+        print("AM Player lost by a factor of \(value), removing \(value * Config.stealBonus) points");
+    }
+    
+    private func displayAlertFor(resultType: ResultType, score1: Double, score2: Double, scoreChange: Int, item: Item){
+        switch resultType {
+        case .successfulAttack:
+            let resultString = "\n\(Strings.successfullAttack)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Bonuspunkte\n\n Die \(item.displayName) gehört jetzt dir!";
+            displayAlert(title: Strings.gratulation, message: resultString, buttonTitle: Strings.happyConfirmation)
+        case .successfulDefense:
+            let resultString = "\n\(Strings.successfullDefense)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Bonuspunkte\n\n Die \(item.displayName) behältst du!";
+            displayAlert(title: Strings.gratulation, message: resultString, buttonTitle: Strings.happyConfirmation)
+        case .failedAttack:
+            let resultString = "\n\(Strings.failedAttack)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Minuspunkte\n\n Die \(item.displayName) bekommst du nicht!";
+            displayAlert(title: Strings.fail, message: resultString, buttonTitle: Strings.sadConfirmation)
+        case .failedDefense:
+            let resultString = "\n\(Strings.failedDefense)\n\n\(Int(score1)) : \(Int(score2))\n\n\(scoreChange) Minuspunkte\n\n Die \(item.displayName) ist halt jetzt weg...";
+            displayAlert(title: Strings.fail, message: resultString, buttonTitle: Strings.sadConfirmation)
+        }
+    }
+    
+    func isGaming() -> Bool {
+        print("AM underAttack: \(underAttack), isAttacking\(isAttacking)")
+        return underAttack || isAttacking
+    }
+    
+    func onGameStatusReceived(everythingOk: Bool) {
+        if everythingOk {
+            NotificationCenter.default.post(name: NotificationCenterKeys.startGame, object: nil);
+        }else{
+            displayAlert(title: Strings.statusNotOkTitle, message: Strings.statusEnemyBusy, buttonTitle: Strings.statusEnemyBusyButton)
+        }
+    }
+    
+    func onGameConnectionLost() {
+        if isGaming() {
+            NotificationCenter.default.post(name: NotificationCenterKeys.abortGame, object: nil);
+            displayAlert(title: Strings.statusNotOkTitle, message: Strings.gameConnectionLost, buttonTitle: Strings.gameConnetionLostButton)
+            resetScores()
+            resetGameStatus()
+            NSLog("Enemyscore: \(enemyScore), Personalscore: \(personalScore), underAttack: \(underAttack), isAttacking: \(isAttacking)")
+        }
+    }
+    
+    func resetGameStatus(){
         underAttack = false
-        NSLog("Item ID: \(attackedItem.id)")
+        isAttacking = false
+        attackedItem = nil
+    }
+    
+    enum ResultType{
+        case successfulDefense
+        case successfulAttack
+        case failedDefense
+        case failedAttack
     }
 }
+
+
 

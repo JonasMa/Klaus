@@ -16,7 +16,7 @@ class Profile: NSObject{
     var profileColor: UIColor!;
     var profileLevel: Int!;
     var profileAvatar: String!;
-    private(set) var items: Array<Item>!;
+    var items: Array<Item>!;
 
     
     init(name: String, items: Array<Item>){
@@ -26,7 +26,7 @@ class Profile: NSObject{
         self.profileLevel = 1;
         self.profileAvatar = "";
         self.profileColor = UIColor.blue;
-        self.setItems(items: items);
+        self.items = items;
     }
     
     init(name:String){
@@ -47,25 +47,6 @@ class Profile: NSObject{
         self.profileAvatar = avatar
     }
     
-    func addItem(item: Item){
-        item.incItemLevel();
-        items.append(item);
-        score! += Config.stealBonus
-        self.updateItemsInView()
-    }
-    
-    func removeItem(item: Item){
-        if(!items.contains(item)){
-            print("player does not own Item \(item.id)");
-            return;
-        }else{
-            items.remove(at: items.index(of: item)!);
-            score! -= Config.stealPenalty
-            print("item removed with id: " +  String(item.id));
-        }
-        self.updateItemsInView();
-    }
-    
     func getAcquiredScore() -> Int{
         var sc = self.score!;
         for item in items {
@@ -82,20 +63,6 @@ class Profile: NSObject{
         return scorePerSecond;
     }
     
-    func setItems(items: Array<Item>){
-        self.items = items;
-        self.updateItemsInView();
-    }
-    
-    func updateItemsInView(){
-        var itemDict = Dictionary<Int,Item>();
-        if !items.isEmpty{
-            for i in 0...(items.count-1){
-                itemDict[i] = items[i];
-            }
-        }
-        NotificationCenter.default.post(name: NotificationCenterKeys.updateItemsNotification, object: nil, userInfo: itemDict)
-    }
     
     func getItemsString () -> String{
         var itemStrings = Array<String>()

@@ -17,24 +17,30 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         case peripheral
     }
     
-    enum ConnectionState {
-        case connected
-        case connecting
-        case disconnected
-    }
-    
     static let sharedInstance: BluetoothController = BluetoothController()
 
     private let peripheral: BTLEPeripheralModel = BTLEPeripheralModel()
     private let central: BTLECentralModel = BTLECentralModel()
     private var state: BluetoothState = BluetoothState.peripheral
-    private var checkingForAvailablePlayers: [String : String] = [:]
 
     init () {
         central.delegate = self
         peripheral.delegate = self
-        setPassive()
+        start()
     }
+    
+    func start () {
+        print("BC start")
+        peripheral.setActive()
+        // central.setActive()
+    }
+    
+    func stop () {
+        print("BC stop")
+        peripheral.setInactive()
+        central.setInactive()
+    }
+    
     // gets triggered by system
     func setPassive(){
         changeBluetoothState(toNewState: BluetoothState.peripheral)
@@ -45,9 +51,6 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         changeBluetoothState(toNewState: BluetoothState.central)
     }
     
-    // TODO discover avatar
-    // remove avatar send and received with items
-    // add avatar to player data
     func onPlayerDiscovered (name: String, score: Int, color: UIColor, avatar: String, uuid: String) {
         let enemy = EnemyProfile (name: name, score: score, uuid: uuid)
         enemy.profileColor = color
@@ -56,8 +59,9 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     }
     
     func connectToPlayer (playerUuid uuid: String) {
+        changeBluetoothState(toNewState: BluetoothState.central)
         central.stopDiscoveringOtherPlayers()
-        central.connectToPeripheral(uuid: uuid)
+        central.getItemsFromPlayer (uuid: uuid)
     }
     
     func onItemsReceived (items: [Item], uuid: String) {
@@ -69,8 +73,9 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         AppModel.sharedInstance.pushScore(score: score)
     }
     
-    func sendGameRequestToAtackedPerson (itemToBeStolen: Item) {
-        central.sendAttack(itemToBeStolen: itemToBeStolen)
+    func sendGameRequestToAtackedPerson (itemToBeStolen: Item, onPlayerUuuidString uuid: String) {
+        changeBluetoothState(toNewState: BluetoothState.central)
+        central.sendAttack(itemToBeStolen: itemToBeStolen, fromPlayer: uuid)
     }
     
     func sendScoreToEnemy (score: Double) {
@@ -82,6 +87,10 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         }
     }
     
+    func onGameFinish () {
+        central.onGameFinish()
+    }
+    
     func onEnemyDisappear (uuid: String) {
         AppModel.sharedInstance.removeEnemyFromList(enemyUuid: uuid)
     }
@@ -90,32 +99,45 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         central.refreshEnemyList()
     }
     
-    func receiveGameRequestFromAttacker(itemToBeStolen: Item) {
-        AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: itemToBeStolen)
+    func receiveGameRequestFromAttacker(itemToBeStolen: Item, attackerName name: String) {
+        AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: itemToBeStolen, attackerName: name)
+    }
+
+    func onConnected() {
+        //peripheral.setInactive()
     }
     
-    /*!
-     Pings the player with corresponding uuid and triggers the notificationMethodName via NotificationCenter when found
-     */
-    func checkIfEnemyIsStillThere (uuid: String, notificationMethodName name: String) {
-        checkingForAvailablePlayers[uuid] = name
+    func onDisconnected() {
+        //AppModel.sharedInstance.onGameConnectionLost()
     }
     
-    func onEnemyIsStillThere (uuid: String){
-        guard let key = checkingForAvailablePlayers[uuid] else {
-            // enemy is not getting listened to
-            return
+    func onAttackFeedback (feedbackCode: Int) {
+        switch feedbackCode {
+        case FEEDBACK_AVAILABLE:
+            AppModel.sharedInstance.onGameStatusReceived(everythingOk: true)
+            break
+        case FEEDBACK_BUSY:
+            AppModel.sharedInstance.onGameStatusReceived(everythingOk: false)
+            break
+        default:
+            break
         }
-        NotificationCenter.default.post(name: Notification.Name(key), object: nil, userInfo: ["uuid":uuid]);
+    }
+    
+    func isPlaying () -> Bool {
+        return AppModel.sharedInstance.isGaming()
     }
 
     private func changeBluetoothState (toNewState state: BluetoothState){
+        
+        if self.state == state {return}
         self.state = state
+        
         if state == BluetoothState.central {
             central.setActive()
-            peripheral.setInactive()
+            //peripheral.setInactive()
         } else {
-            peripheral.setActive()
+            //peripheral.setActive()
             central.setInactive()
         }
     }
