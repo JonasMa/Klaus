@@ -66,6 +66,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     func addConstraints(){
         nameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         nameLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -200).isActive = true;
+        nameLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true;
+        nameLabel.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
         nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         nameLabel.numberOfLines = 3
         nameLabel.textAlignment = .center

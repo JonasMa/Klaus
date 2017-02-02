@@ -74,7 +74,7 @@ struct Strings {
     
     // Tutorial texts
     static let welcomeTitleText = "WELCOME TO KLAU'S"
-    static let welcomeExplanationText = "Bist du der nächste Meisterdieb? Klaue Items von Gegnern, behüte und verteidige sie gegen andere Diebe. Suche nach Dieben in deiner Umgebung und beraube sie ihrer Träume und Habseligkeiten. Jedes Item beschert dir Punkte. Je mehr Items und je länger du sie besitzt, desto heftiger scorest die Punkte weg!"
+    static let welcomeExplanationText = "Bist du der nächste Meisterdieb? Klaue Items von Gegnern, behüte und verteidige sie gegen andere Diebe. Suche nach Dieben in deiner Umgebung und beraube sie ihrer Träume und Habseligkeiten. Jedes Item beschert dir Punkte. Je mehr Items und je länger du sie besitzt, desto heftiger scorest du die Punkte weg!"
     
     static let chooseAvatarText = "Tarnung Wählen"
     static let chooseAvatarDescriptionText = "Such dir eine Visage aus!"

@@ -23,7 +23,7 @@ struct Config {
     
     static let possibleColors = [UIColor(red:0.78, green:0.00, blue:0.49, alpha:1.0),
                                  UIColor(red:0.05, green:0.29, blue:0.73, alpha:1.0),
-                                 UIColor(red:0.12, green:0.61, blue:0.00, alpha:1.0),
-                                 UIColor(red:0.90, green:0.38, blue:0.08, alpha:1.0)]
+                                 UIColor(red:0.90, green:0.38, blue:0.08, alpha:1.0),
+                                 UIColor(red:0.12, green:0.61, blue:0.00, alpha:1.0)]
     
 }
