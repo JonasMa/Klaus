@@ -50,7 +50,7 @@ struct Strings {
     static var happyConfirmation = "Nice"
     static var sadConfirmation = "Schade eigentlich"
     static var attention = "Obacht"
-    static var attackOnYouPt1 = " versucht ein "
+    static var attackOnYouPt1 = " versucht eine "
     static var attackOnYouPt2 = " von dir zu klauen."
     static var startDefense = "Verteidigen"
     
