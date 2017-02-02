@@ -27,9 +27,9 @@ struct Strings {
     
     // Game explanations
     static let axeGameExplanation = "Schwing die Axt! Schüttel dein Handy so schnell du kannst innerhalb von 10 Sekunden. Alles klar?"
-    static let simonSaysExplanation = "Simon Says. Merke dir die Reihenfolge der leuchtenden Tasten und gib sie korrekt wieder! Alles klar?"
+    static let simonSaysExplanation = "In meinen Koffer packe ich... Merke dir die Reihenfolge der leuchtenden Tasten und gib sie korrekt wieder! Obacht, es wird immer nur die neueste Ziffer angezeigt. Alles klar?"
     static let shelfGameExplanation = "Fotzen Katz! Nacheinander schmeisst eine böse Katze Gegenstände vom Regal. Halte 3 Gegenstände mit 3 Fingern gleichzeitig gedrückt, um sie zu eleminieren. Sobald ein Gegenstand den Boden berührt hast du verloren."
-    static let seitenschneiderExplanation = "Schneide so viele BLAUE Kabel durch indem du sie antippst... aber nicht die Bunten, du Sepp!"
+    static let seitenschneiderExplanation = "Schneide so viele BLAUE Kabel durch indem du sie antippst... aber nicht die Bunten, du Sepp! Schnell, wir haben nicht viel Zeit."
     
     // Result strings
     static var axeGameResult = "Holla die Waldfee! Dein Schwengelfaktor beträgt: "
@@ -63,7 +63,7 @@ struct Strings {
     
     // Item infos
     static let axeInfo = "Die Axt ist eine heimtückische, als einfaches Holzbearbeitungswerkzeug getarnte Waffe! Die Meinung zur Verwendungsfähigkeit von Äxten als Liebesspielzeug ist ebenso gespalten wie manche Verfechter dieser These.";
-    static let coffeeInfo = "Der beliebte Grundstoff ist schwarz, stark, und vor allem extrem heiß. Richtig dunkelschwarzer, kochend heißer Kaffee. Der unvergleichliche Geschmack nach verbrannten Hülsenfrüchten wie auch die kraftvolle Rußfarbe des bitteren schwarzen Wassers animieren täglich Millionen europäischer Lohnsklaven in ihren grauen Büros zum gemeinsamen Sodbrennen.";
+    static let coffeeInfo = "Die Fotzenkatz. Sie schmeißt Tassen runter, miaut und hinterlässt nur Dreck. Angestachelt zerkratzt sie auch fremde Visagen... eine schwierige Zeitgenossin.";
     static let seitenschneiderInfo = "Der Seitenschneider ist ein nicht verzehrbares Eisending. Die Verwendung ist jedoch von Art zu Art unterschiedlich. Der Seitenschneider ist eine typisch deutsche Erfindung: Ein Allzweckwerkzeug, dass immer griffbereit und sehr handlich ist. ";
     static let alarmInfo = "Alarm ist das, was ausgelöst wird, wenn die Unfähigkeit eines oder mehrerer Menschen die Grenzen des guten Geschmacks übersteigt und so zur Gefahr der Allgemeinheit wird.";
     
@@ -74,14 +74,14 @@ struct Strings {
     
     // Tutorial texts
     static let welcomeTitleText = "WELCOME TO KLAU'S"
-    static let welcomeExplanationText = "Bist du der nächste Meisterdieb? Klaue Items von Gegnern, sammle Items, be Germany's NEXT Meisterdieb. Suche nach anderen Dieben in der Nähe und beraube sie ihrer Items. Je mehr Items du besitzt, desto schneller steigt dein Level."
+    static let welcomeExplanationText = "Bist du der nächste Meisterdieb? Klaue Items von Gegnern, behüte und verteidige sie gegen andere Diebe. Suche nach Dieben in deiner Umgebung und beraube sie ihrer Träume und Habseligkeiten. Jedes Item beschert dir Punkte. Je mehr Items und je länger du sie besitzt, desto heftiger scorest die Punkte weg!"
     
     static let chooseAvatarText = "Tarnung Wählen"
     static let chooseAvatarDescriptionText = "Such dir eine Visage aus!"
     
     static let headLineColorText = "Farbe Bekennen"
     static let descritpionColorText = "Wähle eine Farbe aus, die zu deiner diebischen Seele passt."
-    static let colorRedText = "Rot wie Rum"
+    static let colorRedText = "Beerig"
     static let colorBlueText = "Blau wie Chloroform"
     static let colorGreenText = "Grün wie Gras"
     static let colorYellowText = "Gelb wie Senf"
