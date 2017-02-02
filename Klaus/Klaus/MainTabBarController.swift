@@ -72,5 +72,4 @@ class MainTabBarController: UITabBarController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
-
 }
