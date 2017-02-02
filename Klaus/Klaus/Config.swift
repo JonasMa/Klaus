@@ -11,15 +11,15 @@ import UIKit
 
 struct Config {
     
-    static var axeBasePointsPerSecond = 20;
-    static var coffeeBasePointsPerSecond = 25;
-    static var seitenschneidBasePointsPerSecond = 35;
-    static var alarmBasePointsPerSecond = 15;
+    static var axeBasePointsPerSecond = 4;
+    static var coffeeBasePointsPerSecond = 5;
+    static var seitenschneidBasePointsPerSecond = 6;
+    static var alarmBasePointsPerSecond = 7;
     
-    static var scoreToLevelUpBase = 1000;
+    static var scoreToLevelUpBase = 500;
     
-    static var stealBonus = 1000.0;
-    static var stealPenalty = 1000.0;
+    static var stealBonus = 200.0;
+    static var stealPenalty = 100.0;
     
     static var possibleColors = [UIColor(red:0.78, green:0.00, blue:0.49, alpha:1.0),
                                  UIColor(red:0.05, green:0.29, blue:0.73, alpha:1.0),

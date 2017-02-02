@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController {
     var itemCollectionViewController: ItemCollectionViewController!;
     
     override func loadView() {
-        self.view = ProfileView(frame: UIScreen.main.bounds);
+        self.view = UIView(frame: UIScreen.main.bounds);
     }
     
     

@@ -54,6 +54,7 @@ class PlayerItemCollectionViewController: ItemCollectionViewController {
         let item = items[indexPath.row];
         cell.imageView.image = UIImage(named: item.imageName.lowercased())?.withRenderingMode(.alwaysTemplate);
         cell.setItemShadow(color: item.itemColor);
+        cell.setItemLevelLabel(level: item.itemLevel)
         if(item == highlightedItem){
             cell.highlight();
             highlightedItem = nil;
