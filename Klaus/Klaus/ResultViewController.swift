@@ -9,9 +9,10 @@
 import UIKit
 
 class ResultViewController: UIViewController {
-
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
+    var descriptionLabel: UILabel!
+    var titleLabel: UILabel!
+    var backButton: UIButton!
+    var buttonGradient: CAGradientLayer!
     
     let axe = 0
     let simon = 1
@@ -21,11 +22,7 @@ class ResultViewController: UIViewController {
     var result: Double = 0.0
     var resultAsString: String!
     var gameID: Int!
-    
-    @IBAction func backButton(_ sender: UIButton) {
-        _ = navigationController?.popToRootViewController(animated: true)
-    }
-    
+
     init(result: Double, gameID: Int){
         super.init(nibName: "ResultViewController", bundle: nil)
         self.navigationItem.setHidesBackButton(true, animated: false)
@@ -41,9 +38,41 @@ class ResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.font = Style.bodyTextFont
-        descriptionLabel.font = Style.bodyTextFont
+        
+        backButton = Style.getPrimaryButton(buttonTitle: Strings.tutorialButtonText)
+        buttonGradient = Style.primaryButtonBackgroundGradient()
+        backButton.layer.insertSublayer(buttonGradient, at: 0);
+        self.view.addSubview(backButton)
+        backButton.addTarget(self, action: #selector(backButtonPressed), for: .touchDown)
+        backButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor,constant: -8).isActive = true
+        backButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true
+        backButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true
+        
+        titleLabel = UILabel()
+        titleLabel.font = Style.titleTextFont
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(titleLabel)
+        titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -130).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10).isActive = true
+        titleLabel.textAlignment = .center
+
+        descriptionLabel = UILabel()
+        descriptionLabel.font = Style.titleTextFont
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(descriptionLabel)
+        descriptionLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -100).isActive = true
+        descriptionLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10).isActive = true
+        descriptionLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        descriptionLabel.numberOfLines = 5
+        descriptionLabel.textAlignment = .center
+        
         setLabels()
+    }
+    
+    func backButtonPressed() {
+        _ = navigationController?.popToRootViewController(animated: true)
     }
     
     func handleScore() {
@@ -52,7 +81,10 @@ class ResultViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
+    }
+    
+    override func viewDidLayoutSubviews() {
+        buttonGradient.frame = backButton.bounds;
     }
     
     func setLabels() {
