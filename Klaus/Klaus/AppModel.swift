@@ -120,22 +120,7 @@ class AppModel {
                 AxeItem.initNewItem(),
                 CoffeeItem.initNewItem(),
                 CoffeeItem.initNewItem(),
-                AxeItem.initNewItem(),
-                SeitenschneiderItem.initNewItem(),
-                CoffeeItem.initNewItem(),
-                AlarmItem.initNewItem(),
-                AxeItem.initNewItem(),
-                AlarmItem.initNewItem(),
-                SeitenschneiderItem.initNewItem(),
-                AxeItem.initNewItem(),
-                CoffeeItem.initNewItem(),
-                CoffeeItem.initNewItem(),
-                SeitenschneiderItem.initNewItem(),
-                SeitenschneiderItem.initNewItem(),
-                CoffeeItem.initNewItem(),
-                SeitenschneiderItem.initNewItem(),
-                AxeItem.initNewItem(),
-                CoffeeItem.initNewItem()];
+                SeitenschneiderItem.initNewItem()];
     }
 
     
