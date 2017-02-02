@@ -39,8 +39,6 @@ class EnemyProfileViewController: ProfileViewController {
         profileScoreLabel.text = String(profile.score);
         profileImageView.image = UIImage(named: profile.profileAvatar)?.withRenderingMode(.alwaysTemplate);
         profileImageView.tintColor = profile.profileColor
-        //profileImageView.layer.shadowColor = profile.profileColor.cgColor;
-
 
     }
 

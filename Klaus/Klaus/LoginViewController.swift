@@ -14,7 +14,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     var buttonGradient: CAGradientLayer!
     var nameLabel: UILabel!;
     var nameTextField: UITextField!;
-    var pageIndex = 1;
+    var pageIndex = 2;
 
 
     override func viewDidLoad() {
@@ -43,7 +43,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         nextButton = Style.getPrimaryButton(buttonTitle: Strings.tutorialButtonText)
         buttonGradient = Style.primaryButtonBackgroundGradient()
         nextButton.layer.insertSublayer(buttonGradient, at: 0);
-        
         self.view.addSubview(nextButton)
         nextButton.addTarget(self, action: #selector(nextButtonPressed), for: .touchDown)
 

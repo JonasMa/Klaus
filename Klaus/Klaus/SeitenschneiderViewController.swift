@@ -1,7 +1,4 @@
 
-
-// 
-
 import UIKit
 
 class SeitenschneiderViewController: UIViewController {
@@ -20,28 +17,28 @@ class SeitenschneiderViewController: UIViewController {
     var timeDisplayPosition: CGPoint!
     var lastDisplayFrame: CGRect!
     
+    var cableCuttedDisplay: UILabel!
+    
     var zangeOne: UIImageView!
     var zangeTwo: UIImageView!
     var zangeThree: UIImageView!
     
     override func viewDidLoad() {
-//        self.view.backgroundColor = UIColor.black
+        self.view.backgroundColor = UIColor.black
         screenHeight = screenSize.height
         screenWidth = screenSize.width
         
     super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
+        seitenSchneiderModel = SeitenschneiderModel(viewController: self)
+        
+        initializeImages()
+        initializeScoreLabel()
+        initializeTimeline()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        seitenSchneiderModel = SeitenschneiderModel(viewController: self)
-        
-        initializeImages()
-        initializeTimeline()
     }
     
     func initializeImages() {
@@ -50,12 +47,27 @@ class SeitenschneiderViewController: UIViewController {
         seitenschneiderGradient.locations = Style.gradientLocationsSeitenschneider as [NSNumber]?
         seitenschneiderGradient.frame = screenSize
         self.view.layer.addSublayer(seitenschneiderGradient)
+        
         zangeOne = getSeitenschneiderImage()
-        setSeitenschneiderImage(seitenschneiderImage: zangeOne, position: CGFloat(-screenWidth / 3))
+        setSeitenschneiderImage(seitenschneiderImage: zangeOne, position: CGFloat(-(screenWidth/4*3)))
         zangeTwo = getSeitenschneiderImage()
-        setSeitenschneiderImage(seitenschneiderImage: zangeTwo, position: 0)
+        setSeitenschneiderImage(seitenschneiderImage: zangeTwo, position: CGFloat(-screenWidth/4))
         zangeThree = getSeitenschneiderImage()
-        setSeitenschneiderImage(seitenschneiderImage: zangeThree, position: CGFloat(screenWidth / 3))
+        setSeitenschneiderImage(seitenschneiderImage: zangeThree, position: CGFloat(screenWidth/4))
+    }
+    
+    func initializeScoreLabel(){
+        cableCuttedDisplay = UILabel(frame: CGRect(x: 100, y: 100, width: screenHeight*0.1, height: screenHeight*0.1))
+        cableCuttedDisplay.text = "0"
+        cableCuttedDisplay.font = Style.titleTextFont
+        cableCuttedDisplay.textColor = Style.primaryButtonTextColor
+        cableCuttedDisplay.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(cableCuttedDisplay)
+        self.view.bringSubview(toFront: cableCuttedDisplay)
+        cableCuttedDisplay.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
+        cableCuttedDisplay.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2).isActive = true
+        cableCuttedDisplay.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: CGFloat(screenWidth / 4*2)).isActive = true
+        cableCuttedDisplay.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -225).isActive = true
     }
     
     func initializeTimeline() {
@@ -63,6 +75,8 @@ class SeitenschneiderViewController: UIViewController {
         timeDisplayPosition = CGPoint(x: 0, y: screenHeight - timeDisplaySize.height)
         timeDisplay = UIImageView(frame: CGRect(origin: timeDisplayPosition, size: timeDisplaySize))
         timeDisplay.backgroundColor = UIColor.cyan
+        timeDisplay.layer.borderWidth = 2
+        timeDisplay.layer.borderColor = UIColor.black.cgColor
         self.view.addSubview(timeDisplay)
         self.view.bringSubview(toFront: timeDisplay)
         startAnimatingTimeLine()
@@ -70,47 +84,30 @@ class SeitenschneiderViewController: UIViewController {
 
     
     func startAnimatingTimeLine() {
-//        timeDisplay.layer.presentation()?.removeAllAnimations()
-//        timeDisplay.frame = CGRect(x: timeDisplayPosition.x, y: timeDisplayPosition.y, width: (timeDisplaySize.width-CGFloat(timer.maxDuration!*10)), height: timeDisplaySize.height)
-
         UIView.animate(withDuration: TimeInterval(seitenSchneiderModel.maxGameDuration), delay: 0.0, options: .curveEaseOut, animations: {
             self.timeDisplay.frame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: CGFloat(0), height: self.timeDisplaySize.height)
         }, completion: nil)
     }
     
-    // duration * x = width
-    // x = width / duration
-    //
     
-
-    //width = maxdura(=30)
+    func setNewAnimation(){
+        timeDisplay.layer.presentation()?.removeAllAnimations()
+        timeDisplay.frame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: getNewXCoordinate(), height: self.timeDisplaySize.height)
+        self.view.bringSubview(toFront: timeDisplay)
+        UIView.animate(withDuration: TimeInterval(seitenSchneiderModel.newDuration), delay: 0.0, options: .curveEaseOut, animations: {
+            self.timeDisplay.frame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: CGFloat(0), height: self.timeDisplaySize.height)
+        }, completion: nil)
+    }
     
-    // get x coordinate
-    //
     func getNewXCoordinate()-> CGFloat{
         var newX: CGFloat = 0.0
-        let possibleNewWidth = CGFloat((Int(screenWidth) / 20) * seitenSchneiderModel.maxGameDuration)
+        let possibleNewWidth = CGFloat((Int(screenWidth) / seitenSchneiderModel.maxGameDuration) * seitenSchneiderModel.newDuration)
         if possibleNewWidth >= screenWidth {
             newX = screenWidth
         } else {
             newX = possibleNewWidth
         }
         return newX
-    }
-    
-    func setNewFrame() {
-        lastDisplayFrame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: getNewXCoordinate(), height: self.timeDisplaySize.height)
-    }
-    
-    func setNewAnimation(){
-        timeDisplay.layer.presentation()?.removeAllAnimations()
-        print("newX duration: \(seitenSchneiderModel.maxGameDuration)")
-        print("newX: \(getNewXCoordinate())")
-        timeDisplay.frame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: getNewXCoordinate(), height: self.timeDisplaySize.height)
-        self.view.bringSubview(toFront: timeDisplay)
-        UIView.animate(withDuration: TimeInterval(seitenSchneiderModel.maxGameDuration), delay: 0.0, options: .curveEaseOut, animations: {
-            self.timeDisplay.frame = CGRect(x: self.timeDisplayPosition.x, y: self.timeDisplayPosition.y, width: CGFloat(0), height: self.timeDisplaySize.height)
-        }, completion: nil)
     }
     
     func destroyZange() {

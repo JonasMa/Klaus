@@ -41,10 +41,6 @@ class ProfileViewController: UIViewController {
         profileImageView.image = UIImage(named: "axt")
         profileImageView.translatesAutoresizingMaskIntoConstraints = false;
         profileImageView.layer.cornerRadius = 20;
-        //profileImageView.tintColor = Style.primaryTextColor
-//        profileImageView.layer.shadowOffset = CGSize(width: 0,height: 0);
-//        profileImageView.layer.shadowOpacity = 1;
-//        profileImageView.layer.shadowRadius = 2;
         self.view.addSubview(profileImageView);
         
         //STATS - name - score - level

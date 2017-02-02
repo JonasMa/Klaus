@@ -14,13 +14,6 @@ class EnemyTableViewController: UITableViewController {
     
     var enemiesList = Array<EnemyProfile>();
     
-    override func viewWillDisappear(_ animated: Bool) {
-        //deinit observer
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updateEnemyListNotification, object: nil, queue: nil, using: updateList);
-    }
     
     override func loadView() {
         self.tableView = EnemyTableView(frame: UIScreen.main.bounds);
@@ -28,6 +21,7 @@ class EnemyTableViewController: UITableViewController {
     }
     
     override func viewDidLoad() {
+        NotificationCenter.default.addObserver(forName: NotificationCenterKeys.updateEnemyListNotification, object: nil, queue: nil, using: updateList);
         super.viewDidLoad()
         
         self.tableView.backgroundColor = Style.bg;
@@ -73,7 +67,6 @@ class EnemyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileViewController = EnemyProfileViewController();
         profileViewController.profile = self.enemiesList[indexPath.row];
-        // trigger boadcast instead?
         BluetoothController.sharedInstance.connectToPlayer(playerUuid: profileViewController.profile.uuid)
         self.navigationController?.pushViewController(profileViewController, animated: true);
         

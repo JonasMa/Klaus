@@ -10,7 +10,8 @@ class SeitenschneiderModel {
     var allCables: [CableModel]!
     
     var timer: Timer!
-    var maxGameDuration = 20
+    let maxGameDuration = 20
+    var newDuration = 20
     
     let targetCableColor = UIColor.blue
     let maxNumCablesInGame = 12
@@ -19,7 +20,6 @@ class SeitenschneiderModel {
     let randomColor = [UIColor.red, UIColor.green]
     
     init(viewController: SeitenschneiderViewController) {
-        print("seitenschneider gestartet")
         self.score = 0
         self.seitenSchneiderViewController = viewController
         self.allCables = [CableModel]()
@@ -57,10 +57,8 @@ class SeitenschneiderModel {
                     timerTimeChanged(addedDuration: 1)
                     addCables(isMainTargetColor: true, numOfCables: 1)
                 } else {
-                    timerTimeChanged(addedDuration: -5)
                     addCables(isMainTargetColor: false, numOfCables: 1)
                 }
-                seitenSchneiderViewController.setNewFrame()
                 seitenSchneiderViewController.setNewAnimation()
                 allCables.remove(at: index!)
             }
@@ -68,18 +66,21 @@ class SeitenschneiderModel {
     }
     
     func timerTimeChanged(addedDuration: Int) {
-        maxGameDuration = maxGameDuration+addedDuration
+        if newDuration < maxGameDuration {
+            newDuration = newDuration+addedDuration
+        }
         print("time added / subtracted")
     }
     
     func increaseScore() {
         score += 1
+        seitenSchneiderViewController.cableCuttedDisplay.text = String(score)
     }
     
     @objc func timeLine(){
-        print("Zeit: \(maxGameDuration)")
-        maxGameDuration = maxGameDuration-1
-        if maxGameDuration <= 0 && strikes < 3{
+        print("Zeit: \(newDuration)")
+        newDuration = newDuration-1
+        if newDuration <= 0 && strikes < 3{
             print("sm zeitende")
             seitenSchneiderViewController.view.isUserInteractionEnabled = false
             endGame()
@@ -89,7 +90,7 @@ class SeitenschneiderModel {
     func addStrike() {
         seitenSchneiderViewController.destroyZange()
         strikes += 1
-        if strikes >= 3 {
+        if strikes == 3 {
             print ("sm strikeende")
             seitenSchneiderViewController.view.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

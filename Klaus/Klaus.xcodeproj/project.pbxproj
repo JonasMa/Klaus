@@ -26,7 +26,7 @@
 		6A4AA0641E2B063D00834712 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA0631E2B063D00834712 /* Definitions.swift */; };
 		6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */; };
 		6A4AA0701E2BF51600834712 /* BTLEPeripheralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */; };
-		6A58BD541E3E4F6C000E410D /* BluetoothDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A58BD531E3E4F6C000E410D /* BluetoothDelegates.swift */; };
+		6A58BD541E3E4F6C000E410D /* BluetoothDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A58BD531E3E4F6C000E410D /* BluetoothDelegate.swift */; };
 		6AB8F0401E39F13000C18953 /* BluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8F03F1E39F13000C18953 /* BluetoothController.swift */; };
 		6AB8F7261E40EB30002250B9 /* CatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8F7251E40EB30002250B9 /* CatModel.swift */; };
 		841ED7661E39048C00210F31 /* AlarmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7651E39048C00210F31 /* AlarmItem.swift */; };
@@ -39,6 +39,7 @@
 		841ED7741E391EE300210F31 /* SeitenschneiderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841ED7721E391EE200210F31 /* SeitenschneiderViewController.xib */; };
 		841ED7761E392E1800210F31 /* CableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7751E392E1800210F31 /* CableModel.swift */; };
 		841ED7781E39312700210F31 /* SeitenschneiderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841ED7771E39312700210F31 /* SeitenschneiderModel.swift */; };
+		848CDF4D1E429DA300C8C436 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CDF4C1E429DA300C8C436 /* WelcomeViewController.swift */; };
 		8497B59F1DE6FFC60039E35C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B59E1DE6FFC60039E35C /* AppDelegate.swift */; };
 		8497B5AB1DE6FFC60039E35C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */; };
 		8497B5B61DE6FFC60039E35C /* KlausTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B5B51DE6FFC60039E35C /* KlausTests.swift */; };
@@ -119,7 +120,7 @@
 		6A4AA0631E2B063D00834712 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLECentralModel.swift; sourceTree = "<group>"; };
 		6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEPeripheralModel.swift; sourceTree = "<group>"; };
-		6A58BD531E3E4F6C000E410D /* BluetoothDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothDelegates.swift; sourceTree = "<group>"; };
+		6A58BD531E3E4F6C000E410D /* BluetoothDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothDelegate.swift; sourceTree = "<group>"; };
 		6AB8F03F1E39F13000C18953 /* BluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothController.swift; sourceTree = "<group>"; };
 		6AB8F7251E40EB30002250B9 /* CatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatModel.swift; sourceTree = "<group>"; };
 		841ED7651E39048C00210F31 /* AlarmItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmItem.swift; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		841ED7721E391EE200210F31 /* SeitenschneiderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeitenschneiderViewController.xib; sourceTree = "<group>"; };
 		841ED7751E392E1800210F31 /* CableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CableModel.swift; sourceTree = "<group>"; };
 		841ED7771E39312700210F31 /* SeitenschneiderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeitenschneiderModel.swift; sourceTree = "<group>"; };
+		848CDF4C1E429DA300C8C436 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		8497B59B1DE6FFC60039E35C /* Klaus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klaus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8497B59E1DE6FFC60039E35C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8497B5AA1DE6FFC60039E35C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -283,7 +285,7 @@
 				6A4AA0631E2B063D00834712 /* Definitions.swift */,
 				6A4AA06D1E2BF50700834712 /* BTLECentralModel.swift */,
 				6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */,
-				6A58BD531E3E4F6C000E410D /* BluetoothDelegates.swift */,
+				6A58BD531E3E4F6C000E410D /* BluetoothDelegate.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -405,6 +407,7 @@
 				84B499381E3DEEE800C0C514 /* AvatarCollectionViewController.swift */,
 				84B4993A1E3DF0B800C0C514 /* AvatarCollectionViewCell.swift */,
 				84B4990C1E3BB44500C0C514 /* SelectColorViewController.swift */,
+				848CDF4C1E429DA300C8C436 /* WelcomeViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -527,7 +530,7 @@
 				TargetAttributes = {
 					8497B59A1DE6FFC60039E35C = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = MJPF8FFZ6P;
+						DevelopmentTeam = 87X3F5FDGG;
 						ProvisioningStyle = Automatic;
 					};
 					8497B5B01DE6FFC60039E35C = {
@@ -602,6 +605,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FABB862E1E3E4398003657CC /* AvatarCollectionViewController.swift in Sources */,
+				848CDF4D1E429DA300C8C436 /* WelcomeViewController.swift in Sources */,
 				47C062291E15274200C25292 /* ExplanationViewController.swift in Sources */,
 				841ED76E1E39072700210F31 /* StopwatchTimer.swift in Sources */,
 				FAB1C4761E13EDFB00981731 /* EnemyTableView.swift in Sources */,
@@ -661,7 +665,7 @@
 				47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */,
 				47C062331E152B8100C25292 /* ResultViewController.swift in Sources */,
 				FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */,
-				6A58BD541E3E4F6C000E410D /* BluetoothDelegates.swift in Sources */,
+				6A58BD541E3E4F6C000E410D /* BluetoothDelegate.swift in Sources */,
 				6AB8F0401E39F13000C18953 /* BluetoothController.swift in Sources */,
 				FAB1C4821E14087E00981731 /* EnemyItemDetailViewController.swift in Sources */,
 			);
@@ -807,11 +811,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MJPF8FFZ6P;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagggy;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswagolli;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -821,12 +825,11 @@
 		8497B5C71DE6FFC60039E35C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MJPF8FFZ6P;
+				DEVELOPMENT_TEAM = 87X3F5FDGG;
 				INFOPLIST_FILE = Klaus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nimmswagggy;
+				PRODUCT_BUNDLE_IDENTIFIER = nimmswagolli;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

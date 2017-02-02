@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExplanationViewController" customModule="Klaus" customModuleProvider="target">
             <connections>
-                <outlet property="explanationLabel" destination="Qdn-Jg-8DV" id="afk-uV-wSK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,31 +18,7 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Schwing die Axt so stark du kannst! Alles klar?" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qdn-Jg-8DV">
-                    <frame key="frameInset" minX="35" minY="145" width="304" height="174"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4H7-Qp-2lu">
-                    <frame key="frameInset" minX="113" minY="577" width="149" height="30"/>
-                    <state key="normal" title="Auf zum Spiel!"/>
-                    <connections>
-                        <action selector="startButton:" destination="-1" eventType="touchUpInside" id="zzd-aI-4Mv"/>
-                    </connections>
-                </button>
-            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="4H7-Qp-2lu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="8r8-Mt-jWQ"/>
-                <constraint firstAttribute="trailing" secondItem="Qdn-Jg-8DV" secondAttribute="trailing" constant="30" id="Ive-aN-8lR"/>
-                <constraint firstAttribute="bottom" secondItem="4H7-Qp-2lu" secondAttribute="bottom" constant="30" id="KGX-5t-IiV"/>
-                <constraint firstItem="Qdn-Jg-8DV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="LhR-1j-CT0"/>
-                <constraint firstAttribute="trailing" secondItem="4H7-Qp-2lu" secondAttribute="trailing" constant="20" id="ajj-40-vV7"/>
-                <constraint firstItem="4H7-Qp-2lu" firstAttribute="top" secondItem="Qdn-Jg-8DV" secondAttribute="bottom" constant="50" id="pfm-OL-0LL"/>
-                <constraint firstItem="Qdn-Jg-8DV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="150" id="qSf-BP-KC8"/>
-            </constraints>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>

@@ -115,17 +115,16 @@ struct Style{
 //                                                Style.bg.cgColor,
 //                                                Style.bg.cgColor] as [Any]
     
-        static var gradientColorsSeitenschneider = [UIColor.darkGray,
-                                                    UIColor.darkGray,
-                                                    UIColor.darkGray,
-                                                    UIColor.black,
+        static var gradientColorsSeitenschneider = [UIColor.darkGray.cgColor,
+                                                    UIColor.darkGray.cgColor,
+                                                    UIColor.darkGray.cgColor,
+                                                    UIColor.black.cgColor,
                                                     Style.bgTransparent,
                                                     Style.bgTransparent,
-                                                    UIColor.black,
-                                                    UIColor.darkGray,
-                                                    UIColor.darkGray,
-                                                    UIColor.darkGray] as [Any]
-
+                                                    UIColor.black.cgColor,
+                                                    UIColor.darkGray.cgColor,
+                                                    UIColor.darkGray.cgColor,
+                                                    UIColor.darkGray.cgColor] as [Any]
     
     static let gradientLocationsSeitenschneider = [0.0,
                                                    0.2,
