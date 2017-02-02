@@ -65,7 +65,7 @@ class ResultViewController: UIViewController {
         descriptionLabel.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -100).isActive = true
         descriptionLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10).isActive = true
         descriptionLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        descriptionLabel.numberOfLines = 5
+        descriptionLabel.numberOfLines = 20
         descriptionLabel.textAlignment = .center
         
         setLabels()

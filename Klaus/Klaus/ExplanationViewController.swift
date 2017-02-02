@@ -55,10 +55,10 @@ class ExplanationViewController: UIViewController {
         explanationLabel.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(explanationLabel)
         explanationLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        explanationLabel.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -100).isActive = true
+        explanationLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -100).isActive = true
         explanationLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10).isActive = true
         explanationLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        explanationLabel.numberOfLines = 5
+        explanationLabel.numberOfLines = 20
         explanationLabel.textAlignment = .center
     }
     
