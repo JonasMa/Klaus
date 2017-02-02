@@ -21,9 +21,8 @@ class ItemCollectionViewController: UICollectionViewController {
     
     override func loadView() {
         flowLayout = UICollectionViewFlowLayout()
-        self.collectionView = ItemCollectionView(frame: CGRect(), collectionViewLayout: flowLayout as UICollectionViewLayout);
+        self.collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: flowLayout as UICollectionViewLayout);
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad();
