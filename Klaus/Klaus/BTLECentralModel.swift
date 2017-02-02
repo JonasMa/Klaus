@@ -50,7 +50,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     override init() {
         super.init()
         centralManager = CBCentralManager(delegate: self, queue: nil)
-        //Timer.scheduledTimer(timeInterval: REFRESH_TIMEOUT_SECONDS, target: self, selector: #selector(self.refreshEnemyList), userInfo: nil, repeats: true)
     }
     
     /*
@@ -68,7 +67,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         print("CM scanning stopped")
         isActive = false
         stopScan()
-        //cleanup() // TODO check if this is too much holzhammer
     }
 
     
@@ -77,8 +75,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     func stopDiscoveringOtherPlayers (){
-        // should not be needed anymore
-        //requestType = RequestType.Unknown
         stopScan()
         cancelPeripheralConnection()
     }
@@ -91,7 +87,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             connectedPeripheral?.setNotifyValue(true, for: writeScore!) // TOCO check if necessary
             writeToPeripheral(onCharacteristic: writeScore!, toWrite: string)
         } else {
-            //connectedPeripheral?.discoverCharacteristics([scoreWriteCharacteristicUUID], for: service)
             print("CM characteristic writeScore or peripheral not known :(")
         }
         
@@ -174,7 +169,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         }
         let attackString: String = item.toString() + SEPARATOR_NAME_SCORE_ITEMS + AppModel.sharedInstance.player.name
         if writeAttack != nil {
-            //connectedPeripheral?.setNotifyValue(true, for: writeAttack!) // TOCO check if necessary
             writeToPeripheral(onCharacteristic: writeAttack!, toWrite: attackString)
         }
         else {
@@ -205,7 +199,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             return
         }
         print("Color String for Player \(playerInfo[DATA_INDEX_NAME]) is \(playerInfo[DATA_INDEX_COLOR])")
-        // there were some problems with the extracted hex string
         
         let colorUI = UIColor(hexString: playerInfo[DATA_INDEX_COLOR])
         
@@ -235,7 +228,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
         }
         delegate?.onItemsReceived(items: items, uuid: uuid)
         cancelPeripheralConnection()
-        //cleanup()
     }
     
     
@@ -300,7 +292,7 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
             centralManager?.cancelPeripheralConnection(connectedPeripheral!)
             connectedPeripheral = nil
         }
-        scanTillTimeout()
+        //scanTillTimeout()
     }
     
     
@@ -348,29 +340,17 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
     }
     
     /** centralManagerDidUpdateState is a required protocol method.
-     *  Usually, you'd check for other states to make sure the current device supports LE, is powered on, etc.
      *  In this instance, we're just using it to wait for CBCentralManagerStatePoweredOn, which indicates
      *  the Central is ready to be used.
      */
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        print("CM \(#line) \(#function)")
-        
         if central.state == .poweredOn {
             isAvailable = true
-            /* probably not necessary
-            if isActive
-                && !(centralManager?.isScanning)!{
-                scanTillTimeout()
-            }
-            */
         }
         else {
             isAvailable = false
         }
         print("CM centralManager isAvailable: " + String(isAvailable))
-        // The state must be CBCentralManagerStatePoweredOn...
-        // ... so start scanning
-        //scan()
     }
     
 
@@ -378,7 +358,6 @@ class BTLECentralModel: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate
      */
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        //print("CM advertisement received - \(peripheral.identifier.uuidString) - \(Date())")
         peripheralLastSeen[peripheral.identifier.uuidString] = Date().timeIntervalSince1970
         
         // Ok, it's in range - have we already seen it?

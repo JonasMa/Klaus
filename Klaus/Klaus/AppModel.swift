@@ -16,7 +16,6 @@ class AppModel {
     
     private(set) var enemiesList: Array<EnemyProfile>;
     private(set) var player: PlayerProfile!
-    //var scores = [Double]()
     var personalScore: Double?
     var enemyScore: Double?
     var underAttack: Bool = false
@@ -77,7 +76,6 @@ class AppModel {
     func updateEnemyItemsInList(items: [Item], uuid: String){
         let enemy = getEnemyByUuid(uuid: uuid)
         enemy?.setItems(items: items)
-        print("update enemy items")
         updateEnemyListInView()
     }
     
@@ -120,7 +118,9 @@ class AppModel {
                 AlarmItem.initNewItem(),
                 SeitenschneiderItem.initNewItem(),
                 AxeItem.initNewItem(),
-                CoffeeItem.initNewItem()];
+                CoffeeItem.initNewItem(),
+                CoffeeItem.initNewItem(),
+                SeitenschneiderItem.initNewItem()];
     }
 
     
@@ -131,7 +131,7 @@ class AppModel {
     }
     
     func triggerIncomingGameFromEnemy(itemToBeStolen: Item, attackerName: String) {
-        resetScores() // TODO: name in alert anzeigen
+        resetScores()
         underAttack = true
         attackedItem = itemToBeStolen
         NotificationCenter.default.post(name: NotificationCenterKeys.startGameFromEnemyTrigger, object: nil, userInfo: ["item":itemToBeStolen, "attackerName":attackerName]);
@@ -245,10 +245,6 @@ class AppModel {
             displayAlert(title: Strings.statusNotOkTitle, message: Strings.statusEnemyBusy, buttonTitle: Strings.statusEnemyBusyButton)
         }
     }
-    
-    
-    
-    
     
     func onGameConnectionLost() {
         if isGaming() {
