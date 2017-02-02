@@ -12,7 +12,6 @@ class EnemyItemDetailViewController: ItemDetailViewController {
     
     var stealButton: UIButton!;
     var enemyUuid: String?
-    //private var g: CAGradientLayer!;
     private var timer: Timer?
 
     override func viewDidLoad() {
@@ -28,8 +27,6 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         stealButton.backgroundColor = item.itemColor;
         stealButton.layer.cornerRadius = 10;
 
-        //g = Style.primaryButtonBackgroundGradient();
-        //stealButton.layer.insertSublayer(g, at: 0);
         self.view.addSubview(stealButton);
     
         self.title = "Details";
@@ -43,10 +40,6 @@ class EnemyItemDetailViewController: ItemDetailViewController {
         stealButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true;
     }
 
-    override func viewDidLayoutSubviews() {
-        //g.frame = stealButton.bounds
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
