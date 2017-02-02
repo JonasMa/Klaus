@@ -1,14 +1,7 @@
-//
-//  Definitions.swift
-//  Bluetooth
-//
-//  Created by Mick on 12/20/14.
-//  Copyright (c) 2014 MacCDevTeam LLC. All rights reserved.
-//
+
 
 import CoreBluetooth
 
-// TODO: split in playeritems and playerinfo characteristic
 
 private let PLAYER_SERVICE_UUID = "E20A39F4-73F5-4BC4-AAAA-17D1AD666661"
 private let PLAYER_CHARACTERISTIC_UUID = "08590F7E-DB05-467E-BBBB-72F6F66666D6"

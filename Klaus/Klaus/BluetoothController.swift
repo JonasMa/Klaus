@@ -22,7 +22,6 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     private let peripheral: BTLEPeripheralModel = BTLEPeripheralModel()
     private let central: BTLECentralModel = BTLECentralModel()
     private var state: BluetoothState = BluetoothState.peripheral
-    //private var checkingForAvailablePlayers: [String : Double] = [:]
 
     init () {
         central.delegate = self
@@ -52,9 +51,6 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
         changeBluetoothState(toNewState: BluetoothState.central)
     }
     
-    // TODO discover avatar
-    // remove avatar send and received with items
-    // add avatar to player data
     func onPlayerDiscovered (name: String, score: Int, color: UIColor, avatar: String, uuid: String) {
         let enemy = EnemyProfile (name: name, score: score, uuid: uuid)
         enemy.profileColor = color
@@ -106,22 +102,7 @@ class BluetoothController: BluetoothCentralDelegate, BluetoothPeripheralDelegate
     func receiveGameRequestFromAttacker(itemToBeStolen: Item, attackerName name: String) {
         AppModel.sharedInstance.triggerIncomingGameFromEnemy(itemToBeStolen: itemToBeStolen, attackerName: name)
     }
-    
-    /*!
-     Pings the player with corresponding uuid and triggers the notificationMethodName via NotificationCenter when found
-     *
-    func checkIfEnemyIsStillThere (uuid: String, notificationMethodName name: String) {
-        checkingForAvailablePlayers[uuid] = name
-    }
-    
-    func onEnemyIsStillThere (uuid: String){
-        guard let key = checkingForAvailablePlayers[uuid] else {
-            // enemy is not getting listened to
-            return
-        }
-        NotificationCenter.default.post(name: Notification.Name(key), object: nil, userInfo: ["uuid":uuid]);
-    }
-    */
+
     func onConnected() {
         //peripheral.setInactive()
     }
