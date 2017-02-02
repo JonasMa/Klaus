@@ -28,7 +28,7 @@ class ItemDetailViewController: UIViewController {
     var grad: CAGradientLayer!;
     
     override func loadView() {
-        self.view = ItemDetailView(frame: UIScreen.main.bounds);
+        self.view = UIView(frame: UIScreen.main.bounds);
     }
     
     override func viewDidLoad() {

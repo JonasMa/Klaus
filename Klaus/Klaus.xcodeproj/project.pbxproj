@@ -56,11 +56,8 @@
 		FA8D533A1E33B40900C96370 /* CoffeeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D53391E33B40900C96370 /* CoffeeItem.swift */; };
 		FA8D534A1E34139600C96370 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D53491E34139600C96370 /* LoginViewController.swift */; };
 		FA8D534C1E341A1300C96370 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D534B1E341A1300C96370 /* TutorialPageViewController.swift */; };
-		FAB1C45E1E0ED45C00981731 /* ItemCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C45D1E0ED45C00981731 /* ItemCollectionView.swift */; };
-		FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4631E0FDE5F00981731 /* ProfileView.swift */; };
 		FAB1C4661E0FE20800981731 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4651E0FE20800981731 /* ProfileViewController.swift */; };
 		FAB1C4681E117DFF00981731 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4671E117DFF00981731 /* ItemDetailViewController.swift */; };
-		FAB1C46A1E117E1800981731 /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4691E117E1800981731 /* ItemDetailView.swift */; };
 		FAB1C46C1E11AB9600981731 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C46B1E11AB9600981731 /* Style.swift */; };
 		FAB1C4701E11BA8800981731 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */; };
 		FAB1C4741E13EDAB00981731 /* EnemyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1C4731E13EDAA00981731 /* EnemyTableViewController.swift */; };
@@ -156,11 +153,8 @@
 		FA8D53391E33B40900C96370 /* CoffeeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeItem.swift; sourceTree = "<group>"; };
 		FA8D53491E34139600C96370 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FA8D534B1E341A1300C96370 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
-		FAB1C45D1E0ED45C00981731 /* ItemCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionView.swift; sourceTree = "<group>"; };
-		FAB1C4631E0FDE5F00981731 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		FAB1C4651E0FE20800981731 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FAB1C4671E117DFF00981731 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
-		FAB1C4691E117E1800981731 /* ItemDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 		FAB1C46B1E11AB9600981731 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		FAB1C4731E13EDAA00981731 /* EnemyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyTableViewController.swift; sourceTree = "<group>"; };
@@ -262,7 +256,6 @@
 				47C062361E152EB900C25292 /* XIB */,
 				47C062371E152ED500C25292 /* Model */,
 				4744C6071E29419D00CF739C /* GameLogic */,
-				FAB1C49C1E14235D00981731 /* Util */,
 			);
 			name = Minigames;
 			sourceTree = "<group>";
@@ -285,6 +278,19 @@
 				6A4AA06F1E2BF51600834712 /* BTLEPeripheralModel.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		844E9B451E42EAE50082B026 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				FA8D534B1E341A1300C96370 /* TutorialPageViewController.swift */,
+				848CDF4C1E429DA300C8C436 /* WelcomeViewController.swift */,
+				FA8D53491E34139600C96370 /* LoginViewController.swift */,
+				84B499381E3DEEE800C0C514 /* AvatarCollectionViewController.swift */,
+				84B4993A1E3DF0B800C0C514 /* AvatarCollectionViewCell.swift */,
+				84B4990C1E3BB44500C0C514 /* SelectColorViewController.swift */,
+			);
+			name = Tutorial;
 			sourceTree = "<group>";
 		};
 		8497B5921DE6FFC60039E35C = {
@@ -310,11 +316,11 @@
 		8497B59D1DE6FFC60039E35C /* Klaus */ = {
 			isa = PBXGroup;
 			children = (
-				6A2ACBD61E32035D00118070 /* NotificationCenterKeys.swift */,
-				6A4AA0691E2B069C00834712 /* Connection */,
 				8497B59E1DE6FFC60039E35C /* AppDelegate.swift */,
 				8497B5A91DE6FFC60039E35C /* LaunchScreen.storyboard */,
 				8497B5AC1DE6FFC60039E35C /* Info.plist */,
+				FAB1C49C1E14235D00981731 /* Util */,
+				6A4AA0691E2B069C00834712 /* Connection */,
 				FAB1C49B1E14231D00981731 /* Scenes */,
 				FAB1C49A1E1422EB00981731 /* DataModel */,
 				47DE44511E0BC90A006A20A4 /* Minigames */,
@@ -364,8 +370,11 @@
 		FAB1C4931E14206C00981731 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				FAB1C4971E14228A00981731 /* Controller */,
-				FAB1C4961E14223500981731 /* View */,
+				FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */,
+				FA161E201E07F87E001450E8 /* ItemCollectionViewController.swift */,
+				FAB1C4651E0FE20800981731 /* ProfileViewController.swift */,
+				FAB1C4671E117DFF00981731 /* ItemDetailViewController.swift */,
+				FA6E5B091E08380600F88FFC /* ItemCollectionViewCell.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -379,34 +388,6 @@
 				FAB1C47B1E13FCC000981731 /* EnemyListView.swift */,
 			);
 			name = View;
-			sourceTree = "<group>";
-		};
-		FAB1C4961E14223500981731 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				FA6E5B091E08380600F88FFC /* ItemCollectionViewCell.swift */,
-				FAB1C45D1E0ED45C00981731 /* ItemCollectionView.swift */,
-				FAB1C4631E0FDE5F00981731 /* ProfileView.swift */,
-				FAB1C4691E117E1800981731 /* ItemDetailView.swift */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		FAB1C4971E14228A00981731 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				FAB1C46F1E11BA8800981731 /* MainTabBarController.swift */,
-				FA161E201E07F87E001450E8 /* ItemCollectionViewController.swift */,
-				FAB1C4651E0FE20800981731 /* ProfileViewController.swift */,
-				FAB1C4671E117DFF00981731 /* ItemDetailViewController.swift */,
-				FA8D53491E34139600C96370 /* LoginViewController.swift */,
-				FA8D534B1E341A1300C96370 /* TutorialPageViewController.swift */,
-				84B499381E3DEEE800C0C514 /* AvatarCollectionViewController.swift */,
-				84B4993A1E3DF0B800C0C514 /* AvatarCollectionViewCell.swift */,
-				84B4990C1E3BB44500C0C514 /* SelectColorViewController.swift */,
-				848CDF4C1E429DA300C8C436 /* WelcomeViewController.swift */,
-			);
-			name = Controller;
 			sourceTree = "<group>";
 		};
 		FAB1C4981E14229C00981731 /* Controller */ = {
@@ -440,6 +421,7 @@
 		FAB1C49B1E14231D00981731 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				844E9B451E42EAE50082B026 /* Tutorial */,
 				FAB1C4931E14206C00981731 /* Common */,
 				FAB1C4921E14205F00981731 /* Enemy */,
 				FAB1C4911E14204E00981731 /* Player */,
@@ -450,6 +432,7 @@
 		FAB1C49C1E14235D00981731 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				6A2ACBD61E32035D00118070 /* NotificationCenterKeys.swift */,
 				FAB1C46B1E11AB9600981731 /* Style.swift */,
 				479CB0101E168A9300176D02 /* Strings.swift */,
 				FAB4B3141E38CE65003408FE /* Config.swift */,
@@ -626,7 +609,6 @@
 				6A4AA06E1E2BF50700834712 /* BTLECentralModel.swift in Sources */,
 				479CB0111E168A9300176D02 /* Strings.swift in Sources */,
 				FAB1C4861E14108700981731 /* PlayerItemCollectionViewController.swift in Sources */,
-				FAB1C45E1E0ED45C00981731 /* ItemCollectionView.swift in Sources */,
 				FAB1C48A1E14144000981731 /* PlayerItemCollectionViewCell.swift in Sources */,
 				841ED7661E39048C00210F31 /* AlarmItem.swift in Sources */,
 				4790C5AD1E4134E00099CFF4 /* AxeModel.swift in Sources */,
@@ -654,14 +636,12 @@
 				FA8D534C1E341A1300C96370 /* TutorialPageViewController.swift in Sources */,
 				FA2A05141E1569390079CD2A /* Profile.swift in Sources */,
 				FA2A05181E15725E0079CD2A /* AppModel.swift in Sources */,
-				FAB1C46A1E117E1800981731 /* ItemDetailView.swift in Sources */,
 				6AB8F7281E42C44C002250B9 /* BluetoothDelegates.swift in Sources */,
 				841ED7731E391EE200210F31 /* SeitenschneiderViewController.swift in Sources */,
 				FABB862D1E39F852003657CC /* Color.swift in Sources */,
 				FAB1C4881E1410A900981731 /* EnemyItemCollectionViewController.swift in Sources */,
 				47C062301E152B0800C25292 /* AccelerometerModel.swift in Sources */,
 				47C062331E152B8100C25292 /* ResultViewController.swift in Sources */,
-				FAB1C4641E0FDE5F00981731 /* ProfileView.swift in Sources */,
 				6AB8F0401E39F13000C18953 /* BluetoothController.swift in Sources */,
 				FAB1C4821E14087E00981731 /* EnemyItemDetailViewController.swift in Sources */,
 			);
