@@ -48,10 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         AppModel.sharedInstance.saveData();
-        if(Config.clearPlayerDataOnNextLaunch){
-            UserDefaults.standard.removeObject(forKey: "Player");
-            print("Player data cleared");
-        }
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     

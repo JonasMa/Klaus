@@ -34,7 +34,7 @@ class CoffeeItem: Item {
     }
     
     static func initNewItem() -> Item{
-        return CoffeeItem(id: Item.newId(), displayName: "Katzi", pointsPerSecond: Config.coffeeBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
+        return CoffeeItem(id: Item.newId(), displayName: "Katze", pointsPerSecond: Config.coffeeBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
     }
     
     override func getInfoString() -> String{

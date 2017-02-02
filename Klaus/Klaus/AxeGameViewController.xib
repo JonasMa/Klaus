@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tür" translatesAutoresizingMaskIntoConstraints="NO" id="joW-cr-9sy"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tuer" translatesAutoresizingMaskIntoConstraints="NO" id="joW-cr-9sy"/>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Du hast noch 5 Sekunden" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNH-lB-dY6">
                     <frame key="frameInset" minX="59" minY="119" width="257" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -39,6 +39,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Tür" width="799" height="1209"/>
+        <image name="tuer" width="799" height="1209"/>
     </resources>
 </document>

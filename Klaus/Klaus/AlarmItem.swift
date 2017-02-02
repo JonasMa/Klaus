@@ -34,7 +34,7 @@ class AlarmItem: Item {
     }
     
     static func initNewItem() -> Item{
-        return AlarmItem(id: Item.newId(), displayName: "Alarmi", pointsPerSecond: Config.alarmBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
+        return AlarmItem(id: Item.newId(), displayName: "Alarmglocke", pointsPerSecond: Config.alarmBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
     }
     
     override func getInfoString() -> String{

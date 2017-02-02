@@ -23,11 +23,8 @@ class EnemyProfile: Profile{
     override init(name: String){
         self.uuid = ""
         super.init(name: name)
-        
-        //for testing
-        self.setItems(items: AppModel.sharedInstance.initialItems());
-
     }
+    
     
     override func isEqual(_ object: Any?) -> Bool {
         if let object = object as? EnemyProfile {

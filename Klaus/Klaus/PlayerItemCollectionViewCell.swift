@@ -11,8 +11,8 @@ import UIKit
 class PlayerItemCollectionViewCell: ItemCollectionViewCell {
     
     func highlight(){
-        UIView.animate(withDuration: 0.5, delay: 0.0, options:[UIViewAnimationOptions.repeat, UIViewAnimationOptions.autoreverse], animations: {
-            self.backgroundColor = UIColor.green.withAlphaComponent(0.3)
+        UIView.animate(withDuration: 0.5, delay: 0.0, options:[UIViewAnimationOptions.repeat, UIViewAnimationOptions.autoreverse, UIViewAnimationOptions.allowUserInteraction], animations: {
+            self.backgroundColor = UIColor.green.withAlphaComponent(0.15)
             self.backgroundColor = nil;
         }, completion: nil)
     }

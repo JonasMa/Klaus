@@ -13,7 +13,7 @@ struct Style{
     static var primaryTextColor = UIColor(red: 33.0/255.0, green: 33.0/255.0, blue: 33.0/255.0, alpha: 1);
     static var secondaryTextColor = UIColor(red: 158.0/255.0, green: 158.0/255.0, blue: 158.0/255.0, alpha: 1);
     static var primaryButtonTextColor = UIColor.white
-
+    
     static var buttonFontSize:CGFloat = 44
     
     static var buttonFont = UIFont.systemFont(ofSize: 44, weight: UIFontWeightThin)
@@ -24,7 +24,6 @@ struct Style{
     
     static var bg = UIColor.white;
     static var lines = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1);
-    //static var lines = UIColor(red: 206.0/255.0, green: 206.0/255.0, blue: 210.0/255.0, alpha: 1);
     static var bgTransparent = UIColor(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 0.0);
     static var accentColor = UIColor(red: 52.0/255.0, green: 170.0/255.0, blue: 220.0/255.0, alpha: 1);
     
@@ -38,7 +37,7 @@ struct Style{
         return buttonGradient
     }
     
-    // Primary Button 
+    // Primary Button
     static func getPrimaryButton(buttonTitle: String) -> UIButton {
         let primaryButton = UIButton()
         primaryButton.setTitle(buttonTitle, for: .normal)
@@ -65,19 +64,15 @@ struct Style{
                 1.0];
     }
     
-    
-    
+    //GRADIENT AVATARVIEW
     static var gradientColorsAvatarView = [Style.bg.cgColor,
                                            Style.bg.cgColor,
                                            Style.lines.cgColor,
                                            Style.bgTransparent.cgColor,
                                            Style.bgTransparent.cgColor,
-                                           
                                            Style.bgTransparent.cgColor,
                                            Style.lines.cgColor,
                                            Style.bg.cgColor,
-                                           
-                                           
                                            Style.bg.cgColor,
                                            Style.bg.cgColor]
     
@@ -89,12 +84,9 @@ struct Style{
                 NSNumber(floatLiteral: locationOfGradient + 0.000000001),
                 NSNumber(floatLiteral: locationOfGradient + 0.05),
                 NSNumber(floatLiteral: locationOfGradient + 0.0500000001),
-                
                 NSNumber(floatLiteral: locationOfBotomGradient + 0.4999999998),
                 NSNumber(floatLiteral: locationOfBotomGradient + 0.5499999998),
                 NSNumber(floatLiteral: locationOfBotomGradient + 0.5499999999),
-
-                
                 NSNumber(floatLiteral: locationOfBotomGradient + 0.6),
                 NSNumber(floatLiteral: locationOfBotomGradient + 0.6000000001),
                 1.0];
@@ -104,42 +96,25 @@ struct Style{
         return [color.lighter(by: 30)!.cgColor, color.lighter(by: 50)!.cgColor, Style.lines.cgColor,Style.bgTransparent.cgColor, Style.bgTransparent.cgColor]
     }
     
-//    static var gradientColorsSeitenschneider = [Style.bg.cgColor,
-//                                                Style.bg.cgColor,
-//                                                Style.bg.cgColor,
-//                                                Style.lines.cgColor,
-//                                                Style.bgTransparent,
-//                                                Style.bgTransparent,
-//                                                Style.lines.cgColor,
-//                                                Style.bg.cgColor,
-//                                                Style.bg.cgColor,
-//                                                Style.bg.cgColor] as [Any]
-    
-        static var gradientColorsSeitenschneider = [UIColor.darkGray.cgColor,
-                                                    UIColor.darkGray.cgColor,
-                                                    UIColor.darkGray.cgColor,
-                                                    UIColor.black.cgColor,
-                                                    Style.bgTransparent,
-                                                    Style.bgTransparent,
-                                                    UIColor.black.cgColor,
-                                                    UIColor.darkGray.cgColor,
-                                                    UIColor.darkGray.cgColor,
-                                                    UIColor.darkGray.cgColor] as [Any]
+    static var gradientColorsSeitenschneider = [UIColor.darkGray.cgColor,
+                                                UIColor.darkGray.cgColor,
+                                                UIColor.darkGray.cgColor,
+                                                UIColor.black.cgColor,
+                                                Style.bgTransparent,
+                                                Style.bgTransparent,
+                                                UIColor.black.cgColor,
+                                                UIColor.darkGray.cgColor,
+                                                UIColor.darkGray.cgColor,
+                                                UIColor.darkGray.cgColor] as [Any]
     
     static let gradientLocationsSeitenschneider = [0.0,
                                                    0.2,
-                                                   
                                                    0.2000000001,
                                                    0.25,
-                                                   
                                                    0.2500000001,
                                                    0.9,
-                                                   
                                                    0.9000000001,
                                                    0.95,
-                                                   
                                                    0.95,
-                                                   1.0
-                                                   ]
-    
+                                                   1.0]
 }
