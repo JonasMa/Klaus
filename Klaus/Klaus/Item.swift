@@ -43,7 +43,6 @@ class Item: NSObject, NSCoding {
     static let TYPE_ALARM = 2
     static let TYPE_AXE = 3
     static let TYPE_SEITENSCHNEIDER = 4
-    //var itemType: Int
     
     required init(coder aDecoder: NSCoder) {
         id = aDecoder.decodeObject(forKey: "id") as! String;

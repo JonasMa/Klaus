@@ -35,7 +35,7 @@ class AxeItem: Item {
     }
     
     static func initNewItem() -> Item{
-        return AxeItem(id: Item.newId(), displayName: "Axti", pointsPerSecond: Config.axeBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
+        return AxeItem(id: Item.newId(), displayName: "Axt", pointsPerSecond: Config.axeBasePointsPerSecond, dateOfAcquisition: Date(), level: 1, itemColor: Item.getRandomItemColor());
     }
     
     override func getInfoString() -> String{
